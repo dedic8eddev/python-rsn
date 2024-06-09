@@ -1,0 +1,333 @@
+.error-field{
+    border-color: red;
+}
+
+.error-block{
+    border: 1px solid red;
+    padding: 20px;
+}
+
+ul.errorlist {
+    list-style: none;
+    font-weight: bold;
+    color: red;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#map {
+    height: 100%;
+}
+
+.controls {
+    margin-top: 10px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#pac-input {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 300px;
+}
+
+#pac-input:focus {
+    border-color: #4d90fe;
+}
+
+.pac-container {
+    font-family: Roboto;
+}
+
+#type-selector {
+    color: #fff;
+    background-color: #4d90fe;
+    padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+}
+
+
+.container-current-images{
+/*    margin-left: 147px;
+    margin-right: 147px;
+*/
+    margin-top: 30px;
+    border: 3px dashed #ddd;
+    margin-bottom: 20px;
+    padding: 15px;
+
+}
+
+.container-current-images h3, .dropzone-box h3{
+    font-weight: bold;
+    margin-bottom: 20px;
+    background-color: #dddddd;
+    padding: 8px 15px;
+    margin-top: 0
+}
+
+.container-current-images h4{
+    font-weight: bold;
+}
+
+.dropzone-box h3{
+    margin-top: 30px;
+    width: 99%;
+    margin-left: 15px;
+    text-align: center;
+}
+
+.image-list-item{
+    margin-bottom: 10px;
+}
+
+#jq-datatables-wineposts {
+    width: 100% !important;
+}
+.d-flex-lang {
+    display: flex;
+    justify-content: space-between;
+}
+.comment_info {
+    display: flex;
+    margin-top: 2px;
+}
+.comment_info p{
+    font-weight: 400;
+    display: none;
+}
+.comment_info.no_comments p{
+    display: inline-block;
+}
+.comment_info > *{
+    margin-left: 10px;
+}
+.addComment {
+    color: #6e329d !important;
+    text-align: left;
+    display: block;
+    line-height: 20px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+.addComment i{
+    margin-right: 5px;
+}
+.commentList{
+    display: none;
+    max-height: 500px;
+    overflow: auto;
+    width: 100%;
+}
+.commentList .table {
+    border: 1px solid #ebebeb;
+}
+.commentList td {
+    text-align: left;
+}
+.commentList td.commentAction,.commentList th:last-child{
+    text-align: right;
+}
+.commentAction a{
+    margin-left: 5px;
+}
+.commentAction {
+    width: 70px;
+    padding-left: 0 !important;
+}
+.info_inputs .form-group label{
+    text-align: right;
+}
+.chspace {
+    display: flex;
+    align-items: center;
+}
+.commentDate {
+    font-size: 14px;
+    opacity: .6;
+    margin-bottom: 0;
+}
+#commentList tr:nth-of-type(even) td {
+    border: 0 !important;
+}
+.commentList th {
+    background: #f3f3f3;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600!important;
+}
+.commentMessage {
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 10px;
+    word-break: break-all;
+    white-space: pre-wrap;
+}
+.comment_footer {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+.commentBy a {
+    color: #6e329d;
+    font-size: 14px;
+}
+textarea.form-control {
+    padding: 15px;
+    resize: none;
+    font-size: 14px;
+}
+.comment_box{
+    display: none;
+}
+.actionButtons button {
+    border: 1px solid #5bc0de;
+    color: #fff;
+    display: inline-block;
+    margin: 15px 0;
+    width: 70px;
+    line-height: 35px;
+    height: 35px;
+    text-align: center;
+    border-radius: 4px;
+    background-image: linear-gradient(to bottom,#5fc2df 0,#46b8da 100%);
+    background-repeat: repeat-x;
+    padding: 0;
+    font-size: 15px;
+}
+.actionButtons{
+    text-align: left;
+}
+.actionButtons button.btn_updateComment{
+    display: none;
+}
+.modal-body p {
+    font-size: 16px;
+    line-height: 24px;
+    margin: 20px 0 !important;
+    text-align: left;
+}
+#confirmDelete .modal-dialog {
+    max-width: 450px;
+}
+#confirmDelete .modal-footer {
+    border-top: 0;
+    padding-top: 0;
+}
+
+@media all and (max-width: 1200px) {
+    #jq-datatables-wineposts {
+        width: 1200px !important;
+    }
+}
+
+    a.clear-all-btn, a.clear-all-btn:hover, a.clear-all-btn:visited, a.clear-all-btn:active {
+        color: #555;
+        font-size: 12px;
+        font-weight: bold;
+        text-decoration: none;
+        width:100px
+    }
+    a.clear-all-btn i{
+        font-size: 14px;
+        margin-right: 3px;
+    }
+    .sel-lang-dd {
+        font-size: 13px;
+        padding-left: 0;
+        text-align: left;
+    }
+
+    .dd-tr-translate, .dd-tr-translations {
+        padding-top:10px;
+        font-size: 13px;
+    }
+
+    .id-trans-footer {
+        padding-left: 0;
+    }
+
+    .dd-tr-translate {
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+    .dd-tr-translate label, .dd-tr-translations label {
+        float: left;
+        margin-right: 10px;
+        margin-bottom: 0;
+    }
+    #id_original_language,#id_selected_language {
+        height: 30px;
+        outline: none !important;
+    }
+
+    .dd-tr-translate input, .dd-tr-translations input {
+        margin-left: 15px;
+    }
+
+
+.tr-loading .modal-content *{
+    background-color: white;
+}
+
+.tr-loading .modal-dialog .modal-body{
+    padding-top: 100px;
+    padding-bottom: 150px;
+    background: url('/static/assets/images/preloading.gif') center center no-repeat;
+}
+
+.tr-loading .modal-dialog .modal-header {
+    border: none;
+}
+
+
+@media(max-width:1199px){
+    .dd-tr-translate input, .dd-tr-translations input {
+        margin-left: 5px;
+        font-size: 12px;
+        padding: 6px;
+    }
+    #id_original_language, #id_selected_language {
+        outline: none !important;
+        width: 40px;
+    }
+    .dd-tr-translate label, .dd-tr-translations label {
+        margin-right: 5px;
+        font-size: 12px;
+    }
+    a.clear-all-btn i {
+        font-size: 10px;
+        margin-right: 2px;
+    }
+    a.clear-all-btn, a.clear-all-btn:hover, a.clear-all-btn:visited, a.clear-all-btn:active {
+        font-size: 10px;
+    }
+}
+
+@media(max-width:380px){
+    .d-flex-lang {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+}

@@ -1,0 +1,310 @@
+{% load static %}
+{% load widget_tweaks %}
+{% load web_extras %}
+{% load i18n %}
+
+{# --------------------------------- non-parent post ------------------------------------------ #}
+<script>
+    var current_user_id = '{{current_user.id}}'
+</script>
+<div class="row" style="padding-top: 25px; padding-bottom: 30px;">
+    <div class="col-sm-5">
+
+        <div class="aye" style="">
+            {% if is_scanned %}
+            <strong>Added by scanning.</strong>
+            {% else %}
+            <strong>Added by auto-completion.</strong>
+            {% endif %}
+        </div>
+
+        <div class="aye">
+            <h6><b>Posted by the user:</b></h6>
+            {% if post.main_image %}
+                <img src="{{ post.get_post_square_image_url }}" alt="{{ post.title }}" style="width:200px!important; height:200px!important;" class="img-winepost" />
+            {% else %}
+                <img src="{% static 'assets/img/missing.gif' %}" alt="{{ post.title }}" style="width:200px!important; height:200px!important;" class="img-winepost" />
+            {% endif %}
+
+            {{ form.image }}
+
+            {% if some_parent_post %}
+                <span class="display-natural" style="{{ el_style_natural_pp }}">
+                    <span class="btn-label icon fa fa-bookmark-o"></span>
+                    &nbsp;<strong>Parent Post</strong> is <a href="{% url 'edit_winepost' id=some_parent_post.id %}">here</a>
+                </span>
+                <span class="display-other" style="{{ el_style_other_pp }}">
+                    <span class="btn-label icon">®️</span>
+                    &nbsp;<strong>Referrer</strong> is <a href="{% url 'edit_winepost' id=some_parent_post.id %}">here</a>
+                </span>
+            {% endif %}
+
+            <div class="form-group mt-3" >
+                <label for="jq-validation-team_comments" class="col-sm-12 control-label comment_by_team">
+                    {{ form.team_comments.label }}
+                    <span class="comment_info">
+                        <p>No comments made yet.</p>
+                        <a href="javascript:;" class="addComment" onclick="showCommentBox();"><i class="fa fa-comments"></i> Add Comment</a>
+                    </span>
+                </label>
+                <div class="comment_box">
+                    {% if form.team_comments.errors %}
+                        {{ form.team_comments|add_class:"form-control error-field" }}
+                    {% else %}
+                        {{ form.team_comments|add_class:"form-control" }}
+                    {% endif %}
+                    <div class="actionButtons">
+                        <button type="button" class="btn_addComment" onclick="addComment();">Add</button>
+                        <button type="button" class="btn_updateComment" onclick="updateComment();">Update</button>
+                    </div>
+                </div>
+                <div class="commentList">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Comment(s)</th>
+                                <th>action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="commentList"></tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+        <div class="aye" style="margin-top: 15px; margin-bottom: 15px;">
+            VUFORIA RATING: <strong>{{ rating }}</strong>
+        </div>
+        <!--<div class="aye" style="margin-top: 15px; margin-bottom: 15px;">-->
+            <!--<a href="#" onclick="refresh_vuforia_image(); return false;">Re-Upload image <i class="fa fa-refresh"></i></a>-->
+        <!--</div>-->
+
+    </div>
+
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label for="{{ form.name.id_for_label }}" class="col-sm-3 control-label">{{ form.name.label }}</label>
+            <div class="col-sm-9">
+                {% if form.name.errors %}
+                    {{ form.name|add_class:"form-control error-field" }}
+                {% else %}
+                    {{ form.name|add_class:"form-control" }}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.domain.id_for_label }}" class="col-sm-3 control-label">{{ form.domain.label }}</label>
+            <div class="col-sm-9">
+                {% if form.domain.errors %}
+                    {{ form.domain|add_class:"form-control error-field" }}
+                {% else %}
+                    {{ form.domain|add_class:"form-control" }}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {% if original_winemaker_editable %}
+            <label for="{{ form.winemaker.id_for_label }}" class="col-sm-3 control-label">
+                {{ form.winemaker.label }}
+                <a id="btn_open_edit_winemaker" style="font-size: 12px;" onclick="show_original_winemaker(); return false;" >(Edit name)</a>
+            </label>
+            {% else %}
+            <label for="{{ form.winemaker.id_for_label }}" class="col-sm-3 control-label">{{ form.winemaker.label }}</label>
+            {% endif %}
+
+            <div class="col-sm-9">
+                {{ form.winemaker|add_class:"form-control" }}
+                {% if form.winemaker.errors %}
+                    <input type="hidden" id="winemaker_errors" value="1" />
+                    {# <!--{{ form.winemaker|add_class:"form-control error-field" }}--> #}
+                {% else %}
+                    <input type="hidden" id="winemaker_errors" value="0"/>
+                {% endif %}
+            </div>
+        </div>
+
+        {{ form.original_winemaker_open }}
+
+        {% if original_winemaker_editable %}
+        <div class="form-group collapse {% if original_winemaker_open %}in{% endif %}" id="original_winemaker_div">
+            <label for="{{ form.original_winemaker_name.id_for_label }}" class="col-sm-3 control-label">{{ form.original_winemaker_name.label }}</label>
+            <div class="col-sm-9">
+                {% if form.original_winemaker_name.errors %}
+                    {{ form.original_winemaker_name|add_class:"form-control error-field" }}
+                {% else %}
+                    {{ form.original_winemaker_name|add_class:"form-control" }}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-3">&nbsp;</div>
+            <div class="col-sm-9">
+                <!--<a id="btn_open_edit_winemaker" onclick="show_original_winemaker(); return false;" >Edit selected winemaker name</a>-->
+                <button id="btn_cancel_edit_winemaker" onclick="hide_original_winemaker(); return false;" class="btn btn-lg btn-info" style="display: none;">Cancel</button>
+                <button id="btn_update_winemaker_name" onclick="update_original_winemaker_name(); return false;" class="btn btn-lg btn-success" style="display: none;">Update</button>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="form-group">
+            <label for="{{ form.designation.id_for_label }}" class="col-sm-3 control-label">{{ form.designation.label }}</label>
+            <div class="col-sm-9">
+                {% if form.designation.errors %}
+                    {{ form.designation|add_class:"form-control error-field" }}
+                {% else %}
+                    {{ form.designation|add_class:"form-control" }}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.grape_variety.id_for_label }}" class="col-sm-3 control-label">{{ form.grape_variety.label }}</label>
+            <div class="col-sm-9">
+                {% if form.grape_variety.errors %}
+                    {{ form.grape_variety|add_class:"form-control error-field" }}
+                {% else %}
+                    {{ form.grape_variety|add_class:"form-control" }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="jq-validation-wine_trade" class="col-sm-3 control-label">
+                {{ form.wine_trade.label }}
+            </label>
+            <div class="col-sm-9">
+                {{ form.wine_trade }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="jq-validation-free_so2" class="col-sm-3 control-label">
+                {{ form.free_so2.label }}
+            </label>
+            <div class="col-sm-9">
+                {% if form.free_so2.errors %}
+                    {{ form.free_so2|add_class:"form-control error-field" }}
+                {% else %}
+                    {{ form.free_so2|add_class:"form-control" }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="jq-validation-total_so2" class="col-sm-3 control-label">
+                {{ form.total_so2.label }}
+            </label>
+            <div class="col-sm-9">
+                {% if form.total_so2.errors %}
+                    {{ form.total_so2|add_class:"form-control error-field" }}
+                {% else %}
+                    {{ form.total_so2|add_class:"form-control" }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="{{ form.color.id_for_label }}" class="col-sm-3 control-label" >{{ form.color.label }}</label>
+            <div class="col-sm-5">
+                {% if form.color.errors %}
+                    {{ form.color|add_class:"form-control error-field" }}
+                {% else %}
+                    {{ form.color|add_class:"form-control" }}
+                {% endif %}
+            </div>
+            <div class="col-sm-4 small-checkbox-with-label">
+                {{ form.is_sparkling}}
+                <label for="{{ form.is_sparkling.id_for_label }}" class="">{{ form.is_sparkling.label }}</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.year.id_for_label }}" class="col-sm-3 control-label">{{ form.year.label }}</label>
+            <div class="col-sm-9">
+                {% if form.year.errors %}
+                    {{ form.year|add_class:"form-control error-field" }}
+                {% else %}
+                    {{ form.year|add_class:"form-control" }}
+                {% endif %}
+            </div>
+            <div class="col-sm-3">&nbsp;</div>
+            <div class="col-sm-9 all-winepost-years" id="all_years">&nbsp;</div>
+        </div>
+
+        <div style="width: 100%;">
+            <p>File analysis:</p>
+            <div class="row container-current-wm-files" id="container-other-files"></div>
+            <div id="dropzonejs-wm-files" class="dropzone-box">
+                <div class="dz-default dz-message">
+                    <i class="fa fa-cloud-upload"></i>
+                    Drop files in here<br><span class="dz-text-small">or click to pick manually</span>
+                </div>
+                <!--<form action="//dummy.html">-->
+                    <div class="fallback">
+                        <input name="file" type="file" multiple="" />
+                    </div>
+                <!--</form>-->
+            </div>
+        </div>
+
+
+        {% comment %}
+        <!--<div class="form-group">-->
+            <!--<label for="{{ form.region.id_for_label }}" class="col-sm-3 control-label">{{ form.region.label }}</label>-->
+            <!--<div class="col-sm-9">-->
+                <!--{% if form.region.errors %}-->
+                    <!--{{ form.region|add_class:"form-control error-field" }}-->
+                <!--{% else %}-->
+                    <!--{{ form.region|add_class:"form-control" }}-->
+                <!--{% endif %}-->
+            <!--</div>-->
+        <!--</div>-->
+        {% endcomment %}
+    </div>
+    <div class="col-sm-3">
+        <div class="form-group">
+            <label for="{{ form.description.id_for_label }}" class="control-label">{{ form.description.label }}</label>
+            <div class="form-group">
+                {% if form.description.errors %}
+                {{ form.description|add_class:"form-control error-field"|attr:"rows:9"|attr:"style: font-size:14px;;"   }}
+                {% else %}
+                {{ form.description|add_class:"form-control"|attr:"rows:9"|attr:"style: font-size:14px;;"   }}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.geolocation.id_for_label }}" class="control-label" >{{ form.geolocation.label }}</label>
+
+            <div class="row form-group geolocation-input-row">
+                {{ form.geolocation|add_class:"form-control"|attr:"placeholder:Place name"|attr:"style:width:330px;"}}
+                <a id="geolocation_url" href="{{ geolocation_url }}" title="{{ geolocation_title }}" target="_blank">
+                    <i class="fa fa-map-marker"></i>
+                </a>
+            </div>
+
+            <div class="review">
+                {% if some_star_review %}
+                    <span class="starreview" style="font-size: 12px;"><strong>Star Review</strong></span> is <a href="{% url 'edit_winepost' id=some_star_review.id %}">here</a>&nbsp;&nbsp;&nbsp;
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmDelete" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p class="lead">{% trans 'Are you sure you want to delete this comment?' %}</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    {% trans 'Cancel' %}
+                </button>
+                <button type="button" class="btn btn-success confirmDelete" data-dismiss="modal">
+                    {% trans 'Confirm' %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

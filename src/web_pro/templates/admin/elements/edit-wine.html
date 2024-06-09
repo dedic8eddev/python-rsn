@@ -1,0 +1,176 @@
+{% load widget_tweaks %}
+{% load static %}
+{% load i18n %}
+
+<form id="edit-form" action="{% url 'pro_post_wine' %}" method="POST" autocomplete="off" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div id="qv-user-details" class="quickview quickview-lg wineslider">
+        <header class="quickview-header">
+            <h3>
+                <p class="quickview-title lead fw-400">{% trans 'Edit WINE information' %}</p>
+            </h3>
+            <span class="close"><i class="ti-close"></i></span>
+        </header>
+        <div class="quickview-body">
+            <div class="quickview-block  form-type-material">
+
+
+                <div class="row">
+                    <div class="col-sm-4 format-image" id="wine-img-container">
+                        <img class="w-130px h-130px rounded" src="{% static 'pro_assets/img/wines/vins-1.jpg' %}"
+                             alt="VN (red)">
+                    </div>
+                    <div class="col-sm-8">
+
+                        <div class="file-group file-group-inline">
+                            <button class="btn btn-square btn-danger" type="button" id="image-delete"><i
+                                    class="fa fa-trash-o"></i></button>
+                            <input type="hidden" id="picture-removed" name="picture-removed" value=""/>
+                            <button class="btn btn-secondary file-browser" name="edit-wine-image" type="button">{% trans 'MODIFY image' %}
+                            </button>
+                            <input type="file" id="modify-image-edit" name="imageFile" value="">
+                            <p class="mt-10 files-info">
+                                <small>{% trans 'We accept files in PNG, JPG, JPEG or GIF format,<br/>up to 5 MB+' %}</small>
+                            </p>
+                            <p id="extension-error-edit" style="display:none; color:#FF0000;">{% trans 'Invalid Image Format.' %}</p>
+                            <p id="size-error-edit" style="display:none; color:#FF0000;">{% trans 'Maximum File Size Limit is 5MB.' %}</p>
+                            <p id="missing-image-error" style="display:none; color:#FF0000;">{% trans 'Please, provide an image' %} 📷</p>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="form-group">
+                    <div class="typeahead__container">
+                        <div class="typeahead__field">
+                            <div class="typeahead__query" id="wine-name">
+                                <input id="fake_user_name" name="fake_user_name" style="position:absolute; top:-100px;visibility: hidden;" type="text" value="Safari Autofill Me">
+                                <input class="form-control js-typeahead-wines-name" id="n-ame-typeahead" name="n-ame-typeahead" type="search" value="" autocomplete="off">
+                                 <label>{% trans 'WINE N&zwnj;AME' %}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p id="name-error" style="display:none; color:#FF0000;">{% trans 'Select Wine Name.' %}</p>
+
+                <br>
+                <div class="form-group">
+                    <div class="typeahead__container">
+                        <div class="typeahead__field">
+                            <div class="typeahead__query" id="wine-maker">
+                                <input class="form-control winemakers-typeahead" id="winemakers-typeahead" name="wineWinemaker" type="search" value="" autocomplete="off">
+                                <label>{% trans 'Winemaker' %}</label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <p id="winemakers-error" style="display:none; color:#FF0000;">{% trans 'Select Winemaker.' %}</p>
+
+
+                <br>
+                <div class="form-group">
+                    <div class="typeahead__container">
+                        <div class="typeahead__field">
+                            <div class="typeahead__query" id="wine-domain">
+                                <input class="form-control domain-typeahead" id="domain-typeahead" name="wineDomain" type="search" value="" autocomplete="off">
+                                <label>{% trans 'DOMAIN N&zwnj;AME' %}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p id="domain-error" style="display:none; color:#FF0000;">{% trans 'Select Domain.' %}</p>
+
+                <br>
+                <div class="form-group" id="wine-year">
+                    <input type="number" min="1900" max="2099" class="form-control" name="wineYear" value="" id="wine-year-id">
+                    <label for="wine-year-id">{% trans 'VINTAGE' %}</label>
+                </div>
+                <p id="year-error" style="display:none; color:#FF0000;">{% trans 'Invalid Year Format.' %}</p>
+
+                <br>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group form-type-material form-control-lg">
+                            <select class="form-control" data-provide="selectpicker" id="wineColor"
+                                    name="wineColor">
+                                <option data-icon="wine-icon ic-red" value="10">{% trans 'Red' %}</option>
+                                <option data-icon="wine-icon ic-white" value="20">{% trans 'White' %}</option>
+                                <option data-icon="wine-icon ic-pink" value="30" selected>{% trans 'Rosé' %}</option>
+                                <option data-icon="wine-icon ic-orange" value="40">{% trans 'Orange' %}</option>
+                            </select>
+                            <label>{% trans 'COLOR' %}</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mt-15">
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="sparkling" name="isSparkling">
+                                <label class="custom-control-label lowercase" for="sparkling">
+                                    {% trans 'Sparkling' %}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                <div class="form-group mt-5" id="wine-grape-variety">
+                    <input type="text" class="form-control" value="" id="wine-grape-variety-id" name="wineGrapeVariety">
+                    <label>{% trans 'Grape Variety' %}</label>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <div class="typeahead__container">
+                                <div class="typeahead__field">
+                                    <div class="typeahead__query">
+                                        <input class="form-control" name="wine-price" id="wine-price" type="search" value="" autocomplete="off" />
+                                        <label>{% trans 'Price' %}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mt-15">
+                      {% if user_currency == 'JPY' %}¥{% else %}{{ user_currency }}{% endif %}
+                    </div>
+                </div>
+                <p id="price-error" style="display:none; color:#FF0000;">{% trans 'Incorrect price.' %}</p>
+                <br>
+                <div class="form-group mb-0" id="wine-comment">
+                        <textarea class="form-control" id="wine-comment-input" name="wineComment"
+                                  rows="3"></textarea>
+                    <label>{% trans 'Add a comment' %}
+                        <small>({% trans 'to moderator on Raisin' %})</small>
+                    </label>
+                </div>
+                <input type="hidden" id="wine-id" name="wineId">
+                <input type="hidden" id="post-id" name="postId">
+                <input type="hidden" id="wine-color-input" name="wineColorInput">
+                <input type="hidden" id="wine-sparkling-input" name="wineSparklingInput" value="null">
+
+            </div>
+        </div>
+
+        <footer class="p-12 flexbox flex-justified">
+            {% if show_delete_button %}
+            <button type="button" class="btn btn-w-md btn-bold btn-danger" data-toggle="modal" id="delete-wine" data-target="#modal-default">
+                {% trans 'Delete' %}
+            </button>
+            {% endif %}
+            <button class="btn btn-w-md btn-bold btn-secondary" type="button" data-toggle="quickview">
+                {% trans 'Cancel' %}
+            </button>
+            <button type="button" class="btn btn-w-md btn-bold btn-success" id="post-edit" name="postType" value="edit">
+                {% trans 'Update' %}
+            </button>
+        </footer>
+
+    </div>
+</form>
+<script>
+      var userLang = '{{user_lang}}';
+</script>

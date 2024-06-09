@@ -1,0 +1,23 @@
+<ul id="uidemo-tabs-default-demo" class="nav nav-tabs">
+    <li {% if active == "featured_venues" %}class="active" {% endif %}>
+        <a href="{% url 'list_featured_venues' %}">Featured Venues</a>
+    </li>
+    <li {% if active == "news" %}class="active" {% endif %}>
+        <a href="{% url 'list_news' %}">News</a>
+    </li>
+    <li {% if active == "website_pages" %}class="active" {% endif %}>
+        <a href="{% url 'list_website_pages' %}">Website Pages</a>
+    </li>
+    <li {% if active == "lpb" %}class="active" {% endif %}>
+        <a href="{% url 'list_lpb' %}">La Petite Boucle</a>
+    </li>
+    <li {% if active == "quotes" %}class="active" {% endif %}>
+        <a href="{% url 'list_quotes' %}">Venues' Quotes</a>
+    </li>
+    <li {% if active == "testimonials" %}class="active" {% endif %}>
+        <a href="{% url 'list_testimonials' %}">Testimonials</a>
+    </li>
+    <li {% if active == "cheffes" %}class="active" {% endif %}>
+        <a href="{% url 'list_cheffes' %}">Venues' Cheffes</a>
+    </li>
+</ul>

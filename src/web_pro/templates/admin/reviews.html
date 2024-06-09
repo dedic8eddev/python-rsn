@@ -1,0 +1,191 @@
+{% extends 'pro_base/layout.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load i18n %}
+
+{% block meta %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="TheAdmin - Responsive admin and web application ui kit">
+    <meta name="keywords" content="admin, dashboard, web app, sass, ui kit, ui framework, bootstrap">
+{% endblock meta %}
+
+{% block title %}{% trans 'REVIEWS & LIKES - Raisin Pro' %}{% endblock %}
+
+{% block additional_fonts %}
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
+{% endblock additional_fonts %}
+
+{% block additional_styles %}
+    <!-- Styles -->
+    <link href="{% static 'pro_assets/css/core.min.css' %}" rel="stylesheet">
+    <link href="{% static 'pro_assets/css/app.css' %}" rel="stylesheet">
+    <link href="{% static 'pro_assets/css/intlTelInput.css' %}" rel="stylesheet">
+
+{% endblock additional_styles %}
+
+{% block additional_scripts %}
+    <script>
+    var pid = {{pid}};
+    var establishmentOwnerText = "{{ establishment_owner_text|escapejs }}";
+    var establishmentOwnerImage = "{{ establishment_owner_image }}";
+    var csrftoken = '{{ csrf_token }}';
+    var paginationConfig = {
+        'likes-pagination': 'loadLikes',
+        'reviews-pagination': 'loadReviews'
+    };
+    var userLang = '{{ user_lang }}';
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="{% static 'pro_assets/js/handlers/pagination/utils.js' %}"></script>
+    <script src="{% static 'pro_assets/js/handlers/wine_food/likesHandler.js' %}"></script>
+    <script src="{% static 'pro_assets/js/handlers/wine_food/reviewsHandler.js' %}"></script>
+    {% verbatim %}
+    <script id="like-template" type="text/x-handlebars-template">
+        <div class="media align-items-center">
+            <a class="flexbox align-items-center flex-grow gap-items text-truncate" href="#">
+                <span class="avatar">
+                    <img src="{{ avatar }}" alt="...">
+                </span>
+
+                <div class="media-body text-truncate">
+                    <p><strong>{{ full_name }}</strong> - @{{ username }}<time class="float-right" datetime="{{ posted_time }}">{{ posted_time }} 
+                      <!-- - <strong>{{ relative_time }}</strong> -->
+                    </time></p>
+                </div>
+            </a>
+        </div>
+    </script>
+    <script id="review-template" type="text/x-handlebars-template">
+        <div class="media align-items-center">
+            <a class="flexbox align-items-center flex-grow gap-items text-truncate" href="#qv-messages" data-toggle="quickview" data-uid="{{ id }}">
+                <span class="avatar {{#if unread_messages }}status-success{{/if}}">
+                    <img src="{{ avatar }}" alt="...">
+                </span>
+
+                <div class="media-body text-truncate">
+                    <p><strong>{{ full_name }} - <span class="red">@{{ username }}</span></strong> <time class="float-right" datetime="{{ posted_time }}">{{ posted_time }}
+                       <!-- - <strong>{{ relative_time }}</strong> -->
+                      </time></p>
+                    <p>{{ description }}</p>
+                </div>
+            </a>
+        </div>
+    </script>
+    <script id="pagination-template" type="text/x-handlebars-template">
+        <li class="page-item"><a class="page-link" href="#" name="previous"><span class="ti-arrow-left" name="previous"></span></a></li>
+            {{{ inner }}}
+        <li class="page-item"><a class="page-link" href="#" name="next"><span class="ti-arrow-right" name="next"></span></a></li>
+    </script>
+    <script id="pagination-page-template" type="text/x-handlebars-template">
+        <li class="page-item {{ active }}""><a class="page-link" href='#' name="{{page}}">{{ page }}</a></li>
+    </script>
+    <script id="comment-template" type="text/x-handlebars-template">
+        <a class="media" href="#">
+          <span class="avatar">
+            <img src="{{ avatar }}" alt="...">
+          </span>
+                <div class="media-body">
+            <p>
+              <strong>
+                {{#unless editable_by_owner }}
+                {{ full_name }} - <span class="red">@{{ username }}</span>
+                {{/unless}}
+                {{#if editable_by_owner }}
+                [{{ owner_text }}]
+                {{/if}}
+              </strong>
+              <time class="float-right" datetime="{{ posted_time }}">{{ posted_time }} 
+                <!-- - <strong>{{ relative_time }}</strong> -->
+              </time>
+            </p>
+            <p id="description-hideable-for-{{ id }}">{{ description }}</p>
+          </div>
+        </a>
+        {{#if editable_by_owner }}
+        <div id="comment-form-for-{{ id }}" class="comment-edit-form" style="display:none;">
+            <div class="form-group">
+                 <textarea class="form-control input-edit"></textarea>
+            </div>
+            <button class="btn btn-secondary cancel-edit" type="reset" data-edit-for="{{ id }}">Cancel</button>
+            <button type="button" class="btn btn-success save-edit" data-edit-for="{{ id }}">Save</button>
+        </div>
+
+        <ul class="right inline message-actions">
+          <li><a href="#" data-provide="tooltip" title="" data-original-title="Erase" class="delete-comment" data-comment-id="{{ id }}"><i class="fa fa-trash-o"></i></a></li>
+          <li><a href="#" data-provide="tooltip" title="" data-original-title="Edit" class="edit-comment" data-comment-id="{{ id }}" data-initial-text="{{ description }}"><i class="fa fa-file-text-o"></i></a></li>
+        </ul>
+        {{/if}}
+    </script>
+    {% endverbatim %}
+{% endblock additional_scripts %}
+
+
+{% block body %}
+    {% include 'pro_base/navigation.html' %}
+    <!-- Main container -->
+    <main class="main-container custom-preloading">
+
+        <div class="main-content">
+
+            <div class="col-12">
+            <div class="card">
+                <ul class="nav nav-tabs nav-tabs-light-mode">
+                  <li class="nav-item">
+                    <a class="nav-link text-gray active" data-toggle="tab" href="#home-light"><h3 class="text-gray">{% trans 'Reviews:' %} <span id="number_of_reviews"></span></h3></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-gray" data-toggle="tab" href="#profile-light"><h3 class="text-gray">{% trans 'Likes' %}: <span id="number_of_likes"></span></h3></a>
+                  </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                  <div class="tab-pane fade active show" id="home-light">
+                      {% include 'admin/reviews-partial.html' %}
+                  </div>
+
+                  <div class="tab-pane fade" id="profile-light">
+                      {% include 'admin/likes-partial.html' %}
+                  </div>
+                </div>
+			</div>
+            </div>
+        </div>
+        {% include 'pro_base/footer.html' %}
+    </main>
+
+    <div id="qv-messages" class="quickview quickview-lg">
+      <header class="quickview-header">
+        <p class="quickview-title lead">{% trans 'Messages' %}</p>
+        <span class="close"><i class="ti-close"></i></span>
+      </header>
+
+      <div class="quickview-body messages ps-container ps-theme-default ps-active-y" data-ps-id="4ad1891a-767b-20de-f324-9cf3647412e2">
+        <div class="media-list media-list-divided media-list-hover">
+            <div id="comments-list">
+            </div>
+
+          <a class="media" href="#">
+            <span class="avatar">
+              <img src="{{ establishment_owner_image }}" alt="...">
+            </span>
+           <div class="media-body">
+              <p><strong>[{{ establishment_owner_text }}]</strong> <time class="float-right" datetime="2018-07-14 20:00"></time></p>
+              <div class="publisher">
+                <input class="publisher-input" type="text" placeholder="{% trans 'Write something' %}" style="background: white;">
+                <button class="publisher-btn"><i class="fa fa-paper-plane"></i></button>
+              </div>
+            </div>
+          </a>
+
+          </div>
+      <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; height: 423px; right: 2px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 374px;"></div></div></div>
+
+      <footer class="quickview-footer flexbox">
+        <div class="right">
+         <span class="close"><i class="ti-close"></i></span>
+        </div>
+      </footer>
+    </div>
+{% endblock body %}

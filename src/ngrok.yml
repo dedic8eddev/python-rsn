@@ -1,0 +1,10 @@
+# authtoken from on-line ngrok account
+authtoken: 21SoNunao53AysBE1pC2jtK8j6o_6P4yPhaFPrftJqUKjM33x
+web_addr: 0.0.0.0:4040
+update: false
+log: stdout
+
+tunnels:
+  raisin:
+    addr: nginx:8001
+    proto: http

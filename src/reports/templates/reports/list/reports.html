@@ -1,0 +1,109 @@
+{% extends "base/layout.html" %}
+
+{% load static %}
+
+{% block title %}Reports - Raisin{% endblock %}
+
+{% block main_content %}
+
+{% verbatim %}
+
+<script>
+    var url_get_place_items_ajax_all = "{% endverbatim %}{% url 'get_place_items_opti_ajax' list_for='all' %}{% verbatim %}";
+    var url_get_place_items_ajax_in_trial = "{% endverbatim %}{% url 'get_place_items_opti_ajax' list_for='in_trial' %}{% verbatim %}";
+    var url_get_place_items_ajax_free = "{% endverbatim %}{% url 'get_place_items_opti_ajax' list_for='free' %}{% verbatim %}";
+    var url_get_place_items_ajax_subscribers = "{% endverbatim %}{% url 'get_place_items_opti_ajax' list_for='subscribers' %}{% verbatim %}";
+    var url_get_place_items_ajax_not_connected = "{% endverbatim %}{% url 'get_place_items_opti_ajax' list_for='not_connected' %}{% verbatim %}";
+    var url_get_place_items_ajax_stickers = "{% endverbatim %}{% url 'get_place_items_opti_ajax' list_for='stickers' %}{% verbatim %}";
+    var url_get_place_items_ajax_stickers_to_send = "{% endverbatim %}{% url 'get_place_items_opti_ajax' list_for='stickers_to_send' %}{% verbatim %}";
+    var url_places_publish_ajax = "{% endverbatim %}{% url 'places_publish_ajax' %}{% verbatim %}";
+    var url_places_unpublish_ajax = "{% endverbatim %}{% url 'places_unpublish_ajax' %}{% verbatim %}";
+    var url_places_delete_ajax = "{% endverbatim %}{% url 'places_delete_ajax' %}{% verbatim %}";
+    var url_places_duplicate_ajax = "{% endverbatim %}{% url 'places_duplicate_ajax' %}{% verbatim %}";
+    var url_places_close_ajax = "{% endverbatim %}{% url 'places_close_ajax' %}{% verbatim %}";
+    var url_places_set_in_doubt_ajax = "{% endverbatim %}{% url 'places_set_in_doubt_ajax' %}{% verbatim %}";
+    var url_comments = "{% endverbatim %}{% url 'list_est_comments' %}{% verbatim %}";
+    var url_free_glass = "{% endverbatim %}{% url 'list_est_free_glass' %}{% verbatim %}";
+
+</script>
+{% endverbatim %}
+
+
+<script src="{% static 'assets/javascripts/lists/list.pipeline.js' %}"></script>
+<script src="{% static 'assets/javascripts/lists/list.report.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'assets/stylesheets/new_style.css' %}" />
+
+<div class="panel" style="font-size:16px!important;">
+    <div class="panel-heading text-left">
+        <div class="table-caption">Reports: <span class="all_count"></span></div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <ul id="uidemo-tabs-default-demo" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#reviewsReport" id="reviews" data-toggle="tab">Reviews <span class="badge label-warning reviews_count">{{ counts.reported_reviews_count }}</span></span></a>
+                    </li>
+                    <li>
+                        <a href="#commentsReport" id="comments" data-toggle="tab">Comments <span class="badge label-warning comments_count">{{ counts.reported_comments_count }}</span></a>
+                    </li>
+                    <li>
+                        <a href="#eventsReport" id="events" data-toggle="tab">Events <span class="badge label-warning events_count">{{ counts.reported_events_count }}</span></a>
+                    </li>
+                    <li>
+                        <a href="#picturesReport"   id="pictures" data-toggle="tab">Pictures <span class="badge label-warning pictures_count">{{ counts.reported_pictures_count }}</span></a>
+                    </li>
+                    <li>
+                        <a href="#usersReport" id="users" data-toggle="tab">Users <span class="badge label-warning users_count">{{ counts.reported_users_count }}</span></a>
+                    </li>
+                    <li>
+                        <a href="#venuesReport" id="venues" data-toggle="tab">Venues <span class="badge label-warning venues_count">{{ counts.reported_venues_count }}</span></a>
+                    </li>
+                    <li>
+                        <a href="#blockedUsersReport" id="blockedUsers" data-toggle="tab">Blocked users <span class="badge label-warning blocked-users_count">{{ counts.blocked_users_count }}</span></a>
+                    </li>
+                </ul>
+                <div class="tab-content tab-content-bordered" style="">
+                    <div class="tab-pane fade in active" id="reviewsReport">
+                        {% include 'reports/reviews.html' %}
+                    </div>
+                    <div class="tab-pane fade" id="commentsReport">
+                        {% include 'reports/comments.html' %}
+                    </div>
+                    <div class="tab-pane fade" id="eventsReport">
+                        {% include 'reports/events.html' %}
+                    </div>
+                    <div class="tab-pane fade" id="picturesReport">
+                        {% include 'reports/pictures.html' %}
+                    </div>
+                    <div class="tab-pane fade" id="usersReport">
+                        {% include 'reports/users.html' %}
+                    </div>
+                    <div class="tab-pane fade" id="venuesReport">
+                        {% include 'reports/venues.html' %}
+                    </div>
+                    <div class="tab-pane fade" id="blockedUsersReport">
+                        {% include 'reports/blockedUsers.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+{% include 'reports/action_footer_reports.html' %}
+
+{% endblock %}
+
+
+
+{% block additional_bottom_scripts %}
+
+    {% include 'base/elements/bottom_js_list_new.html' %}
+{#    <script type="text/javascript" src="{% static 'assets/javascripts/image-manager.js' %}"></script>#}
+{#    <script type="text/javascript" src="{% static 'assets/javascripts/sortable-manager.js' %}"></script>#}
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+{% endblock additional_bottom_scripts %}

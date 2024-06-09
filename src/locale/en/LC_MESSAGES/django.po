@@ -1,0 +1,1942 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-26 10:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: web/api_handling.py:116 web/api_handling.py:130 web/api_handling.py:149
+#: web/api_handling.py:181 web/api_handling.py:197
+msgid "Wrong authorization."
+msgstr ""
+
+#: web/api_handling.py:151
+msgid "User already exists."
+msgstr ""
+
+#: web/api_handling.py:153 web/api_handling.py:232
+#: web/autocomplete_common.py:40 web/views/ajax_views.py:162
+#: web/views/ajax_views.py:271 web/views/ajax_views.py:570
+#: web/views/ajax_views.py:600 web/views/ajax_views.py:629
+#: web/views/ajax_views.py:662 web/views/ajax_views.py:693
+#: web/views/ajax_views.py:721 web/views/ajax_views.py:751
+#: web/views/ajax_views.py:780 web/views/ajax_views.py:810
+#: web/views/ajax_views.py:837 web/views/ajax_views.py:946
+#: web/views/ajax_views.py:1028 web/views/api_comment_views.py:50
+#: web/views/api_comment_views.py:55 web/views/api_comment_views.py:64
+#: web/views/api_comment_views.py:84 web/views/api_comment_views.py:110
+#: web/views/api_comment_views.py:131 web/views/api_comment_views.py:178
+#: web/views/api_image_views.py:84 web/views/api_image_views.py:94
+#: web/views/api_likevote_views.py:49 web/views/api_likevote_views.py:54
+#: web/views/api_likevote_views.py:63 web/views/api_likevote_views.py:84
+#: web/views/api_likevote_views.py:150 web/views/api_likevote_views.py:213
+#: web/views/api_place_views.py:67 web/views/api_place_views.py:132
+#: web/views/api_place_views.py:133 web/views/api_post_views.py:73
+#: web/views/api_post_views.py:228 web/views/api_post_views.py:229
+#: web/views/api_post_views.py:280 web/views/api_post_views.py:282
+#: web/views/api_timeline_views.py:37 web/views/api_timeline_views.py:88
+#: web/views/api_timeline_views.py:91 web/views/api_user_views.py:296
+#: web/views/api_user_views.py:299 web/views/api_user_views.py:331
+#: web/views/api_wine_views.py:48 web/views/api_wine_views.py:108
+#: web/views/api_winemaker_views.py:48 web/views/api_winemaker_views.py:91
+msgid "Wrong parameters."
+msgstr ""
+
+#: web/api_handling.py:155
+msgid "An error has occured."
+msgstr ""
+
+#: web/api_handling.py:250 web/api_handling.py:278
+msgid "An error has occurred."
+msgstr ""
+
+#: web/enum.py:50 web/enum.py:52
+msgid "."
+msgstr ""
+
+#: web/form_tools.py:403
+msgid "You must fill all the fields and select a wine color"
+msgstr ""
+
+#: web/forms.py:118 web/forms.py:138
+msgid ""
+"Valid 'post_id' or 'place_id' or 'user_id' or 'username' or 'wine_id' field "
+"is required."
+msgstr ""
+
+#: web/forms.py:155
+msgid ""
+"Valid 'post_id' or 'user_id' or 'username' or 'wine_id' field is required."
+msgstr ""
+
+#: web/forms.py:192
+#, python-format
+msgid "Valid %s required."
+msgstr ""
+
+#: web/forms.py:252 web/forms.py:270
+msgid "Valid 'post_id' or 'tl_id' or 'place_id' field is required."
+msgstr ""
+
+#: web/forms.py:282
+msgid "Valid 'post_id' field is required."
+msgstr ""
+
+#: web/forms.py:310
+msgid "Valid 'winemaker_name' or 'winemaker_id' field is required."
+msgstr ""
+
+#: web/forms.py:363
+msgid "Valid 'drank_it_too_id' or 'tl_id' field is required."
+msgstr ""
+
+#: web/forms.py:376
+msgid "Valid 'likevote_id' or 'tl_id' field is required."
+msgstr ""
+
+#: web/forms.py:389
+msgid "Valid 'comment_id' or 'tl_id' field is required."
+msgstr ""
+
+#: web/forms.py:430
+msgid ""
+"Valid 'post_id' or 'tl_id' or 'place_id' or 'wine_id' field is required."
+msgstr ""
+
+#: web/forms.py:542
+msgid "New password"
+msgstr ""
+
+#: web/forms.py:546
+msgid "New password (again)"
+msgstr ""
+
+#: web/forms.py:551 web/forms.py:552
+msgid "The two password fields did not match."
+msgstr ""
+
+#: web/forms.py:563
+msgid "Password"
+msgstr ""
+
+#: web/forms.py:577 web/forms.py:696
+msgid "Name:"
+msgstr ""
+
+#: web/forms.py:578
+msgid "Username:"
+msgstr ""
+
+#: web/forms.py:579 web/forms.py:703
+msgid "Email:"
+msgstr ""
+
+#: web/forms.py:580 web/forms.py:699
+msgid "URL Website:"
+msgstr ""
+
+#: web/forms.py:581
+msgid "Password:"
+msgstr ""
+
+#: web/forms.py:582 web/forms.py:632
+msgid "Status:"
+msgstr ""
+
+#: web/forms.py:587 web/forms.py:636 web/forms.py:847
+msgid "Type in your message"
+msgstr ""
+
+#: web/forms.py:630
+msgid "Post:"
+msgstr ""
+
+#: web/forms.py:631 web/forms.py:657 web/forms.py:705
+msgid "Description:"
+msgstr ""
+
+#: web/forms.py:656
+msgid "Wine post:"
+msgstr ""
+
+#: web/forms.py:659
+msgid "Domain:"
+msgstr ""
+
+#: web/forms.py:660
+msgid "Designation:"
+msgstr ""
+
+#: web/forms.py:661
+msgid "Grape variety:"
+msgstr ""
+
+#: web/forms.py:662
+msgid "Region:"
+msgstr ""
+
+#: web/forms.py:663
+msgid "Color:"
+msgstr ""
+
+#: web/forms.py:664
+msgid "Year:"
+msgstr ""
+
+#: web/forms.py:665
+msgid "Sparkling"
+msgstr ""
+
+#: web/forms.py:666
+msgid "Star Review"
+msgstr ""
+
+#: web/forms.py:667
+msgid "Referee Post"
+msgstr ""
+
+#: web/forms.py:669
+msgid "Geolocation:"
+msgstr ""
+
+#: web/forms.py:697 web/forms.py:836
+msgid "Phone"
+msgstr ""
+
+#: web/forms.py:698
+msgid "Select a type"
+msgstr ""
+
+#: web/forms.py:700
+msgid "Facebook:"
+msgstr ""
+
+#: web/forms.py:701
+msgid "Twitter:"
+msgstr ""
+
+#: web/forms.py:702
+msgid "Instagram:"
+msgstr ""
+
+#: web/forms.py:704
+msgid "Sticker sent:"
+msgstr ""
+
+#: web/forms.py:742 web/forms.py:753
+msgid "invalid opening hours data"
+msgstr ""
+
+#: web/forms.py:745
+msgid "invalid opening hours"
+msgstr ""
+
+#: web/forms.py:766 web/forms.py:769
+msgid "invalid uploaded file names"
+msgstr ""
+
+#: web/forms.py:835
+msgid "Name"
+msgstr ""
+
+#: web/forms.py:837
+msgid "Region"
+msgstr ""
+
+#: web/forms.py:838
+msgid "URL Website"
+msgstr ""
+
+#: web/forms.py:839
+msgid "Facebook"
+msgstr ""
+
+#: web/forms.py:840
+msgid "Twitter"
+msgstr ""
+
+#: web/forms.py:841
+msgid "Instagram"
+msgstr ""
+
+#: web/forms.py:842 web/forms.py:855
+msgid "Email"
+msgstr ""
+
+#: web/forms.py:843
+msgid "Description"
+msgstr ""
+
+#: web/forms.py:849
+msgid "ex. Phone : (+33) 6 12 22 61 10"
+msgstr ""
+
+#: web/forms.py:850
+msgid "ex : Provence"
+msgstr ""
+
+#: web/forms.py:851 web/forms.py:852 web/forms.py:853 web/forms.py:854
+msgid "Url"
+msgstr ""
+
+#: web/message_utils.py:84
+msgid "Password reset requested"
+msgstr ""
+
+#: web/message_utils.py:108
+msgid "Raisin account confirmation"
+msgstr ""
+
+#: web/templates/base/elements/edit/comments.html:10
+msgid "Delete"
+msgstr ""
+
+#: web/templates/base/elements/edit/comments.html:14
+msgid "Ban user"
+msgstr ""
+
+#: web/templates/base/elements/edit/general.current-images.html:7
+msgid "Remove"
+msgstr ""
+
+#: web/templates/base/elements/edit/generalpost.related-lists.html:27
+#: web/templates/base/elements/edit/winepost.related-lists.html:51
+msgid "Comments"
+msgstr ""
+
+#: web/templates/base/elements/edit/generalpost.related-lists.html:30
+#: web/templates/base/elements/edit/winepost.related-lists.html:54
+msgid "Likes"
+msgstr ""
+
+#: web/templates/base/elements/edit/generalpost.related-lists.html:46
+#: web/templates/base/elements/edit/winepost.related-lists.html:27
+msgid "Are you sure you want to ban this user?"
+msgstr ""
+
+#: web/templates/base/elements/edit/generalpost.related-lists.html:47
+#: web/templates/base/elements/edit/winepost.related-lists.html:28
+msgid "BAN"
+msgstr ""
+
+#: web/templates/base/elements/edit/generalpost.related-lists.html:48
+#: web/templates/base/elements/edit/generalpost.related-lists.html:58
+#: web/templates/base/elements/edit/winepost.related-lists.html:29
+#: web/templates/base/elements/edit/winepost.related-lists.html:39
+msgid "Cancel"
+msgstr ""
+
+#: web/templates/base/elements/edit/generalpost.related-lists.html:56
+#: web/templates/base/elements/edit/winepost.related-lists.html:37
+msgid "Are you sure you want to delete this message?"
+msgstr ""
+
+#: web/templates/base/elements/edit/generalpost.related-lists.html:57
+#: web/templates/base/elements/edit/winepost.related-lists.html:38
+msgid "DELETE"
+msgstr ""
+
+#: web/templates/base/elements/edit/winepost.related-lists.html:57
+msgid "Drank it too!"
+msgstr ""
+
+#: web/templates/edit/generalpost.html:31 web/templates/edit/place.html:89
+#: web/templates/edit/winemaker.html:99 web/templates/edit/winepost.html:55
+msgid "Saved on:"
+msgstr ""
+
+#: web/templates/edit/generalpost.html:31 web/templates/edit/place.html:89
+#: web/templates/edit/winemaker.html:99 web/templates/edit/winepost.html:55
+msgid "by"
+msgstr ""
+
+#: web/templates/edit/place.html:215 web/templates/edit/place.html:227
+msgid "Opening hours:"
+msgstr ""
+
+#: web/templates/edit/place.html:300 web/templates/edit/winemaker.html:467
+msgid "Map:"
+msgstr ""
+
+#: web/templates/edit/user.html:159
+msgid "Renew password or resend activation:"
+msgstr ""
+
+#: web/templates/edit/user.html:162 web/templates/edit/user.html:166
+msgid "Send email"
+msgstr ""
+
+#: web/templates/edit/user.html:341
+msgid "Password renewal OK"
+msgstr ""
+
+#: web/templates/edit/user.html:344
+msgid "Password renewal e-mail will be sent to the user."
+msgstr ""
+
+#: web/templates/edit/winepost.html:325
+msgid "No results found for the query."
+msgstr ""
+
+#: web/views/api_comment_views.py:103
+msgid "You are not permitted to update this comment."
+msgstr ""
+
+#: web/views/api_drank_it_too_views.py:53
+#: web/views/api_drank_it_too_views.py:112
+msgid "Wrong parameters - neither post_id nor tl_id provided"
+msgstr ""
+
+#: web/views/api_drank_it_too_views.py:71
+msgid "Wrong parameters - form is not valid."
+msgstr ""
+
+#: web/views/api_drank_it_too_views.py:167
+msgid "Wrong parameters - post_id, user_id, username or wine_id required"
+msgstr ""
+
+#: web/views/api_user_views.py:58
+msgid "Invalid request. No credentials provided."
+msgstr ""
+
+#: web/views/api_user_views.py:62
+msgid "Invalid basic header. No credentials provided."
+msgstr ""
+
+#: web/views/api_user_views.py:65
+msgid "Invalid basic header. Credentials string should not contain spaces."
+msgstr ""
+
+#: web/views/api_user_views.py:71
+msgid "Invalid basic header. Credentials not correctly base64 encoded."
+msgstr ""
+
+#: web/views/api_user_views.py:83
+msgid "Invalid username/password."
+msgstr ""
+
+#: web/views/api_user_views.py:87
+msgid "User inactive or deleted."
+msgstr ""
+
+#: web/views/api_user_views.py:106 web/views/api_user_views.py:157
+msgid "Invalid token."
+msgstr ""
+
+#: web/views/api_user_views.py:152
+msgid "No refresh token provided"
+msgstr ""
+
+#: web/views/api_user_views.py:185
+msgid "neither username nor user_id provided"
+msgstr ""
+
+#: web/views/api_user_views.py:188
+msgid "no user found"
+msgstr ""
+
+#: web/views/views.py:145
+msgid "Account is already confirmed"
+msgstr ""
+
+#: web/views/views.py:156
+msgid ""
+"Your account has been succesfully activated. You can now return to your "
+"Raisin application to log in."
+msgstr ""
+
+#: web/views/views.py:156
+msgid "WineColor.RED"
+"Red"
+msgstr ""
+
+#:
+msgid "WineColor.WHITE"
+"White"
+msgstr ""
+
+#:
+msgid "WineColor.PINK"
+"Pink"
+msgstr ""
+
+#:
+msgid "WineColor.ORANGE"
+"Orange"
+msgstr ""
+
+#: web/utils/views_common.py:32
+msgid "An error has occurred: unable to use the banned account"
+msgstr ""
+
+msgid "An error has occurred: account does not exist"
+msgstr ""
+
+msgid "An error has occurred: unable to use the inactive account"
+msgstr ""
+
+
+## =======================================================================================
+## =======================================================================================
+
+
+#: web_pro
+msgid "😃 Thank you so much for subscribing to this service, it means a lot to us 🙌🏻"
+msgstr ""
+
+
+#: web_pro
+msgid "Welcome to:"
+msgstr ""
+
+
+msgid "-30% (defined by Raisin team, not accessible to owner)"
+msgstr ""
+
+
+msgid "[{diff}] from a month ago!"
+msgstr ""
+
+
+msgid "ACTIVE"
+msgstr ""
+
+
+msgid "Add hours"
+msgstr ""
+
+
+msgid "Add new date"
+msgstr ""
+
+
+msgid "ADDRESS"
+msgstr ""
+
+
+msgid "Agreed to the Terms and Conditions and Privacy Policy"
+msgstr ""
+
+
+msgid "Amount"
+msgstr ""
+
+
+msgid "April"
+msgstr ""
+
+
+msgid "At work"
+msgstr ""
+
+
+msgid "August"
+msgstr ""
+
+
+msgid "BAR"
+msgstr ""
+
+
+msgid "BILLING ADDRESS"
+msgstr ""
+
+
+msgid "BILLING E-MAIL"
+msgstr ""
+
+
+msgid "CANCELLED"
+msgstr ""
+
+
+msgid "Change"
+msgstr ""
+
+
+msgid "CITY"
+msgstr ""
+
+
+msgid "Closed"
+msgstr ""
+
+
+msgid "COMMENTS"
+msgstr ""
+
+
+msgid "Company Details"
+msgstr ""
+
+
+msgid "Company"
+msgstr ""
+
+
+msgid "All rights reserved."
+msgstr ""
+
+
+msgid "Copyright © 2019 Raisin SAS. All rights reserved."
+msgstr ""
+
+
+msgid "CORPORATE NAME"
+msgstr ""
+
+
+msgid "COUNTRY"
+msgstr ""
+
+
+msgid "CURRENT PASSWORD"
+msgstr ""
+
+
+msgid "Current Plan"
+msgstr ""
+
+
+msgid "DASHBOARD"
+msgstr ""
+
+
+msgid "Date"
+msgstr ""
+
+
+msgid "December"
+msgstr ""
+
+
+msgid "Domaine"
+msgstr ""
+
+
+msgid "Edit"
+msgstr ""
+
+
+msgid "EMAIL"
+msgstr ""
+
+
+msgid "English"
+msgstr ""
+
+
+msgid "ESTABLISHMENT - Raisin Pro"
+msgstr ""
+
+
+msgid "Establishment info"
+msgstr ""
+
+
+msgid "Establishment Location"
+msgstr ""
+
+
+msgid "ESTABLISHMENT NAME"
+msgstr ""
+
+
+msgid "Establishment name"
+msgstr ""
+
+
+msgid "Establishment opening / closing hours"
+msgstr ""
+
+
+msgid "Establishment presentation"
+msgstr ""
+
+
+msgid "ESTABLISHMENT"
+msgstr ""
+
+
+msgid "Establishment"
+msgstr ""
+
+
+msgid "FACEBOOK"
+msgstr ""
+
+
+msgid "FAQ"
+msgstr ""
+
+
+msgid "February"
+msgstr ""
+
+
+msgid "FIRST NAME"
+msgstr ""
+
+
+msgid "FOOD - Raisin Pro"
+msgstr ""
+
+
+msgid "FOOD"
+msgstr ""
+
+
+msgid "Food"
+msgstr ""
+
+
+msgid "French"
+msgstr ""
+
+
+msgid "Friday"
+msgstr ""
+
+
+msgid "Front store"
+msgstr ""
+
+
+msgid "Get Direction requests"
+msgstr ""
+
+
+msgid "Help"
+msgstr ""
+
+
+msgid "Holidays"
+msgstr ""
+
+msgid "Public holiday"
+msgstr ""
+
+msgid "From"
+msgstr ""
+
+msgid "To"
+msgstr ""
+
+msgid "IMPRESSIONS"
+msgstr ""
+
+
+msgid "Impressions"
+msgstr ""
+
+
+msgid "IN_TRIAL"
+msgstr ""
+
+
+msgid "INSTAGRAM:"
+msgstr ""
+
+
+msgid "Interior"
+msgstr ""
+
+
+msgid "Invoice issued on:"
+msgstr ""
+
+
+msgid "Invoice Number"
+msgstr ""
+
+
+msgid "January"
+msgstr ""
+
+
+msgid "July"
+msgstr ""
+
+
+msgid "June"
+msgstr ""
+
+
+msgid "LANGUAGE"
+msgstr ""
+
+
+msgid "LAST NAME"
+msgstr ""
+
+
+msgid "Last week"
+msgstr ""
+
+
+msgid "Posted food"
+msgstr ""
+
+
+msgid "🍲 Posted Food"
+msgstr ""
+
+
+msgid "Latest posted wines"
+msgstr ""
+
+
+msgid "LEGAL FORM"
+msgstr ""
+
+
+msgid "LIKES"
+msgstr ""
+
+
+msgid "Limited to 1 picture"
+msgstr ""
+
+
+msgid "Limited to 4 pictures"
+msgstr ""
+
+
+msgid "Logo"
+msgstr ""
+
+
+msgid "LOGOUT"
+msgstr ""
+
+
+msgid "Make sure to complete your establishment's info in detail, it's time to shine like a diamond 💎"
+msgstr ""
+
+
+msgid "Map"
+msgstr ""
+
+
+msgid "March"
+msgstr ""
+
+
+msgid "May"
+msgstr ""
+
+
+msgid "Monday"
+msgstr ""
+
+
+msgid "Monthly"
+msgstr ""
+
+
+msgid "More to come very soon!"
+msgstr ""
+
+
+msgid "NEW PASSWORD"
+msgstr ""
+
+
+msgid "Next"
+msgstr ""
+
+
+msgid "NO"
+msgstr ""
+
+
+msgid "YES"
+msgstr ""
+
+
+msgid "NON_RENEWING"
+msgstr ""
+
+
+msgid "November"
+msgstr ""
+
+
+msgid "Now it is your turn! "
+msgstr ""
+
+
+msgid "Opened"
+msgstr ""
+
+
+msgid "opening / closing hours"
+msgstr ""
+
+
+msgid "Opening Hours"
+msgstr ""
+
+
+msgid "OPENING HOURS"
+msgstr ""
+
+
+msgid "Opening/Closing - Holidays"
+msgstr ""
+
+
+msgid "Orange wines"
+msgstr ""
+
+
+msgid "Owner Details"
+msgstr ""
+
+
+msgid "PAUSED"
+msgstr ""
+
+
+msgid "Phone Calls"
+msgstr ""
+
+
+msgid "PHONE"
+msgstr ""
+
+
+msgid "Plan Details"
+msgstr ""
+
+
+msgid "🙋🏻 Please, complete this description to let users know what your venue is all about!"
+msgstr ""
+
+
+msgid "POP-up message:"
+msgstr ""
+
+
+msgid "Popular (Impressions/ Taps)"
+msgstr ""
+
+
+msgid "Presentation"
+msgstr ""
+
+
+msgid "Previous"
+msgstr ""
+
+
+msgid "Raisin Pro [logo - image]"
+msgstr ""
+
+
+msgid "Red wines"
+msgstr ""
+
+
+msgid "RESTAURANT"
+msgstr ""
+
+
+msgid "REVIEWS & LIKES - Raisin Pro"
+msgstr ""
+
+
+msgid "REVIEWS & LIKES"
+msgstr ""
+
+
+msgid "REVIEWS:"
+msgstr ""
+
+
+msgid "Rosé wines"
+msgstr ""
+
+
+msgid "Saturday"
+msgstr ""
+
+
+msgid "SAVE CHANGES"
+msgstr ""
+
+
+msgid "Save Changes"
+msgstr ""
+
+
+msgid "Save"
+msgstr ""
+
+
+msgid "SEARCH ALL FOOD"
+msgstr ""
+
+
+msgid "SEARCH ALL WINE"
+msgstr ""
+
+
+msgid "SEARCH"
+msgstr ""
+
+
+msgid "Search"
+msgstr ""
+
+
+msgid "SELECT A TYPE"
+msgstr ""
+
+
+msgid "September"
+msgstr ""
+
+
+msgid "SETTINGS - Raisin Pro"
+msgstr ""
+
+
+msgid "SETTINGS"
+msgstr ""
+
+
+msgid "SHIPPING ADDRESS"
+msgstr ""
+
+
+# "Show {number} entries"
+msgid "Show"
+msgstr ""
+msgid "entries"
+msgstr ""
+
+
+
+msgid "Showing {number} of [{max}] entries"
+msgstr ""
+
+
+msgid "Sort by"
+msgstr ""
+
+
+msgid "Sparkling wines"
+msgstr ""
+
+
+msgid "STATE/PROVINCE"
+msgstr ""
+
+
+msgid "Status"
+msgstr ""
+
+
+msgid "Sunday"
+msgstr ""
+
+
+msgid "TAPS"
+msgstr ""
+
+
+msgid "Taps"
+msgstr ""
+
+
+msgid "Team"
+msgstr ""
+
+
+msgid "This Month"
+msgstr ""
+
+
+msgid "This week"
+msgstr ""
+
+
+msgid "Thursday"
+msgstr ""
+
+
+msgid "To change your plan to upgrade, downgrade, cancel or switch billing frequency, please, email our support: pro@raisin.digital"
+msgstr ""
+
+
+msgid "Tuesday"
+msgstr ""
+
+
+msgid "TWITTER:"
+msgstr ""
+
+
+msgid "URL WEBSITE:"
+msgstr ""
+
+
+msgid "Username"
+msgstr ""
+
+
+msgid "VAT NUMBER"
+msgstr ""
+
+
+msgid "Venues near by"
+msgstr ""
+
+
+msgid "VISITS"
+msgstr ""
+
+
+msgid "We are always here for you: 💌 pro@raisin.digital"
+msgstr ""
+
+
+msgid "We are working very hard ⚙️ to launch all features as quickly as possible ;)"
+msgstr ""
+
+
+msgid "Website"
+msgstr ""
+
+
+msgid "Wednesday"
+msgstr ""
+
+
+msgid "White wines"
+msgstr ""
+
+
+msgid "WINE - Raisin Pro"
+msgstr ""
+
+msgid "Wine - Raisin Pro"
+msgstr ""
+
+
+msgid "Wine list:"
+msgstr ""
+
+
+msgid "Wine name"
+msgstr ""
+
+
+msgid "WINE SHOP"
+msgstr ""
+
+
+msgid "Wine"
+msgstr ""
+
+
+msgid "Winemaker"
+msgstr ""
+
+
+msgid "Wines by category"
+msgstr ""
+
+
+msgid "WINES"
+msgstr ""
+
+
+msgid "Yearly"
+msgstr ""
+
+
+msgid "Your plan will renew on: {date} for {sum}."
+msgstr ""
+
+
+msgid "ZIP/POSTAL"
+msgstr ""
+
+
+msgid "🌟 10 Most popular 🍷 WINE posts"
+msgstr ""
+
+
+msgid "🌟 10 Most popular 🍽️ FOOD posts"
+msgstr ""
+
+
+msgid "🍜 POST YOUR DISHES!"
+msgstr ""
+
+
+msgid "🍷 If you would like for the Raisin team to reconsider this figure, please make sure you have made the appropriate changes to guarantee at least 30% natural wine in your offer. We value genuine requests ;) Allow ⏳ 3 months time between each request 📝."
+msgstr ""
+
+msgid "🍷 POST WINES YOU LOVE!"
+msgstr ""
+
+
+msgid "🍷 WINES"
+msgstr ""
+
+
+msgid "🍽️ FOOD"
+msgstr ""
+
+
+msgid "Hey! You never get a second chance at a first impression...😎."
+msgstr ""
+
+msgid "💡 Information in this section is used to let users discover your establishment. Make sure your profile is relevant and up to date, and don't forget to upload great pictures to show it 📸 ."
+msgstr ""
+
+
+msgid "💡 Information in this section is used to let users discover your establishment. Make sure your profile is relevant and up to date, and don't forget to upload great pictures to show it 📸 . Hey! You never get a second chance at a first impression...😎."
+msgstr ""
+
+
+msgid "💡 They get featured on Raisin's main screen of users in your area. The more you post, the more you get noticed!<br> 📸 Share as many wine pictures as you wish, to give the best understanding of what you sell!"
+msgstr ""
+
+msgid "📸 Food pictures will also show up on Raisin's main screen of users in your area. 💡 The more the merrier, show what your cuisine is all about ;)"
+msgstr ""
+
+
+msgid "😎 Since you never get a second chance at a first impression..."
+msgstr ""
+
+
+msgid "🤔 How USERS FOUND you on Raisin - Taps"
+msgstr ""
+
+
+msgid "DASHBOARD - Raisin Pro"
+msgstr ""
+
+
+msgid "Invoice"
+msgstr ""
+
+
+msgid "Invoices"
+msgstr ""
+
+# =========== TO TRANSLATE =========
+msgid "Edit WINE information"
+msgstr ""
+
+
+msgid "Edit FOOD"
+msgstr ""
+
+msgid "This Field Cannot Be Empty."
+msgstr ""
+
+
+msgid "ADD Image"
+msgstr ""
+
+
+msgid "All"
+msgstr ""
+
+
+msgid "MODIFY image"
+msgstr ""
+
+
+msgid "Add a new wine"
+msgstr ""
+
+
+msgid "Add FOOD"
+msgstr ""
+
+
+msgid "We accept files in PNG, JPG, JPEG or GIF format,<br/>up to 5 MB+"
+msgstr ""
+
+
+msgid "Invalid Image Format."
+msgstr ""
+
+
+msgid "Maximum File Size Limit is 5MB."
+msgstr ""
+
+
+msgid "Maximum File Size Limit is"
+msgstr ""
+
+
+msgid "Select Wine Name."
+msgstr ""
+
+
+msgid "Select Winemaker."
+msgstr ""
+
+
+msgid "Select Domain."
+msgstr ""
+
+
+msgid "Please, provide an image"
+msgstr ""
+
+
+msgid "Domain Name"
+msgstr ""
+
+
+msgid "DOMAIN NAME"
+msgstr ""
+
+
+msgid "Vintage"
+msgstr ""
+
+
+msgid "VINTAGE"
+msgstr ""
+
+
+msgid "COLOR"
+msgstr ""
+
+
+msgid "Invalid Year Format."
+msgstr ""
+
+
+msgid "Red"
+msgstr ""
+
+
+msgid "White"
+msgstr ""
+
+
+msgid "Rosé"
+msgstr ""
+
+
+msgid "Orange"
+msgstr ""
+
+
+msgid "Grape Variety"
+msgstr ""
+
+
+msgid "Add a comment to moderator on Raisin"
+msgstr ""
+msgid "Add a comment"
+msgstr ""
+msgid "to moderator on Raisin"
+msgstr ""
+
+
+
+msgid "POST"
+msgstr ""
+
+
+msgid "Close"
+msgstr ""
+
+
+msgid "NEW INFORMATION NOT SAVED"
+msgstr ""
+
+
+msgid "NEW INFORMATION NOT SAVED!"
+msgstr ""
+
+
+msgid "Would you like to save before exiting?"
+msgstr ""
+
+
+msgid "DELETE this POST?"
+msgstr ""
+
+
+msgid "You will no longer have access to it."
+msgstr ""
+
+msgid "POST WINE"
+msgstr ""
+
+
+msgid "Update"
+msgstr ""
+
+
+msgid "WINE MADE BY A NATURAL WINEMAKER"
+msgstr ""
+
+
+msgid "THIS IS AN ORGANIC AND/OR BIODYNAMIC WINE"
+msgstr ""
+
+
+msgid "IT'S A CONVENTIONAL WINE!"
+msgstr ""
+
+
+msgid "NOT SURE ABOUT THIS WINE..."
+msgstr ""
+
+
+msgid "Search coming soon"
+msgstr ""
+
+
+msgid "Select At Least One Type."
+msgstr ""
+
+
+msgid "Website language"
+msgstr ""
+
+
+msgid "Website language:"
+msgstr ""
+
+
+msgid "Change Picture"
+msgstr ""
+
+
+msgid "Delete Picture"
+msgstr ""
+
+
+msgid "Be patient, we are working hard to launch this section rapidly ;)"
+msgstr ""
+
+
+msgid "Drag and drop a file here or click"
+msgstr ""
+
+
+msgid "Opens at"
+msgstr ""
+
+
+msgid "Closes at"
+msgstr ""
+
+
+msgid "DASHBOARD - Raisin Pro."
+msgstr ""
+
+
+msgid "coming soon"
+msgstr ""
+
+
+msgid "Subscribers"
+msgstr ""
+
+msgid "Logout"
+msgstr ""
+
+
+msgid "Caption"
+msgstr ""
+
+
+msgid "Post Wine"
+msgstr ""
+
+
+msgid "Post Food"
+msgstr ""
+
+
+msgid "Price"
+msgstr ""
+
+
+# currencies
+
+msgid "Euro"
+msgstr ""
+
+
+msgid "United States Dollar"
+msgstr ""
+
+
+msgid "United Arab Emirates Dirham"
+msgstr ""
+
+
+msgid "Argentine Peso"
+msgstr ""
+
+
+msgid "Australian Dollar"
+msgstr ""
+
+
+msgid "Azerbaijani Manat"
+msgstr ""
+
+
+msgid "Bulgarian Lev"
+msgstr ""
+
+
+msgid "Bahraini Dinar"
+msgstr ""
+
+
+msgid "Brunei Dollar"
+msgstr ""
+
+
+msgid "Brazilian Real"
+msgstr ""
+
+
+msgid "Canadian Dollar"
+msgstr ""
+
+
+msgid "Swiss Franc"
+msgstr ""
+
+
+msgid "Chilean Peso"
+msgstr ""
+
+
+msgid "Chinese Yuan"
+msgstr ""
+
+
+msgid "Czech Koruna"
+msgstr ""
+
+
+msgid "Danish Krone"
+msgstr ""
+
+
+msgid "Egyptian Pound"
+msgstr ""
+
+
+msgid "Fiji Dollar"
+msgstr ""
+
+
+msgid "Pound Sterling"
+msgstr ""
+
+
+msgid "Hong Kong Dollar"
+msgstr ""
+
+
+msgid "Hungarian Forint"
+msgstr ""
+
+
+msgid "Indonesian rRpiah"
+msgstr ""
+
+
+msgid "Israeli New Shekel"
+msgstr ""
+
+
+msgid "Indian Rupee"
+msgstr ""
+
+
+msgid "¥ - Japanese Yen"
+msgstr ""
+
+
+msgid "South Korean Won"
+msgstr ""
+
+
+msgid "Kuwaiti Dinar"
+msgstr ""
+
+
+msgid "Sri Lankan Rupee"
+msgstr ""
+
+
+msgid "Moroccan Dirham"
+msgstr ""
+
+
+msgid "Malagasy Ariary"
+msgstr ""
+
+
+msgid "Mexican Peso"
+msgstr ""
+
+
+msgid "Malaysian Ringgit"
+msgstr ""
+
+
+msgid "Norwegian Krone"
+msgstr ""
+
+
+msgid "New Zealand Dollar"
+msgstr ""
+
+
+msgid "Omani Rial"
+msgstr ""
+
+
+msgid "Peruvian Sol"
+msgstr ""
+
+
+msgid "Papua New Guinean Kina"
+msgstr ""
+
+
+msgid "Philippine Peso"
+msgstr ""
+
+
+msgid "Pakistani Rupee"
+msgstr ""
+
+
+msgid "Polish Złoty"
+msgstr ""
+
+
+msgid "Russian Ruble"
+msgstr ""
+
+
+msgid "Saudi Riyal"
+msgstr ""
+
+
+msgid "Solomon Islands Dollar"
+msgstr ""
+
+
+msgid "Seychelles Rupee"
+msgstr ""
+
+
+msgid "Swedish Krona/Kronor"
+msgstr ""
+
+
+msgid "Singapore Dollar"
+msgstr ""
+
+
+msgid "Thai Baht"
+msgstr ""
+
+
+msgid "Tongan pPaʻanga"
+msgstr ""
+
+
+msgid "Turkish Lira"
+msgstr ""
+
+
+msgid "New Taiwan Dollar"
+msgstr ""
+
+
+msgid "Tanzanian Shilling"
+msgstr ""
+
+
+msgid "Venezuelan Bolívar"
+msgstr ""
+
+
+msgid "Vietnamese Dồng"
+msgstr ""
+
+
+msgid "Vanuatu Vatu"
+msgstr ""
+
+
+msgid "Samoan Tala"
+msgstr ""
+
+
+msgid "CFA Franc BCEAO"
+msgstr ""
+
+
+msgid "South African Rand"
+msgstr ""
+
+
+msgid "Incorrect price."
+msgstr ""
+
+
+msgid "Sign in to your account"
+msgstr ""
+
+
+msgid "Remember me"
+msgstr ""
+
+
+msgid "I accept the"
+msgstr ""
+
+
+msgid "Terms of Service"
+msgstr ""
+
+
+msgid "and"
+msgstr "et"
+
+
+msgid "Privacy policy"
+msgstr ""
+
+
+msgid "Login"
+msgstr ""
+
+
+msgid "Don't have an account?"
+msgstr ""
+
+
+msgid "Register here"
+msgstr ""
+
+
+msgid "Recover your password"
+msgstr ""
+
+
+msgid "Reset Password"
+msgstr ""
+
+
+msgid "Wrong credentials"
+msgstr ""
+
+
+msgid "No establishment added to your account - Please contact the administrator: "
+msgstr ""
+
+
+msgid "Email has been sent. Get back to"
+msgstr ""
+
+
+msgid "login page"
+msgstr ""
+
+
+msgid "Username or password"
+msgstr ""
+
+
+msgid "Forgot password?"
+msgstr ""
+
+
+msgid "Validate"
+msgstr ""
+
+
+msgid "Reset your password"
+msgstr ""
+
+
+msgid "Set your password"
+msgstr ""
+
+
+msgid "Password can not be empty."
+msgstr ""
+
+
+msgid "Password must contain a mix of lowercase letters, uppercase letters and numbers."
+msgstr ""
+
+
+msgid "You search"
+msgstr "Vous cherchez"
+
+msgid "Please fill in your billing address details in your Chargebee account."
+msgstr ""
+
+msgid "Your plan will renew on"
+msgstr ""
+
+msgid "To change your plan to upgrade, downgrade, cancel or switch billing frequency"
+msgstr ""
+
+msgid "You don't have any active plans"
+msgstr ""
+
+msgid "Please, email our support at"
+msgstr ""
+
+msgid "for"
+msgstr ""
+
+msgid "daily"
+msgstr ""
+
+msgid "weekly"
+msgstr ""
+
+msgid "monthly"
+msgstr ""
+
+msgid "quarterly"
+msgstr ""
+
+msgid "semiannually"
+msgstr ""
+
+msgid "annually"
+msgstr ""
+
+msgid "login-partial"
+msgstr "login"
+
+msgid "➜ Click HERE to add this wine 🍷"
+msgstr ""
+
+msgid "You must connect this owner to an establishment"
+msgstr ""
+
+msgid "A user with that username already exists."
+msgstr ""
+
+msgid "This Chargebee Customer ID is invalid."
+msgstr ""
+
+msgid "Customer ID is already assigned to another user."
+msgstr ""
+
+msgid "Subscription ID is already assigned to an establishment."
+msgstr ""
+
+msgid "The owner of this place is linked to a different Chargebee Customer ID than the subscription you are trying to submit."
+msgstr ""
+
+msgid "The Chargebee Customer that has this subscription is already linked to a different establishment owner."
+msgstr ""
+
+msgid "Please assign an owner to this establishment first."
+msgstr ""
+
+msgid "You don't have any subscriptions assigned to this establishment."
+msgstr ""
+
+msgid "Start date is required for regular events."
+msgstr ""
+
+msgid "End date is required for regular events."
+msgstr ""
+
+msgid "Address is required for regular events."
+msgstr ""
+
+msgid "Trial remaining"
+msgstr ""
+
+msgid "days - Trial ends on "
+msgstr ""
+
+msgid "Payment Status"
+msgstr ""
+
+msgid "Plan"
+msgstr ""
+
+msgid "Plan Amount"
+msgstr ""
+
+msgid "Please remove the Subscription ID from the old establishment first."
+msgstr ""
+
+msgid "🙋🏼‍♀️ Welcome to Raisin Pro."
+msgstr ""
+
+msgid "No records to display."
+msgstr ""
+
+msgid "Go ahead, "
+msgstr ""
+
+msgid "post a wine 🍷"
+msgstr ""
+
+msgid "WINES BY USERS"
+msgstr ""
+
+msgid "All changes saved"
+msgstr ""
+
+msgid "Error saving changes"
+msgstr ""
+
+msgid "Every change you make is automatically saved by Raisin PRO."
+msgstr ""
+
+msgid "Something went wrong. Please refresh the page and try again. Contact us at contact@raisin.digital if this is a recurring issue."
+msgstr ""
+
+msgid "Additional emails"
+msgstr ""
+
+msgid "Write something"
+msgstr ""
+
+msgid "characters left"
+msgstr ""
+
+msgid "character left"
+msgstr ""
+ 

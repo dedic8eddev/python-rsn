@@ -1,0 +1,93 @@
+<!-- row-->
+
+<div class="subscription-details" id="subscription_details" hidden>
+  <div class="row">
+      <!-- col-sm-6 1-->
+    <div class="col-sm-6">
+      <h3>Customer Details</h3>
+      <ul>
+        <li><strong>Customer Id: </strong><a href="#"><span id="customer_id"></span></a></li>
+        <li><strong>First Name: </strong><span id="customer_first_name"></span></li>
+        <li><strong>Last Name: </strong><span id="customer_last_name"></span></li>
+        <li><strong>Company: </strong><span id="customer_company"></span></li>
+        <li><strong>Email: </strong><span id="customer_email"></span></li>
+        <li><strong>Phone: </strong><span id="customer_phone"></span></li>
+      </ul>
+    </div>
+      <!-- end col-sm-6 1-->
+
+      <!-- col-sm-6 2-->
+    <div class="col-sm-6">
+      <h3>Subscription Info</h3>
+      <ul>
+        <li><strong>Subscription Id: </strong><a href="#"><span id="subscription_id"></span></a></li>
+        <li><strong>Payment Status: </strong><span id="subscription_status_html"></span>
+        </li>
+
+        <!--            <li><strong>Plan:</strong> STICKER - EUR - EN - 25 EUR</li>-->
+        <li><strong>Plan: </strong><span id="subscription_plan_id"></span></li>
+        <li><strong>Plan Amount: </strong>
+          <span id="subscription_currency_code"></span>
+          <span id="subscription_converted_price"></span> / <span id="subscription_billing_period_unit"></span> X <span id="subscription_billing_period"></span>
+        </li>
+        <li><strong>Addons: </strong><span id="subscription_addons"></span></li>
+        <li><strong>Next Billing On: </strong><span id="subscription_next_billing_on"></span></li>
+        <li><strong>Monthly Recurring Revenue (MRR): </strong><span id="subscription_mrr"></span></li>
+        <li><strong>Payment Method Details: </strong><span id="card_type"></span></li>
+        <li><strong>Auto Collection: </strong><span id="subscription_auto_collection"></span></li>
+            </ul>
+    </div>
+                <!-- end col-sm-6 2-->
+  </div>
+              <!-- end of row-->
+  <hr />
+
+              <!-- row-->
+  <div class="row">
+    <!-- col-sm-6 1-->
+    <div class="col-sm-6">
+      <h3>Billing address:</h3>
+      <ul id="billing_address">
+      </ul>
+    </div>
+    <!-- end col-sm-6 1-->
+
+    <!-- col-sm-6 2-->
+    <div class="col-sm-6">
+      <h3>Configurations:</h3>
+      <ul>
+        <li><strong>Locale: </strong><span id="customer_readable_locale"></span></li>
+        <li><strong>Preferred Online Currency: </strong><span id="customer_preferred_currency_code"></span></li>
+        <li><strong>Billing Info: </strong><span id="billing_address_country"></span></li>
+        <li><strong>Payment Method Details: </strong><span id="card_type"></span></li>
+        <li><strong>Auto Collection: </strong><span id="subscription_auto_collection"></span></li>
+      </ul>
+    </div>
+    <!-- end col-sm-6 2-->
+  </div>
+              <!-- end of row-->
+  <form id='delete_subscription_form' style="padding-bottom:30px;">
+    <input type="hidden" name="placeId" value={{ place.id }}>
+    <button type="submit" class="btn btn-w-md btn-danger pull-right">Erase Subscription Id</button>
+  </form>
+</div>
+
+
+<div class="subscription-fill-in-id" id="fill_in_with_sub_id" hidden>
+  <div class="">
+    <h3>Please, complete with Subscription ID:</h3>
+
+    <form id="subscription_id_form" class="form-inline" autocomplete="off">
+      {% csrf_token %}
+      <div class="form-group">
+          <input type="text" class="form-control" id="subscription_id" name="subscriptionId" placeholder="Subscription ID received from Chargebee" style="width:500px">
+      </div>
+      <input type="text" name="placeId" value={{ place.id }} hidden>
+      <button class="btn btn-bold btn-secondary" type="submit" id="post_subscription_id" name="postType"> Go! </button>
+    </form>
+
+    <div class="alert alert-danger" id="subscription_error" style="width:500px" hidden>
+
+    </div>
+  </div>
+</div>

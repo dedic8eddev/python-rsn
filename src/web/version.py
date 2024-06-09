@@ -1,0 +1,2 @@
+VERSION_NUMBER = '0.1.7'
+VERSION_NAME = 'Barbfish'

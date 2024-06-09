@@ -1,0 +1,69 @@
+{% load i18n %}
+{% load static %}
+<! -- related lists (likes, comments, etc.) -->
+<!-- winepost releated lists -->
+
+{%  verbatim %}
+<script>
+
+    var url_delete_comment = '{% endverbatim %}{% url 'comments_delete_ajax' %}{% verbatim %}';
+    var url_users_ban_ajax = '{% endverbatim %}{% url 'users_ban_ajax' %}{% verbatim %}';
+
+    // --------- ACTIONS: BAN USER --------------------------------------------------
+    bindSingleOperationConfirm('ban_user_', url_users_ban_ajax, "banuser", "ui-bootbox-ban-one",
+        "ui-bootbox-cancel-one", "users" , loadRelatedLists);
+
+    // --------- ACTIONS: DELETE COMMENT --------------------------------------------------
+    bindSingleOperationConfirm('delete_comment_', url_delete_comment, "erasemessage", "ui-bootbox-delete-comment-one",
+        "ui-bootbox-cancel-comment-one", "comments", loadRelatedLists);
+
+</script>
+{% endverbatim %}
+
+<!-- related list actions -->
+<div id="banuser" class="collapse">
+    <div class="bandeau">
+        <h3>{% trans 'Are you sure you want to ban this user?' %}</h3>
+        <button id="ui-bootbox-ban-one" class="btn btn-lg btn-info">{% trans 'BAN' %}</button>&nbsp;&nbsp;&nbsp;
+        <button id="ui-bootbox-cancel-one" class="btn btn-lg btn-cancel">{% trans 'Cancel' %}</button>
+        &nbsp; &nbsp;
+       His/her account will be blocked.
+    </div>
+</div>
+
+<div id="erasemessage" class="collapse">
+    <div class="bandeau">
+        <h3>{% trans 'Are you sure you want to delete this message?' %}</h3>
+        <button id="ui-bootbox-delete-comment-one" class="btn btn-lg btn-danger">{% trans 'DELETE' %}</button>&nbsp;&nbsp;&nbsp;
+        <button id="ui-bootbox-cancel-comment-one" class="btn btn-lg btn-cancel">{% trans 'Cancel' %}</button>
+        &nbsp; &nbsp;
+        This cannot be undone.
+    </div>
+</div>
+<!-- /related list actions -->
+
+
+<div>
+    <div class="profile-content" style="text-align:left;">
+        <ul id="profile-tabs" class="nav nav-tabs" style="font-style:10px!important;">
+            <li class="active">
+                <a href="#profile-tabs-board" data-toggle="tab">({{ comment_number }}) {% trans 'Comments' %}</a>
+            </li>
+            <li>
+                <a href="#profile-tabs-followers" data-toggle="tab"> ({{ likevote_number }}) {% trans 'Likes' %}</a>
+            </li>
+            <li>
+                <a href="#profile-tabs-following" data-toggle="tab"> ({{ attendee_number }}) {% trans 'Attendees' %}</a>
+            </li>
+        </ul>
+
+        <div class="tab-content tab-content-bordered panel-padding commentairesaffiche" style="overflow: scroll; width:100%; height: 400px;">
+            {% include 'base/elements/edit/comments.html' %}
+            {% include 'base/elements/edit/likes.html' %}
+            {% include 'base/elements/edit/attendees.html' %}
+        </div>
+    </div>
+    &nbsp;
+</div>
+<! -- /related lists (likes, comments, etc.) -->
+

@@ -1,0 +1,65 @@
+{% extends "base/layout.html" %}
+
+{% load static %}
+
+{% block title %}Places - Home - Raisin{% endblock %}
+
+{% block main_content %}
+
+{% verbatim %}
+<script>
+    var url_get_place_items_ajax = "{% endverbatim %}{% url 'get_place_subscribers_items_ajax' %}{% verbatim %}";
+    var url_places_publish_ajax = '{% endverbatim %}{% url 'places_publish_ajax' %}{% verbatim %}';
+    var url_places_unpublish_ajax = '{% endverbatim %}{% url 'places_unpublish_ajax' %}{% verbatim %}';
+    var url_places_delete_ajax = '{% endverbatim %}{% url 'places_delete_ajax' %}{% verbatim %}';
+    var url_places_duplicate_ajax = '{% endverbatim %}{% url 'places_duplicate_ajax' %}{% verbatim %}';
+    var url_places_close_ajax = '{% endverbatim %}{% url 'places_close_ajax' %}{% verbatim %}';
+    var url_places_set_in_doubt_ajax = '{% endverbatim %}{% url 'places_set_in_doubt_ajax' %}{% verbatim %}';
+    var url_comments = '{% endverbatim %}{% url 'list_est_comments' %}{% verbatim %}';
+    var url_free_glass = '{% endverbatim %}{% url 'list_est_free_glass' %}{% verbatim %}';
+</script>
+{% endverbatim %}
+
+
+<script src="{% static 'assets/javascripts/lists/list.pipeline.js' %}"></script>
+<script src="{% static 'assets/javascripts/lists/list.places.subscribers.js' %}"></script>
+
+<div class="table table-striped vmiddle table-scrollx-container" style="font-size:14px;">
+
+<!-- 32.4. $BOOTSTRAP_DATEPICKER_RANGE =============================================================
+Range
+-->
+    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-places" id="jq-datatables-example">
+        <thead>
+            <tr>
+                <th {# style="width:15px;" #}><br><input type="checkbox" id="toggle-all" name="check-all" /> </th>
+                <th>Picture</th>
+                <th>Date</th>
+                <th>Owner</th>
+                <th>Expert</th>
+                <th {# style="width:12%" #}>Venue</th>
+                <th>Address</th>
+                <th>Zip Code</th>
+                <th>City</th>
+                <th>Country</th>
+                <th {# style="width: 5%" #}>Email</th>
+                <th>Type</th>
+                <th>Score</th>
+                <th>Status</th>
+                <th>Chargebee</th>
+                <!-- <th>Social</th>
+                <th>Sticker</th> -->
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div><!-- end jquery table jhb -->
+
+{% include 'base/elements/lists/action_footer_dpcd.html' %}
+
+{% endblock %}
+
+{% block additional_bottom_scripts %}
+    {% include 'base/elements/bottom_js_list.html' %}
+{% endblock additional_bottom_scripts %}

@@ -1,0 +1,23 @@
+
+
+name: qa
+
+on:
+  push:
+    branches: [ qa ]
+
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: executing remote ssh commands using ssh key
+      uses: appleboy/ssh-action@master
+      with:
+        host:  "116.202.130.223"
+        username: ubuntu
+        key: ${{ secrets.SSH_KEYS }}
+        port: 22
+        script: cd /home/ubuntu/test-cms.raisin.digital/repo && git pull && cd  ~/test-cms.raisin.digital/repo/src  && source raisin/bin/activate && python3 manage.py migrate && echo yes | python3 manage.py collectstatic && chown ubuntu:ubuntu /home/ubuntu/test-cms.raisin.digital/logs/sql-log.log && chown ubuntu:ubuntu /home/ubuntu/test-cms.raisin.digital/logs/logs.log && sudo supervisorctl restart test-cms-raisin && sudo systemctl restart celery_test_cms && sudo systemctl restart celerybeat_test_cms

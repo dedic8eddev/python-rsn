@@ -1,0 +1,42 @@
+{% load i18n %}
+{% load web_extras %}
+
+{% verbatim %}
+<style type="text/css">
+    .capt {
+        float: left;
+        font-size: 15px;
+        line-height: 20px;
+        padding: 5px 10px 5px 0;
+        width: auto;
+        font-weight: 600;
+        margin: 0;
+    }
+</style>
+{% endverbatim %}
+<div class="panel-heading text-left">
+    <div class="row">
+        <div class="col-sm-6 capt">
+            Places: {{ total_records_places }} - <a class="caption-est-comments" href="{% url 'list_est_free_glass' %}">Free Glass</a>
+            - <a class="caption-est-comments" style="font-style: normal;" href="{% url 'edit_free_glass_event' %}">event scheduler</a>
+            {# <h3>{{ pdg_title|safe }}</h3> #}
+        </div>
+        <div class="col-sm-6">
+            <div style="text-align:right; padding-top: 10px;">
+                {% if not is_new and saved_by %}
+                    <span class="panel-title title-bar-saved-by"><strong>{% trans 'Saved on:' %}</strong> {{ saved_at|date:"M d, Y @ H:i" }} {% trans 'by' %} <a href="{% url 'edit_user' id=saved_by.id %}">{% if saved_by.full_name %}{{ saved_by.username }}{% else %}{{ saved_by.username }}{% endif %}</a></span>&nbsp;&nbsp;&nbsp;
+                {% endif %}
+                <div class="btn-group pdg-group">
+                    <button type="submit" class="btn btn-success btn-rounded">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% block pdg_right %}
+    {% endblock pdg_right %}
+
+    {% block pdg_below %}
+    {% endblock pdg_below %}
+</div>

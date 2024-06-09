@@ -1,0 +1,1091 @@
+{% extends 'pro_base/layout.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block meta %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="TheAdmin - Responsive admin and web application ui kit">
+    <meta name="keywords" content="admin, dashboard, web app, sass, ui kit, ui framework, bootstrap">
+{% endblock meta %}
+
+{% block title %}Raisin Pro Admin{% endblock %}
+
+{% block additional_fonts %}
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Comfortaa&display=swap" rel="stylesheet">
+{% endblock additional_fonts %}
+
+{% block additional_scripts %}
+    <script src="{% static 'pro_assets/js/handlers/wine_food/editWineHandler.js' %}"></script>
+    <script src="{% static 'pro_assets/js/handlers/wine_food/editFoodHandler.js' %}"></script>
+    <script src="{% static 'pro_assets/js/handlers/wine_food/inputHandler.js' %}"></script>
+    <script src="{% static 'pro_assets/js/handlers/heic.js' %}"></script>
+    <script src="{% static 'pro_assets/js/handlers/wine_food/imageInputHandler.js' %}"></script>
+    <script>
+        var stats_url = '{% url 'pro_establishment_stats' pid=establishment_id %}',
+            missingImage = "{% static 'pro_assets/img/missing-image.gif' %}",
+            wine_post_url = '{% url "pro_get_winepost" post_id=12345%}',
+            wineNamesArray = get_ajax_list_data("{% url 'pro_typeahead' option='wine_name' %}"),
+            winemakersArray = get_ajax_list_data("{% url 'pro_typeahead' option='winemakers' %}"),
+            wineDomainArray = get_ajax_list_data("{% url 'pro_typeahead' option='domain' %}"),
+            changed = 0;
+    </script>
+    <script src="{% static 'pro_assets/js/handlers/dashboard/dashboardDataHandler.js' %}"></script>
+{% endblock additional_scripts %}
+
+
+{% block body %}
+
+
+    {% include 'pro_base/navigation.html' %}
+
+
+    <!-- Main container -->
+    <!-- Main container -->
+    <main class="main-container">
+        <div class="main-content">
+            <!--
+            <div class="card b-1 hover-shadow-2 mb-20">
+               <a class="media card-body" href="#">
+                   <div class="media-left pr-12">
+                   <h1 style="font-size: 2.85rem;">😎</h1>
+                 </div>
+               <div class="media-body">
+                   <h2 class="text-gray">TL;DR: <span class="text-success">[NAME OF ESTABLISHMENT]</span> is growing like crazy!</h2>
+                   <h3 class="text-gray mt-10">Weekly <i class="fa fa-hand-pointer-o"></i> TAPS is up <span class="text-success">+26</span> from a week ago!</h3>
+               </div>
+               </a>
+               </div>
+           /TL;DR -->
+            <!--<div class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Holy guacamole!</strong> You are rockin' the Casbah! High five!
+              </div>-->
+
+            <!--KEy data -->
+            <div class="row cards-list">
+                <div class="col-lg-3">
+                    <div class="card card-body">
+                        <h6 class="text-uppercase text-gray">Likes</h6>
+                        <div class="flexbox mt-2">
+                            <span class="fa fa-heart text-danger fs-30"></span>
+                            <span class="fs-30">{{ place_like_number }}</span>
+                        </div>
+                        {% if place_likes_diff_month > 0 %}
+                            <div class="fs-18 text-success mt-10">+{{ place_likes_diff_month }} <span class="text-gray">than last month</span>
+                            </div>
+                        {% else %}
+                            <div class="fs-18 text-danger mt-10">{{ place_likes_diff_month }} <span class="text-gray">than last month</span>
+                            </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+
+                <div class="col-lg-3">
+                    <div class="card card-body">
+                        <h6 class="text-uppercase text-gray">Comments</h6>
+                        <div class="flexbox mt-2">
+                            <span class="fa fa-comments text-info fs-30"></span>
+                            <span class="fs-30">{{ place_comment_number }}</span>
+                        </div>
+                        {% if place_comments_diff_month > 0 %}
+                            <div class="fs-18 text-success mt-10">+{{ place_comments_diff_month }} <span
+                                    class="text-gray">than last month</span>
+                            </div>
+                        {% else %}
+                            <div class="fs-18 text-danger mt-10">{{ place_comments_diff_month }} <span
+                                    class="text-gray">than last month</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+
+                <div class="col-lg-3">
+                    <div class="card card-body">
+                        <h6 class="text-uppercase text-gray">Impressions</h6>
+                        <div class="flexbox mt-2">
+                            <span class="fa fa-eye fs-30"></span>
+                            <span class="fs-30">{{ place_impression_number }}</span>
+                        </div>
+                        {% if place_impressions_diff_month > 0 %}
+                            <div class="fs-18 text-success mt-10">+{{ place_impressions_diff_month }} <span
+                                    class="text-gray">than last month</span>
+                            </div>
+                        {% else %}
+                            <div class="fs-18 text-danger mt-10">{{ place_impressions_diff_month }} <span
+                                    class="text-gray">than last month</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+
+                <div class="col-lg-3">
+                    <div class="card card-body">
+                        <h6 class="text-uppercase text-gray">Visits</h6>
+                        <div class="flexbox mt-2">
+                            <span class="fa ti-user fs-30"></span>
+                            <span class="fs-30">{{ place_visit_number }}</span>
+                        </div>
+                        {% if place_visits_diff_month > 0 %}
+                            <div class="fs-18 text-success mt-10">+{{ place_visits_diff_month }} <span
+                                    class="text-gray">than last month</span>
+                            </div>
+                        {% else %}
+                            <div class="fs-18 text-danger mt-10">{{ place_visits_diff_month }} <span class="text-gray">than last month</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <!--/KEy data -->
+
+
+            <div class="col-12 h-50px"></div>
+
+
+            <!--Graph 1 -->
+            <div class="card products-card">
+                <div class="d-flex card-title text-gray graph-title"><h3><i class="fa fa-hand-pointer-o"></i>
+                    <strong>TAPS</strong> on <strong class="text-success">{{ establishment_name }}</strong>'s screen
+                </h3>
+                    {% if place_tap_venue_diff_month > 0 %}
+                        <div class="d-flex info fs-18"><strong
+                                class="text-success">+{{ place_tap_venue_diff_month }}</strong>
+                            &nbsp;from a month ago!
+                        </div>
+                        </div>
+                    {% else %}
+                        <div class="d-flex info fs-18"><strong
+                                class="text-danger">{{ place_tap_venue_diff_month }}</strong> &nbsp;from
+                            a month ago!
+                        </div>
+                        </div>
+                    {% endif %}
+            <div class="row">
+                <div class="col-lg-8">
+
+                    <select class="form-control form-control-sm mt-30 ml-30" id="year_venue" data-provide="selectpicker"
+                            data-width="140">
+                        {% for year in place_stats_years %}
+                            {% if year == cur_year %}
+                                <option selected="selected">{{ year }}</option>
+                            {% else %}
+                                <option>{{ year }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+
+                    <div class="card-body">
+                        <!--              			<div class="morris-hover morris-default-style" style="left: 50%; top: 187px; transform: translateX(-50%); margin-left: 60px;">-->
+                        <!--                			<div class="morris-hover-row-label">May 2019</div><div class="morris-hover-point" style="color: #55aff9">Website: 20</div>-->
+                        <!--                			<div class="morris-hover-point" style="color: #df91f1">Get Direction requests: 8</div>-->
+                        <!--                			<div class="morris-hover-point" style="color: #ff7891">Phone Calls: 4</div>-->
+                        <!--                			<div class="morris-hover-point" style="color: #ffbc5e">opening Hours: 8</div>-->
+                        <!--              			</div>-->
+                        <div class="graph-area" id="graph-taps-establishemnts" data-provide="morris"></div>
+                    </div>
+
+
+                </div>
+                <div class="col-lg-4">
+
+                    <select class="form-control form-control-sm quickview-lg mt-30 mr-30 sm-ml-20" id="donut_venue"
+                            data-provide="selectpicker" data-width="140">
+                        <option value="this_week">This Week</option>
+                        <option value="last_week">Last Week</option>
+                        <option value="this_month" selected="selected">This Month</option>
+                    </select>
+
+
+                    <div class="card-body">
+                        <div class="graph-container">
+                            <div id="donut-taps-establishemnts" class="graph" style="height: 200px;"></div>
+                        </div>
+                    </div>
+
+
+                    <ul class="list-inline chart-legend mr-30">
+                        <li class="flexbox mb-1">
+                            <div>
+                                <span class="badge badge-dot badge-lg mr-1" style="background-color: #55aff9"></span>
+                                <span>Website</span>
+                            </div>
+                            <div id="num_donut_venue_tap_venue_website">{{ place_tap_data.this_month.tap_venue_website }}</div>
+                        </li>
+
+                        <li class="flexbox mb-1">
+                            <div>
+                                <span class="badge badge-dot badge-lg mr-1" style="background-color: #df91f1"></span>
+                                <span>Get Direction requests</span>
+                            </div>
+                            <div id="num_donut_venue_tap_venue_direction">{{ place_tap_data.this_month.tap_venue_direction }}</div>
+                        </li>
+
+                        <li class="flexbox">
+                            <div>
+                                <span class="badge badge-dot badge-lg mr-1" style="background-color: #ff7891"></span>
+                                <span>Phone Calls</span>
+                            </div>
+                            <div id="num_donut_venue_tap_venue_phone">{{ place_tap_data.this_month.tap_venue_phone }}</div>
+                        </li>
+                        <li class="flexbox">
+                            <div>
+                                <span class="badge badge-dot badge-lg mr-1" style="background-color: #ffbc5e"></span>
+                                <span>Opening Hours</span>
+                            </div>
+                            <div id="num_donut_venue_tap_venue_opening">{{ place_tap_data.this_month.tap_venue_opening }}</div>
+                        </li>
+                    </ul>
+
+
+                </div>
+            </div>
+
+        </div>
+        <!--/Graph 1 -->
+
+
+        <div class="col-12 h-50px"></div>
+
+
+        <!--Graph 2 -->
+        <div class="card products-card">
+
+            <div class="d-flex card-title text-gray graph-title"><h3>🤔 How <strong>USERS FOUND</strong> you on Raisin -
+                Taps </h3>
+
+                {% if place_tap_from_diff_month > 0 %}
+                    <div class="d-flex info fs-18"><strong
+                            class="text-success">+{{ place_tap_from_diff_month }}</strong> &nbsp;from
+                        a month ago!
+                    </div>
+                    </div>
+                {% else %}
+                    <div class="d-flex info fs-18"><strong class="text-danger">{{ place_tap_from_diff_month }}</strong>
+                        &nbsp;from a
+                        month ago!
+                    </div>
+                    </div>
+                {% endif %}
+
+        <div class="row">
+            <div class="col-lg-4">
+                <select class="form-control form-control-sm quickview-lg mt-30 ml-30 sm-ml-20"
+                        data-provide="selectpicker" id="donut_from" data-width="140">
+                    <option value="this_week">This Week</option>
+                    <option value="last_week">Last Week</option>
+                    <option value="this_month" selected="selected">This Month</option>
+                </select>
+
+
+                <div class="card-body card-body">
+                    <div class="graph-container">
+                        <div id="where-users-came" class="graph" style="height: 200px;"></div>
+                    </div>
+                </div>
+
+
+                <ul class="list-inline chart-legend ml-30">
+                    <li class="flexbox mb-1">
+                        <div>
+                            <span class="badge badge-dot badge-lg mr-1" style="background-color: #57c7d4"></span>
+                            <span>Venues near by</span>
+                        </div>
+                        <div id="num_donut_from_tap_from_venues_nearby">{{ place_tap_data.this_month.tap_from_venues_nearby }}</div>
+                    </li>
+
+                    <li class="flexbox mb-1">
+                        <div>
+                            <span class="badge badge-dot badge-lg mr-1" style="background-color: #f96197"></span>
+                            <span> Food</span>
+                        </div>
+                        <div id="num_donut_from_tap_from_food">{{ place_tap_data.this_month.tap_from_food }}</div>
+                    </li>
+
+                    <li class="flexbox">
+                        <div>
+                            <span class="badge badge-dot badge-lg mr-1" style="background-color: #926dde"></span>
+                            <span>Wine</span>
+                        </div>
+                        <div id="num_donut_from_tap_from_wines">{{ place_tap_data.this_month.tap_from_wines }}</div>
+                    </li>
+                    <li class="flexbox">
+                        <div>
+                            <span class="badge badge-dot badge-lg mr-1" style="background-color: #eddcd5"></span>
+                            <span>Map</span>
+                        </div>
+                        <div id="num_donut_from_tap_from_map">{{ place_tap_data.this_month.tap_from_map }}</div>
+                    </li>
+                </ul>
+
+            </div>
+
+
+            <div class="col-lg-8">
+                <select class="form-control form-control-sm mt-30 mr-40 sm-ml-20" id="year_from"
+                        data-provide="selectpicker" data-width="140">
+                    {% for year in place_stats_years %}
+                        {% if year == cur_year %}
+                            <option selected="selected">{{ year }}</option>
+                        {% else %}
+                            <option>{{ year }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+
+                <div class="card-body">
+                    <!--              <div class="morris-hover morris-default-style" style="left: 50%; transform: translateX(-50%); top: 92px; margin-left: 56px;">-->
+                    <!--					<div class="morris-hover-row-label">May 2019</div>-->
+                    <!--					<div class="morris-hover-point" style="color: #57c7d4">Venues near by: 34</div>-->
+                    <!--					<div class="morris-hover-point" style="color: #f96197">Food: 24</div>-->
+                    <!--					<div class="morris-hover-point" style="color: #926dde">Wine: 20</div>-->
+                    <!--					<div class="morris-hover-point" style="color: #eddcd5">Map: 19</div>-->
+                    <!--              </div>-->
+                    <div class="graph-area" id="users-found-you" data-provide="morris"></div>
+                </div>
+
+
+            </div>
+        </div>
+        </div>
+        <!--/Graph 2 -->
+
+
+        <div class="col-12 h-50px"></div>
+
+
+        <!-- WINES -->
+        <div class="card products-card">
+
+            <div class="card-header">
+                <h3 class="card-title text-gray"><strong>🍷 Wines</strong></h3>
+                <a class="btn btn-sm btn-light " href="{% url 'pro_wines' %}">See all</a>
+            </div>
+
+
+            <div class="row">
+                <div class="col-xl-6">
+
+                    <!--Wines you have posted -->
+                    <div class="card-body">
+                        <h4 class="card-title text-gray">Latest posted wines</strong></h4>
+
+                        <div class="media-list media-list-hover media-list-divided">
+                            {% for wine in latest_wines %}
+                                <a class="media media-single" id="{{ wine.id }}" name="{{ wine.post_id }}"
+                                   href="#qv-user-details" data-toggle="quickview">
+                                    <img class="w-130px h-130px rounded" src="{{ wine.thumb_image }}" alt="{{ wine.name }}">
+                                    <div class="media-body wines">
+                                        <p class="fs-16"><strong>{{ wine.name }}</strong></p>
+                                        <p class="domain fs-15 mtn-5">{{ wine.domain }}</p>
+                                        <p class="name fs-14 mtn-5">{{ wine.winemakers }}</p>
+                                        <p class="text-fader"><i
+                                                class="fa fa-eye mr-1"></i> {{ wine.impression_number }} impressions
+                                            &nbsp; <i
+                                                    class="fa fa-hand-pointer-o"></i> {{ wine.tap_number }} taps</p>
+                                    </div>
+                                    <small class="bottom-right-icon">{{ wine.modified_time_human }}</small>
+                                    <span class="top-right-icon"><img src="{% static wine.status.0 %}"
+                                                                      alt="{{ wine.status.2 }}"
+                                                                      data-provide="tooltip" data-placement="left"
+                                                                      data-tooltip-color="primary"
+                                                                      title="{{ wine.status.1 }}"/></span>
+                                </a>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                    <!--/Wines you have posted -->
+
+
+                </div>
+
+
+                <div class="col-xl-6">
+
+
+                    <!-- Wines by category -->
+                    <div class="card-body">
+                        <h4 class="card-title text-gray">Wines by category</strong></h4>
+
+
+                        <div class="card-body bl-3 flexbox flex-justified">
+                            <div>
+                                <div class="fs-14 text-muted"><i class="fa fa-eye mr-1"></i> IMPRESSIONS</div>
+                                <div class="fs-25 text-success mt-10">{{ total_wine_impression_number }}</div>
+                            </div>
+                            <div>
+                                <div class="fs-14 text-muted"><i class="fa fa-hand-pointer-o"></i> TAPS</div>
+                                <div class="fs-25 text-success mt-10">{{ total_wine_tap_number }}</div>
+                            </div>
+                            <div>
+                                <div class="fs-14 text-right text-muted">WINES:</div>
+                                <div class="fs-25 fw-100 text-right text-success mt-10">{{ total_wine_number }}</div>
+                            </div>
+                        </div>
+
+
+                        <div class="media-list media-list-hover media-list-divided">
+                            <a class="media media-single" href="{% url 'pro_wines' %}#red">
+                                <img src="{% static 'pro_assets/img/wine-icon-red.png' %}" alt="wine-icon-red"
+                                     width="26" height="26">
+                                <span class="title fs-16">Red</span>
+                                <h5>{{ total_red_wine_number }}</h5>
+                            </a>
+
+                            <a class="media media-single" href="{% url 'pro_wines' %}#white">
+                                <img src="{% static 'pro_assets/img/wine-icon-white.png' %}" alt="wine-icon-white"
+                                     width="26" height="26">
+                                <span class="title fs-16">White</span>
+                                <h5>{{ total_white_wine_number }}</h5>
+                            </a>
+
+                            <a class="media media-single" href="{% url 'pro_wines' %}#pink">
+                                <img src="{% static 'pro_assets/img/wine-icon-pink.png' %}" alt="wine-icon-pink"
+                                     width="26" height="26">
+                                <span class="title fs-16">Rosé</span>
+                                <h5>{{ total_pink_wine_number }}</h5>
+                            </a>
+
+                            <a class="media media-single" href="{% url 'pro_wines' %}#sparkling">
+                                <img src="{% static 'pro_assets/img/wine-icon-sparkling.png' %}"
+                                     alt="wine-icon-sparkling" width="25"
+                                     height="25">
+                                <span class="title fs-16">Sparkling</span>
+                                <h5>{{ total_sparkling_wine_number }}</h5>
+                            </a>
+
+                            <a class="media media-single" href="{% url 'pro_wines' %}#orange">
+                                <img src="{% static 'pro_assets/img/wine-icon-orange.png' %}" alt="wine-icon-orange"
+                                     width="26" height="26">
+                                <span class="title fs-16">Orange</span>
+                                <h5>{{ total_orange_wine_number }}</h5>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /Wines by category -->
+
+            </div>
+        </div>
+        <!--/WINES -->
+
+
+        <div class="col-12 h-50px"></div>
+
+
+        <!-- FOOD -->
+        <div class="card products-card">
+
+            <div class="card-header">
+                <h3 class="card-title text-gray"><strong>🍽️ FOOD</strong></h3>
+                <a class="btn btn-sm btn-light" href="{% url 'pro_food' %}">See all</a>
+            </div>
+
+
+            <div class="row">
+                <div class="col-xl-6">
+                    <!-- Food you have posted -->
+                    <div class="card-body">
+                        <h4 class="card-title text-gray">Latest posted food</h4>
+                        <div class="media-list media-list-hover media-list-divided">
+                            {% for food in latest_foods %}
+                            
+                                <a class="media media-single" href="#food-user" id="{{ food.id }}"
+                                   data-toggle="quickview">
+                                    <img class="w-130px h-130px rounded" src="{{ food.ref_image }}" alt="{{ food.title }}">
+                                    <div class="media-body food">
+                                        <p class="fs-16"><strong>{{ food.title }}</strong></p>
+                                        <p class="name fs-14">{{ food.description }}</p>
+                                        <p class="text"><i class="fa fa-eye mr-1"></i> {{ food.impression_number }}
+                                            impressions &nbsp; <i
+                                                    class="fa fa-hand-pointer-o"></i> {{ food.tap_number }} taps</p>
+                                    </div>
+                                    <span class="top-right-price"><strong>{{ food.modified_time_human }}</strong></span>
+                                </a>
+                            {% endfor %}
+
+                            <!--                        <a class="media media-single" href="#food-user-details-food" data-toggle="quickview">-->
+                            <!--                            <img class="w-80px rounded" src="assets/img/food/food-2.jpg" alt="...">-->
+                            <!--                            <div class="media-body food">-->
+                            <!--                                <p class="fs-16"><strong>Wild Salmon</strong></p>-->
+                            <!--                                <p class="name fs-14">White asparagus, Mussels, Pistachio, Majoram.</p>-->
+                            <!--                                <p class="text"><i class="fa fa-eye mr-1"></i> 38 impressions &nbsp; <i-->
+                            <!--                                        class="fa fa-hand-pointer-o"></i> 11 taps</p>-->
+                            <!--                            </div>-->
+                            <!--                            <span class="top-right-price"><strong>08/08/2019</strong></span>-->
+                            <!--                        </a>-->
+
+                            <!--                        <a class="media media-single" href="#food-user-details-food" data-toggle="quickview">-->
+                            <!--                            <img class="w-80px rounded" src="assets/img/food/food-11.jpg" alt="...">-->
+                            <!--                            <div class="media-body food">-->
+                            <!--                                <p class="fs-16"><strong>Mackerel Ceviche / Yuzu</strong></p>-->
+                            <!--                                <p class="name fs-14">Mackerel Ceviche, Yuzu</p>-->
+                            <!--                                <p class="text"><i class="fa fa-eye mr-1"></i> 22 impressions &nbsp; <i-->
+                            <!--                                        class="fa fa-hand-pointer-o"></i> 8 taps</p>-->
+                            <!--                            </div>-->
+                            <!--                            <span class="top-right-price"><strong>07/08/2019</strong></span>-->
+                            <!--                        </a>-->
+                            <!--<a class="media media-single" href="#">
+                              <img class="w-80px rounded" src="assets/img/food/food-4.jpg" alt="...">
+                              <div class="media-body food">
+                                <h4>Wild vegetable</h4>
+                                <h5 class="text-fader">Mackerel, Wild Brocoli, Mackerel water, Dill.</h5>
+                                 <p class="text-fader"><i class="fa fa-eye mr-1"></i> 28 impressions &nbsp; <i class="fa fa-hand-pointer-o"></i> 6 taps</p>
+                              </div>
+                              <small class="bottom-right-icon">04/08/2019</small>
+                              <span class="top-right-price"><strong>11 €</strong></span>
+                            </a>-->
+                        </div>
+
+                    </div>
+                    <!--/Food you have posted -->
+
+
+                </div>
+
+
+                <div class="col-xl-6">
+
+
+                    <!-- Users engagement on Food -->
+                    <div class="card-body">
+                        <div class="card-header">
+                            <h4 class="card-title text-gray">Users engagement on Food</strong></h4>
+                        </div>
+
+                        <div class="table-responsive-md">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Dishes</th>
+                                    <th><i class="fa fa-eye mr-1"></i></th>
+                                    <th><i class="fa fa-hand-pointer-o"></i></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for food in latest_foods_users %}
+                                    <tr>
+                                        <td>{{ food.modified_time_human }}</td>
+                                        <td>
+                                            <div class="media">
+                                                <img class="avatar rounded" src="{{ food.ref_image }}"
+                                                     alt="{{ food.title }}"
+                                                     width="480" height="480"/>
+                                                <div class="media-body">
+                                                    <p class="lh-1"><strong>{{ food.title }}</strong></p>
+                                                    <p class="fs-13">{{ food.description }} </p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>{{ food.impression_number }}</td>
+                                        <td>{{ food.tap_number }}</td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /Users engagement on Food -->
+
+            </div>
+        </div>
+        <!--/FOOD -->
+
+
+        <div class="col-12 h-50px"></div>
+
+
+        </div><!--/.main-content -->
+
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="text-center text-md-left">Copyright © 2019 <a href="https://www.raisin.digital">Raisin
+                        SAS</a>.
+                        All rights reserved.</p>
+                </div>
+
+                <div class="col-md-6">
+                    <ul class="nav nav-primary nav-dotted nav-dot-separated justify-content-center justify-content-md-end">
+                        <li class="nav-item">
+                            <a class="nav-link" href="mailto:pro@raisin.digital">Help</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="faq.html">FAQ</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+        <!-- END Footer -->
+
+    </main>
+    <!-- END Main container -->
+
+
+    <!-- Global quickview -->
+    <div id="qv-global" class="quickview" data-url="../assets/data/quickview-global.html">
+        <div class="spinner-linear">
+            <div class="line"></div>
+        </div>
+    </div>
+    <!-- END Global quickview -->
+
+
+    <!-- Quickview - Add invoice -->
+    <div id="qv-invoice-add" class="quickview quickview-lg">
+        <header class="quickview-header">
+            <p class="quickview-title lead fw-400">Create new invoice</p>
+            <span class="close"><i class="ti-close"></i></span>
+        </header>
+
+        <div class="quickview-body">
+
+            <div class="quickview-block form-type-material">
+
+                <h5 class="text-gray">Details</h5>
+                <div class="form-group">
+                    <input type="text" class="form-control">
+                    <label>Client</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control">
+                    <label>Invoice Number</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" data-provide="datepicker">
+                    <label>Invoice Date</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" data-provide="datepicker">
+                    <label>Due Date</label>
+                </div>
+
+                <div class="form-group input-group">
+                    <div class="input-group-input">
+                        <input type="text" class="form-control">
+                        <label>Discount</label>
+                    </div>
+                    <select data-provide="selectpicker">
+                        <option>Percent</option>
+                        <option>Amount</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <textarea class="form-control" rows="3"></textarea>
+                    <label>Note to client</label>
+                </div>
+
+                <div class="h-40px"></div>
+
+                <h6>Products</h6>
+
+                <div class="form-group input-group align-items-center">
+                    <select title="Item" data-provide="selectpicker" data-width="100%">
+                        <option>Website design</option>
+                        <option>PSD to HTML</option>
+                        <option>Website re-design</option>
+                        <option>UI Kit</option>
+                        <option>Full Package</option>
+                    </select>
+                    <div class="input-group-input">
+                        <input type="text" class="form-control">
+                        <label>Quantity</label>
+                    </div>
+
+                    <a class="text-danger pl-12" id="btn-remove-item" href="#" title="Remove" data-provide="tooltip"><i
+                            class="ti-close"></i></a>
+                </div>
+
+                <a class="btn btn-sm btn-primary" id="btn-new-item" href="#"><i class="ti-plus fs-10"></i> New item</a>
+
+            </div>
+        </div>
+
+        <footer class="p-12 text-right">
+
+            <button class="btn btn-flat btn-secondary" type="button" data-toggle="quickview">Cancel</button>
+            <button class="btn btn-flat btn-primary" type="submit">Create invoice</button>
+        </footer>
+    </div>
+    <!-- END Quickview - Add user -->
+
+
+    <!-- WINE Quickview - User detail -->
+    <form action="{% url 'pro_post_wine' %}" id="edit-form" method="POST" autocomplete="off" novalidate>
+        {% csrf_token %}
+        <div id="qv-user-details" class="quickview quickview-lg wineslider">
+            <header class="quickview-header">
+                <h3>
+                    <stong>Edit WINE information</stong>
+                </h3>
+                <span class="close"><i class="ti-close"></i></span>
+            </header>
+            <div class="quickview-body">
+                <div class="quickview-block form-type-material">
+
+
+                    <div class="row">
+                        <div class="col-sm-4" id="wine-img-container">
+                            <img class="w-130px h-130px rounded" src="{% static 'pro_assets/img/wines/vins-1.jpg' %}"
+                                 alt="VN (red)">
+                        </div>
+                        <div class="col-sm-8">
+
+                            <div class="file-group file-group-inline">
+                                <button class="btn btn-square btn-danger" type="button" id="image-delete"><i
+                                        class="fa fa-trash-o"></i></button>
+                                <input type="hidden" id="picture-removed" name="picture-removed" value=""/>
+                                <button class="btn btn-secondary file-browser" type="button">MODIFY image</button>
+                                <input type="file" id="modify-image-edit" name="imageFile">
+                                <p class="mt-10 files-info">
+                                    <small>We accept files in PNG, JPG, JPEG or GIF format,<br/>up to 5 MB+</small>
+                                </p>
+                                <p id="extension-error-edit" style="display:none; color:#FF0000;">Invalid Image
+                                    Format.</p>
+                                <p id="size-error-edit" style="display:none; color:#FF0000;">Maximum File Size Limit
+                                    is
+                                    5MB.</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <br>
+
+
+                    <div class="form-group">
+                        <div class="typeahead__container">
+                            <div class="typeahead__field">
+                                <div class="typeahead__query" id="wine-name">
+                                    <input class="form-control name-typeahead" id="name-typeahead" name="wineName"
+                                           type="search" value="VN (red)" autocomplete="off">
+                                    <label>Wine Name</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p id="name-error" style="display:none; color:#FF0000;">Select Wine Name.</p>
+
+                    <br>
+                    <div class="form-group">
+                        <div class="typeahead__container">
+                            <div class="typeahead__field">
+                                <div class="typeahead__query" id="wine-maker">
+                                    <input class="form-control winemakers-typeahead" id="winemakers-typeahead"
+                                           name="wineWinemaker" type="search"
+                                           value="Massimo Marchiori & Antonella Gerosa" autocomplete="off">
+                                    <label>Winemaker(s)</label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <p id="winemakers-error" style="display:none; color:#FF0000;">Select Winemaker(s).</p>
+
+
+                    <br>
+                    <div class="form-group">
+                        <div class="typeahead__container">
+                            <div class="typeahead__field">
+                                <div class="typeahead__query" id="wine-domain">
+                                    <input class="form-control domain-typeahead" id="domain-typeahead"
+                                           name="wineDomain"
+                                           type="search" value="Partida Creus" autocomplete="off">
+                                    <label>Domain Name</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p id="domain-error" style="display:none; color:#FF0000;">Select Domain.</p>
+
+                    <br>
+                    <div class="form-group" id="wine-year">
+                        <input type="number" class="form-control" value="2018"
+                               id="wine-year-id">
+                        <label>Vintage</label>
+                    </div>
+                    <p id="year-error" style="display:none; color:#FF0000;">Invalid Year Format.</p>
+
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="form-group form-type-material form-control-lg">
+                                <select class="form-control" data-provide="selectpicker" id="wineColor"
+                                        name="wineColor">
+                                    <option data-icon="wine-icon ic-red" value="10">Red</option>
+                                    <option data-icon="wine-icon ic-white" value="20">White</option>
+                                    <option data-icon="wine-icon ic-pink" value="30">Rosé</option>
+                                    <option data-icon="wine-icon ic-orange" value="40">Orange</option>
+                                </select>
+                                <label>Color</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 mt-15">
+                            <div class="form-group">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="sparkling"
+                                           name="isSparkling">
+                                    <label class="custom-control-label lowercase" for="sparkling">Sparkling</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="form-group mt-5" id="wine-grape-variety">
+                        <input type="text" class="form-control"
+                               value="Grenache, Garrut, Queixal de Llop, Samsó, Sumoll Rouge, Trepat, Ull de Perdiu"
+                               id="wine-grape-variety" name="wineGrapeVariety">
+                        <label>Grape Variety</label>
+                    </div>
+                    <br>
+                    <div class="form-group mb-0" id="wine-comment">
+                            <textarea class="form-control" id="wine-comment-input" name="wineComment"
+                                      rows="3"></textarea>
+                        <label>Add a comment
+                            <small>(to moderator on Raisin)</small>
+                        </label>
+                    </div>
+                    <input type="hidden" id="wine-id" name="wineId">
+                    <input type="hidden" id="post-id" name="postId">
+                    <input type="hidden" id="wine-color-input" name="wineColorInput">
+                    <input type="hidden" id="wine-sparkling-input" name="wineSparklingInput" value="null">
+
+                </div>
+            </div>
+
+            <footer class="p-12 flexbox flex-justified">
+                <button type="button" class="btn btn-w-md btn-bold btn-danger" data-toggle="modal"
+                        data-target="#modal-default">DELETE
+                </button>
+                <button class="btn btn-w-md btn-bold btn-secondary" type="button" data-toggle="quickview">Cancel
+                </button>
+                <button type="submit" class="btn btn-w-md btn-bold btn-success" id="post-edit" name="postType"
+                        value="edit">UPDATE
+                </button>
+            </footer>
+
+        </div>
+    </form>
+    <!-- END WINE Quickview - User detail -->
+
+
+    <!-- WINE Quickview - User detail -->
+    <div id="food-user-details" class="quickview quickview-lg wineslider">
+        <header class="quickview-header">
+            <p class="quickview-title lead fw-400">Edit FOOD</p>
+            <span class="close"><i class="ti-close"></i></span>
+        </header>
+
+        <div class="quickview-body">
+
+
+            <div class="quickview-block form-type-material">
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <img class="w-130px h-130px rounded" src="{% static 'pro_assets/img/food/food-1.jpg' %}"
+                             alt="VN (red)">
+                    </div>
+                    <div class="col-sm-8">
+
+                        <div class="file-group file-group-inline">
+                            <button class="btn btn-success file-browser" type="button">MODIFY Image</button>
+                            <input type="file">
+                            <p class="mt-10 files-info">
+                                <small>We accept files in PNG, JPG or GIF format,<br/>up to 5
+                                    MB+
+                                </small>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <input type="text" class="form-control" value="Mackerel Ceviche / Yuzu">
+                    <label>Name</label>
+                </div>
+
+
+                <div class="form-group">
+                    <textarea class="form-control" rows="3">Ceviche, Mackerel from Boulogne sur Mer</textarea>
+                    <label>Ingredients</label>
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer class="p-12 flexbox flex-justified">
+
+            <button class="btn btn-w-md btn-bold btn-secondary" type="button" data-toggle="quickview">Cancel</button>
+            <button class="btn btn-w-md btn-bold btn-success">UPDATE</button>
+
+        </footer>
+    </div>
+
+    <!-- END WINE Quickview - User detail -->
+    <div class="modal fade" id="save" tabindex="-1" data-backdrop="static" role="dialog"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="lead"><strong>NEW INFORMATION NOT SAVED!</strong></p>
+                    <p class="lead mb-0">Would you like to save before exiting?</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="dismiss" class="btn btn-secondary" data-dismiss="modal">NO
+                    </button>
+                    <button type="button" id="no-dismiss" class="btn btn-success" data-dismiss="modal">YES
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form id="edit-form2" action="{% url 'pro_post_wine' %}" method="POST" autocomplete="off">
+        {% csrf_token %}
+        <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             style="display: none;" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p class="lead"><strong>DELETE this POST?</strong></p>
+                        <p class="lead mb-0">You will no longer have access to it.</p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                        <button type="button" class="btn btn-danger" id="post-delete" name="postType"
+                                value="delete">DELETE
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="post-id-delete" name="postId">
+    </form>
+    <form id="edit-form3" action="{% url 'pro_post_food' %}" method="POST" autocomplete="off">
+        {% csrf_token %}
+        <div class="modal fade" id="modal-default-food" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             style="display: none;" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p class="lead"><strong>DELETE this POST?</strong></p>
+                        <p class="lead mb-0">You will no longer have access to it.</p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                        <button type="submit" class="btn btn-danger" id="post-delete-food" name="postType"
+                                value="delete">DELETE
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="food-id-delete" name="foodId">
+    </form>
+
+    <!-- FOOD Quickview - User detail -->
+    <form action="{% url 'pro_post_food' %}" id="edit-form" method="POST" autocomplete="off"
+          enctype="multipart/form-data">
+        {% csrf_token %}
+        <div id="food-user" class="quickview quickview-lg wineslider" name="foodId">
+            <header class="quickview-header" id="foodId">
+                <p class="quickview-title lead fw-400">Edit FOOD</p>
+                <span class="close"><i class="ti-close"></i></span>
+            </header>
+
+            <div class="quickview-body">
+
+
+                <div class="quickview-block form-type-material">
+
+                    <div class="row">
+                        <div class="col-sm-4" id="food-img-container">
+                            <img class="w-130px h-130px rounded" id="food-image"
+                                 src="{% static 'pro_assets/img/food/food-void-min.png' %}"
+                                 alt="VN (red)">
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="file-group file-group-inline">
+                                <button class="btn btn-square btn-danger" type="button" id="image-delete-food"><i
+                                        class="fa fa-trash-o"></i></button>
+                                <input type="hidden" id="picture-removed-food" name="picture-removed" value=""/>
+                                <button class="btn btn-secondary file-browser" type="button">MODIFY image</button>
+                                <input type="file" id="modify-image-edit-food" name="imageFile">
+                                <p class="mt-10 files-info">
+                                    <small>We accept files in PNG, JPG, JPEG or GIF format,<br/>up to 5 MB+</small>
+                                </p>
+                                <p id="extension-error-edit" style="display:none; color:#FF0000;">Invalid Image
+                                    Format.</p>
+                                <p id="size-error-edit" style="display:none; color:#FF0000;">Maximum File Size Limit is
+                                    5MB.</p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="food-name-edit" name="foodName"
+                               value="Mackerel Ceviche / Yuzu">
+                        <label>Name</label>
+                    </div>
+                    <p id="name-error-edit" style="display:none; color:#FF0000;">This Field Cannot Be Empty.</p>
+
+                    <br>
+
+                    <div class="form-group">
+                        <textarea class="form-control" id="food-description-edit" name="foodDescription" rows="3">Ceviche, Mackerel from Boulogne sur Mer</textarea>
+                        <label>Ingredients</label>
+                    </div>
+                    <p id="description-error-edit" style="display:none; color:#FF0000;">This Field Cannot Be Empty.</p>
+                    <input type="hidden" id="food-id" name="foodId">
+
+
+                </div>
+
+            </div>
+
+            <footer class="p-12 flexbox flex-justified">
+                <button type="button" class="btn btn-w-md btn-bold btn-danger" data-toggle="modal"
+                        data-target="#modal-default-food">DELETE
+                </button>
+                <button class="btn btn-w-md btn-bold btn-secondary" type="button" data-toggle="quickview">Cancel
+                </button>
+                <button type="submit" class="btn btn-w-md btn-bold btn-success" id="post-edit-food" name="postType"
+                        value="edit">UPDATE
+                </button>
+            </footer>
+        </div>
+    </form>
+    <!-- END FOOD Quickview - User detail -->
+
+
+{% endblock body %}

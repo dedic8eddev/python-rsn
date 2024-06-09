@@ -1,0 +1,64 @@
+{% load widget_tweaks %}
+{% load static %}
+{% load i18n %}
+
+<form action="{% url 'pro_post_food' %}" id="food-add-form" method="POST" autocomplete="off" enctype="multipart/form-data">
+    {% csrf_token %}
+    <!-- Quickview - Add product -->
+    <div id="qv-product-add" class="quickview quickview-lg wineslider">
+        <header class="quickview-header">
+            <p class="quickview-title lead fw-400">{% trans 'Add FOOD' %}</p>
+            <span class="close"><i class="ti-close"></i></span>
+        </header>
+
+        <div class="quickview-body">
+            <div class="quickview-block form-type-material">
+
+                <div class="row">
+                    <div class="col-sm-4 format-image">
+                        <img class="w-130px h-130px rounded" id="food-image-add"
+                             src="{% static 'pro_assets/img/food/food-void-min.png' %}" alt="food">
+                    </div>
+                    <div class="col-sm-8">
+
+                        <div class="file-group file-group-inline">
+                            <button class="btn btn-secondary file-browser" type="button">{% trans 'ADD Image' %}</button>
+                            <input type="file" id="modify-image-add-food" name="imageFile">
+                            <p class="mt-10 files-info">
+                                <small>
+                                    {% trans 'We accept files in PNG, JPG, JPEG or GIF format,<br/>up to 5 MB+' %}
+                                </small>
+                            </p>
+                            <p id="extension-error-add" style="display:none; color:#FF0000;">{% trans 'Invalid Image Format.' %}</p>
+                            <p id="size-error-add" style="display:none; color:#FF0000;">{% trans 'Maximum File Size Limit is 5MB.' %}</p>
+                            <p id="missing-image-error-add" style="display:none; color:#FF0000;">{% trans 'Please, provide an image' %} 📷</p>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="food-name-add" name="foodName">
+                    <label>{% trans 'Name' %}</label>
+                </div>
+                <p id="name-error-add" style="display:none; color:#FF0000;">{% trans 'This Field Cannot Be Empty.' %}</p>
+
+                <div class="form-group">
+                    <textarea class="form-control" rows="3" id="food-description-add"
+                              name="foodDescription"></textarea>
+                    <label>{% trans 'Ingredients' %}</label>
+                </div>
+                <p id="description-error-add" style="display:none; color:#FF0000;">{% trans 'This Field Cannot Be Empty.' %}</p>
+            </div>
+
+        </div>
+
+        <footer class="p-12 flexbox flex-justified">
+            <button class="btn btn-w-md btn-bold btn-secondary" type="button" data-toggle="quickview">
+                {% trans 'Cancel' %}
+            </button>
+            <button class="btn btn-w-md btn-bold btn-success" type="button" id="post-add" name="postType"
+                    value="add">{% trans 'POST' %}
+            </button>
+        </footer>
+    </div>
+</form>

@@ -1,0 +1,2509 @@
+Raisin API for Raisin Application - description, v. 1.0.9
+Created at: 2016-10-19
+
+Author: Krzysztof Sobolewski <krzysztof.sobolewski@gmail.com>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+User-related methods
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    - registration 
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/users/register
+        method: POST
+
+        Sample CURL query:
+            curl -X POST -d '{"email": "tester333@test.com", "username" : "test333", "password": "abcd"}' http://localhost:8000/api/users/register
+            curl -X POST -d '{"email": "krzychu_25@o2.pl", "username" : "krzych666", "password": "abcd"}' http://localhost:8000/api/users/register
+
+        fields:
+            email
+            password - why there is no "repeat password" ???
+            username
+
+        result data:
+            status
+            date
+
+        status codes:
+            OK - HTTP CODE 200: 
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                RESULT_ALREADY_EXISTS = 103 - if duplicate username
+                RESULT_ERROR = 102 - some other error occurred
+
+
+    - login
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/users/login
+        method: POST
+
+        fields: - (none, header "Basic" authorization used)
+
+        Sample CURL query:
+        curl -X POST -H "Content-Type: application/json" --user owner1234:abcd -d '{}' https://devbackend.alsoft.pl/api/users/login
+        eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiN2Y5MjNkNTEtZmMxYi00YmZlLWJkMGYtNjNkMTk2ODhiZDkxIiwiZW1haWwiOiJvd25lcjEyMzRAZXhhbXBsZS5jb20iLCJodHRwX3Jvb3QiOiJodHRwOi8vbG9jYWxob3N0IiwiZXhwIjoxODk4MTk5MTkyLCJ1c2VybmFtZSI6Im93bmVyMTIzNCJ9.-f6wsIJoMhLIV35xQtxGzaNhcMD7fn7KElcUtqPgwww
+
+        curl -X POST  -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiN2Y5MjNkNTEtZmMxYi00YmZlLWJkMGYtNjNkMTk2ODhiZDkxIiwiZW1haWwiOiJvd25lcjEyMzRAZXhhbXBsZS5jb20iLCJodHRwX3Jvb3QiOiJodHRwOi8vbG9jYWxob3N0IiwiZXhwIjoxODk4MTk5MTkyLCJ1c2VybmFtZSI6Im93bmVyMTIzNCJ9.-f6wsIJoMhLIV35xQtxGzaNhcMD7fn7KElcUtqPgwww" -F 'data={"title": "food1", "description": "abc, def, ghi", "venue_id": 545}' -F "images=@/Users/ksobolewski/Pictures/sample-pics/logo-test-7.png" https://devbackend.alsoft.pl/api/posts/general/add
+        curl -X POST  -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiN2Y5MjNkNTEtZmMxYi00YmZlLWJkMGYtNjNkMTk2ODhiZDkxIiwiZW1haWwiOiJvd25lcjEyMzRAZXhhbXBsZS5jb20iLCJodHRwX3Jvb3QiOiJodHRwOi8vbG9jYWxob3N0IiwiZXhwIjoxODk4MTk5MTkyLCJ1c2VybmFtZSI6Im93bmVyMTIzNCJ9.-f6wsIJoMhLIV35xQtxGzaNhcMD7fn7KElcUtqPgwww" -F 'data={"name": "wineXXX", "winemaker_name": "TesterBlablaXXX", "color": 10, "grape_variety": "shiraz", "domain": "Blabla landXXX" }' -F "images=@/Users/ksobolewski/Pictures/sample-pics/logo-test-7.png" https://devbackend.alsoft.pl/api/posts/wine/addnew
+
+            curl -X POST -H "Content-Type: application/json" --user admin@example.com:adel -d '{}' http://127.0.0.1:8000/api/users/login
+
+            empty JSON data string (-d '{}') is necessary, since otherwise the system throws the followingerror message instead of correct login data:
+            {
+                "date": "2016-08-12T18:53:11Z",
+                "errorCode": 99,
+                "errorMessage": "invalid literal for int() with base 10: ''",
+                "host": "localhost",
+                "protocol_version": 1,
+                "server_version": 1,
+                "success": false
+            }
+
+        Status codes:
+            STATUS_OK = 100
+            
+            WRONG_AUTH = 111 - wrong credentials provided
+            RESULT_ERROR = 102 - other error occurred
+
+
+
+        Sample result data:
+            "data": {
+                "exp": "2026-10-15T11:55:37Z",
+                "refresh_token": "cc58bc6720b1ab82af149ad611b4c70be0a2d595",
+                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwX3Jvb3QiOiJodHRwOi8vbG9jYWxob3N0IiwiZXhwIjoxNzkyMDY1MzM3LCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwidXNlcl9pZCI6ImRkMDNhZDZjLTZlMWYtNGYyZC1iODFhLWY3YmE3NTQ3ZGY5NSIsInVzZXJuYW1lIjoiYWRtaW4ifQ.CSYfBFaCVh1I33uscAdA2YVzqdJ7P92t6ruF9GrFD8g",
+                "user": {
+                    "all_posts_number": 1,
+                    "comment_number": 13,
+                    "created_time": "2016-10-14T02:10:04Z",
+                    "description": null,
+                    "drank_it_too_number": 1,
+                    "email": "admin@example.com",
+                    "full_name": "admin adminer",
+                    "id": "dd03ad6c-6e1f-4f2d-b81a-f7ba7547df95",
+                    "image": "http://localhost:8000/media/users/jhb.jpg",
+                    "is_confirmed": false,
+                    "likevote_number": 1,
+                    "modified_time": "2016-10-14T02:10:04Z",
+                    "notify_comments": false,
+                    "notify_drank_it_toos": false,
+                    "notify_likes": false,
+                    "notify_wine_reviewed": false,
+                    "post_number": 0,
+                    "star_review_number": 1,
+                    "status": 10,
+                    "type": 30,
+                    "username": "admin",
+                    "website_url": null,
+                    "wine_post_number": 1
+                }
+            },
+            "date": "2016-10-17T11:55:37Z",
+            "host": "localhost",
+            "status": 100,
+            "success": true
+        }
+
+
+        Result data conditions:
+            "success" : true/false
+
+            if true
+                status: 100 (STATUS_OK)
+                data.exp - token ("long token") expiration date 
+                data.token - newly generated (refreshed) token used for authorization ("long token")
+                data.refresh_token - the same refresh token we have used
+                data.user - serialized user data (UserProfile.to_dict())
+
+                Example: see above ("Sample result data")
+
+            if false
+                "errorCode" : (int)NN - error code generated by the jwt_auth system
+                "errorMessage" : error message generated by the jwt_auth system
+
+                Example: (status 111 - WRONG_AUTH)
+                {
+                    "date": "2016-08-12T23:10:08Z",
+                    "errorCode": 93,
+                    "errorMessage": "Invalid username/password.",
+                    "host": "localhost",
+                    "protocol_version": 1,
+                    "server_version": 1,
+                    "status": 111,
+                    "success": false
+                }
+
+
+    - refresh-token
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/users/refresh-token
+        method: POST
+
+        fields:
+            refresh_token : XXXXXXXXXXXXXX
+
+        sample CURL query: 
+            curl -X POST -d '{"refresh_token": "9c8a637264bc86e0494e757f221bcc229602c886"}' http://127.0.0.1:8000/api/users/refresh-token
+
+
+        status codes:
+            STATUS_OK = 100
+            
+            WRONG_PARAMETERS = 101 - no refresh_token parameter provided or it was provided empty
+            WRONG_AUTH = 111 - wrong token was provided
+            RESULT_ERROR = 102 - other error occurred
+
+
+        sample result data:
+        {
+            "data": {
+                "exp": "2016-08-12T18:49:00.018841Z",
+                "refresh_token": "9c8a637264bc86e0494e757f221bcc229602c886",
+                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwidXNlcl9pZCI6ImJjMzUxZGIyLTg3MTMtNDMzNy05MDZhLTJlMmZhOTUwNGVlZCIsImV4cCI6MTQ3MTAyNzc0MCwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.yExzQqu2xBBKGlEkV0chiJrwN2ISCYXe23O7GMOYtXQ",
+                "user": {
+                    "created_time": "2016-08-12T10:02:46.980103Z",
+                    "description": null,
+                    "email": "admin@example.com",
+                    "full_name": "admin adminer",
+                    "id": "bc351db2-8713-4337-906a-2e2fa9504eed",
+                    "modified_time": "2016-08-12T10:02:46.980112Z",
+                    "status": 10,
+                    "type": 30,
+                    "username": "admin",
+                    "website_url": null
+                }
+            },
+            "date": "2016-08-12T18:44:00Z",
+            "host": "localhost",
+            "protocol_version": 1,
+            "server_version": 1,
+            "success": true,
+            "status": 100
+        }
+
+        Result data conditions:
+            "success" : true/false
+
+            if true
+                data.exp - token ("long token") expiration date 
+                data.token - newly generated (refreshed) token used for authorization ("long token")
+                data.refresh_token - the same refresh token we have used
+                data.user - serialized user data (UserProfile.to_dict())
+                status: 100 (STATUS_OK)
+
+            Example:
+            {
+                "data": {
+                    "exp": "2016-08-12T18:53:27.628951Z",
+                    "refresh_token": "9c8a637264bc86e0494e757f221bcc229602c886",
+                    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwidXNlcl9pZCI6ImJjMzUxZGIyLTg3MTMtNDMzNy05MDZhLTJlMmZhOTUwNGVlZCIsImV4cCI6MTQ3MTAyODAwNywiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.LNWCsb65SWKAGW4i3BBzeZNIDbl5Lh793EqOnMwweEQ",
+                    "user": {
+                        "created_time": "2016-08-12T10:02:46.980103Z",
+                        "description": null,
+                        "email": "admin@example.com",
+                        "full_name": "admin adminer",
+                        "id": "bc351db2-8713-4337-906a-2e2fa9504eed",
+                        "modified_time": "2016-08-12T10:02:46.980112Z",
+                        "status": 10,
+                        "type": 30,
+                        "username": "admin",
+                        "website_url": null
+                    }
+                },
+                "date": "2016-08-12T18:48:27Z",
+                "host": "localhost",
+                "protocol_version": 1,
+                "server_version": 1,
+                "status": 100,
+                "success": true
+            }
+
+            if false:
+                "errorCode" : (int)NN - error code generated by the jwt_auth system
+                "errorMessage" : error message generated by the jwt_auth system
+                "status": <> 100 (NOT "STATUS_OK")
+                Example:
+                    {
+                        "date": "2016-08-12T23:10:08Z",
+                        "errorCode": 93,
+                        "errorMessage": "Invalid username/password.",
+                        "host": "localhost",
+                        "protocol_version": 1,
+                        "server_version": 1,
+                        "status": 111,
+                        "success": false
+                    }
+
+
+
+    - reset password/ forgot password
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/users/resetpass
+        method: POST
+
+        sample CURL query:
+            curl -X POST -d '{"username": "jhb@raisin.digital"}' http://146.185.166.173:8000/api/users/resetpass -v
+            curl -X POST -d '{"username": "jhb@raisin.digital"}' http://localhost:8000/api/users/resetpass -v
+
+        fields:
+            username
+
+
+        result data:
+            status
+            date
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                RESULT_ERROR = 102 - no user exists OR has wrong status
+
+
+    - logout
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/users/logout
+        method: POST
+
+        fields:
+            refresh_token
+
+        result data:
+            status
+            date
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - other error occurred
+
+
+    - user profile - get user XXX
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/users/profile/any/get
+        method: POST
+
+        Headers: 
+            Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX (you put the "long" token here, NOT the refresh token!)
+
+        fields:
+            user_id OR username - only ONE is needed. If both are provided, username takes precedence.
+
+            flags whether to display user's likes, drank-it-toos, general posts, wineposts and comments:
+                get_likes = 0/1
+                get_drank_it_toos = 0/1
+                get_general_posts = 0/1
+                get_wineposts = 0/1
+                get_comments = 0/1
+
+            NOTICE: you don't have to include the field if the flag is "0" (ie. you don't want to display
+                a particular list of related entities for the user). You only have to include the
+                field if you want to display a particular list of related entities. 
+
+        Sample CURL query:
+            With user_id:
+            ~~~~~~~~~~~~~~~~~~
+            curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" -d '{"user_id" : "6c05fd48-ea34-4c42-a140-d909dbdfc230", "get_likes": "1"}' http://localhost:8000/api/users/profile/any/get
+
+            With username:
+            ~~~~~~~~~~~~~~~~~~
+            curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" -d '{"get_likes": 1, "get_comments": 1, "get_wineposts" : "1", "get_drank_it_toos": 1, "get_general_posts": 1, "username" : "jhb" }' http://localhost:8000/api/users/profile/any/get
+
+
+        result data:
+            status
+            date
+
+            data
+                photo
+                full name - firstname + lastname 
+                username
+                website
+                description
+
+                number of star reviews
+                number of wine posts
+                number of likes posted
+                number of drank-it-toos
+
+                lists of posts with photos:
+                    comments
+                    general posts
+                    wine posts
+                    likes (posts liked)
+                    drank it toos (wine posts drank-it-tooed)
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - other error occurred
+
+
+    - user profile - get OWN profile
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/users/profile/own/get
+        Method: POST
+        
+        Headers: 
+            Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX (you put the "long" token here, NOT the refresh token!)
+
+        fields: 
+            flags whether to display user's likes, drank-it-toos, general posts, wineposts and comments:
+                get_likes = 0/1
+                get_drank_it_toos = 0/1
+                get_general_posts = 0/1
+                get_wineposts = 0/1
+                get_comments = 0/1
+
+            NOTICE: you don't have to include the field if the flag is "0" (ie. you don't want to display
+                a particular list of related entities for the user). You only have to include the
+                field if you want to display a particular list of related entities. 
+
+        Sample CURL query:
+            curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiYmMzNTFkYjItODcxMy00MzM3LTkwNmEtMmUyZmE5NTA0ZWVkIiwiaHR0cF9yb290IjoaHR0cDovL2xvY2FsaG9zdCIsInVzZXJuYW1lIjoiYWRtaW4iLCJleHAiOjE0NzEwMzA2NDIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.oqY4skYlIHQNTMvsxi5oTUueUxgUxS5xKZ-JdqCusFU" -d '{"get_likes": "1"}' http://localhost:8000/api/users/profile/own/get
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - other error occurred
+
+        Sample result data:
+            status
+            date
+
+            data
+                photo
+                full name - firstname + lastname 
+                username
+                website
+                description
+
+                number of star reviews
+                number of wine posts
+                number of likes posted
+                number of drank-it-toos
+
+                lists of posts with photos:
+                    general posts
+                    comments
+                    wine posts
+                    likes (posts liked)
+                    drank it toos (wine posts drank-it-tooed)
+
+
+    - user profile - delete OWN profile
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/users/profile/own/delete
+        Method: POST
+        
+        Headers: 
+            Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX (you put the "long" token here, NOT the refresh token!)
+
+        fields: None
+
+        Sample CURL query:
+            curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" -d '{}' http://localhost:8000/api/users/profile/own/delete
+
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - user has already been deleted
+                    {
+                        "date": "2016-08-12T23:18:57Z",
+                        "errorCode": 99,
+                        "errorMessage": "user is already deleted",
+                        "host": "localhost",
+                        "protocol_version": 1,
+                        "server_version": 1,
+                        "status": 102,
+                        "success": false
+                    } or other error occurred
+
+
+    - update user profile (own)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/users/profile/own/update
+        method: POST
+
+
+
+        fields:
+            data: serialized json containing the following fields:
+                email
+                full_name
+                description
+                website_url
+
+                password - non-required field, but if set, the password is updated
+
+                notifications settings - "connected / not connected" - "1" (True) or "" (False):
+                notify_likes
+                notify_drank_it_toos
+                notify_comments
+                notify_wine_reviewed
+
+            images - multiple field
+
+            NOTICE: NO fields are required. Only the fields which names are provided in the data are updated.
+
+        Sample CURL query:
+
+        curl -X POST -H "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwX3Jvb3QiOiJodHRwOi8vbG9jYWxob3N0IiwidXNlcm5hbWUiOiJhZG1pbiIsInVzZXJfaWQiOiIyYzE1MTQzNS0wNmE5LTQ4M2UtOGFkYy01MjcwYjMyMmI3YTAiLCJleHAiOjE3OTM0NjU3ODIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.7zijXztgG_6yPY-GMyuzNUsgh0Yrki5sk-wybppUca4" -F 'data={"email":"admin@example.com", "full_name" : "Top Admin", "description" : "SUPER SUPER ADMIN", "password": "abcd", "website_url" : "www.google.com", "notify_likes" : "1", "notify_comments" : ""}' -F "images=@/home/dev/own/Raisin-Django/abc/testpic.jpg" http://146.185.166.173:8000/api/users/profile/own/update
+
+            curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx " -F 'data={"email":"admin@example.com", "full_name" : "Top Admin", "description" : "The most important admin", "password": "abcd", "website_url" : "www.google.com", "notify_likes" : "1", "notify_comments" : ""}' -F "images=@/home/krzysiek/aaa.jpg" -F "images=@/home/krzysiek/bbb.jpg" http://localhost:8000/api/users/profile/own/update
+
+            curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZDkzMmJiNWMtMDc5ZS00Y2VhLTk4MDktYzYyMGJlNDMzYzE3IiwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsInVzZXJuYW1lIjoiYWRtaW4iLCJleHAiOjE3OTAzNzU1ODQsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.SkRFQnXKb04wwQQ-v_LIBLHF0bH5AhhE07DIGg7BvyQ" -F 'data={"email":"admin@example.com", "full_name" : "Top Admin", "description" : "The most important admin", "password": "abcd", "website_url" : "www.google.com", "notify_likes" : "1", "notify_comments" : ""}' -F "images=@/home/krzysiek/aaa.jpg" -F "images=@/home/krzysiek/bbb.jpg" http://localhost:8000/api/users/profile/own/update
+
+            curl -X POST -H "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsInVzZXJfaWQiOiIzZWMzZDQzNC1kNTRhLTQxNzAtYjZmOS05NmMxMzU1MWJlMjMiLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNzg4NTUyNjcyfQ.LA5Wu6mU10W9n-MB5QiZaeJUelM0dY3dLPlPtdPQAFY" -F 'data={"email":"admins@example.com", "description": "aaa"}' -F "images=@/home/krzysiek/aaa.jpg" -F "images=@/home/krzysiek/bbb.jpg" http://localhost:8000/api/users/profile/own/update
+
+            curl -X POST -H "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsInVzZXJfaWQiOiIzZWMzZDQzNC1kNTRhLTQxNzAtYjZmOS05NmMxMzU1MWJlMjMiLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNzg4NTUyNjcyfQ.LA5Wu6mU10W9n-MB5QiZaeJUelM0dY3dLPlPtdPQAFY" http://localhost:8000/api/users/profile/own/get
+
+        Sample result:
+            {
+                "data": {
+                    "created_time": "2016-08-12T21:24:06.478328Z",
+                    "description": "The most important admin",
+                    "email": "admin@example.com",
+                    "full_name": "Top Admin",
+                    "id": "6c05fd48-ea34-4c42-a140-d909dbdfc230",
+                    "modified_time": "2016-08-12T21:24:06.478338Z",
+                    "status": 10,
+                    "type": 30,
+                    "username": "admin",
+                    "website_url": "www.google.com"
+                },
+                "date": "2016-08-13T00:25:28Z",
+                "host": "localhost",
+                "protocol_version": 1,
+                "server_version": 1,
+                "status": 100,
+                "success": true
+            }
+
+
+        result data:
+            status
+            date
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - other error occurred
+
+
+    - list of users / user profiles - w ramach "search results - posts/people/places"
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/users/list/query
+        method: POST
+
+        fields:
+            user_id
+            auth_string
+            query_string
+
+        result data:
+            status
+            date
+
+            data (list of items)
+                user1
+                user2
+                ...
+                userN
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+                RESULT_EMPTY = 110 - no user profiles have been found
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - other error occurred
+------------------------------------------------------------------------------------------------------------------------------
+
+
+
+Post, Winepost, Wine, Winemaker and Timeline methods
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Timeline items
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        - get timeline items descending, paged by 10 - list of the most recent events in Raisin system - new or updated
+                wines, places, etc
+        URL: /api/timeline/items
+        method: POST
+
+        Sample CURL query:
+            curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx " -d '{"last_id" : "25", "limit" : "3", "order_dir" : "desc"}' http://localhost:8000/api/timeline/items
+            curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3ODc1ODczMTAsImh0dHBfcm9vdCI6Imh0dHA6Ly9sb2NhbGhvc3QiLCJ1c2VyX2lkIjoiMWQ2ZmQxMjUtN2E3NC00ZmM3LTg2ZWYtYzIyYTJkNTlmNjRkIiwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.0L0vjjkIuSxLD01ABigX0xlGTDznoFro7OiG82b49MY" -d '{"limit" : 3, "order_dir" : "desc"}' http:///146.185.166.173:8000/api/timeline/items
+
+
+            default page_no is 1
+
+        fields:
+            limit - items limit. Optional - default 10
+            last_id - last item's id used for paging. Optional - if not provided for desc, max id will be used,
+                for asc - 1 will be used)
+            order - "desc" (descending) or "asc" (ascending). Optional - default is "desc"
+
+        result data:
+            status
+            date
+            data: {
+                'items': [[ timeline items list ]]
+                'last_id': [[id of the last element in the list ]]
+            }
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+                RESULT_EMPTY = 110 - no timeline items have been found
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - other error occurred
+                    (this method is for the logged user only)
+
+    Wine items (wines, not wineposts!)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        - get wine items (NOT the wineposts, but the definitions of wines) descending, paged by 10 -
+        URL: /api/wine/items
+        method: POST
+
+        Sample CURL query:
+            curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx " -d '{"last_id" : "25", "limit" : "3", "order_dir" : "desc"}' http://localhost:8000/api/wine/items
+            curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{"order_by" : "name", "order_dir" : "asc", "limit" : -1,"winemaker_id": 2}' http://localhost:8000/api/wine/items
+            curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx " -d '{"winemaker_id": "1", "limit" : "10", "order_dir" : "desc"}' http://localhost:8000/api/wine/items
+
+            curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3ODc1ODczMTAsImh0dHBfcm9vdCI6Imh0dHA6Ly9sb2NhbGhvc3QiLCJ1c2VyX2lkIjoiMWQ2ZmQxMjUtN2E3NC00ZmM3LTg2ZWYtYzIyYTJkNTlmNjRkIiwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.0L0vjjkIuSxLD01ABigX0xlGTDznoFro7OiG82b49MY" -d '{"limit" : 3, "order_dir" : "desc"}' http:///146.185.166.173:8000/api/wine/items
+            curl -X POST -H "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3OTIxMzY4OcsImh0dHBfcm9vdCI6Imh0dHA6Ly9sb2NhbGhvc3QiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwidXNlcl9pZCI6ImRkMDNhZDZjLTZlMWYtNGYyZC1iODFhLWY3YmE3NTQ3ZGY5NSIsInVzZXJuYW1lIjoiYWRtaW4ifQ.5BEIf_h9pnmI-nlH89m89DuOsfL8GHWhl2XN-Y6_itM" -d '{"order_by" : "name", "order_dir" : "asc", "limit" : -1,"winemaker_id": 2}' http://localhost:8000/api/wine/items
+
+            default page_no is 1
+
+        fields:
+            winemaker_id - winemaker ID. Optional field - if provided, returns wines for the specified winemaker only
+
+            limit - items limit. Optional - default 10. If -1 provided, no limit is set and all items are returned
+            last_id - last item's id used for paging. Optional - if not provided for desc, max id will be used,
+                for asc - 1 will be used)
+            order - order direction: "desc" (descending) or "asc" (ascending). Optional - default is "desc"
+            order_by - order by field. Optional, default: "id". Only "id" and "name" were tested
+
+        result data:
+            status
+            date
+            data: {
+                'items': [[ wine items list ]]
+                'last_id': [[id of the last element in the list ]]
+            }
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+                RESULT_EMPTY = 110 - no wine items have been found
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - other error occurred
+
+
+        sample result for wine list:
+        ~~~~~~~~~~~~~~~~~~~~~
+        ~~~~~~~~~~~~~~~~~~~~~
+            {
+                "data": {
+                    "items": [
+                        {
+                            "author": "Matt Krell",
+                            "color": 20,
+                            "created_time": "2016-10-14T02:10:05Z",
+                            "designation": "Vouvray",
+                            "domain": "Breton",
+                            "grape_variety": "Chenin, Menu Pineau, Chardonnay",
+                            "id": 1,
+                            "is_archived": false,
+                            "is_sparkling": false,
+                            "main_image": "http://localhost:8000/media/wines/la-dilettante-tranquille-2013.jpg",
+                            "modified_time": "2016-10-14T02:10:05Z",
+                            "name": "La Dilettante Tranquille",
+                            "region": "Loire",
+                            "status": "20",
+                            "total_comment_number": 6,
+                            "total_drank_it_too_number": 6,
+                            "total_likevote_number": 3,
+                            "total_star_review_number": 0,
+                            "wine_post_number": 2,
+                            "winemaker": {
+                                "author": "admin adminer",
+                                "author_id": "dd03ad6c-6e1f-4f2d-b81a-f7ba7547df95",
+                                "city": "Restign\u00e9",
+                                "country": "France",
+                                "country_iso_code": "FR",
+                                "created_time": "2016-10-14T02:10:05Z",
+                                "description": "Good winemaker from Loire region",
+                                "domain": "Domaine Breton",
+                                "email": "contact@domainebreton.net",
+                                "house_number": "8",
+                                "id": 1,
+                                "latitude": 45.7524376,
+                                "longitude": 3.6628124,
+                                "main_image": "http://localhost:8000/media/winemakers/catherine-pierre-breton.jpeg",
+                                "modified_time": "2016-10-14T02:10:05Z",
+                                "name": "Catherine & Pierre Breton",
+                                "phone_number": "(+33) 6 12 22 61 10",
+                                "region": "Loire",
+                                "social_facebook_url": "www.facebook.com/ellsworthparis",
+                                "social_instagram_url": "",
+                                "social_twitter_url": "",
+                                "status": 20,
+                                "street_address": "Route de Peu Muleau",
+                                "website_url": "www.domainebreton.net",
+                                "zip_code": "37140"
+                            },
+                            "winemaker_id": 1,
+                            "winemaker_name": "Catherine & Pierre Breton",
+                            "year": 2010
+                        },
+                        {
+                            "author": "Matt Krell",
+                            "color": 20,
+                            "created_time": "2016-10-14T02:10:07Z",
+                            "designation": "Vouvray",
+                            "domain": "Breton",
+                            "grape_variety": "Chenin, Menu Pineau, Chardonnay",
+                            "id": 10,
+                            "is_archived": false,
+                            "is_sparkling": false,
+                            "main_image": "http://localhost:8000/media/wines/la-dilettante-tranquille-2013.jpg",
+                            "modified_time": "2016-10-14T02:10:07Z",
+                            "name": "La Dilettante Tranquille",
+                            "region": "Loire",
+                            "status": "20",
+                            "total_comment_number": 0,
+                            "total_drank_it_too_number": 0,
+                            "total_likevote_number": 0,
+                            "total_star_review_number": 0,
+                            "wine_post_number": 1,
+                            "winemaker": {
+                                "author": "admin adminer",
+                                "author_id": "dd03ad6c-6e1f-4f2d-b81a-f7ba7547df95",
+                                "city": "Restign\u00e9",
+                                "country": "France",
+                                "country_iso_code": "FR",
+                                "created_time": "2016-10-14T02:10:05Z",
+                                "description": "Good winemaker from Loire region",
+                                "domain": "Domaine Breton",
+                                "email": "contact@domainebreton.net",
+                                "house_number": "8",
+                                "id": 1,
+                                "latitude": 45.7524376,
+                                "longitude": 3.6628124,
+                                "main_image": "http://localhost:8000/media/winemakers/catherine-pierre-breton.jpeg",
+                                "modified_time": "2016-10-14T02:10:05Z",
+                                "name": "Catherine & Pierre Breton",
+                                "phone_number": "(+33) 6 12 22 61 10",
+                                "region": "Loire",
+                                "social_facebook_url": "www.facebook.com/ellsworthparis",
+                                "social_instagram_url": "",
+                                "social_twitter_url": "",
+                                "status": 20,
+                                "street_address": "Route de Peu Muleau",
+                                "website_url": "www.domainebreton.net",
+                                "zip_code": "37140"
+                            },
+                            "winemaker_id": 1,
+                            "winemaker_name": "Catherine & Pierre Breton",
+                            "year": 2014
+                        }
+                    ],
+                    "last_id": 10
+                },
+                "date": "2016-10-18T08:16:09Z",
+                "host": "localhost",
+                "status": 100,
+                "success": true
+            }
+
+    Wine item profile (wine, not winepost!)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        - get wine item profile (NOT the winepost, but the definitions of wine)
+        URL: /api/wine/profile
+        method: POST
+
+        Sample CURL query:
+            curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{"wine_id" : 1}' http://localhost:8000/api/wine/profile
+
+        fields:
+            wine_id - wine ID (required)
+
+        result data:
+            date: 'YYYY-mm-ddTHH:MM:SSZ'
+            host: host_address
+            status: status
+            success: True or False
+            data: {
+                comment_last_id: NN,
+                comments: [ comments_list ],
+                drank_it_too_last_id: NN,
+                drank_it_toos: [ drank_it_toos list ],
+                likevote_last_id: NN,
+                likevotes: [ likevotes list ],
+                review_last_id : NN,
+                reviews : [ reviews list ],
+                wine: [wine data],
+            }
+
+        sample result:
+            {
+                "data": {
+                    "comment_last_id": 11,
+                    "comments": [
+                        {
+                            "author": "Denise Steiner",
+                            "author_id": "4328051f-1ec4-43e9-9b1a-3645ca1d9132",
+                            "author_username": "jdoe",
+                            "created_time": "2016-09-08T14:55:26Z",
+                            "description": "\n            Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,\n            adipisci velit. Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n        ",
+                            "id": 11,
+                            "modified_time": "2016-09-08T14:55:26Z",
+                            "place": null,
+                            "place_id": null,
+                            "place_main_image": null,
+                            "post": "L'Apesanteur Review",
+                            "post_id": 4,
+                            "post_main_image": "http://localhost:8000/media/wines/l-apesanteur.jpg"
+                        }
+                    ],
+                    "drank_it_too_last_id": 10,
+                    "drank_it_toos": [
+                        {
+                            "author": "Michelle Bortz",
+                            "author_id": "e2dab654-ca3f-459f-9dcf-4288b26f21e6",
+                            "created_time": "2016-09-08T14:55:27Z",
+                            "id": 12,
+                            "modified_time": "2016-09-08T14:55:27Z",
+                            "post": "L'Apesanteur Review",
+                            "post_id": 4,
+                            "post_main_image": "http://localhost:8000/media/wines/l-apesanteur.jpg"
+                        },
+                        {
+                            "author": "Kevin Hock",
+                            "author_id": "88955496-f7cb-48f7-8526-cb507b1da309",
+                            "created_time": "2016-09-08T14:55:27Z",
+                            "id": 11,
+                            "modified_time": "2016-09-08T14:55:27Z",
+                            "post": "L'Apesanteur Review",
+                            "post_id": 4,
+                            "post_main_image": "http://localhost:8000/media/wines/l-apesanteur.jpg"
+                        },
+                        {
+                            "author": "Krzysztof Sobolewski",
+                            "author_id": "05f163a9-4d24-41b1-9223-71f5a81309e7",
+                            "created_time": "2016-09-08T14:55:27Z",
+                            "id": 10,
+                            "modified_time": "2016-09-08T14:55:27Z",
+                            "post": "L'Apesanteur Review",
+                            "post_id": 4,
+                            "post_main_image": "http://localhost:8000/media/wines/l-apesanteur.jpg"
+                        }
+                    ],
+                    "likevote_last_id": 23,
+                    "likevotes": [
+                        {
+                            "author": "Olivia Mann",
+                            "author_id": "6e24bfa2-b46e-4e9f-82cd-498d10825b0a",
+                            "author_username": "Omann",
+                            "created_time": "2016-09-08T14:55:26Z",
+                            "id": 25,
+                            "modified_time": "2016-09-08T14:55:26Z",
+                            "place": null,
+                            "place_id": null,
+                            "place_main_image": null,
+                            "post": "L'Apesanteur Review",
+                            "post_id": 4,
+                            "post_main_image": "http://localhost:8000/media/wines/l-apesanteur.jpg"
+                        },
+                        {
+                            "author": "Jean-Hugues",
+                            "author_id": "0a50a9e1-dd77-4449-8c2c-ac130859d2c9",
+                            "author_username": "jhb",
+                            "created_time": "2016-09-08T14:55:26Z",
+                            "id": 24,
+                            "modified_time": "2016-09-08T14:55:26Z",
+                            "place": null,
+                            "place_id": null,
+                            "place_main_image": null,
+                            "post": "L'Apesanteur Review",
+                            "post_id": 4,
+                            "post_main_image": "http://localhost:8000/media/wines/l-apesanteur.jpg"
+                        },
+                        {
+                            "author": "Krzysztof Sobolewski",
+                            "author_id": "05f163a9-4d24-41b1-9223-71f5a81309e7",
+                            "author_username": "ksobolewski",
+                            "created_time": "2016-09-08T14:55:26Z",
+                            "id": 23,
+                            "modified_time": "2016-09-08T14:55:26Z",
+                            "place": null,
+                            "place_id": null,
+                            "place_main_image": null,
+                            "post": "L'Apesanteur Review",
+                            "post_id": 4,
+                            "post_main_image": "http://localhost:8000/media/wines/l-apesanteur.jpg"
+                        }
+                    ],
+                    "review_last_id": 23,
+                    "reviews": [
+                        {
+                            "author": "St\u00e9phanie Bertrand",
+                            "author_avatar_url": "http://localhost:8000/media/users/stephanie-bertrand.jpg",
+                            "author_id": "c64b5493-9d72-4236-9a15-09d4351fec8f",
+                            "comment_number": 1,
+                            "created_time": "2016-09-08T14:55:25Z",
+                            "description": "\n            Test review of L'Apesanteur\n\n            Sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.\n            Neque porro quisquam est, qui dolorem ipsum quia dolor\n            sit amet, consectetur, adipisci velit.\n        ",
+                            "drank_it_too_number": 3,
+                            "id": 4,
+                            "likevote_number": 3,
+                            "modified_time": "2016-09-08T14:55:25Z",
+                            "place_id": null,
+                            "post_id": 4,
+                            "post_main_image": "http://localhost:8000/media/wines/l-apesanteur.jpg",
+                            "star_review_number": 0,
+                            "title": "L'Apesanteur Review",
+                            "wine": "L'Apesanteur",
+                            "wine_id": 3,
+                            "wine_main_image": "http://localhost:8000/media/wines/l-apesanteur.jpg"
+                        }
+                    ],
+                    "wine": {
+                        "author": "St\u00e9phanie Bertrand",
+                        "color": 20,
+                        "created_time": "2016-09-08T14:55:25Z",
+                        "designation": "Vin de France",
+                        "domain": "Domaine Les Terres Promises",
+                        "grape_variety": "Carignan, Grenache, Cinsault",
+                        "id": 3,
+                        "is_archived": false,
+                        "is_sparkling": true,
+                        "main_image": "http://localhost:8000/media/wines/l-apesanteur.jpg",
+                        "modified_time": "2016-09-08T14:55:25Z",
+                        "name": "L'Apesanteur",
+                        "region": "Provence",
+                        "status": "20",
+                        "total_comment_number": 1,
+                        "total_drank_it_too_number": 3,
+                        "total_likevote_number": 3,
+                        "total_star_review_number": 0,
+                        "wine_post_number": 0,
+                        "winemaker": {
+                            "author": "admin adminer",
+                            "author_id": "33ad93b7-0d54-4536-97fa-d4ab3f372d54",
+                            "city": null,
+                            "country": "None",
+                            "country_iso_code": "",
+                            "created_time": "2016-09-08T14:55:25Z",
+                            "description": null,
+                            "domain": "Domaine Les Terres Promises",
+                            "email": null,
+                            "house_number": null,
+                            "id": 6,
+                            "latitude": 0.0,
+                            "longitude": 0.0,
+                            "main_image": null,
+                            "modified_time": "2016-09-08T14:55:25Z",
+                            "name": "Jean-Christophe-Comor",
+                            "phone_number": null,
+                            "region": "Provence",
+                            "social_facebook_url": "",
+                            "social_instagram_url": "",
+                            "social_twitter_url": "",
+                            "street_address": null,
+                            "website_url": null,
+                            "zip_code": null
+                        },
+                        "winemaker_id": 6,
+                        "winemaker_name": "Jean-Christophe-Comor",
+                        "year": 2013
+                    }
+                },
+                "date": "2016-09-08T14:56:47Z",
+                "host": "localhost",
+                "status": 100,
+                "success": true
+            }
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - other error occurred
+
+    Winemaker profile
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        - get winemaker profile
+        URL: /api/winemaker/profile
+        method: POST
+
+        Sample CURL query:
+            curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx " -d '{"winemaker_id" : "1"}' http://localhost:8000/api/winemaker/profile
+
+        fields:
+            winemaker_id - winemaker ID (required)
+
+        result data:
+            host: host_address
+            status: status
+            success: True or False
+            date: retrieval date
+            data: {
+                wine_last_id
+                wines: [ wines list ]
+                winemaker: { winemaker_data }
+
+            }
+
+        sample result:
+            {
+                "data": {
+                    "wine_last_id": 1,
+                    "winemaker": {
+                        "author": "admin adminer",
+                        "author_id": "33ad93b7-0d54-4536-97fa-d4ab3f372d54",
+                        "city": "Restign\u00e9",
+                        "country": "France",
+                        "country_iso_code": "FR",
+                        "created_time": "2016-09-08T14:55:25Z",
+                        "description": "Good winemaker from Loire region",
+                        "domain": "Domaine Breton",
+                        "email": "contact@domainebreton.net",
+                        "house_number": "8",
+                        "id": 1,
+                        "latitude": 45.7524376,
+                        "longitude": 3.6628124,
+                        "main_image": "http://localhost:8000/media/winemakers/catherine-pierre-breton.jpeg",
+                        "modified_time": "2016-09-08T14:55:25Z",
+                        "name": "Catherine & Pierre Breton",
+                        "phone_number": "(+33) 6 12 22 61 10",
+                        "region": "Loire",
+                        "social_facebook_url": "www.facebook.com/ellsworthparis",
+                        "social_instagram_url": "",
+                        "social_twitter_url": "",
+                        "street_address": "Route de Peu Muleau",
+                        "website_url": "www.domainebreton.net",
+                        "zip_code": "37140"
+                    },
+                    "wines": [
+                        {
+                            "author": "Matt Krell",
+                            "color": 20,
+                            "created_time": "2016-09-08T14:55:25Z",
+                            "designation": "Vouvray",
+                            "domain": "Breton",
+                            "grape_variety": "Chenin, Menu Pineau, Chardonnay",
+                            "id": 1,
+                            "is_archived": false,
+                            "is_sparkling": false,
+                            "main_image": "http://localhost:8000/media/wines/la-dilettante-tranquille-2013.jpg",
+                            "modified_time": "2016-09-08T14:55:25Z",
+                            "name": "La Dilettante Tranquille",
+                            "region": "Loire",
+                            "status": "20",
+                            "total_comment_number": 1,
+                            "total_drank_it_too_number": 5,
+                            "total_likevote_number": 3,
+                            "total_star_review_number": 0,
+                            "wine_post_number": 0,
+                            "winemaker_id": 1,
+                            "winemaker_name": "Catherine & Pierre Breton",
+                            "year": 2010
+                        }
+                    ]
+                },
+                "date": "2016-09-08T16:45:21Z",
+                "host": "localhost",
+                "status": 100,
+                "success": true
+            }
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - other error occurred
+                    (this method is for the logged user only)
+
+
+    Winemaker items
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        - get winemaker items descending, paged by 10 -
+        URL: /api/winemaker/items
+        method: POST
+
+        Sample CURL query:
+            curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx " -d '{"last_id" : "25", "limit" : "3", "order_dir" : "desc"}' http://localhost:8000/api/winemaker/items
+            curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3ODc1ODczMTAsImh0dHBfcm9vdCI6Imh0dHA6Ly9sb2NhbGhvc3QiLCJ1c2VyX2lkIjoiMWQ2ZmQxMjUtN2E3NC00ZmM3LTg2ZWYtYzIyYTJkNTlmNjRkIiwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.0L0vjjkIuSxLD01ABigX0xlGTDznoFro7OiG82b49MY" -d '{"limit" : 3, "order_dir" : "desc"}' http:///146.185.166.173:8000/api/winemaker/items
+
+            default page_no is 1
+
+        fields:
+            limit - items limit. Optional - default 10
+            last_id - last item's id used for paging. Optional - if not provided for desc, max id will be used,
+                for asc - 1 will be used)
+            order - "desc" (descending) or "asc" (ascending). Optional - default is "desc"
+
+        result data:
+            status
+            date
+            data: {
+                'items': [[ winemaker items list ]]
+                'last_id': [[id of the last element in the list ]]
+            }
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+                RESULT_EMPTY = 110 - no winemaker items have been found
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - other error occurred
+                    (this method is for the logged user only)
+
+    - list of posts
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/posts/list
+        method: GET, POST
+
+        fields:
+            wine_id - for wineposts (reviews) of a specified wine (optional)
+            user_id - for posts created by author with id = user_id field value
+            username - for posts created by author with username = username field value
+
+            post_ids - gets the posts with specified ids
+
+            type: - 10 for wines, 20 for general posts (optional;  if not provided, it will return all kinds of posts)
+                 WINE = 10
+                 NOT_WINE = 20
+            limit - items limit. Optional - default 10
+            last_id - last item's id used for paging. Optional - if not provided for desc, max id will be used,
+                for asc - 1 will be used)
+            order - "desc" (descending) or "asc" (ascending). Optional - default is "desc"
+
+
+        sample CURL query:
+            posts with specified ids, authored by "admin"
+
+
+            curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsImV4cCI6MTc5MTY1NzUxNiwidXNlcl9pZCI6IjUyMGQyZGYzLWEwODEtNGU5Zi1hYmYzLTk2MGJkZTU3MDgwMCIsInVzZXJuYW1lIjoiYWRtaW4ifQ.5S57ZiCPGrFeu7Qew_yYwtn_WiAtojPCWCRO5A7OXW4" -d '{"limit": "300", "username" :"admin", "post_ids": [2,1] }' http://localhost:8000/api/posts/list
+
+
+            all posts:
+                curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{"limit":"10", "order":"desc"}' http://localhost:8000/api/posts/list
+
+            wine posts:
+                curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{"type" : "10"}' http://localhost:8000/api/posts/list
+
+            wine posts for specified wine:
+                curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{"wine_id" : "1"}' http://localhost:8000/api/posts/list
+                NOTICE: if wine_id provided, "type" is unnecessary and will always be overridden by the value "10" (WINE)
+
+            posts for specified user (by user id)
+                curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{"user_id" : "33ad93b7-0d54-4536-97fa-d4ab3f372d54"}' http://localhost:8000/api/posts/list
+
+            posts for specified user (by username)
+                curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{"username" : "admin"}' http://localhost:8000/api/posts/list
+
+
+            general posts:
+                curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{"type" : "20"}' http://localhost:8000/api/posts/list
+
+            curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3ODg3MDY1MzcsIVzZXJfaWQiOiIzM2FkOTNiNy0wZDU0LTQ1MzYtOTdmYS1kNGFiM2YzNzJkNTQiLCJodHRwX3Jvb3QiOiJodHRwOi8vbG9jYWxob3N0IiwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4ifQ.M1zGV11zO_mhIR6VvsgBcWW_IZMTU4tQGQ9AZHtoNPU" -d '{"limit":"10", "order":"desc"}' http://localhost:8000/api/posts/list
+
+        result data:
+            status
+            date
+            data: {
+                'items': [[ post items list ]]
+                'last_id': [[id of the last element in the list ]]
+            }
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - some other error occurred during or after fetching the list of natural winemakers
+
+
+    - get notifications
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/notifications/list
+        method: POST
+
+        fields:
+            user_id
+            auth_string
+
+        result data:
+            status
+            date
+            data - notifications descending by date
+                notification1
+                notification2
+                ...
+                notificationN
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+                RESULT_EMPTY = 110 - no notifications have been found
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - other error occurred
+
+
+    - post or wine post details - get post XXX
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/posts/post
+        method: GET
+
+        sample CURL query:
+            curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{"post_id" : 1}' http://localhost:8000/api/posts/post
+            curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiZXhwIjoxNzg3NTc4Mzc0LCJodHRwX3Jvb3QiOiJodHRwOi8vbG9jYWxob3N0IiwidXNlcl9pZCI6IjVlNGI2ZDk5LWJlN2ItNGM4Yi1iYjkzLTMzNTAzNTQyY2Q1NSIsInVzZXJuYW1lIjoiYWRtaW4ifQ.q1CCGcsNggDufY30Ti6adJ3jc0ZoJhBTprQopMQ3V6o" -d '{"post_id" : 1}' http://localhost:8000/api/posts/post
+
+        fields:
+            post_id
+
+        result data:
+            status
+            date
+            data - post data
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - other error occurred
+
+
+    - add new wine post
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/posts/wine/add
+        method: POST
+
+        sample CURL query"
+
+
+            existing wine (exact match)
+                curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -F 'data={"name" : "La Dilettante Tranquille", "description" : "Just a post about La Dillettante Tranquille", "domain" : "Breton", "designation" : "Vouvray", "grape_variety" : "Chenin, Menu Pineau, Chardonnay", "region" : "Loire", "color" : "20", "year" : "2010", "is_sparkling" : "", "winemaker_id" : "1"}' -F "images=@/home/krzysiek/degustatornia.jpg" -F "images=@/home/krzysiek/degustatornia2.jpg" -F "images=@/home/krzysiek/bbb.jpg" http://localhost:8000/api/posts/wine/add
+                curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwidXNlcl9pZCI6ImY2YjMxNGUyLTI2MWMtNGFmMC05YTgzLTE2OWY3M2I4NmFjZiIsImV4cCI6MTQ3MjY3MjYzNCwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.lwS8fEdgCjyBb8BwNDuIs0QjojIlwJ97oXABSIpKfcY" -F 'data={"name" : "La Dilettante Tranquille", "description" : "Just a post about La Dillettante Tranquille", "domain" : "Breton", "designation" : "Vouvray", "grape_variety" : "Chenin, Menu Pineau, Chardonnay", "region" : "Loire", "color" : "20", "year" : "2010", "is_sparkling" : "", "winemaker_id" : "1"}' -F "images=@/home/krzysiek/degustatornia.jpg" -F "images=@/home/krzysiek/degustatornia2.jpg" -F "images=@/home/krzysiek/bbb.jpg" http://localhost:8000/api/posts/wine/add
+                -- will add a new winepost referring to the wine found (exact match), and add images to the winepost
+
+            new wine:
+                curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -F 'data={"name" : "La Dilettante Superb Tres Bien", "description" : "Just a post about La Dillettante Tranquille", "domain" : "Breton", "designation" : "Vouvray", "grape_variety" : "Chenin, Menu Pineau, Chardonnay", "region" : "Loire", "color" : "20", "year" : "2010", "is_sparkling" : "", "winemaker_id" : "1"}' -F "images=@/home/krzysiek/degustatornia.jpg" -F "images=@/home/krzysiek/degustatornia2.jpg" -F "images=@/home/krzysiek/bbb.jpg" http://localhost:8000/api/posts/wine/add
+                curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwidXNlcl9pZCI6ImY2YjMxNGUyLTI2MWMtNGFmMC05YTgzLTE2OWY3M2I4NmFjZiIsImV4cCI6MTQ3MjY3MjYzNCwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.lwS8fEdgCjyBb8BwNDuIs0QjojIlwJ97oXABSIpKfcY" -F 'data={"name" : "La Dilettante Superb Tres Bien", "description" : "Just a post about La Dillettante Tranquille", "domain" : "Breton", "designation" : "Vouvray", "grape_variety" : "Chenin, Menu Pineau, Chardonnay", "region" : "Loire", "color" : "20", "year" : "2010", "is_sparkling" : "", "winemaker_id" : "1"}' -F "images=@/home/krzysiek/degustatornia.jpg" -F "images=@/home/krzysiek/degustatornia2.jpg" -F "images=@/home/krzysiek/bbb.jpg" http://localhost:8000/api/posts/wine/add
+
+            with place id (can be for new or existing wine, existing wine used here):
+                curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwidXNlcl9pZCI6ImY2YjMxNGUyLTI2MWMtNGFmMC05YTgzLTE2OWY3M2I4NmFjZiIsImV4cCI6MTQ3MjY3MjYzNCwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.lwS8fEdgCjyBb8BwNDuIs0QjojIlwJ97oXABSIpKfcY" -F 'data={"name" : "La Dilettante Tranquille", "description" : "Just a post about La Dillettante Tranquille", "domain" : "Breton", "designation" : "Vouvray", "grape_variety" : "Chenin, Menu Pineau, Chardonnay", "region" : "Loire", "color" : "20", "year" : "2010", "is_sparkling" : "", "winemaker_id" : "1", "place_id" : "1"}' -F "images=@/home/krzysiek/degustatornia.jpg" -F "images=@/home/krzysiek/degustatornia2.jpg" -F "images=@/home/krzysiek/bbb.jpg" http://localhost:8000/api/posts/wine/add
+                -- will add a new wine and add images to the new wine
+                -- will add a new winepost referring to the newly added wine - no images to the post will be added
+                !!! The winepost should combine images both from wine and winepost
+
+        fields:
+            images - uploaded images (one or more). Optional.
+
+            data - JSON data field. Serialized JSON should be sent through it:
+                required (all fields are required):
+                    name
+                    description
+                    domain
+                    designation
+                    grape_variety
+                    region
+                    color
+                    year
+                    winemaker_name OR winemaker_id
+                    \q
+                optional:
+                    place_id - for wines added with relation to a place
+
+        result data:
+            status
+            date
+
+            data: [[winepost_data]], eg.:
+                "data": {
+                    "author": "admin adminer",
+                    "author_id": "a157257e-df17-4c45-a939-fdebc0fb0f2c",
+                    "created_time": "2016-08-24 19:01:33.125234+00:00",
+                    "description": "Just a post about La Dillettante Tranquille",
+                    "id": 25,
+                    "modified_time": "2016-08-24 19:01:33.125246+00:00",
+                    "post_id": 25,
+                    "post_main_image": null,
+                    "title": "La Dilettante Superb Tres Bien 2010",
+                    "wine": "La Dilettante Superb Tres Bien",
+                }
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - other error occurred
+
+=======================================================================================================================
+
+    - edit wine post
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/posts/wine/edit
+        method: POST
+
+        sample CURL query"
+            curl -X POST -H "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZTUxZRkMzctZDViNS00OTI3LWIxMzAtODkxYTcyY2M5ZThhIiwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsImV4cCI6MTc5NjMzMDAyMCwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4ifQ.Qk2OMMeYnvMcc3ZRFPvBEw_B03GeMQMDBO8Q2xm8T6o" -F 'data={"post_id": 2, "name" : "EDITED - a Dilettante Tranquille", "description" : "EDITED - Just a post about La Dillettante Tranquille", "domain" : "EDITED - Breton", "designation" : "EDITED - Vouvray", "grape_variety" : "EDITED - Chenin, Menu Pineau, Chardonnay", "region" : "EDITED - Loire", "color" : "20", "year" : "2016", "is_sparkling" : "", "winemaker_id" : "1"}' -F "images=@/home/krzysiek/degustatornia.jpg" http://localhost:9002/api/posts/wine/edit
+
+        fields:
+            images - uploaded images (one or more). Optional.
+
+            data - JSON data field. Serialized JSON should be sent through it:
+                post_id OR tl_id (one of those is required)
+
+                required (all fields are required):
+                    name
+                    description
+                    domain
+                    designation
+                    grape_variety
+                    region
+                    color
+                    year
+                    winemaker_name OR winemaker_id
+                    \q
+                optional:
+                    place_id - for wines added with relation to a place
+
+        result data:
+            {
+                "data": {
+                    "author": "admin adminer",
+                    "author_avatar_url": "http://localhost:9002/media/users/jhb.jpg",
+                    "author_id": "e51f4d37-d5b5-4927-b130-891a72cc9e8a",
+                    "comment_number": 0,
+                    "created_time": "2016-11-30T02:42:28Z",
+                    "description": "EDITED - Just a post about La Dillettante Tranquille",
+                    "drank_it_too_number": 0,
+                    "foursquare_place_name": null,
+                    "foursquare_place_url": null,
+                    "id": 2,
+                    "is_parent_post": true,
+                    "is_star_review": true,
+                    "likevote_number": 0,
+                    "modified_time": "2016-12-05T21:09:01Z",
+                    "place_data": null,
+                    "place_id": null,
+                    "post_id": 2,
+                    "post_main_image": "http://localhost:9002/media/posts/degustatornia_f5Bwqzf.jpg",
+                    "post_status": 10,
+                    "star_review_number": 0,
+                    "title": "EDITED - a Dilettante Tranquille 2016",
+                    "type": 10,
+                    "wine": "EDITED - a Dilettante Tranquille",
+                    "wine_data": {
+                        "author": "Matt Krell",
+                        "color": 20,
+                        "created_time": "2016-11-30T02:42:28Z",
+                        "designation": "EDITED - Vouvray",
+                        "domain": "EDITED - Breton",
+                        "grape_variety": "EDITED - Chenin, Menu Pineau, Chardonnay",
+                        "id": 1,
+                        "is_archived": false,
+                        "is_sparkling": false,
+                        "main_image": "http://localhost:9002/media/wines/degustatornia_ugzlfv0.jpg",
+                        "modified_time": "2016-11-30T02:42:28Z",
+                        "name": "EDITED - a Dilettante Tranquille",
+                        "region": "EDITED - Loire",
+                        "similiar_wine_exists": false,
+                        "similiar_wine_id": null,
+                        "status": "20",
+                        "total_comment_number": 1,
+                        "total_drank_it_too_number": 5,
+                        "total_likevote_number": 3,
+                        "total_star_review_number": 0,
+                        "wine_post_number": 2,
+                        "winemaker": {
+                            "author": "admin adminer",
+                            "author_id": "e51f4d37-d5b5-4927-b130-891a72cc9e8a",
+                            "city": "Restign\u00e9",
+                            "country": "France",
+                            "country_iso_code": "FR",
+                            "created_time": "2016-11-30T02:42:28Z",
+                            "description": "Good winemaker from Loire region",
+                            "domain": "Domaine Breton",
+                            "email": "contact@domainebreton.net",
+                            "house_number": "8",
+                            "id": 1,
+                            "latitude": 45.7524376,
+                            "longitude": 3.6628124,
+                            "main_image": "http://localhost:9002/media/winemakers/catherine-pierre-breton.jpeg",
+                            "mobile_phone_number": null,
+                            "modified_time": "2016-11-30T02:42:28Z",
+                            "name": "Catherine & Pierre Breton",
+                            "phone_number": "(+33) 6 12 22 61 10",
+                            "region": "Loire",
+                            "social_facebook_url": "www.facebook.com/ellsworthparis",
+                            "social_instagram_url": "",
+                            "social_twitter_url": "",
+                            "status": 20,
+                            "street_address": "Route de Peu Muleau",
+                            "total_comment_number": 1,
+                            "total_drank_it_too_number": 5,
+                            "total_is_parent_post_number": 2,
+                            "total_likevote_number": 3,
+                            "total_star_review_number": 1,
+                            "total_wine_number": 2,
+                            "total_wine_post_number": 3,
+                            "website_url": "www.domainebreton.net",
+                            "zip_code": "37140"
+                        },
+                        "winemaker_id": 1,
+                        "winemaker_name": "Catherine & Pierre Breton",
+                        "year": "2010"
+                    },
+                    "wine_id": 1,
+                    "wine_main_image": "http://localhost:9002/media/wines/degustatornia_ugzlfv0.jpg",
+                    "wine_year": "2016"
+                },
+                "date": "2016-12-05T21:09:53Z",
+                "host": "localhost",
+                "status": 100,
+                "success": true
+            }
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - other error occurred
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+    add new non-wine (general) post
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/posts/general/add
+        method: POST
+
+        sample CURL query:
+            curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -F 'data={"title" : "Test non-wine post", "description" : "Just a test non-wine post to check the function."}' -F "images=@/home/krzysiek/degustatornia.jpg" -F "images=@/home/krzysiek/degustatornia2.jpg" -F "images=@/home/krzysiek/bbb.jpg" http://localhost:8000/api/posts/general/add
+
+
+
+            curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMmMxNTE0MzUtMDZhOS00ODNlLThhZGMtNTI3MGIzMjJiN2EwIiwiZXhwIjoxNzk1OTY1NTI2LCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsImh0dHBfcm9vdCI6Imh0dHA6Ly9sb2NhbGhvc3QifQ.XTAYdB59BfDU2W4_-U7PFJyDOMJMKO5SLh4gECdqr24" -F 'data={"title" : "Test non-wine post", "description" : "Just a test non-wine post to check the function."}' -F "images=@/home/krzysiek/degustatornia.jpg" -F "images=@/home/krzysiek/degustatornia2.jpg" -F "images=@/home/krzysiek/bbb.jpg" http://146.185.166.173:8000/api/posts/general/add
+
+        fields:
+            images - uploaded images (one or more). Optional.
+
+            data - JSON data field. Serialized JSON should be sent through it:
+                required (all fields are required):
+                    title
+                    description
+
+        result data:
+            status
+            date
+
+            data: [[added_post_data]], eg.:
+                "data": {
+                    "author": "admin adminer",
+                    "author_id": "a157257e-df17-4c45-a939-fdebc0fb0f2c",
+                    "created_time": "2016-08-24 19:30:30.395846+00:00",
+                    "description": "Just a test non-wine post to check the function.",
+                    "id": 33,
+                    "modified_time": "2016-08-24 19:30:30.395861+00:00",
+                    "post_id": 33,
+                    "post_main_image": "/var/www/workspaces/raisin/src/media/posts/degustatornia_oTI5EYE.jpg",
+                    "title": "Test non-wine post",
+                    "wine": null,
+                    "wine_id": null
+                },
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - other error occurred
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+    edit a non-wine (general) post
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/posts/general/edit
+        method: POST
+
+        sample CURL query:
+
+            curl -X POST -H "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZTUxZRkMzctZDViNS00OTI3LWIxMzAtODkxYTcyY2M5ZThhIiwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsImV4cCI6MTc5NjMzMDAyMCwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4ifQ.Qk2OMMeYnvMcc3ZRFPvBEw_B03GeMQMDBO8Q2xm8T6o" -F 'data={"post_id" :  25, "title" : "EDITED - Test non-wine post", "description" : "EDITED - Just a test non-wine post to check the function."}' -F "images=@/home/krzysiek/degustatornia.jpg" http://localhost:9002/api/posts/general/edit
+
+        fields:
+            images - uploaded images (one or more). Optional.
+
+            data - JSON data field. Serialized JSON should be sent through it:
+                required (all fields are required):
+                    title
+                    description
+
+        result data:
+
+            {
+                "data": {
+                    "author": "admin adminer",
+                    "author_avatar_url": "http://localhost:9002/media/users/jhb.jpg",
+                    "author_id": "e51f4d37-d5b5-4927-b130-891a72cc9e8a",
+                    "comment_number": 0,
+                    "created_time": "2016-12-05T21:29:44Z",
+                    "description": "EDITED - Just a test non-wine post to check the function.",
+                    "drank_it_too_number": 0,
+                    "foursquare_place_name": null,
+                    "foursquare_place_url": null,
+                    "id": 25,
+                    "is_parent_post": false,
+                    "is_star_review": false,
+                    "likevote_number": 0,
+                    "modified_time": "2016-12-05T21:29:44Z",
+                    "place_data": null,
+                    "place_id": null,
+                    "post_id": 25,
+                    "post_main_image": "http://localhost:9002/media/posts/degustatornia_srXK0sl.jpg",
+                    "post_status": 10,
+                    "star_review_number": 0,
+                    "title": "EDITED - Test non-wine post",
+                    "type": 20,
+                    "wine": null,
+                    "wine_data": null,
+                    "wine_id": null,
+                    "wine_main_image": null,
+                    "wine_year": null
+                },
+                "date": "2016-12-05T21:30:13Z",
+                "host": "localhost",
+                "status": 100,
+                "success": true
+            }
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - other error occurred
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+    - list of likes / like authors per post XXX OR place XXX
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/likes/list
+        method: GET
+
+        fields:
+            post_id OR place_id OR user_id OR wine_id (one of those is required)
+
+            In the case of user_id, it will take the likes of which the user is the author.
+
+            limit - items limit. Optional - default 10
+            last_id - last item's id used for paging. Optional - if not provided for desc, max id will be used,
+                for asc - 1 will be used)
+            order - "desc" (descending) or "asc" (ascending). Optional - default is "desc"
+
+        result data:
+            status
+            date
+
+            data: {
+                'likes': [[likes list]]
+                'last_id': [[ID of the last likevote in the list]]
+            }
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+                RESULT_EMPTY = 110 - no likes per post XXX have been found
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - some other error occurred during or after fetching of the likes, eg. post does not exist
+
+
+
+
+
+    - list of comments per post/place XXX
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/comments/list
+        method: POST
+
+        sample CURL request:
+            curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{ "post_id" : "1"}' http://localhost:8000/api/comments/list
+            curl -X POST -H "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwX3Jvb3QiOiJodHRwOi8vbG9jYWxob3N0IiwidXNlcl9pZCI6IjVlNGI2ZDk5LWJlN2ItNGM4Yi1iYjkzLTMzNTAzNTQyY2Q1NSIsImV4cCI6MTc4NzU4ODMxOSwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4ifQ.OTpSJkWDyIrEQo5nrQEY8T03t_wA0wszzMKFrsUChr0" -d '{ "post_id" : "1"}' http://localhost:8000/api/comments/list
+
+
+        fields:
+            post_id OR place_id OR user_id OR wine_id (one of those is required)
+            In the case of user_id, it will take the comments of which the user is the author.
+
+            limit - items limit. Optional - default 10
+            last_id - last item's id used for paging. Optional - if not provided for desc, max id will be used,
+                for asc - 1 will be used)
+            order - "desc" (descending) or "asc" (ascending). Optional - default is "desc"
+
+        result data:
+            status
+            date
+
+            data: {
+                'comments': [[comments list]]
+                'last_id': [[ID of the last comment in the list]]
+            }
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+                RESULT_EMPTY = 110 - no comments per post XXX have been found
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - some other error occurred during or after fetching of the "comments", eg. post does not exist
+
+
+
+    - add new like for post XXX OR place XXX
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/likes/add
+        method: POST
+
+        fields:
+            post_id OR place_id
+
+        result data:
+            status
+            date
+
+            data: [[like_data]]
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - some other error occurred during or after adding of the new like  for post XXX, eg. post does not exist
+
+
+    - list of "drank it toos" per post, wine or author XXX
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/drankittoos/list
+        method: GET
+
+        fields:
+            user_id
+            username
+            post_id
+            wine_id
+
+
+        result data:
+            status
+            date
+
+            data - drankittoos descending by date
+                drankittoo1
+                drankittoo2
+                ...
+                drankittooN
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+                RESULT_EMPTY = 110 - no "drank it toos" per post XXX have been found
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - some other error occurred during or after fetching of the "drank it toos", eg. post does not exist
+
+
+    - add new "drank it too" for winepost XXX
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/drankittoos/add
+        method: POST
+
+        fields:
+            post_id
+            tl_id
+
+            UWAGA:
+
+        result data:
+            status
+            date
+            data: { drank_it_too_data }
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - some other error occurred during or after adding of the new "drank it too" for post XXX, eg. post does not exist
+                    or it's not a wine post
+
+    - delete "drank it too" by id
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/drankittoos/delete
+        method: POST
+
+        fields:
+            drank_it_too_id
+
+        result data:
+            status
+            date
+            data: { drank_it_too_data }
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - some other error occurred during or after adding of the new "drank it too" for post XXX, eg. post does not exist
+                    or it's not a wine post
+
+
+    - add new review for winepost XXX
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/posts/post/reviews/add
+        method: POST
+
+        fields:
+            author_id (user_id)
+            auth_string
+            post_id
+            title
+            description (content)
+
+        result data:
+            status
+            date
+
+            review_id
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - some other error occurred during or after adding of the new review for post XXX, eg. post does not exist
+
+
+
+
+    - add new comment for post XXX / place XXX
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/comments/add
+        method: POST
+
+        sample CURL request:
+            wine post:
+                curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{ "post_id" : "1", "description": "just a comment for a wine post"}' http://localhost:8000/api/comments/add
+                curl -X POST -H "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NzI2ODIyNDUsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJ1c2VyX2lkIjoiOTNlZjk5YmYtYWM5NC00NDc4LTgwZWUtNzU0OTNmZTM1YmFjIiwidXNlcm5hbWUiOiJhZG1pbiIsImh0dHBfcm9vdCI6Imh0dHA6Ly9sb2NhbGhvc3QifQ.UBBkug1q1h3rNIc2U5U9rzzIUT4i3tmeEoJk8Haw4mA" -d '{ "post_id" : "1", "description": "just a comment for a wine post"}' http://localhost:8000/api/comments/add
+
+             non-wine post:
+                curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{ "post_id" : "7", "description": "just a comment for a NON-wine post"}' http://localhost:8000/api/comments/add
+                curl -X POST -H "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NzI2ODIyNDUsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJ1c2VyX2lkIjoiOTNlZjk5YmYtYWM5NC00NDc4LTgwZWUtNzU0OTNmZTM1YmFjIiwidXNlcm5hbWUiOiJhZG1pbiIsImh0dHBfcm9vdCI6Imh0dHA6Ly9sb2NhbGhvc3QifQ.UBBkug1q1h3rNIc2U5U9rzzIUT4i3tmeEoJk8Haw4mA" -d '{ "post_id" : "7", "description": "just a comment for a NON-wine post"}' http://localhost:8000/api/comments/add
+
+             place:
+                curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{ "place_id" : "1", "description": "just a comment for a place"}' http://localhost:8000/api/comments/add
+                curl -X POST -H "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NzI2ODIyNDUsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJ1c2VyX2lkIjoiOTNlZjk5YmYtYWM5NC00NDc4LTgwZWUtNzU0OTNmZTM1YmFjIiwidXNlcm5hbWUiOiJhZG1pbiIsImh0dHBfcm9vdCI6Imh0dHA6Ly9sb2NhbGhvc3QifQ.UBBkug1q1h3rNIc2U5U9rzzIUT4i3tmeEoJk8Haw4mA" -d '{ "place_id" : "1", "description": "just a comment for a place"}' http://localhost:8000/api/comments/add
+
+        fields:
+            post_id OR place_id
+            description
+
+        result data:
+            status
+            date
+
+            data: [[comment_data]]
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - some other error occurred during or after adding of the new comment for post XXX, eg. post does not exist
+-----------------------------------------------------------------------------------------
+
+    - update your own comment for post XXX / place XXX
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/comments/update
+        method: POST
+
+        sample CURL request:
+            curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{ "comment_id" : "32", "description": "Test update comment."}' http://localhost:8000/api/comments/update
+
+            curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0NzI2NzcxMzcsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6ImFkbWluIiwidXNlcl9pZCI6IjFlMDg4YjVlLTczMzMtNDc2NC1hODg1LTE2ZTRhOWNkNTk2OCIsImh0dHBfcm9vdCI6Imh0dHA6Ly9sb2NhbGhvc3QifQ.vvMYKTW0pACBADzWq1S5cE3kJR7zVazPjAu66xZFvys" -d '{ "comment_id" : "32", "description": "Test update comment."}' http://localhost:8000/api/comments/update
+
+        WARNING: comment edition is only allowed for the comment's author; otherwise, the error (status = 102) will be thrown.
+
+        fields:
+            comment_id
+            description
+
+        result data:
+            status
+            date
+
+            data: [[comment_data]]
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - some other error occurred during or after adding of the new comment for post XXX, eg. post does not exist
+-----------------------------------------------------------------------------------------
+
+
+    - delete (archive) your own comment for post XXX / place XXX
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/comments/delete
+        method: POST
+
+        sample CURL request:
+            curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{ "comment_id" : "32"}' http://localhost:8000/api/comments/delete
+
+            curl -X POST -H "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NzI2ODIyNDUsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJ1c2VyX2lkIjoiOTNlZjk5YmYtYWM5NC00NDc4LTgwZWUtNzU0OTNmZTM1YmFjIiwidXNlcm5hbWUiOiJhZG1pbiIsImh0dHBfcm9vdCI6Imh0dHA6Ly9sb2NhbGhvc3QifQ.UBBkug1q1h3rNIc2U5U9rzzIUT4i3tmeEoJk8Haw4mA" -d '{ "comment_id" : "32"}' http://localhost:8000/api/comments/delete
+
+        fields:
+            comment_id
+
+        WARNING: comment deletion (archiving) is only allowed for the comment's author; otherwise, the error (status = 102) will be thrown.
+
+        result data:
+            status
+            date
+
+            data: [[comment_data]]
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - some other error occurred during or after adding of the new comment for post XXX, eg. post does not exist
+-----------------------------------------------------------------------------------------
+
+
+Autocomplete methods
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    - wine name autocomplete
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/autocomplete/wine
+        method: POST
+
+        fields:
+            author_id (user_id)
+            auth_string
+
+            query_string
+
+        sample CURL query:
+            curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{"query_type": "starts", "query": "Cat", "min_letters" : "3"}' http://146.185.166.173:8000/api/autocomplete/winemaker
+            curl -X POST -H "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODc5MjAwNjMsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJodHRwX3Jvb3QiOiJodHRwOi8vbG9jYWxob3N0IiwidXNlcl9pZCI6IjFmNjI5OTBmLTM0YWItNDYyOC1hYjA3LWI4MTdmZjg0NzRhMyIsInVzZXJuYW1lIjoiYWRtaW4ifQ.I9Tjkq4pAYBYrs4NsiYFzfAVQR2lDBxX_fWF5dI0ECc" -d '{"query_type": "starts", "query": "Cat", "min_letters" : "3"}' http://146.185.166.173:8000/api/autocomplete/winemaker
+
+        result data:
+        {
+            "data": {
+                "items": [
+                    {
+                        "author": "Matt Krell",
+                        "color": 20,
+                        "created_time": "2016-10-22T17:18:58Z",
+                        "designation": "Vouvray",
+                        "domain": "Breton",
+                        "grape_variety": "Chenin, Menu pineau, Chardonnay, C\u00f4t, Malbec, Gamay",
+                        "id": 1,
+                        "is_archived": false,
+                        "is_sparkling": false,
+                        "main_image": "http://146.185.166.173:8000/media/wines/la-dilletante-bulles_Iht83Xl.jpg",
+                        "modified_time": "2016-10-22T17:18:58Z",
+                        "name": "LA DILETTANTE (bulles) m\u00e9thode traditionnelle",
+                        "region": "Loire",
+                        "similiar_wine_exists": false,
+                        "similiar_wine_id": null,
+                        "status": "20",
+                        "total_comment_number": 0,
+                        "total_drank_it_too_number": 5,
+                        "total_likevote_number": 3,
+                        "total_star_review_number": 0,
+                        "wine_post_number": 3,
+                        "winemaker_id": 1,
+                        "winemaker_name": "Catherine & Pierre Breton",
+                        "year": "2010"
+                    },
+                    ......
+                ],
+                "query": "dile"
+            },
+            "date": "2016-11-24T15:31:40Z",
+            "host": "localhost",
+            "status": 100,
+            "success": true
+        }
+
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+                RESULT_EMPTY = 110 - no autocomplete suggested wine names have been found
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - some other error occurred during or after fetching the autocomplete suggestions
+
+
+    - winemaker name autocomplete
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/autocomplete/winemaker
+        method: POST
+
+        fields:
+            author_id (user_id)
+            auth_string
+
+            query_string
+
+        result data:
+            status
+            date
+
+            data - autocomplete suggestions descending by relevancy
+                suggestion1
+                suggestion2
+                ...
+                suggestionN
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+                RESULT_EMPTY = 110 - no autocomplete suggested winemaker names have been found
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - some other error occurred during or after fetching the autocomplete suggestions
+
+
+    ?? Are there any other autocompletes here, eg. domain autocomplete or grape variety autocomplete?? 
+    I didn't find any such cases in the documentation.
+-----------------------------------------------------------------------------------------
+
+
+
+Place-related methods
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    - add (submit) new place
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    URL: /api/places/place/add
+    method: POST
+
+    sample CURL request:
+        curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -F 'data={"name":"Degustatornia", "type": "20", "description": "Very nice bar located nearby Motlawa river in the center of Gdansk (Old Town)", "street_address": "ul. Grodzka 16 (za hotelem Hilton)", "house_number": "16", "zip_code": "80841", "city": "Gdansk", "country": "Poland", "country_iso_code": "PL", "phone_number": "+48 888 728 272", "website_url": "degustatornia.eu", "email": "degu@degustatornia.eu", "latitude": "54.35409", "longitude": "18.6574003", "social_facebook_url": "https://web.facebook.com/DEGUSTATORNIA/", "social_twitter_url": "", "social_instagram_url": ""}' -F "images=@/home/krzysiek/degustatornia.jpg" -F "images=@/home/krzysiek/degustatornia2.jpg" http://localhost:9002/api/places/place/add
+        curl -X POST -H "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQV4YW1wbGUuY29tIiwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsInVzZXJfaWQiOiJlNTFmNGQzNy1kNWI1LTQ5MjctYjEzMC04OTFhNzJjYzllOGEiLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNzk2MzM1NjI2fQ.jbRRbm_c0OtzUkdee3awmzd8eIxm8kJCBpVddnIJtw4" -F 'data={"name":"Degustatornia", "type": "20", "description": "Very nice bar located nearby Motlawa river in the center of Gdansk (Old Town)", "street_address": "ul. Grodzka 16 (za hotelem Hilton)", "house_number": "16", "zip_code": "80841", "city": "Gdansk", "country": "Poland", "country_iso_code": "PL", "phone_number": "+48 888 728 272", "website_url": "degustatornia.eu", "email": "degu@degustatornia.eu", "latitude": "54.35409", "longitude": "18.6574003", "social_facebook_url": "https://web.facebook.com/DEGUSTATORNIA/", "social_twitter_url": "", "social_instagram_url": ""}' -F "images=@/home/krzysiek/degustatornia.jpg" -F "images=@/home/krzysiek/degustatornia2.jpg" http://localhost:9002/api/places/place/add
+
+    fields:
+        images - uploaded images (one or more). Optional.
+
+        data - JSON data field. Serialized JSON should be sent through it:
+            required:
+
+                name
+                type (10 - restaurant/ 20 - bar/ 30 - wine shop)
+                description
+
+            optional:
+                taken from Google maps data:
+                    street_address
+                    house_number
+                    zip_code
+                    city
+                    country
+                    country_iso_code
+                    latitude
+                    longitude
+
+            not used yet as for App sketches, but working (optional):
+                phone_number
+                website_url
+                email
+                social_facebook_url
+                social_twitter_url
+                social_instagram_url
+
+    result data:
+
+        {
+            "data": {
+                "author": "admin adminer",
+                "author_avatar_url": "http://localhost:9002/media/users/jhb.jpg",
+                "city": "Gdansk",
+                "comment_number": 0,
+                "country": "Poland",
+                "country_iso_code": "PL",
+                "created_time": "2016-12-05T22:07:35Z",
+                "description": "Very nice bar located nearby Motlawa river in the center of Gdansk (Old Town)",
+                "email": "degu@degustatornia.eu",
+                "house_number": "16",
+                "id": 1703,
+                "is_archived": false,
+                "is_bar": false,
+                "is_restaurant": false,
+                "is_wine_shop": false,
+                "latitude": 54.35409,
+                "likevote_number": 0,
+                "longitude": 18.6574003,
+                "main_image": "http://localhost:9002/media/places/degustatornia_8Ir2J3Q.jpg",
+                "modified_time": "2016-12-05T22:07:35Z",
+                "name": "Degustatornia",
+                "phone_number": "+48 888 728 272",
+                "social_facebook_url": "https://web.facebook.com/DEGUSTATORNIA/",
+                "social_instagram_url": "",
+                "social_twitter_url": "",
+                "state": "None",
+                "status": "10",
+                "sticker_sent": false,
+                "street_address": "ul. Grodzka 16 (za hotelem Hilton)",
+                "type": 20,
+                "website_url": "degustatornia.eu",
+                "zip_code": "80841"
+            },
+            "date": "2016-12-05T22:07:35Z",
+            "host": "localhost",
+            "status": 100,
+            "success": true
+        }
+    status codes:
+        OK - HTTP CODE 200:
+            STATUS_OK = 100
+
+        Errors - HTTP CODE 400:
+            WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrectprovided
+            WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+            RESULT_ERROR = 102 - other error occurred
+
+    - update place data
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/places/place/edit
+        method: POST
+
+        sample CURL request:
+            curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -F 'data={"place_id" : 1, "name":"Degustatornia EDITED", "is_bar": true, "is_restaurant": false, "is_wine_shop": false, "description": "EDITED test edition - Very nice bar located nearby Motlawa river in the center of Gdansk (Old Town)", "street_address": "EDITED ul. Grodzka 16 (za hotelem Hilton)", "house_number": "16E", "zip_code": "66333", "city": "Gdansk EDITED", "country": "Poland EDITED", "country_iso_code": "PL", "phone_number": "+46 888 728 999", "website_url": "degustatornia-edited.eu", "email": "degu@degustatornia-edited.eu", "latitude": "54.35410", "longitude": "18.6574010", "social_facebook_url": "https://web.facebook.com/DEGUSTATORNIA/EDITED", "social_twitter_url": "", "social_instagram_url": "EDITED"}' -F "images=@/home/krzysiek/degustatornia.png"  http://localhost:9002/api/places/place/edit
+            curl -X POST -H "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZTUxZjRkMzctZDViNS00OTI3LWIxMzAtODkxYTcyY2M5ZThhIiwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsImV4cCI6MTc5NjMzMDAyMCwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4ifQ.Qk2OMMeYnvMcc3ZRFPvBEw_B03GeMQMDBO8Q2xm8T6o" -F 'data={"place_id" : 1, "name":"Degustatornia EDITED", "is_bar": true, "is_restaurant": false, "is_wine_shop": false, "description": "EDITED test edition - Very nice bar located nearby Motlawa river in the center of Gdansk (Old Town)", "street_address": "EDITED ul. Grodzka 16 (za hotelem Hilton)", "house_number": "16E", "zip_code": "66333", "city": "Gdansk EDITED", "country": "Poland EDITED", "country_iso_code": "PL", "phone_number": "+46 888 728 999", "website_url": "degustatornia-edited.eu", "email": "degu@degustatornia-edited.eu", "latitude": "54.35410", "longitude": "18.6574010", "social_facebook_url": "https://web.facebook.com/DEGUSTATORNIA/EDITED", "social_twitter_url": "", "social_instagram_url": "EDITED"}' -F "images=@/home/krzysiek/degustatornia.png"  http://localhost:9002/api/places/place/edit
+
+        fields:
+            images - uploaded images (one or more). Optional.
+
+            data - JSON data field. Serialized JSON should be sent through it:
+                required:
+                    tl_id (timeline item id) OR place_id - one of them is required
+
+                    name
+                    description
+
+                optional:
+                    is_post
+                    is_restaurant
+                    is_bar
+
+                    taken from Google maps data:
+                        street_address
+                        house_number
+                        zip_code
+                        city
+                        country
+                        country_iso_code
+                        latitude
+                        longitude
+
+                not used yet as for App sketches, but working (optional):
+                    phone_number
+                    website_url
+                    email
+                    social_facebook_url
+                    social_twitter_url
+                    social_instagram_url
+
+        result data:
+            date
+            {
+                "data": {
+                    "author": "admin adminer",
+                    "author_avatar_url": "http://localhost:9002/media/users/jhb.jpg",
+                    "city": "Gdansk EDITED",
+                    "comment_number": 0,
+                    "country": "Poland EDITED",
+                    "country_iso_code": "PL",
+                    "created_time": "2016-11-30T02:42:28Z",
+                    "description": "EDITED test edition - Very nice bar located nearby Motlawa river in the center of Gdansk (Old Town)",
+                    "email": "degu@degustatornia-edited.eu",
+                    "house_number": "16E",
+                    "id": 1,
+                    "is_archived": false,
+                    "is_bar": true,
+                    "is_restaurant": false,
+                    "is_wine_shop": false,
+                    "latitude": 54.3541,
+                    "likevote_number": 1,
+                    "longitude": 18.657401,
+                    "main_image": "http://localhost:9002/media/places/spp-logo-ks07_view_png_1fKmQ6T.png",
+                    "modified_time": "2016-12-01T21:55:35Z",
+                    "name": "Degustatornia EDITED",
+                    "phone_number": "+46 888 728 999",
+                    "social_facebook_url": "https://web.facebook.com/DEGUSTATORNIA/EDITED",
+                    "social_instagram_url": "EDITED",
+                    "social_twitter_url": "",
+                    "state": "\u00cele-de-France",
+                    "status": "10",
+                    "sticker_sent": false,
+                    "street_address": "EDITED ul. Grodzka 16 (za hotelem Hilton)",
+                    "type": null,
+                    "website_url": "degustatornia-edited.eu",
+                    "zip_code": "66333"
+                },
+                "date": "2016-12-05T20:51:45Z",
+                "host": "localhost",
+                "status": 100,
+                "success": true
+            }
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - other error occurred
+
+
+
+    - list of places 
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/places/list
+        method: GET, POST
+
+        fields:
+            user_id
+            auth_string
+
+            type - all/restaurant/bar/wine_shop (optional; lack or empty = "all")
+            location - manually inputted address / map selection and lat/long - to be decided; anyway, assume this is textual field,
+            latlong can be inputted as comma-separated, eg. 59.60001234,19.43054309; optional value
+
+            order_by - name, creation_date, distance; if empty, assumes "name"
+
+        result data:
+            status
+            date
+
+            data - places by order_by field: ascending by name OR descending by creation_date OR ascending by distance
+                place1
+                place2
+                ...
+                placeN
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+                RESULT_EMPTY = 110 - no places fo the provided parameters have been found
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - some other error occurred during or after fetching the list of places, 
+                    eg. lat/longs wer eout of range
+
+
+    - place details - get place XXX
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/places/place
+        method: POST
+
+        fields:
+            place_id
+
+        result data:
+            status
+            date
+
+            data:
+                place: [[ place_data ]]
+                likevotes: [[ 10 first likevotes for the place ]]
+                comments: [[ 10 first comments for the place ]]
+
+                likevote_last_id: [[ id of the last element on the likevotes list ]]
+                comment_last_id: [[ id of the last element on the comments list ]]
+
+            opening hours per weekday (including "closed")
+
+            list of comments, descending by creation date
+                comment1
+                comment2
+                ...
+                commentN
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+                RESULT_EMPTY = 110 - no places fo the provided parameters have been found
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - some other error occurred during or after fetching the place details, eg. place does not exist
+
+-----------------------------------------------------------------------------------------
+
+Winemaker-related methods
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    - list of natural winemakers 
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/winemaker/items
+        method: GET, POST
+
+        Sample CURL request:
+            curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{}' http://146.185.166.173:8000/api/winemaker/items
+            curl -X POST -H "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwidXNlcl9pZCI6IjUxMzA4N2I4LTRhZWUtNDlkZS05MDVmLWIyY2Q3MjVjMmViYyIsImV4cCI6MTc5MjEzNTY2NSwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsImh0dHBfcm9vdCI6Imh0dHA6Ly9sb2NhbGhvc3QifQ.P3BdjUDZWX_SB9_Vy6_SrrT7uoiDqP41iN1JAnD65WU" -d '{}' http://146.185.166.173:8000/api/winemaker/items
+
+        fields:
+            limit - list limit. Default 10 (if not provided). If no limit is required, it should be -1
+            order_dir - asc or desc
+            last_id  - last id in paging
+            order_by  - field we order by (only one), default is "id" (see fields below, "result data format").
+                WARNING: onl sorting by id and name was tested
+
+        result data:
+            status
+            date
+
+            data - natural winemakers sorted ascending by name
+                winemaker1
+                winemaker2
+                ...
+                winemakerN
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - some other error occurred during or after fetching the list of natural winemakers
+
+        Result data format:
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        {
+            "data": {
+                "items": [
+                    {
+                        "author": "admin adminer",
+                        "author_id": "513087b8-4aee-49de-905f-b2cd725c2ebc",
+                        "city": null,
+                        "country": "None",
+                        "country_iso_code": "",
+                        "created_time": "2016-09-27T03:12:03Z",
+                        "description": null,
+                        "domain": "Domaine De La Loose",
+                        "email": null,
+                        "house_number": null,
+                        "id": 13,
+                        "latitude": 0.0,
+                        "longitude": 0.0,
+                        "main_image": "http://146.185.166.173:8000/media/winemakers/thierry-jean-marie-puzelat.jpg",
+                        "modified_time": "2016-09-27T03:12:03Z",
+                        "name": "G\u00e9rard Bertrand",
+                        "phone_number": null,
+                        "region": "Provence",
+                        "social_facebook_url": "",
+                        "social_instagram_url": "",
+                        "social_twitter_url": "",
+                        "status": 20,
+                        "street_address": null,
+                        "website_url": null,
+                        "zip_code": null
+                    },
+                ],
+                "last_id": 4
+            },
+            "date": "2016-10-18T07:40:26Z",
+            "host": "localhost",
+            "status": 100,
+            "success": true
+        }
+-----------------------------------------------------------------------------------------
+
+
+Autocomplete methods - all have the same set of parameters
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    URL: /api/autocomplete/winemaker - winemakers
+    URL: /api/autocomplete/domain - domain
+    URL: /api/autocomplete/wine - wine name
+    URL: /api/autocomplete/place - place
+    URL: /api/autocomplete/username - username
+
+    method: GET, POST
+
+    fields:
+        query - query string, eg. "Breton"
+
+        query_type: - values:
+            "contains" - contains a query string, eg. "Breton" will "Catherine & Pierre Breton", too. (default)
+            "starts" - starts with a query string, eg. "Cath" will render "Catherine & Pierre Breton",
+            "ends"  - ends with a query string, eg. "ton" will render "Catherine & Pierre Breton" as well
+
+        min_letters - the minimal number of letters autocomplete search is being run for. Default is 0.
+            For example, if you have this parameter set to 3, and you have query_type "starts" and you type "Ca", it will
+            bring nothing, but if you type "Cat" it will render "Catherine & Pierre Breton".
+
+        NOTICE: if you provide no query and min_letters is zero or not set, it will bring ALL items of the searched
+            kind, eg. wines. This should generally be avoided, since the amount of data can be quite large, especially
+            in the case of users, wines and places.
+
+    result data:
+        status
+        date
+
+        data:
+            items: [[ list of items:
+                {
+                    "id": [[ id ]](integer in all cases except for users, where we use UUID)
+                    "name": [[ textual_value, eg. wine name ]]
+                }
+            ]]
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+                RESULT_EMPTY = 110
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - some other error occurred
+-----------------------------------------------------------------------------------------
+
+
+Image-related methods
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+List of images for item
+        URL: /api/images/listforitem
+        method: GET, POST
+
+        fields:
+            post_id         - gets the images for the post OR
+            place_id        - gets the images for the place OR
+            wine_id         - gets the images for the wine OR
+            winemaker_id    - gets the images for the winemaker OR
+            user_id         - gets the images for the user
+
+            NOTICE: in the case of post, if the post is winepost (post.type=PostTypeE.WINE), the images related to
+            the post.wine object are loaded as well (combined post + wine images)
+
+        sample CURL query:
+            curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{ "post_id": 9 }' http://localhost:8000/api/images/listforitem
+            curl -X POST -H "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwX3Jvb3QiOiJodHRwO8vbG9jYWxob3N0IiwidXNlcl9pZCI6IjVlNGI2ZDk5LWJlN2ItNGM4Yi1iYjkzLTMzNTAzNTQyY2Q1NSIsImV4cCI6MTc4NzU4ODMxOSwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4ifQ.OTpSJkWDyIrEQo5nrQEY8T03t_wA0wszzMKFrsUChr0" -d '{ "post_id": 9 }' http://localhost:8000/api/images/listforitem
+
+
+        result data:
+            status
+            date
+
+            data: {
+                'parent_item': [[parent_item_for_id]]
+                'images' : [[list_of_images]]
+            }
+
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - some other error occurred during or after fetching the list of natural winemakers
+
+
+
+=========================================================================================
+=========================================================================================
+
+
+Other methods, IF they are needed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+??? intro - should it be from backend, or just embedded in the Raisin Application?
+
+???- post place info on Social sites (Facebook) - should it be from the backend, or in Raisin App only?
+
+??? - get map - should it be from the backend, or in Raisin App only?
+
+??? - list of wines for natural winemaker - is it needed?
+
+
+sources
+    https://projects.invisionapp.com/share/9S7AA5YPR#/screens/158181074
+    Raisin - UX Specs - V2.0 -2016-08-02.pdf
+
+=========================================================================================
+=========================================================================================
+
+Sprawdzenie, czy podobne wino jest w bazie (obecnie nieużywane, ale może się przydać)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    URL: /api/wine/similiar/items
+
+    Przykładowe zapytanie CURL:
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{"wine_name": "La Dilettante Trenquille"}' http://146.185.166.173:8000/api/wine/similiar/items
+
+
+    Pola formularza:
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~
+        wine_name (obowiązkowe)
+
+    Zwrotka:
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Współczynnik podobieństwa jest w polu similarity w każdym itemie. Itemy są sortowane
+    po similarity (malejąco). Później, przy dodawaniu wina w /api/posts/wine/add, po prostu
+    bierzemy id pierwszego wina (pole id pierwszego itemu) jako similiar_wine_id i ustawiamy
+    flagę similiar_wine_exists w /api/posts/wine/add na true. Jeżeli nie ma podobnego wina, to
+    nie ustawiamy żadnego z tych parametrów w /api/posts/wine/add
+
+    {
+        "data": {
+            "items": [
+                {
+                    "author": "Matt Krell",
+                    "color": 20,
+                    "created_time": "2016-11-18T17:02:31Z",
+                    "designation": "Vouvray",
+                    "domain": "Breton",
+                    "grape_variety": "Chenin, Menu Pineau, Chardonnay",
+                    "id": 10,
+                    "is_archived": false,
+                    "is_sparkling": false,
+                    "main_image": "http://localhost:8000/media/wines/la-dilettante-tranquille-2013.jpg",
+                    "modified_time": "2016-11-18T17:02:31Z",
+                    "name": "La Dilettante Tranquille",
+                    "region": "Loire",
+                    "similarity": 0.785714,
+                    "status": "20",
+                    "total_comment_number": 0,
+                    "total_drank_it_too_number": 0,
+                    "total_likevote_number": 0,
+                    "total_star_review_number": 0,
+                    "wine_post_number": 1,
+                    "winemaker_id": 1,
+                    "winemaker_name": "Catherine & Pierre Breton",
+                    "year": "2014"
+                },
+                ......
+           ]
+        },
+        "date": "2016-11-23T02:41:55Z",
+        "host": "localhost",
+        "status": 100,
+        "success": true
+    }

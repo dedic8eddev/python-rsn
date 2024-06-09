@@ -1,0 +1,840 @@
+E1. /api/events/timeline (last_id, size) - timeline of events
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Get the events timeline, descending, paged by 10
+
+URL: /api/events/timeline
+method: POST
+
+Sample CURL query:
+~~~~~~~~~~~~~~~~~~
+    curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx " -d '{"last_id" : "25", "limit" : "3", "order_dir" : "desc"}' http://localhost:8000/api/events/timeline
+
+        default page_no is 1
+
+
+Request fields:
+~~~~~~~~~~~~~~~~~~
+    - limit - items limit. Optional - default 10
+    - last_id - last item's id used for paging. Optional - if not provided for desc, max id will be used,
+        for asc - 1 will be used)
+    - order - "desc" (descending) or "asc" (ascending). Optional - default is "desc"
+
+
+Response data:
+~~~~~~~~~~~~~~~~~~
+    - data: {
+        'items': [ - event timeline items list
+            { - single event item
+                id - internal event ID in Raisin CMS
+                title
+                description
+                start_date
+                end_date,
+                price
+                is_pro
+                url
+                image_url
+
+                loc_name
+                loc_lat
+                loc_lng
+                loc_full_street_address
+
+                i_like_it - true/false
+                all_likes - counter
+
+                all_attendees - counter - how many attendees attend the event
+                attendees [- list of users, max. 11
+                    { - single user item
+                        id - user ID
+                        avatar - user avatar URL
+                    }
+                ]
+            }
+        ]
+
+        'last_id': [[id of the last element in the list ]]
+    }
+
+    - date
+    - status
+
+    status codes:
+        OK - HTTP CODE 200:
+            STATUS_OK = 100
+            RESULT_EMPTY = 110 - no timeline items have been found
+
+        Errors - HTTP CODE 400:
+            WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+            WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+            RESULT_ERROR = 102 - other error occurred
+                (this method is for the logged user only)
+=====================================================================================================================================
+
+
+E2. /api/events/details - event details
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Get the specified event by ID
+
+URL: /api/events/details
+method: POST
+
+Sample CURL query:
+~~~~~~~~~~~~~~~~~~
+    curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx " -d '{"event_id" : "446" }' http://localhost:8000/api/events/details
+
+
+Request fields:
+~~~~~~~~~~~~~~~~~~
+    - event_id - ID of the event. Required field
+
+
+Response data:
+~~~~~~~~~~~~~~~~~~
+    - data: { - event data
+        id - internal EVENT ID in Raisin CMS
+        title
+        description
+        start_date
+        end_date
+        price
+        is_pro
+        url
+        image_url
+
+        is_past - true/false - has the event already passed?
+        is_ongoing - true/false - is the event currently going on?
+        is_user_there - true/false - is the request-sending user an attendee of the event / was he/she one in the past?
+
+        loc_name
+        loc_lat
+        loc_lng
+        loc_full_street_address
+
+        i_like_it - true/false - does the user like the event?
+        all_likes - counter - number of all likes for the event
+
+        all_attendees - counter - how many attendees attend the event
+        attendees: [- list of users, max. 11
+            { - single user item
+                id - user ID
+                avatar - user avatar URL
+            }
+        ]
+
+        all_comments - counter - how many comments are added for the event
+
+        comments: [ - list of the 5 first comments for the event, aka in the post details
+            {
+                "author_avatar_url": "https://cms.raisin.digital/media/users/avatar-D66BBF51-F538-4890-9214-693BA76E3223.png",
+                "author_id": "da320293-4b47-4d09-a63a-92dd47248a4b",
+                "author_username": "antrim24",
+                "created_time": "2017-09-11T13:46:16Z",
+                "description": "\ud83d\udc4d\ud83d\udc4d\ud83d\udc4d",
+                "id": 1532,
+                "mentions": [],
+            }
+        ]
+
+        comment_last_id: ID of the last comment on the list, for fetching next comments in a separate view
+    }
+    - date
+    - status
+
+    status codes:
+        OK - HTTP CODE 200:
+            STATUS_OK = 100
+            RESULT_EMPTY = 110 - no timeline items have been found
+
+        Errors - HTTP CODE 400:
+            WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+            WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+            RESULT_ERROR = 102 - other error occurred
+                (this method is for the logged user only)
+=====================================================================================================================================
+
+
+E3. /api/events/carousel - 5 items for carousel
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Gets 5 items for carousel
+
+URL: /api/events/carousel
+method: POST
+
+Sample CURL query:
+~~~~~~~~~~~~~~~~~~
+    curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx " -d '{"event_id" : "446" }' http://localhost:8000/api/events/carousel
+
+
+Request fields:
+~~~~~~~~~~~~~~~~~~
+    - limit - items limit. Optional - default 10
+    - last_id - last item's id used for paging. Optional - if not provided for desc, max id will be used,
+        for asc - 1 will be used)
+    - order - "desc" (descending) or "asc" (ascending). Optional - default is "desc"    
+
+Response data:
+~~~~~~~~~~~~~~~~~~
+    - data: [ - data of events in a list
+        { - single event data
+            id - internal EVENT ID in Raisin CMS
+            title
+            description
+            start_date
+            end_date
+            price
+            is_pro
+            url
+            image_url
+
+            loc_name
+            loc_lat
+            loc_lng
+            loc_full_street_address
+        }
+    ]
+
+    - date
+    - status
+
+    status codes:
+        OK - HTTP CODE 200:
+            STATUS_OK = 100
+            RESULT_EMPTY = 110 - no timeline items have been found
+
+        Errors - HTTP CODE 400:
+            WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+            WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+            RESULT_ERROR = 102 - other error occurred
+                (this method is for the logged user only)
+=====================================================================================================================================
+
+
+E4. /api/events/attendees/add - confirm that you will attend an event
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The user confirms that he/she will attend an event.
+
+URL: /api/events/attendees/add
+method: POST
+
+Sample CURL query:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{ "event_id" : "1"}' http://localhost:8000/api/events/attendees/add
+
+
+Request fields:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    - event_id - required
+
+
+Response data:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    - data: [[attendee data]]
+
+    - date
+    - status
+
+    status codes:
+        OK - HTTP CODE 200:
+            STATUS_OK = 100
+
+        Errors - HTTP CODE 400:
+            WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+            WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+            RESULT_ERROR = 102 - some other error occurred during or after adding of the new comment for post XXX, eg. post does not exist
+=====================================================================================================================================
+
+
+E4-1. /api/events/attendees/delete - confirm that you will attend an event
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The user confirms that he/she will attend an event.
+
+URL: /api/events/attendees/add
+method: POST
+
+Sample CURL query:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{ "event_id" : "1"}' http://localhost:8000/api/events/attendees/delete
+    curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaHR0cF9yb290IjoiaHR0cDvL2xvY2FsaG9zdCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJleHAiOjE4MTk1NDQxMTksInVzZXJfaWQiOiIyYzE1MTQzNS0wNmE5LTQ4M2UtOGFkYy01MjcwYjMyMmI3YTAifQ.OFMDWE18lIeq83sbu5YzdbQKuzRx-siin35m6ssu8Sw" -d '{"event_id":18}' http://146.185.166.173:8000/api/events/attendees/delete
+
+Sample response data:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    "data": {
+        "author": "admin",
+        "author_avatar_url": "http://146.185.166.173:8000/media/users/aircraftfactory.png",
+        "author_id": "2c151435-06a9-483e-8adc-5270b322b7a0",
+        "author_image": "http://146.185.166.173:8000/media/users/aircraftfactory.png",
+        "author_username": "admin",
+        "cal_event_main_image": "https://dev.raisin.digital/wp-content/uploads/importedmedia/event-463.jpg",
+        "created_time": "2017-10-16T12:42:58Z",
+        "event": "8\u00e8me Salon Les D\u00e9bouch\u00e9es",
+        "event_id": 18,
+        "id": 3,
+        "modified_time": "2017-10-16T12:43:27Z"
+    },
+    "date": "2017-10-16T12:43:27Z",
+    "host": "localhost",
+    "status": 100,
+    "success": true
+}
+
+
+Request fields:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    - event_id - required
+
+
+Response data:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    - data: [[attendee data]]
+
+    - date
+    - status
+
+    status codes:
+        OK - HTTP CODE 200:
+            STATUS_OK = 100
+
+        Errors - HTTP CODE 400:
+            WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+            WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+            RESULT_ERROR = 102 - some other error occurred during or after adding of the new comment for post XXX, eg. post does not exist
+=====================================================================================================================================
+
+
+E5. /api/events/attendees - list of users attending event XXX
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Returns the list of all users attending the event XXX
+
+URL: /api/events/attendees
+method: GET
+
+Sample CURL query:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    curl -X GET -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{ "event_id" : "1"}' http://localhost:8000/api/events/attendees
+    curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaHR0cF9yb290IjoiaHR0cDvL2xvY2FsaG9zdCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJleHAiOjE4MTk1NDQxMTksInVzZXJfaWQiOiIyYzE1MTQzNS0wNmE5LTQ4M2UtOGFkYy01MjcwYjMyMmI3YTAifQ.OFMDWE18lIeq83sbu5YzdbQKuzRx-siin35m6ssu8Sw" -d '{"event_id":18}' http://146.185.166.173:8000/api/events/attendees
+
+Sample response data:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    "data": {
+        "attendees": [
+            {
+                "avatar_url": "http://146.185.166.173:8000/media/users/aircraftfactory.png",
+                "id": "2c151435-06a9-483e-8adc-5270b322b7a0",
+                "username": "admin"
+            }
+        ],
+        "last_id": 4
+    },
+    "date": "2017-10-16T12:56:35Z",
+    "host": "localhost",
+    "status": 100,
+    "success": true
+}
+
+Request fields:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    - event_id (for other parent entities: post_id OR place_id OR user_id OR wine_id) (one of those is required)
+
+    - limit - items limit. Optional - default 11
+    - last_id - last item's id used for paging. Optional - if not provided for desc, max id will be used, for asc - 1 will be used)
+    - order - "desc" (descending) or "asc" (ascending). Optional - default is "desc"
+
+
+Response  data:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    - data: {
+        'attendees': [ - attendees list
+            { - single attendee
+                id
+                avatar_url
+                username
+            }
+        ]
+        'last_id': [[ID of the last attendee in the list]]
+    }
+    - date
+    - status
+
+    status codes:
+        OK - HTTP CODE 200:
+            STATUS_OK = 100
+            RESULT_EMPTY = 110 - no attendees per event XXX have been found
+
+        Errors - HTTP CODE 400:
+            WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+            WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+            RESULT_ERROR = 102 - some other error occurred during or after fetching of the likes, eg. post does not exist
+=====================================================================================================================================
+
+
+E6. /api/events/map - get the events on the map
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Events must not be older than 7 days, data only for display on the map.
+
+URL: /api/events/map
+method: POST
+
+Sample CURL query:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{}' http://localhost:8000/api/events/map
+
+
+Request fields:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    NONE
+
+
+Response data:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    - data: [ - events list
+        { - single event data
+            id - internal IDin Raisin CMS
+            title
+            start_date
+            end_date
+            image_url
+            loc_name
+            loc_lat
+            loc_lng
+            all_comments
+            all_likes
+        }
+    ]
+    -date
+    - status
+
+    status codes:
+        OK - HTTP CODE 200:
+            STATUS_OK = 100
+
+        Errors - HTTP CODE 400:
+            WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+            WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+            RESULT_ERROR = 102 - some other error occurred during or after calling the request
+
+Sample Request:
+~~~~~~~~~~~~~~~~~~~~~~~~~
+curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsImVtYWlsIjoiYWRtaWAZXhhbXBsZS5jb20iLCJleHAiOjE4MTk1NDQxMTksInVzZXJfaWQiOiIyYzE1MTQzNS0wNmE5LTQ4M2UtOGFkYy01MjcwYjMyMmI3YTAifQ.OFMDWE18lIeq83sbu5YzdbQKuzRx-siin35m6ssu8Sw" -d '{"limit": 2}' http://146.185.166.173:8000/api/events/map
+
+Sample Response:
+~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    "data": {
+        "items": [
+            {
+                "all_comments": 0,
+                "all_likes": 0,
+                "end_date": "2017-12-09T18:30:00Z",
+                "id": 24,
+                "image_url": "https://dev.raisin.digital/wp-content/uploads/origine-naturliche-weinkultur.gif",
+                "loc_lat": 48.1607651,
+                "loc_lng": 11.5752268,
+                "loc_name": "ORIGINE \u00e0 Munich/Allemagne",
+                "start_date": "2017-12-08T14:00:00Z",
+                "title": "Origine Naturliche Weinkultur"
+            },
+            {
+                "all_comments": 0,
+                "all_likes": 0,
+                "end_date": "2017-12-04T19:00:00Z",
+                "id": 23,
+                "image_url": "https://dev.raisin.digital/wp-content/uploads/Vini-Di-Vignaioli-A-Paris.jpg",
+                "loc_lat": null,
+                "loc_lng": null,
+                "loc_name": "",
+                "start_date": "2017-12-03T10:00:00Z",
+                "title": "Vini Di Vignaioli A Paris"
+            }
+        ],
+        "last_id": 23
+    },
+    "date": "2017-10-19T18:13:31Z",
+    "host": "localhost",
+    "status": 100,
+    "success": true
+}
+=====================================================================================================================================
+
+
+E7. /api/search/events - search events by query
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+URL: /api/search/events
+method: POST
+
+
+Sample CURL query:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{ "query" : "wine", "query_type": "contains", "min_letters": 2}' http://localhost:8000/api/search/events
+
+
+Request fields:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    - query - query string, eg. "Paris"
+
+    - query_type: - values:
+        "contains" - contains a query string, eg. "Paris" will "Wine weekend in Paris today", too. (DEFAULT)
+        "starts" - starts with a query string, eg. "Pari" will render "Paris wine exhibition",
+        "ends"  - ends with a query string, eg. "Paris" will render "Wines in Paris" as well
+
+    - min_letters - the minimal number of letters search is being run for. Default is 0.
+        For example, if you have this parameter set to 3, and you have query_type "starts" and you type "Pa", it will
+        bring nothing, but if you type "Par" it will render "Paris wine exhibition".
+
+    NOTICE: if you provide no query and min_letters is zero or not set, it will bring ALL events. 
+        This should generally be avoided, since the amount of data can be quite large.
+
+
+Response data:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    - data: [ - events list
+        { - single event data
+            id - internal IDin Raisin CMS
+            title
+            start_date
+            end_date
+            image_url
+            loc_name
+            loc_lat
+            loc_lng
+            all_comments
+            all_likes
+        }
+    ]
+    - date
+    - status
+
+    status codes:
+        OK - HTTP CODE 200:
+            STATUS_OK = 100
+
+        Errors - HTTP CODE 400:
+            WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+            WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+            RESULT_ERROR = 102 - some other error occurred during or after calling the request
+
+Sample Request:
+~~~~~~~~~~~~~~~~~~~~~~~~~
+curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsImVtYWlsIjoiYWRtaWAZXhhbXBsZS5jb20iLCJleHAiOjE4MTk1NDQxMTksInVzZXJfaWQiOiIyYzE1MTQzNS0wNmE5LTQ4M2UtOGFkYy01MjcwYjMyMmI3YTAifQ.OFMDWE18lIeq83sbu5YzdbQKuzRx-siin35m6ssu8Sw" -d '{"query":"dans"}' http://146.185.166.173:8000/api/search/events
+
+Sample Response:
+~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    "data": {
+        "items": [
+            {
+                "all_comments": 0,
+                "all_likes": 0,
+                "end_date": "2017-10-13T22:30:00Z",
+                "id": 1,
+                "image_url": "https://dev.raisin.digital/wp-content/uploads/importedmedia/event-3681.jpg",
+                "loc_lat": 48.808,
+                "loc_lng": 2.38842,
+                "loc_name": "Cave d&#8217;Ivry",
+                "start_date": "2017-10-13T20:30:00Z",
+                "title": "La Loire dans tout ses \u00e9tats"
+            }
+        ],
+        "last_id": 1
+    },
+    "date": "2017-10-19T18:07:00Z",
+    "host": "localhost",
+    "status": 100,
+    "success": true
+}
+=====================================================================================================================================
+
+
+E8. /api/comments/add - add new comment for event XXX
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+URL: /api/comments/add
+method: POST
+
+Sample CURL query:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{ "event_id" : "1", "description": "just a comment for an event"}' http://localhost:8000/api/comments/add
+
+
+Request fields:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    event_id (post_id OR place_id for other parent entities) - required
+    description
+
+
+Response data:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    - data: [[comment_data]]
+    - date
+    - status
+
+    status codes:
+        OK - HTTP CODE 200:
+            STATUS_OK = 100
+
+        Errors - HTTP CODE 400:
+            WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+            WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+            RESULT_ERROR = 102 - some other error occurred during or after adding of the new comment for event XXX, eg. event does not exist
+=====================================================================================================================================
+
+
+E9. /api/comments/list - list all comments for the specified event
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Returns the list of all comments for the specified events
+
+URL: /api/comments/list
+method: GET
+
+Sample CURL query:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    curl -X GET -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{ "event_id" : "1"}' http://localhost:8000/api/likes/list
+
+
+Request fields:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    - event_id (for other parent entities: post_id OR place_id OR user_id OR wine_id) (one of those is required)
+
+    - limit - items limit. Optional - default 10
+    - last_id - last item's id used for paging. Optional - if not provided for desc, max id will be used, for asc - 1 will be used)
+    - order - "desc" (descending) or "asc" (ascending). Optional - default is "desc"
+
+
+Response  data:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    - data: {
+        'comments': [ - comments list
+            { - single comment
+                "author": "antrim24",
+                "author_avatar_url": "https://cms.raisin.digital/media/users/avatar-D66BBF51-F538-4890-9214-693BA76E3223.png",
+                "author_id": "da320293-4b47-4d09-a63a-92dd47248a4b",
+                "author_image": "https://cms.raisin.digital/media/users/avatar-D66BBF51-F538-4890-9214-693BA76E3223.png",
+                "author_status": 10,
+                "author_username": "antrim24",
+                "created_time": "2017-09-11T13:46:16Z",
+                "description": "\ud83d\udc4d\ud83d\udc4d\ud83d\udc4d",
+                "id": 1532,
+                "mentions": [],
+                "modified_time": "2017-09-11T13:46:17Z",
+                "place": null,
+                "place_id": null,
+                "place_in_doubt": null,
+                "place_main_image": null,
+                "place_status": null,
+                "post": "Amphibolite Nature",
+                "post_id": 13744,
+                "post_main_image": "https://cms.raisin.digital/media/posts/00B310D7-BA20-4B75-978B-039420B1CF86.png"
+            }
+        ]
+        'last_id': [[ID of the last comment in the list]]
+    }
+
+    - date
+    - status
+
+    status codes:
+        OK - HTTP CODE 200:
+            STATUS_OK = 100
+            RESULT_EMPTY = 110 - no comments per event XXX have been found
+
+        Errors - HTTP CODE 400:
+            WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+            WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+            RESULT_ERROR = 102 - some other error occurred during or after fetching of the likes, eg. event does not exist
+=====================================================================================================================================
+
+
+E10. /api/comments/delete - delete the comment for the specified event
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Deletes the comment for the specified event
+
+URL: /api/comments/delete
+method: POST
+
+Sample CURL query:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{ "comment_id" : "24"}' http://localhost:8000/api/comments/delete
+
+
+Request fields:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    - comment_id - required
+
+
+Response data:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    - data: { like_data }
+    - date
+    - status
+
+    status codes:
+        OK - HTTP CODE 200:
+            STATUS_OK = 100
+
+        Errors - HTTP CODE 400:
+            WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+            WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+            RESULT_ERROR = 102 - some other error occurred during or after deletion of the comment fo event XXX, eg. event does not exist
+=====================================================================================================================================
+
+
+E11. /api/likes/list
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Lists all likes, including those for events.
+
+URL: /api/likes/list
+method: GET
+
+Sample CURL query:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    curl -X GET -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{ "event_id" : "1"}' http://localhost:8000/api/likes/list
+
+
+Request fields:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    - event_id (for other parent entities: post_id OR place_id OR user_id OR wine_id) (one of those is required)
+
+    - limit - items limit. Optional - default 10
+    - last_id - last item's id used for paging. Optional - if not provided for desc, max id will be used, for asc - 1 will be used)
+    - order - "desc" (descending) or "asc" (ascending). Optional - default is "desc"
+
+
+Response  data:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    - data: {
+        'likes': [
+            {
+                "author": "patriciaBonneton",
+                "author_avatar_url": "https://cms.raisin.digital/media/users/e06bd41c-f61e-45b0-b9f3-17cd60e3636a.jpg",
+                "author_id": "f1beb769-e20a-4ab4-9587-462f2ef6e96a",
+                "author_image": "https://cms.raisin.digital/media/users/e06bd41c-f61e-45b0-b9f3-17cd60e3636a.jpg",
+                "author_username": "patriciaBonneton",
+                "created_time": "2017-09-11T21:38:00Z",
+                "id": 55528,
+                "modified_time": "2017-09-11T21:38:00Z",
+                "place": null,
+                "place_id": null,
+                "place_main_image": null,
+                "post": "Amphibolite Nature",
+                "post_id": 13744,
+                "post_main_image": "https://cms.raisin.digital/media/posts/00B310D7-BA20-4B75-978B-039420B1CF86.png"
+            }
+        ]
+        'last_id': [[ID of the last likevote in the list]]
+    }
+    - date
+    - status
+
+    status codes:
+        OK - HTTP CODE 200:
+            STATUS_OK = 100
+            RESULT_EMPTY = 110 - no likes per event XXX have been found
+
+        Errors - HTTP CODE 400:
+            WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+            WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+            RESULT_ERROR = 102 - some other error occurred during or after fetching of the likes, eg. post does not exist
+=====================================================================================================================================
+
+
+E12. /api/likes/add - add new like for event XXX
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Adds a like for the specified event. If the event has already been liked, nothing is done, but the response data is the same.
+
+URL: /api/likes/add
+method: POST
+
+Sample CURL query:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{ "event_id" : "1"}' http://localhost:8000/api/likes/add
+
+
+Request fields:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    - event_id - REQUIRED
+
+
+Response data:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    - data: [[like_data]]
+    - date
+    - status
+
+    status codes:
+        OK - HTTP CODE 200:
+            STATUS_OK = 100
+
+        Errors - HTTP CODE 400:
+            WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+            WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+            RESULT_ERROR = 102 - some other error occurred during or after adding of the new like  for post XXX, eg. post does not exist
+=====================================================================================================================================
+
+
+E13. /api/likes/delete - delete the like for the specified event
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Deletes the like for the specified event
+
+URL: /api/likes/delete
+method: POST
+
+Sample CURL query:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    With event_id:
+        curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{ "event_id" : "1"}' http://localhost:8000/api/likes/delete
+
+    With likevote_id:
+        curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{ "likevote_id" : "153"}' http://localhost:8000/api/likes/delete
+
+
+Request fields:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    - event_id OR like_id - one of those is required
+
+
+Response data:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    - data: { like_data }
+    - date
+    - status
+
+    status codes:
+        OK - HTTP CODE 200:
+            STATUS_OK = 100
+
+        Errors - HTTP CODE 400:
+            WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+            WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+            RESULT_ERROR = 102 - some other error occurred during or after adding of the new "drank it too" for post XXX, eg. post does not exist
+                or it's not a wine post
+=====================================================================================================================================
+=====================================================================================================================================

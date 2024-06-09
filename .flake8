@@ -1,0 +1,38 @@
+[flake8]
+ignore = C901, W504
+exclude =
+    __pycache__,
+    .git,
+    venv,
+    docs,
+    logs,
+    src/venv,
+    src/raisin
+    src/generator-foods.py,
+    src/manage.py,
+    src/web/admin.py,
+    src/manage.py,
+    src/*/migrations,
+    src/*/management/commands/reload.py,
+    src/*/management/commands/update-subs.py,
+    src/*/management/commands/fake-flurry.py,
+    src/web/models/__init__.py,
+    src/web_pro/tests,
+    src/web/tests,
+    src/web/forms,
+
+    # from utils
+    src/web/utils/ocr/text_reader.py,
+    src/web/utils/form_tools.py,
+    src/web/utils/geoloc.py,
+    src/web/utils/api_handling.py,
+    src/web/utils/autocomplete_common.py,
+    src/web/utils/donations.py,
+    src/web/utils/exceptions.py,
+    src/web/utils/enum.py,
+
+# uncomment to detect code over-complex code
+# max-complexity = 10
+
+# max line width setting
+max-line-length = 120

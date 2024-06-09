@@ -1,0 +1,50 @@
+{% extends "base/layout.html" %}
+
+{% load static %}
+
+{% block title %}Events - Raisin{% endblock %}
+
+{% block additional_buttons %}
+{% endblock additional_buttons %}
+
+{% block main_content %}
+<script>
+    var url_items_ajax = "{% url 'get_event_items_ajax' %}";
+    var url_event_publish_ajax = "{% url 'event_publish_ajax' %}";
+    var url_event_unpublish_ajax = "{% url 'event_unpublish_ajax' %}";
+    var url_event_refuse_ajax = "{% url 'event_refuse_ajax' %}";
+</script>
+
+<script src="{% static 'assets/javascripts/lists/list.pipeline.js' %}"></script>
+<script src="{% static 'assets/javascripts/lists/list.events.js' %}"></script>
+
+<div class="table table-striped vmiddle">
+    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="jq-datatables-example" >
+        <thead>
+            <tr>
+                <th style="width:15px"><br><input type="checkbox" id="toggle-all" name="check-all" /></th>
+                <th>Picture</th>
+                <th>Published AT</th>
+                <th>Date</th>
+                <th>Author</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Geolocation</th>
+                <th><i class="fa fa-comments" data-toggle="tooltip" title="comments" data-placement="top"></i></th>
+                <th><i class="fa fa-heart" data-toggle="tooltip" title="likes" data-placement="top"></i></th>
+                <th><i class="fa fa-users" data-toggle="tooltip" title="attendees" data-placement="top"></i></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div><!-- end jquery table jhb -->
+
+{% include 'base/elements/lists/action_footer_iroc.html' %}
+
+{% endblock %}
+
+{% block additional_bottom_scripts %}
+    {% include 'base/elements/bottom_js_list.html' %}
+{% endblock additional_bottom_scripts %}

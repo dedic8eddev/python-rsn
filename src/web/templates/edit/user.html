@@ -1,0 +1,466 @@
+{% extends "base/layout.html" %}
+
+{% load static %}
+{% load widget_tweaks %}
+{% load web_extras %}
+{% load i18n %}
+
+{% block title %}Users - user edition - Raisin{% endblock %}
+
+{% block additional_scripts %}
+    <!-- ICI to duplicate forms  -->
+    <script type="text/javascript" src="{% static 'assets/javascripts/libs/clone-form-td.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/javascripts/json2.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/javascripts/edit/edit.user.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/javascripts/pdg-widget.js' %}"></script>
+    <!-- end to duplicate forms  -->
+
+    <!-- Opening hours gendelf.github.io/jquery.businessHours -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.2.17/jquery.timepicker.min.js"></script>
+    {% verbatim %}
+    <script type="text/javascript">
+        var is_new = {% endverbatim %}{% if is_new %}true{% else %}false{% endif %}{% verbatim %};
+        var password_changed = {% endverbatim %}{% if password_changed %}true{% else %}false{% endif %}{% verbatim %};
+        {% endverbatim %}
+            {% if not is_new %}
+                var url_reset_password = '{% url 'reset_password_ajax' %}';
+                var username = '{{ user.username }}';
+                var user_is_admin = {% if user_is_admin %}true{% else %}false{% endif %};
+
+                var url_userpost_items_ajax = '{% url 'get_user_post_items_ajax' uid=user.id %}';
+                var url_userplace_items_ajax = '{% url 'get_user_place_items_ajax' uid=user.id %}';
+                var url_usercomment_items_ajax = '{% url 'get_user_comment_items_ajax' uid=user.id %}';
+                var url_delete_comment = '{% url 'comments_delete_ajax' %}';
+                var url_edit_comment_open = '{% url 'comments_edit_open_ajax' %}';
+                var url_edit_comment_update = '{% url 'comments_edit_update_ajax' %}';
+            {% else %}
+                var url_reset_password = "";
+                var username = "";
+            {% endif %}
+
+            var url_places_publish_ajax = '{% url 'places_publish_ajax' %}';
+            var url_places_unpublish_ajax = '{% url 'places_unpublish_ajax' %}';
+            var url_places_delete_ajax = '{% url 'places_delete_ajax' %}';
+            var url_places_duplicate_ajax = '{% url 'places_duplicate_ajax' %}';
+            var url_places_close_ajax = '{% url 'places_close_ajax' %}';
+            var url_places_set_in_doubt_ajax = '{% url 'places_set_in_doubt_ajax' %}';
+            var url_ajax_published_places_list = '{% url 'published_places_list_ajax' %}';
+            var url_ajax_subscriptions_list = '{% url 'subscriptions_list_ajax' %}';
+        {% verbatim %}
+    </script>
+    {% endverbatim %}
+
+    <!--<script src="{% static 'assets/javascripts/lists/mop.wineposts.js' %}"></script>-->
+    <script src="{% static 'assets/javascripts/lists/list.wineposts.data-table-factory.js' %}"></script>
+{% endblock additional_scripts %}
+
+
+{% block additional_styles %}
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.2.17/jquery.timepicker.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/stylesheets/edit/user.css' %}"/>
+    <link href="{% static 'assets/stylesheets/list/wineposts.css' %}" rel="stylesheet" type="text/css">
+{% endblock additional_styles %}
+
+
+{% block main_content %}
+<div class="panel user-edit">
+    <div class="col-sm-12">
+        <form accept-charset="UTF-8" action="{{ action_url }}" method="POST" enctype="multipart/form-data" autocomplete="nope" id="user-edit-form">
+            {% csrf_token %}
+            {{ form.status }}
+            {% include 'base/elements/edit/pdg-widget-user.html' %}
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success alert-dismissible show" role="alert">
+                      <strong>Success!</strong> {{ message }}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="col-sm-6">
+                <div style="text-align:left; padding:15px;">
+                    <h2>Information:</h2>
+                </div>
+
+                <div class="form-group {% if form.full_name.errors %} has-error {% endif %}">
+                    <label for="{{ form.full_name.id_for_label }}" class="col-sm-4 control-label">
+                        {{ form.full_name.label }}
+                    </label>
+                    <div class="col-sm-8">
+                        {{ form.full_name|add_class:"form-control" }}
+                        {{ form.full_name.errors }}
+                    </div>
+                </div>
+
+                <div class="form-group {% if form.username.errors %} has-error {% endif %}">
+                    <label for="{{ form.username.id_for_label }}" class="col-sm-4 control-label">
+                        {{ form.username.label }}
+                    </label>
+                    <div class="col-sm-8">
+                        {{ form.username|add_class:"form-control"}}
+                        {{ form.username.errors}}
+                    </div>
+                </div>
+
+                <div class="form-group {% if form.email.errors %} has-error {% endif %}">
+                    <label for="{{ form.email.id_for_label }}" class="col-sm-4 control-label">
+                        {{ form.email.label }}
+                    </label>
+                    <div class="col-sm-8">
+                        {{ form.email|add_class:"form-control"}}
+                        {{ form.email.errors}}
+                    </div>
+                </div>
+
+                <div class="form-group {% if form.secondary_emails.errors %} has-error {% endif %}">
+                    <label for="{{ form.secondary_emails.id_for_label }}" class="col-sm-4 control-label">
+                        {{ form.secondary_emails.label }}:
+                    </label>
+                    <div class="col-sm-8">
+                        {{ form.secondary_emails|add_class:"form-control"}}
+                        {{ form.secondary_emails.errors}}
+                    </div>
+                </div>
+
+                <div class="form-group {% if form.password_plain.errors %} has-error {% endif %}">
+                    <label for="{{ form.password_plain.id_for_label }}" class="col-sm-4 control-label">
+                        {{ form.password_plain.label }}
+                    </label>
+                    <div class="col-sm-8">
+                        {{ form.password_plain|add_class:"form-control"|attr:"readonly:readonly"}}
+                        {{ form.password_plain.errors}}
+                    </div>
+                </div>
+
+                <div class="form-group {% if form.website_url.errors %} has-error {% endif %}">
+                    <label for="{{ form.website_url.id_for_label }}" class="col-sm-4 control-label">
+                        {{ form.website_url.label }}
+                    </label>
+                    <div class="col-sm-8">
+                        {{ form.website_url|add_class:"form-control"|attr:"autocomplete:nope"}}
+                        {{ form.website_url.errors}}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lang" class="col-sm-4 control-label">Current language:</label>
+                    <div class="col-sm-8" style="text-align: left; margin-top: -10px;">
+                        {{ form.lang|add_class:"form-control" }}
+                        {{ form.lang.errors}}
+                    </div>
+                </div>
+
+                <div class="form-group {% if form.customer.errors %} has-error {% endif %}" id="customer_id" style="{% if user.type != 40 %}display: none;{% endif %} ">
+                    <label for="{{ form.customer.id_for_label }}" class="col-sm-4 control-label" >
+                        {{ form.customer.label }}
+                    </label>
+                    <div class="col-sm-8">
+                        {{ form.customer|add_class:"form-control"|attr:"autocomplete:nope"}}
+                        {{ form.customer.errors}}
+                    </div>
+                </div>
+
+                <div class="form-group {% if form.subscription.errors %} has-error {% endif %}" id="subscription_id" style="{% if user.type != 40 %}display: none;{% endif %} ">
+                    <label for="{{ form.subscription.id_for_label }}" class="col-sm-4 control-label" >
+                        {{ form.subscription.label }}
+                    </label>
+                    <div class="col-sm-8">
+                        {{ form.subscription|add_class:"form-control"|attr:"autocomplete:nope"}}
+                        {{ form.subscription.errors}}
+                    </div>
+                </div>
+
+                <div class="form-group {% if form.place.errors %} has-error {% endif %}" id="place_selector" style="{% if user.type != 40 %}display: none;{% endif %} ">
+                    <label for="{{ form.place.id_for_label }}" class="col-sm-4 control-label">
+                        {{ form.place.label }}
+                        {% if current_venue %}
+                            <div class="small">Current: <a href="{% url 'edit_place' id=current_venue.id %}">{{ current_venue.name }}</a> <a style="text-decoration:none" href="{% url 'pro_dashboard' pid=current_venue.id %}">🧰</a></div>
+                        {% endif %}
+                    </label>
+                    <div class="col-sm-8">
+                        {{ form.place|add_class:"form-control" }}
+                        {{ form.place.errors}}
+                    </div>
+                </div>
+
+                <div class="form-group {% if form.place.errors %} has-error {% endif %}" id="place_selector">
+                    <label for="formitableUid" class="col-sm-4 control-label">
+                        Formitable UID (url):
+                    </label>
+                    <div class="col-sm-8">
+                        {{ form.formitable_url|add_class:"form-control" }}
+                        {{ form.place.errors}}
+                    </div>
+                </div>
+
+                
+            </div>
+
+
+            <div class="col-sm-3">
+                <div style="text-align:left; padding:15px;">
+                    <h2>{{ form.description.label }}</h2>
+                </div>
+                {{ form.description|add_class:"form-control"|attr:"rows:5"|attr:"maxlength:160" }}
+                {{ form.description.errors}}
+
+                <div class="form-group {% if form.type.errors %} has-error {% endif %}" style="padding-top:30px; margin-left:-40px;">
+                    <label for="{{ form.type.id_for_label }}" class="col-sm-2 control-label" style="width:100px!important;">
+                        {{ form.type.label }}</label>
+                    <div class="col-sm-5">
+                        {{ form.type|add_class:"form-control user-type-style" }}
+                        {{ form.type.errors }}
+                    </div>
+                </div>
+
+                <div id="userActions">
+                    <div style="text-align:left; padding:15px;">
+                        <h2>Actions:</h2>
+                    </div>
+                    <div class="form-group" style="padding-top:15px; margin-left:-40px;">
+                        <div class="col-sm-6">
+                        <label class="control-label">{% trans 'Renew password:' %}</label>
+                        {% if is_new %}
+                        <div data-toggle="tooltip" data-placement="top" title="Password renewal is not available when adding a new user.">
+                            <button disabled="disabled" type="button" id="btn_renew_password" class="btn btn-info btn-rounded" style="margin-top:-10px;">
+                                {% trans 'Send email' %}
+                            </button>
+                        </div>
+                        {% else %}
+                        <div data-toggle="tooltip" data-placement="top" title="Sends the password renewal (reset) e-mail to the user.">
+                            <button type="button" id="btn_renew_password" class="btn btn-info btn-rounded" style="margin-top:-10px;">
+                                {% trans 'Send email' %}
+                            </button>
+                        </div>
+                        {% endif %}
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label class="control-label">{% trans 'Resend activation:' %}</label>
+                            {% if is_new %}
+                            <div data-toggle="tooltip" data-placement="top" title="Resending the activation is not available when adding a new user.">
+                                <button disabled="disabled" type="button" id="btn_resend_activation" class="btn btn-info btn-rounded" style="margin-top:-10px;">
+                                    {% trans 'Send email' %}
+                                </button>
+                            </div>
+                            {% elif not current_venue %}
+                            <div data-toggle="tooltip" data-placement="top" title="Resending the activation is only available for owner users with a venue assigned.">
+                                <button disabled="disabled" type="button" id="btn_resend_activation" class="btn btn-info btn-rounded" style="margin-top:-10px;">
+                                    {% trans 'Send email' %}
+                                </button>
+                            </div>
+                            {% elif user.is_confirmed %}
+                            <div data-toggle="tooltip" data-placement="top" title="Owner has already activated the account. You can try resending the password instead.">
+                                <button disabled="disabled" type="button" id="btn_resend_activation" class="btn btn-info btn-rounded" style="margin-top:-10px;">
+                                    {% trans 'Send email' %}
+                                </button>
+                            </div>
+                            {% else %}
+                            <div data-toggle="tooltip" data-placement="top" title="Sends the activation e-mail to the user.">
+                                <button type="button" id="btn_resend_activation" class="btn btn-success btn-rounded" style="margin-top:-10px;">
+                                    {% trans 'Send email' %}
+                                </button>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-3" style="text-align:left; padding:85px;">
+                <div class="panel profile-photo" style="height:120px; width:120px; ">
+                    <img width="106" height="106" src="{% if user.get_images.image_thumb %}{{ user.get_images.image_thumb }}{% else %}{% static 'assets/img/missing.gif' %}{% endif %}" alt="">
+                </div>
+                <!-- 11. $STYLED_FILE_INPUTS ==============================================================================
+                Styled file inputs -->
+                <!-- Javascript -->
+                <script>
+                    init.push(function () {
+                        //$('#styled-finputs-example').pixelFileInput({ placeholder: 'No file selected...' });
+                      $('#id_image_avatar').pixelFileInput({ placeholder: 'No file selected...' });
+                    })
+                </script>
+                <!-- / Javascript -->
+
+                {{ form.image_avatar }}
+                {# <input type="file" id="styled-finputs-example" value="{% static 'assets/img/missing.gif' %}" placeholder="{% static 'assets/img/missing.gif' %}"> #}
+                <!-- /11. $STYLED_FILE_INPUTS -->
+            </div>
+
+        </form>
+    </div>
+
+    {% include 'base/elements/edit/user-list-posts.html' %}
+
+    <!-- duplicate -->
+    <div class="col-sm-12">
+        <form action="#" method="post" id="sign-up_area">
+            <div class="col-sm-12">
+                <div id="entry1" class="clonedInput">
+                    <div class="col-sm-12">
+                        <!-- colonne 6-->
+                        <div class="col-sm-6"></div>
+                        <!-- Fin colonne 6-->
+                    </div><!-- end #entry1 -->
+                </div>
+            </div>
+            <div class="col-sm-12" style="padding-top:0px;"></div>
+        </form>
+    </div>
+    <!-- fin duplicate -->
+
+
+    <div class="col-sm-12">&nbsp;</div>
+
+    {% include 'base/elements/edit/user-list-places.html' %}
+
+    <div class="col-sm-12">&nbsp;</div>
+
+    {% include 'base/elements/edit/user-list-comments.html' %}
+
+    <div class="col-sm-12">&nbsp;</div>
+
+    <div class="row">
+        <div class="col-md-12">&nbsp;</div>
+    </div>
+
+    <div class="row"></div>
+</div> <!-- / #main-wrapper -->
+
+
+<script src="{% static 'assets/javascripts/libs/ekko-lightbox.4.0.1.min.js' %}"></script>
+
+{% verbatim %}
+
+<script type="text/javascript">
+    var upperCase= new RegExp('[A-Z]');
+    var lowerCase= new RegExp('[a-z]');
+    var numbers = new RegExp('[0-9]');
+
+    function getTooltipTitle() {
+        let value = $('#id_password_plain').val();
+        if (value == '') {
+            return 'Leave empty for no change ✅'
+        }
+
+        message = "If not empty, value must be: <br/>"
+
+        message += 'longer than 6 characters '
+        message += value.length >= 6 ? '✅ <br/>' : '⛔️ <br/>'
+
+        message += 'shorter than 30 characters '
+        message += value.length <= 30 ? '✅ <br/>' : '⛔️ <br/>'
+
+        message += 'contain one uppercase letter '
+        message += value.match(upperCase) ? '✅ <br/>' : '⛔️ <br/>'
+
+        message += 'contain one lowercase letter '
+        message += value.match(lowerCase) ? '✅ <br/>' : '⛔️ <br/>'
+
+        message += 'contain one number '
+        message += value.match(numbers) ? '✅ <br/>' : '⛔️ <br/>'
+
+        return message
+    }
+
+    $(document).ready(function ($) {
+        $('#id_password_plain').on('keyup', function() {
+            let value = $('#id_password_plain').val();
+            if (value == '') {
+                $('#id_password_plain').closest('.form-group').removeClass('has-error');
+                $('#id_password_plain').tooltip('destroy').tooltip({'title': getTooltipTitle(), 'html': true}).tooltip('show');
+            } else {
+                let value = $('#id_password_plain').val();
+                if (value.length >= 6 && value.length <= 30 && value.match(upperCase) && value.match(lowerCase) && value.match(numbers)) {
+                    $('#id_password_plain').closest('.form-group').removeClass('has-error');
+                    $('#id_password_plain').tooltip('destroy').tooltip({'title': getTooltipTitle(), 'html': true}).tooltip('show');
+                } else {
+                    $('#id_password_plain').closest('.form-group').addClass('has-error');
+                    $('#id_password_plain').tooltip('destroy').tooltip({'title': getTooltipTitle(), 'html': true}).tooltip('show');
+                }
+            }
+        })
+
+        $("#id_password_plain").focus(function(){
+            $(this).prop('readonly', false);
+        });
+
+        $("#id_password_plain").hover(function(){
+            $(this).prop('readonly', false);
+        });
+        $("#id_password_plain").blur(function(){
+            $(this).prop('readonly', false);
+        });
+
+        // delegate calls to data-toggle="lightbox"
+        $(document).delegate('*[data-toggle="lightbox"]:not([data-gallery="navigateTo"])', 'click', function(event) {
+            event.preventDefault();
+            return $(this).ekkoLightbox({
+                onShown: function() {
+                    if (window.console) {
+                        return console.log('onShown event fired');
+                    }
+                },
+                onContentLoaded: function() {
+                    if (window.console) {
+                        return console.log('onContentLoaded event fired');
+                    }
+                },
+                onNavigate: function(direction, itemIndex) {
+                    if (window.console) {
+                        return console.log('Navigating '+direction+'. Current item: '+itemIndex);
+                    }
+                }
+            });
+        });
+
+        //Programatically call
+        $('#open-image').click(function (e) {
+            e.preventDefault();
+            $(this).ekkoLightbox();
+        });
+        $('#open-youtube').click(function (e) {
+            e.preventDefault();
+            $(this).ekkoLightbox();
+        });
+
+        $(document).delegate('*[data-gallery="navigateTo"]', 'click', function(event) {
+            event.preventDefault();
+            return $(this).ekkoLightbox({
+                onShown: function() {
+                    var lb = this;
+                    $(lb.modal_content).on('click', '.modal-footer a#jumpit', function(e) {
+                        e.preventDefault();
+                        lb.navigateTo(2);
+                    });
+                    $(lb.modal_content).on('click', '.modal-footer a#closeit', function(e) {
+                        e.preventDefault();
+                        lb.close();
+                    });
+                }
+            });
+        });
+    });
+</script>
+{% endverbatim %}
+
+{% if not is_new %}
+    <script type="text/javascript" src="{% static 'assets/javascripts/jquery.unveil.js' %}"></script>
+    <script src="{% static 'assets/javascripts/lists/list.pipeline.js' %}"></script>
+    <script src="{% static 'assets/javascripts/list-item-operations.js' %}"></script>
+
+    <script src="{% static 'assets/javascripts/lists/list.userposts.pro.js' %}"></script>
+    <script src="{% static 'assets/javascripts/lists/list.userplaces.js' %}"></script>
+    <script src="{% static 'assets/javascripts/lists/list.usercomments.js' %}"></script>
+
+    {% include 'base/elements/lists/action_footer_wineposts_pro.html' %}
+    {% include 'base/elements/lists/action_footer_dpcd_userplaces.html' %}
+{% endif %}
+
+{% include 'base/elements/edit/user-modals.html' %}
+
+{% endblock main_content %}

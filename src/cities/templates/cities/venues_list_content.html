@@ -1,0 +1,209 @@
+{% load static %}
+
+<div class="table table-striped vmiddle" style="font-size:14px;">
+    <div role="grid" id="jq-datatables-example_wrapper" class="dataTables_wrapper form-inline no-footer"><div class="table-header clearfix">
+        <div class="table-caption">
+            <a href="{% url 'continent_list' %}">CONTINENTS</a> - <a href="{% url 'country_list' continent_slug=continent_slug %}">{{ country.continent.name }}</a> -
+            <a href="{% url 'region_list' continent_slug=continent_slug country_slug=country.slug %}">{{ country.name }}</a> -
+            <a href="{% url 'ua_cities_list' continent_slug=continent_slug country_slug=country.slug slug=city.region.slug %}">{{ city.region.name }}</a>
+            {% if city.urban_area %} - <a href="{% url 'cities_by_ua_list' continent_slug=continent_slug country_slug=city.country.slug region_slug=city.region.slug name=city.urban_area.name %}">{{ city.urban_area.name }}</a>{% endif %}
+             - {{ city.name }} : VENUES
+        </div>
+        <div class="DT-lf-right">
+            <div class="DT-per-page">
+                <div class="dataTables_length" id="jq-datatables-example_length">
+                    <label>Per page:
+                        <select name="jq-datatables-example_length" aria-controls="jq-datatables-example" class="form-control input-sm" onchange="javascript:handleSelect(this)">
+                            <option value="10" {% if page_size == "10" %}selected{% endif %}>10</option>
+                            <option value="25" {% if page_size == "25" %}selected{% endif %}>25</option>
+                            <option value="50" {% if page_size == "50" %}selected{% endif %}>50</option>
+                            <option value="100" {% if page_size == "100" %}selected{% endif %}>100</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <div class="DT-search-cities-autocomplete">
+                    <div id="jq-datatables-example_filter" class="dataTables_filter">
+                        <label>
+                            <input
+                                id="autocomplete"
+                                type="text"
+                                name="search"
+                                class="form-control input-sm"
+                                aria-controls="jq-datatables-example"
+                                placeholder="Search..."
+                                value="{{ search_name|default:'' }}"
+                            >
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered dataTable no-footer" id="jq-datatables-example" aria-describedby="jq-datatables-example_info">
+    <thead>
+        <tr role="row">
+{#            <th style="width: 14px;" class="sorting_asc" tabindex="0" aria-controls="jq-datatables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label=" : activate to sort column ascending">#}
+{#            <br><input type="checkbox" id="toggle-all" name="check-all"> </th>#}
+            <th
+                tabindex="0"
+                aria-controls="jq-datatables-example"
+                rowspan="1"
+                colspan="1"
+                aria-label="Picture:
+                activate to sort column ascending" style="width: 70px;"
+            >Picture</th>
+            <th
+                class="{% if '-modified_time' == order_by %}sorting_asc{% elif 'modified_time' in order_by %}sorting_desc{% else %}sorting{% endif %}"
+                class="sorting"
+                tabindex="0"
+                aria-controls="jq-datatables-example"
+                rowspan="1"
+                colspan="1"
+                aria-label="Date: activate to sort column ascending"
+                style="width: 117px;"
+                data-ordering="{% if 'modified_time' == order_by %}-modified_time{% else %}modified_time{% endif %}"
+                onclick="javascript:handleOrdering(this)"
+            >Date</th>
+            <th
+                class="{% if '-name' == order_by %}sorting_asc{% elif 'name' in order_by %}sorting_desc{% else %}sorting{% endif %}"
+                style="width: 194px;"
+                class="sorting"
+                tabindex="0"
+                aria-controls="jq-datatables-example"
+                rowspan="1"
+                colspan="1"
+                aria-label="Name: activate to sort column ascending"
+                data-ordering="{% if 'name' == order_by %}-name{% else %}name{% endif %}"
+                onclick="javascript:handleOrdering(this)"
+            >Name</th>
+            <th
+                class="{% if '-full_street_address' == order_by %}sorting_asc{% elif 'full_street_address' in order_by %}sorting_desc{% else %}sorting{% endif %}"
+                tabindex="0"
+                aria-controls="jq-datatables-example"
+                rowspan="1"
+                colspan="1"
+                aria-label="Address: activate to sort column ascending"
+                style="width: 194px;"
+                data-ordering="{% if 'full_street_address' == order_by %}-full_street_address{% else %}full_street_address{% endif %}"
+                onclick="javascript:handleOrdering(this)"
+            >Address</th>
+            <th
+                class="{% if '-zip_code' == order_by %}sorting_asc{% elif 'zip_code' in order_by %}sorting_desc{% else %}sorting{% endif %}"
+                tabindex="0"
+                aria-controls="jq-datatables-example"
+                rowspan="1"
+                colspan="1"
+                aria-label="Zip Code: activate to sort column ascending"
+                style="width: 85px;"
+                data-ordering="{% if 'zip_code' == order_by %}-zip_code{% else %}zip_code{% endif %}"
+                onclick="javascript:handleOrdering(this)"
+            >Zip Code</th>
+            <th
+                class="{% if '-district__name' == order_by %}sorting_asc{% elif 'district__name' in order_by %}sorting_desc{% else %}sorting{% endif %}"
+                tabindex="0"
+                aria-controls="jq-datatables-example"
+                rowspan="1"
+                colspan="1"
+                aria-label="District: activate to sort column ascending"
+                style="width: 200px;"
+                data-ordering="{% if 'district__name' == order_by %}-district__name{% else %}district__name{% endif %}"
+                onclick="javascript:handleOrdering(this)"
+            >District</th>
+            <th tabindex="0" aria-controls="jq-datatables-example" rowspan="1" colspan="1" aria-label="City: activate to sort column ascending" style="width: 47px;">City</th>
+            <th tabindex="0" aria-controls="jq-datatables-example" rowspan="1" colspan="1" aria-label="Country: activate to sort column ascending" style="width: 79px;">Country</th>
+            <th
+                class="{% if '-email' == order_by %}sorting_asc{% elif 'email' in order_by %}sorting_desc{% else %}sorting{% endif %}"
+                tabindex="0"
+                aria-controls="jq-datatables-example"
+                rowspan="1"
+                colspan="1"
+                aria-label="Email: activate to sort column ascending"
+                style="width: 200px;"
+                data-ordering="{% if 'email' == order_by %}-email{% else %}email{% endif %}"
+                onclick="javascript:handleOrdering(this)"
+            >Email</th>
+            <th tabindex="0" aria-controls="jq-datatables-example" rowspan="1" colspan="1" aria-label="Type: activate to sort column ascending" style="width: 283px;">Type</th>
+            <th
+                class="{% if '-website_url' == order_by %}sorting_asc{% elif 'website_url' in order_by %}sorting_desc{% else %}sorting{% endif %}"
+                tabindex="0"
+                aria-controls="jq-datatables-example"
+                rowspan="1"
+                colspan="1"
+                aria-label="Site: activate to sort column ascending" style="width: 40px;"
+                data-ordering="{% if 'website_url' == order_by %}-website_url{% else %}website_url{% endif %}"
+                onclick="javascript:handleOrdering(this)"
+            >Site</th>
+            <th
+                class="{% if '-status' == order_by %}sorting_asc{% elif 'status' in order_by %}sorting_desc{% else %}sorting{% endif %}"
+                tabindex="0"
+                aria-controls="jq-datatables-example"
+                rowspan="1"
+                colspan="1"
+                aria-label="Status: activate to sort column ascending"
+                style="width: 104px;"
+                data-ordering="{% if 'status' == order_by %}-status{% else %}status{% endif %}"
+                onclick="javascript:handleOrdering(this)"
+            >Status</th>
+            <th
+                class="{% if '-subscription__status' == order_by %}sorting_asc{% elif 'subscription__status' in order_by %}sorting_desc{% else %}sorting{% endif %}"
+                tabindex="0"
+                aria-controls="jq-datatables-example"
+                rowspan="1"
+                colspan="1"
+                aria-label="Chargebee: activate to sort column ascending" style="width: 103px;"
+                data-ordering="{% if 'subscription__status' == order_by %}-subscription__status{% else %}subscription__status{% endif %}"
+                onclick="javascript:handleOrdering(this)"
+            >Chargebee</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for venue in object_list %}
+        <tr class="gradeA odd">
+{#            <td class="text-center sorting_1"><input type="checkbox" id="colors-1-toggle-0" name="colors-1[]" value="color_c" data-toggle="collapse" data-target="#action"></td>#}
+            <td class="text-center">
+                <a href="{% if venue.main_image %}{{ SITE_URL_IMAGES }}media/{{ venue.main_image }}{% else %}{% static 'assets/img/missing-image.jpg' %}{% endif %}"
+                   data-toggle="lightbox" data-title="Ellswort">
+                    <img
+                        src="{% if venue.main_image %}{{ SITE_URL_IMAGES }}media/{{ venue.main_image }}{% else %}{% static 'assets/img/missing-image.jpg' %}{% endif %}"
+                        alt="{{ venue.name }}"
+                        width="35"
+                        height="35"
+                    >
+                </a>
+            </td>
+            <td class="text-center">{{ venue.modified_time|date:"M d, Y" }}</td>
+            <td class="text-left nocolor"><a href="{% url 'edit_place' id=venue.id %}">{{ venue.name }}</a></td>
+            <td class="text-center">{{ venue.full_street_address|default:'' }}</td>
+            <td class="text-center">{{ venue.zip_code }}</td>
+            <td class="text-center">{{ venue.district.name|default:'-' }}</td>
+            <td class="text-center">{{ venue.new_city.name }}</td>
+            <td class="text-center">{{ venue.new_city.country.name }}</td>
+            <td class="text-center">{{ venue.email|default:'' }}</td>
+            <td class="text-center">
+                {% if venue.is_restaurant %}<button class="badge restaurant">Restaurant</button>{% endif %}
+                {% if venue.is_bar %}<button class="badge bar">Bar</button>{% endif %}
+                {% if venue.is_wine_shop %}<button class="badge wineshop">Wine shop</button></td>{% endif %}
+            <td class="nocolornone anchor"> {% if venue.website_url %}<a href="{{ venue.website_url }}" target="_blank"><i class="fa fa-link"></i></a>{% endif %}</td>
+            <td class="text-center">
+                {% if venue.status == 10 %}
+                    <button class="btn btn-xs draft">Draft</button>
+                {% elif venue.status == 15 %}
+                    <button class="btn btn-xs indoubt">In doubt</button>
+                {% elif venue.status == 18 %}
+                    <button class="btn btn-xs subscriber">Subscriber</button>
+                {% elif venue.status == 20 %}
+                    <button class="btn btn-xs published">Published</button>
+                {% elif venue.status == 35 %}
+                    <button class="btn btn-xs delete">Closed</button>
+                {% endif %}
+            </td>
+            <td>
+                {% if venue.subscription.status %}<button class="btn-cgb-{% if venue.subscription.status == 'in_trial' %}in-trial{% else %}{{ venue.subscription.status }}{% endif %} btn btn-xs" type="button">{{ venue.subscription.status|upper }}</button>{% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% include "cities/pagination.html" %}

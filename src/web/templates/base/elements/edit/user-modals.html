@@ -1,0 +1,80 @@
+{% load static %}
+{% load widget_tweaks %}
+{% load web_extras %}
+{% load i18n %}
+
+<div id="modal_renew_password" class="modal fade modal-alert modal-success" tabindex="-1" role="dialog" aria-labelledby="renew_modal_label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fa fa-check-circle"></i>
+            </div>
+            <div class="modal-title">{% trans 'Password renewal OK' %}</div>
+            <div class="modal-body">{% trans 'Password renewal e-mail will be sent to the user.' %}</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+            </div>
+        </div>    
+    </div>
+</div>
+
+<div id="modal_resend_activation" class="modal fade modal-alert modal-success" tabindex="-1" role="dialog" aria-labelledby="resend_modal_label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fa fa-check-circle"></i>
+            </div>
+            <div class="modal-title">{% trans 'Resend activation OK' %}</div>
+            <div class="modal-body"> {% trans 'Activation e-mail will be sent to the user.' %}</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal_update_password" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="renew_modal_label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fa fa-check-circle"></i>
+                <h3 id="renew_modal_label"></h3>
+            </div>
+            <div class="modal-title">{% trans 'Password has been changed' %}</div>
+            <div class="modal-body">
+                {% trans 'Password has been changed and updated in user settings.' %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="erasemessage" class="collapse">
+    <div class="bandeau">
+        <h3>{% trans 'Are you sure you want to delete this comment?' %}</h3>
+        <button id="ui-bootbox-delete-comment-one" class="btn btn-lg btn-danger">{% trans 'DELETE' %}</button>&nbsp;&nbsp;&nbsp;
+        <button id="ui-bootbox-cancel-comment-one" class="btn btn-lg btn-cancel">{% trans 'Cancel' %}</button>
+        &nbsp; &nbsp;
+        This cannot be undone.
+    </div>
+</div>
+
+<div id="modal-edit-comment" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="renew_modal_label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="renew_modal_label">{% trans 'Comment edition' %}</h3>
+            </div>
+            <div class="modal-body">
+                <textarea id="edited-comment-content" style="width: 100%; height: 100%;">&nbsp;</textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="edit-comment-update-btn">{% trans 'UPDATE' %}</button>
+                <button type="button" class="btn btn-cancel" data-dismiss="modal">{% trans 'Cancel' %}</button>
+            </div>
+        </div>
+    </div>
+</div>

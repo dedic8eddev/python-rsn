@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="TheAdmin - Responsive admin and web application ui kit">
+    <meta name="keywords" content="admin, dashboard, web app, sass, ui kit, ui framework, bootstrap">
+
+    <title>Raisin Pro Admin</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Comfortaa&display=swap" rel="stylesheet">
+
+
+    <!-- Styles -->
+    <link href="../../../web/static/pro_assets/css/core.min.css" rel="stylesheet">
+    <link href="../../../web/static/pro_assets/css/app.css" rel="stylesheet">
+    <link href="../../../web/static/pro_assets/css/style.css" rel="stylesheet">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="../../../web/static/pro_assets/img/apple-touch-icon.png">
+    <link rel="icon" href="../../../web/static/pro_assets/img/favicon.png">
+</head>
+
+<body>
+
+
+<!-- Preloader -->
+<div class="preloader">
+    <div class="spinner-dots"><img src="../../../web/static/pro_assets/img/preloading.gif" alt="preloading Raisin Pro website" width="60"
+                                   height="100"/></div>
+</div>
+
+
+<!-- Sidebar -->
+<aside class="sidebar sidebar-expand-lg sidebar-light sidebar-sm sidebar-color-info">
+
+    <header class="sidebar-header bg-info">
+        <span class="logo">
+          <a href="index_pro_dashboard.html"><img src="../../../web/static/pro_assets/img/raisin-pro-vert.png" width="190" class="d-block mx-auto" alt="Raisin pro"/></a>
+        </span>
+        <!--<span class="sidebar-toggle-fold"></span>-->
+    </header>
+
+    <nav class="sidebar-navigation">
+        <ul class="menu menu-sm menu-bordery">
+
+            <li class="menu-item">
+                <a class="menu-link" href="index_pro_dashboard.html">
+                    <span class="title">DASHBOARD</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a class="menu-link" href="wines.html">
+                    <span class="title">WINES</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a class="menu-link" href="food.html">
+                    <span class="title">FOOD</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a class="menu-link" href="establishment.html">
+                    <span class="title">[ESTABLISHMENT]</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a class="menu-link" href="reviews.html">
+                    <span class="title">REVIEWS & LIKES</span>
+                    <span class="badge badge-pill badge-info">2</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a class="menu-link" href="settings.html">
+                    <span class="title">SETTINGS</span>
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+
+</aside>
+<!-- END Sidebar -->
+
+
+<!-- Topbar -->
+<header class="topbar">
+    <div class="topbar-left">
+        <span class="topbar-btn sidebar-toggler"><i style="color:#66B266">&#9776;</i></span>
+        <a class="logo d-lg-none" href="index_pro_dashboard.html"><img src="../../../web/static/pro_assets/img/logo.png" alt="logo"></a>
+
+        <ul class="topbar-btns">
+
+            <!-- Notifications -->
+            <li class="dropdown d-none d-lg-block">
+                <span class="topbar-btn has-new" data-toggle="dropdown"><i class="ti-bell"></i></span>
+                <div class="dropdown-menu">
+
+                    <div class="media-list media-list-hover media-list-divided media-list-xs">
+                        <a class="media media-new" href="#">
+                            <span class="avatar bg-success"><i class="ti-user"></i></span>
+                            <div class="media-body">
+                                <p>New user registered</p>
+                                <time datetime="2018-07-14 20:00">Just now</time>
+                            </div>
+                        </a>
+
+                        <a class="media" href="#">
+                            <span class="avatar bg-info"><i class="ti-shopping-cart"></i></span>
+                            <div class="media-body">
+                                <p>New order received</p>
+                                <time datetime="2018-07-14 20:00">2 min ago</time>
+                            </div>
+                        </a>
+
+                        <a class="media" href="#">
+                            <span class="avatar bg-warning"><i class="ti-face-sad"></i></span>
+                            <div class="media-body">
+                                <p>Refund request from <b>Ashlyn Culotta</b></p>
+                                <time datetime="2018-07-14 20:00">24 min ago</time>
+                            </div>
+                        </a>
+
+                        <a class="media" href="#">
+                            <span class="avatar bg-primary"><i class="ti-money"></i></span>
+                            <div class="media-body">
+                                <p>New payment has made through PayPal</p>
+                                <time datetime="2018-07-14 20:00">53 min ago</time>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="dropdown-footer">
+                        <div class="left">
+                            <a href="#">Read all notifications</a>
+                        </div>
+
+                        <div class="right">
+                            <a href="#" data-provide="tooltip" title="Mark all as read"><i
+                                    class="fa fa-circle-o"></i></a>
+                            <a href="#" data-provide="tooltip" title="Update"><i class="fa fa-repeat"></i></a>
+                            <a href="#" data-provide="tooltip" title="Settings"><i class="fa fa-gear"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+            <!-- END Notifications -->
+
+            <!-- Messages -->
+            <li class="dropdown d-none d-lg-block">
+                <span class="topbar-btn" data-toggle="dropdown"><i class="ti-email"></i></span>
+                <div class="dropdown-menu">
+
+                    <div class="media-list media-list-divided media-list-hover media-list-xs scrollable"
+                         style="height:290px">
+                        <a class="media media-new1" href="../../page-app/mailbox-single.html">
+                  <span class="avatar status-success">
+                    <img src="../../assets/img/avatar/1.jpg" alt="...">
+                  </span>
+
+                            <div class="media-body">
+                                <p><strong>Maryam Amiri</strong>
+                                    <time class="float-right" datetime="2018-07-14 20:00">23 min ago</time>
+                                </p>
+                                <p class="text-truncate">Authoritatively exploit resource maximizing technologies before
+                                    technically.</p>
+                            </div>
+                        </a>
+
+                        <a class="media" href="../../page-app/mailbox-single.html">
+                  <span class="avatar status-warning">
+                    <img src="../../assets/img/avatar/2.jpg" alt="...">
+                  </span>
+
+                            <div class="media-body">
+                                <p><strong>Hossein Shams</strong>
+                                    <time class="float-right" datetime="2018-07-14 20:00">48 min ago</time>
+                                </p>
+                                <p class="text-truncate">Continually plagiarize efficient interfaces after
+                                    bricks-and-clicks niches.</p>
+                            </div>
+                        </a>
+
+                        <a class="media" href="../../page-app/mailbox-single.html">
+                  <span class="avatar status-dark">
+                    <img src="../../assets/img/avatar/3.jpg" alt="...">
+                  </span>
+
+                            <div class="media-body">
+                                <p><strong>Helen Bennett</strong>
+                                    <time class="float-right" datetime="2018-07-14 20:00">3 hours ago</time>
+                                </p>
+                                <p class="text-truncate">Objectively underwhelm cross-unit web-readiness before sticky
+                                    outsourcing.</p>
+                            </div>
+                        </a>
+
+                        <a class="media" href="../../page-app/mailbox-single.html">
+                            <span class="avatar status-success bg-purple">FT</span>
+
+                            <div class="media-body">
+                                <p><strong>Fidel Tonn</strong>
+                                    <time class="float-right" datetime="2018-07-14 20:00">21 hours ago</time>
+                                </p>
+                                <p class="text-truncate">Interactively innovate transparent relationships with holistic
+                                    infrastructures.</p>
+                            </div>
+                        </a>
+
+                        <a class="media" href="../../page-app/mailbox-single.html">
+                  <span class="avatar status-danger">
+                    <img src="../../assets/img/avatar/4.jpg" alt="...">
+                  </span>
+
+                            <div class="media-body">
+                                <p><strong>Freddie Arends</strong>
+                                    <time class="float-right" datetime="2018-07-14 20:00">Yesterday</time>
+                                </p>
+                                <p class="text-truncate">Collaboratively visualize corporate initiatives for web-enabled
+                                    value.</p>
+                            </div>
+                        </a>
+
+                        <a class="media" href="../../page-app/mailbox-single.html">
+                  <span class="avatar status-success">
+                    <img src="../../assets/img/avatar/5.jpg" alt="...">
+                  </span>
+
+                            <div class="media-body">
+                                <p><strong>Freddie Arends</strong>
+                                    <time class="float-right" datetime="2018-07-14 20:00">Yesterday</time>
+                                </p>
+                                <p class="text-truncate">Interactively reinvent standards compliant supply chains
+                                    through next-generation bandwidth.</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="dropdown-footer">
+                        <div class="left">
+                            <a href="#">Read all messages</a>
+                        </div>
+
+                        <div class="right">
+                            <a href="#" data-provide="tooltip" title="Mark all as read"><i
+                                    class="fa fa-circle-o"></i></a>
+                            <a href="#" data-provide="tooltip" title="Settings"><i class="fa fa-gear"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+            <!-- END Messages -->
+
+        </ul>
+    </div>
+
+    <div class="topbar-right">
+
+        <ul class="topbar-btns">
+            <li class="dropdown">
+                <span class="topbar-btn" data-toggle="dropdown"><img class="avatar"
+                                                                     src="../../../web/static/pro_assets/img/florian-ehn.jpg"
+                                                                     alt="..."></span>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="settings.html">Settings</a>
+                    <a class="dropdown-item" href="#">Help</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#"><i class="ti-power-off"></i> Logout</a>
+                </div>
+            </li>
+        </ul>
+
+        <form class="lookup lookup-circle lookup-right" target="index.html">
+            <input type="text" name="s">
+        </form>
+
+    </div>
+</header>
+<!-- END Topbar -->
+
+
+<!-- Main container -->
+<main class="main-container">
+
+
+    <div class="main-content">
+
+
+        <!--TL;DR is growing like crazy-->
+        <div class="card b-1 hover-shadow-2 mb-20">
+            <a class="media card-body" href="#">
+                <div class="media-left pr-12">
+                    <h1 style="font-size: 2.85rem;">😎</h1>
+                </div>
+                <div class="media-body">
+                    <h2 class="text-gray"><span class="dark-gray">[NAME OF ESTABLISHMENT]'s</span> is growing like
+                        crazy!</h2>
+                    <h3 class="text-gray mt-10">Weekly <i class="fa fa-hand-pointer-o"></i> <span class="text-success">TAPS</span>
+                        is up <span class="text-success">+6</span> from a week ago!</h3>
+                </div>
+            </a>
+        </div>
+        <!--/TL;DR is growing like crazy-->
+
+        <div class="col-12 h-50px"></div>
+
+
+        <!--TL;DR is growing like crazy-->
+        <div class="card b-1 hover-shadow-2 mb-20">
+            <a class="media card-body" href="#">
+                <div class="media-left pr-12">
+                    <h1 style="font-size: 2.85rem;">😯</h1>
+                </div>
+                <div class="media-body">
+                    <h2 class="text-gray"><span class="dark-gray"><span class="animated bounceIn">[NAME OF ESTABLISHMENT]'s</span></span>
+                        growth slows.</h2>
+                    <h3 class="text-gray mt-10">Weekly <i class="fa fa-hand-pointer-o"></i> <span class="text-danger">TAPS</span>
+                        is DOWN <span class="text-danger">-3</span> from a week ago!</h3>
+                </div>
+            </a>
+        </div>
+        <!--/TL;DR is growing like crazy-->
+
+
+        <div class="col-12 h-50px"></div>
+
+
+        <!--TL;DR is growing like crazy-->
+        <div class="card b-1 hover-shadow-2 mb-20">
+            <a class="media card-body" href="#">
+                <div class="media-left pr-12">
+                    <h1 style="font-size: 2.85rem;">🎉</h1>
+                </div>
+                <div class="media-body">
+                    <h2 class="text-gray">Users can't get enough of <span
+                            class="dark-gray">[NAME OF ESTABLISHMENT]</span></h2>
+                    <h3 class="text-gray mt-10">Weekly <span class="fa ti-user fs-30"></span> <span
+                            class="text-success">VISITS</span> is UP <span class="text-success">+4</span> from a week
+                        ago!</h3>
+                </div>
+            </a>
+        </div>
+        <!--/TL;DR is growing like crazy-->
+
+
+        <div class="col-12 h-50px"></div>
+
+
+        <!--TL;DR is growing like crazy-->
+        <div class="card b-1 hover-shadow-2 mb-20">
+            <a class="media card-body" href="#">
+                <div class="media-left pr-12">
+                    <h1 style="font-size: 2.85rem;">😍</h1>
+                </div>
+                <div class="media-body">
+                    <h2 class="text-gray">Users can't get enough of <span
+                            class="dark-gray">[NAME OF ESTABLISHMENT]</span></h2>
+                    <h3 class="text-gray mt-10">Weekly <span class="fa fa-heart text-danger fs-30"></span> <span
+                            class="text-success">HEARTS</span> is UP <span class="text-success">+6</span> from a week
+                        ago!</h3>
+                </div>
+            </a>
+        </div>
+        <!--/TL;DR is growing like crazy-->
+
+
+        <div class="col-12 h-50px"></div>
+
+
+        <!--TL;DR is growing like crazy-->
+        <div class="card b-1 hover-shadow-2 mb-20">
+            <a class="media card-body" href="#">
+                <div class="media-left pr-12">
+                    <h1 style="font-size: 2.85rem;">💖</h1>
+                </div>
+                <div class="media-body">
+                    <h2 class="text-gray">Users love <span class="dark-gray">[NAME OF ESTABLISHMENT]</span></h2>
+                    <h3 class="text-gray mt-10">Weekly <span class="fa fa-eye fs-30"></span> <span class="text-success">Impressions</span>
+                        is UP <span class="text-success">+6</span> from a week ago!</h3>
+                </div>
+            </a>
+        </div>
+        <!--/TL;DR is growing like crazy-->
+
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Holy guacamole!</strong> You are rockin' the Casbah! High five!
+        </div>
+
+
+    </div><!--/.main-content -->
+
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="text-center text-md-left">Copyright © 2019 <a href="http://thetheme.io/theadmin">TheAdmin</a>.
+                    All rights reserved.</p>
+            </div>
+
+            <div class="col-md-6">
+                <ul class="nav nav-primary nav-dotted nav-dot-separated justify-content-center justify-content-md-end">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../help/articles.html">Documentation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../help/faq.html">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="https://themeforest.net/item/theadmin-responsive-bootstrap-4-admin-dashboard-webapp-template/20475359?license=regular&open_purchase_for_item_id=20475359&purchasable=source&ref=thethemeio">Purchase
+                            Now</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <!-- END Footer -->
+
+</main>
+<!-- END Main container -->
+
+
+<!-- Global quickview -->
+<div id="qv-global" class="quickview" data-url="../assets/data/quickview-global.html">
+    <div class="spinner-linear">
+        <div class="line"></div>
+    </div>
+</div>
+<!-- END Global quickview -->
+
+
+<!-- Quickview - Add invoice -->
+<div id="qv-invoice-add" class="quickview quickview-lg">
+    <header class="quickview-header">
+        <p class="quickview-title lead fw-400">Create new invoice</p>
+        <span class="close"><i class="ti-close"></i></span>
+    </header>
+
+    <div class="quickview-body">
+
+        <div class="quickview-block form-type-material">
+
+            <h5 class="text-gray">Details</h5>
+            <div class="form-group">
+                <input type="text" class="form-control">
+                <label>Client</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control">
+                <label>Invoice Number</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" data-provide="datepicker">
+                <label>Invoice Date</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" data-provide="datepicker">
+                <label>Due Date</label>
+            </div>
+
+            <div class="form-group input-group">
+                <div class="input-group-input">
+                    <input type="text" class="form-control">
+                    <label>Discount</label>
+                </div>
+                <select data-provide="selectpicker">
+                    <option>Percent</option>
+                    <option>Amount</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <textarea class="form-control" rows="3"></textarea>
+                <label>Note to client</label>
+            </div>
+
+            <div class="h-40px"></div>
+
+            <h6>Products</h6>
+
+            <div class="form-group input-group align-items-center">
+                <select title="Item" data-provide="selectpicker" data-width="100%">
+                    <option>Website design</option>
+                    <option>PSD to HTML</option>
+                    <option>Website re-design</option>
+                    <option>UI Kit</option>
+                    <option>Full Package</option>
+                </select>
+                <div class="input-group-input">
+                    <input type="text" class="form-control">
+                    <label>Quantity</label>
+                </div>
+
+                <a class="text-danger pl-12" id="btn-remove-item" href="#" title="Remove" data-provide="tooltip"><i
+                        class="ti-close"></i></a>
+            </div>
+
+            <a class="btn btn-sm btn-primary" id="btn-new-item" href="#"><i class="ti-plus fs-10"></i> New item</a>
+
+        </div>
+    </div>
+
+    <footer class="p-12 text-right">
+
+        <button class="btn btn-flat btn-secondary" type="button" data-toggle="quickview">Cancel</button>
+        <button class="btn btn-flat btn-primary" type="submit">Create invoice</button>
+    </footer>
+</div>
+<!-- END Quickview - Add user -->
+
+
+<!-- WINE Quickview - User detail -->
+<div id="qv-user-details" class="quickview quickview-lg wineslider">
+    <header class="quickview-header">
+        <h3>
+            <stong>Edit WINE information</stong>
+        </h3>
+        <span class="close"><i class="ti-close"></i></span>
+    </header>
+
+    <div class="quickview-body">
+
+        <div class="quickview-block form-type-material">
+
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <img class="w-80px rounded" src="../../../web/static/pro_assets/img/wines/vins-1.jpg" alt="VN (red)">
+                </div>
+                <div class="col-sm-8">
+
+                    <div class="file-group file-group-inline">
+                        <button class="btn btn-square btn-danger"><i class="fa fa-trash-o"></i></button>
+                        <button class="btn btn-info file-browser" type="button">MODIFY image</button>
+                        <input type="file">
+                        <p class="mt-10"><small>We accept files in PNG, JPG or GIF format,<br/>up to 5 MB+</small></p>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <input type="text" class="form-control" value="VN (red)">
+                <label>Wine Name</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control form-control-lg" value="Partida Creus">
+                <label class="winemaker">Domain Name</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" value="Massimo Marchiori & Antonella Gerosa">
+                <label>Winemaker(s)</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" value="2018">
+                <label>Vintage</label>
+            </div>
+
+
+            <div class="form-group form-type-material form-control-lg">
+                <select class="form-control" data-provide="selectpicker">
+                    <option>Red</option>
+                    <option>White</option>
+                    <option>Sparkling</option>
+                    <option selected>Rosé</option>
+                    <option>Orange</option>
+                </select>
+
+                <label>Color</label>
+            </div>
+
+            <div class="h-30px"></div>
+
+
+            <div class="form-group">
+                <input type="text" class="form-control"
+                       value="Grenache, Garrut, Queixal de Llop, Samsó, Sumoll Rouge, Trepat, Ull de Perdiu">
+                <label>Grape variety</label>
+            </div>
+
+            <div class="form-group">
+                <textarea class="form-control" rows="3"></textarea>
+                <label>Add a comment <small>(to moderator on Raisin)</small></label>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="p-12 flexbox flex-justified">
+
+        <button class="btn btn-w-md btn-bold btn-danger">DELETE</button>
+        <button class="btn btn-w-md btn-bold btn-secondary" type="button" data-toggle="quickview">Cancel</button>
+        <button class="btn btn-w-md btn-bold btn-success">SUBMIT</button>
+
+    </footer>
+</div>
+<!-- END WINE Quickview - User detail -->
+
+
+<!-- FOOD Quickview - User detail -->
+<div id="qv-user-details-food" class="quickview quickview-lg wineslider">
+    <header class="quickview-header">
+        <h3>
+            <stong>Edit FOOD information</stong>
+        </h3>
+        <span class="close"><i class="ti-close"></i></span>
+    </header>
+
+    <div class="quickview-body">
+
+        <div class="quickview-block form-type-material">
+
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <img class="w-80px rounded" src="../../../web/static/pro_assets/img/food/food-9.jpg" alt="VN (red)">
+                </div>
+                <div class="col-sm-8">
+
+                    <div class="file-group file-group-inline">
+                        <button class="btn btn-square btn-danger"><i class="fa fa-trash-o"></i></button>
+                        <button class="btn btn-info file-browser" type="button">MODIFY image</button>
+                        <input type="file">
+                        <p class="mt-10"><small>We accept files in PNG, JPG or GIF format,<br/>up to 5 MB+</small></p>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <input type="text" class="form-control" value="Mackerel Civeche Yuzu">
+                <label>Plate Name</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control form-control-lg" value="Mackerel Civeche, Yuzu">
+                <label class="winemaker">Ingredients</label>
+            </div>
+
+            <div class="h-30px"></div>
+
+
+            <div class="form-group">
+                <textarea class="form-control" rows="3"></textarea>
+                <label>Add a comment <small>(to moderator on Raisin)</small></label>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="p-12 flexbox flex-justified">
+
+        <button class="btn btn-w-md btn-bold btn-danger">DELETE</button>
+        <button class="btn btn-w-md btn-bold btn-secondary" type="button" data-toggle="quickview">Cancel</button>
+        <button class="btn btn-w-md btn-bold btn-success">SUBMIT</button>
+
+    </footer>
+</div>
+<!-- END FOOD Quickview - User detail -->
+
+
+<!-- Scripts -->
+<script src="starter/src/assets/js/core.min.js"></script>
+<script src="starter/src/assets/js/app.min.js"></script>
+<script src="../../../web/static/pro_assets/js/script.js"></script>
+
+<script>
+    app.ready(function () {
+
+
+        // Page: index_pro_dashboard.html
+        // Earnings chart
+        //
+        if (window['Chart'] != undefined) {
+            new Chart($("#chartjs-earnings"), {
+                type: 'line',
+                data: {
+                    labels: ["Jan", "Feb", "Mar", "Apr", "Jun", "Jul"],
+                    datasets: [
+                        {
+                            label: "Venues near by",
+                            backgroundColor: "rgba(51,202,185,0.5)",
+                            borderColor: "rgba(51,202,185,0.5)",
+                            pointRadius: 0,
+                            data: [0, 6000, 8000, 5500, 2000, 5000, 4000]
+                        },
+                        {
+                            label: "Food",
+                            backgroundColor: "rgba(243,245,246,0.8)",
+                            borderColor: "rgba(243,245,246,0.8)",
+                            pointRadius: 0,
+                            data: [9000, 5000, 4000, 2000, 8000, 3000, 9000]
+                        }
+
+                    ]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                }
+            });
+        }
+
+
+        var months = ["Jan 2019", "Feb 2019", "Mar  2019", "Apr 2019", "May 2019", "Jun 2019", "Jul 2019", "Aug 2019"];
+
+        Morris.Area({
+            element: 'graph-taps-establishemnts',
+            data: [
+                {y: '2019-01', a: 24, b: 10, c: 6, d: 4},
+                {y: '2019-02', a: 20, b: 8, c: 4, d: 6},
+                {y: '2019-03', a: 22, b: 14, c: 5, d: 4},
+                {y: '2019-04', a: 20, b: 12, c: 4, d: 8},
+                {y: '2019-05', a: 20, b: 8, c: 4, d: 8},
+                {y: '2019-06', a: 20, b: 12, c: 4, d: 10},
+                {y: '2019-07', a: 22, b: 14, c: 5, d: 5},
+                {y: '2019-08', a: 22, b: 14, c: 5, d: 8},
+            ],
+            lineColors: ['#55aff9', '#df91f1', '#ff7891', '#ffbc5e'],
+            lineWidth: 0,
+            resize: true,
+            fillOpacity: 0.8,
+            behaveLikeLine: true,
+            gridLineColor: '#e0e0e0',
+            hideHover: 'auto',
+            pointSize: 1,
+            xkey: 'y',
+            ykeys: ['a', 'b', 'c', 'd'],
+            labels: ['Website', 'Get Direction requests', 'Phone Calls', 'opening Hours'],
+            resize: true,
+            xLabelFormat: function (x) { // <--- x.getMonth() returns valid index
+                var month = months[x.getMonth()];
+                return month;
+            },
+            dateFormat: function (x) {
+                var month = months[new Date(x).getMonth()];
+                return month;
+            },
+        });
+
+
+        Morris.Donut({
+            element: 'donut-taps-establishemnts',
+            data: [
+                {label: 'Website', value: 35, color: '#55aff9', fillOpacity: '0.8',},
+                {label: 'Get Direction', value: 40, color: '#df91f1', fillOpacity: '0.8'},
+                {label: 'Phone Calls', value: 25, color: '#ff7891', fillOpacity: '0.8',},
+                {label: 'Opening Hours', value: 10, color: '#ffa600', fillOpacity: '0.8',}
+            ],
+
+            formatter: function (y) {
+                return y + " TAPS"
+            }
+
+        });
+
+
+        var months = ["Jan 2019", "Feb 2019", "Mar  2019", "Apr 2019", "May 2019", "Jun 2019", "Jul 2019", "Aug 2019"];
+
+        Morris.Area({
+            element: 'users-found-you',
+            data: [
+                {y: '2019-01', a: 35, b: 20, c: 18, d: 18},
+                {y: '2019-02', a: 28, b: 18, c: 12, d: 10},
+                {y: '2019-03', a: 22, b: 14, c: 8, d: 5},
+                {y: '2019-04', a: 28, b: 18, c: 14, d: 12},
+                {y: '2019-05', a: 34, b: 24, c: 20, d: 19},
+                {y: '2019-06', a: 30, b: 18, c: 16, d: 14},
+                {y: '2019-07', a: 32, b: 18, c: 16, d: 12},
+                {y: '2019-08', a: 28, b: 14, c: 16, d: 12},
+            ],
+            lineColors: ['#57c7d4', '#f96197', '#926dde', '#eddcd5'],
+            lineWidth: 0,
+            resize: true,
+            fillOpacity: 0.8,
+            behaveLikeLine: true,
+            gridLineColor: '#e0e0e0',
+            hideHover: 'auto',
+            pointSize: 1,
+            xkey: 'y',
+            ykeys: ['a', 'b', 'c', 'd'],
+            labels: ['Venues near by', 'Food', 'Wine', 'Map'],
+            resize: true,
+            xLabelFormat: function (x) { // <--- x.getMonth() returns valid index
+                var month = months[x.getMonth()];
+                return month;
+            },
+            dateFormat: function (x) {
+                var month = months[new Date(x).getMonth()];
+                return month;
+            },
+        });
+
+
+        Morris.Donut({
+            element: 'where-users-came',
+            data: [
+                {label: 'Venues near by', value: 35, color: '#57c7d4', fillOpacity: '0.8',},
+                {label: 'Food', value: 40, color: '#f96197', fillOpacity: '0.8'},
+                {label: 'Wine', value: 25, color: '#926dde', fillOpacity: '0.8',},
+                {label: 'Map', value: 10, color: '#eddcd5', fillOpacity: '0.8',}
+            ],
+
+            formatter: function (y) {
+                return y + " TAPS"
+            }
+
+        });
+
+
+    });
+
+
+</script>
+
+
+</body>
+</html>

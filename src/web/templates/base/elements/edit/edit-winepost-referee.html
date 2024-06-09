@@ -1,0 +1,87 @@
+{% load static %}
+
+
+<div id="referee" class="collapse">
+    <div class="bandeau">
+        <h3>[XX] entries selected</h3>
+        What do you want to do?&nbsp;&nbsp;&nbsp;
+            <button id="ui-bootbox-alert" class="btn btn-lg btn-success">Validate</button>&nbsp;&nbsp;&nbsp;
+            <button id="ui-bootbox-confirm" class="btn btn-lg btn-danger">Refuse</button>&nbsp;&nbsp;&nbsp;
+            <button id="ui-bootbox-custom" class="btn btn-lg btn-info">On Hold</button>&nbsp;&nbsp;&nbsp;
+            <button id="ui-bootbox-cancel" class="btn btn-lg btn-cancel" data-toggle="collapse" data-target="#actionpost">Cancel</button>
+    </div>
+</div>
+
+
+<div id="actionpost" class="collapse">
+    <div class="bandeau">
+        <p>&nbsp;</p>
+        <h4>
+            <span style="color:orange">Watch-out!</span> There is already a similar
+            <strong class="find-pprf">
+                <span class="display-natural" style="{{ el_style_natural }}">Parent Post</span>
+                <span class="display-other" style="{{ el_style_other }}">Referrer</span>
+            </strong> for this wine:
+        </h4>
+
+        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="jq-datatables-referee">
+            <thead>
+                <tr>
+                    <th style="width:15px"><br><input type="checkbox" id="toggle-all" name="check-all" /> </th>
+                    <th style="min-width: 150px;">Author</th>
+                    <th style="width:40px">Picture</th>
+                    <th>Title</th>
+                    <th style="width:120px">Description</th>
+                    <th>Status</th>
+                    <th>Winemaker</th>
+                    <th>Domain</th>
+                    <th>Wine Region</th>
+                    <th>Grape variety</th>
+                    <th>Region</th>
+                    <th>Year</th>
+                    <th>Color</th>
+                    <th>Spark.</th>
+                    <th>Geolocation</th>
+                    <th><i class="fa fa-comments" data-toggle="tooltip" title="comments" data-placement="top"></i></th>
+                    <th><i class="fa fa-heart" data-toggle="tooltip" title="likes" data-placement="top"></i></th>
+                    <th><img src="{% static 'assets/img/drank-it-too.gif' %}" alt="drank-it-too" width="13" height="12"  data-toggle="tooltip" title="Drank it too!" data-placement="top"></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        <div>
+            Do you still want to set <h3 style="display: inline-block;">"{{ post.title }}"</h3> posted by:
+            <span class="picture-bigger">
+{#                <a href="{% url 'edit_user' id=post.author_id %}"><img src="{{ post.author_avatar_url }}" data-toggle="tooltip" title="{{ post.author }}" data-placement="bottom" /></a>#}
+            </span>
+            as
+            <strong class="find-pprf">
+                <span class="display-natural" style="{{ el_style_natural }}">Parent Post</span>
+                <span class="display-other" style="{{ el_style_other }}">Referrer</span>:
+            </strong>  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+            <div>
+                <button id="ui-bootbox-referee-post-confirm" class="btn btn-lg btn-success"  >YES</button>&nbsp;&nbsp;&nbsp;
+                <button id="ui-bootbox-referee-post-cancel" class="btn btn-lg btn-cancel" >Cancel</button>
+            </div>
+        </div>
+
+<!--        <div id="actiontoconfirm" class="collapse">-->
+<!--            <div class="panel-body">-->
+<!--                <button id="ui-bootbox-custom" class="btn btn-lg btn-info">Don't Delete</button>-->
+<!--                <button id="ui-bootbox-confirm" class="btn btn-lg btn-danger">Delete</button>&nbsp;&nbsp;&nbsp;-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="panel2">-->
+<!--            <div cf-context-menu="top" class="delete-confirm" style="display: none;">-->
+<!--                <p>You are about to delete 2 Entries</p>-->
+<!--                <div class="panel-body">-->
+<!--                    <button id="ui-bootbox-custom" class="btn btn-lg btn-info">Don't Delete</button>-->
+<!--                    <button id="ui-bootbox-confirm" class="btn btn-lg btn-danger">Delete</button>&nbsp;&nbsp;&nbsp;-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<ul class="nav nav-pills">
+    {% for item_data in main_menu %}
+            <li class="main-menu-item{% if item_data.url == active %} active{% endif %}" >
+                <a class="main-item" href="{% url item_data.url %}" style="height: 56px; {% if item_data.url == active %} text-decoration: underline;{% endif %}">
+                    {{ item_data.label }}
+                </a>
+            </li>
+    {% endfor %}
+</ul>
+
+{% block additional_bottom_scripts %}
+<script>
+    $(document).ready(function() {
+        if (window.location.href.indexOf("/post") > -1 || window.location.href.indexOf("/food") > -1) {
+        $(".main-menu-item:eq(3)").addClass("active");
+        }else{
+            $(".main-menu-item:eq(3)").removeClass("active")
+        }
+
+        if (window.location.href.indexOf("/featured-venues") > -1 || window.location.href.indexOf("/news") > -1 || window.location.href.indexOf("/pages") > -1 || window.location.href.indexOf("/lpb") > -1) {
+            $(".main-menu-item:eq(4)").addClass("active")
+        }else{
+            $(".main-menu-item:eq(4)").removeClass("active")
+        }
+    });
+</script>
+{% endblock additional_bottom_scripts %}

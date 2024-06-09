@@ -1,0 +1,178 @@
+{% load static %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% load web_extras %}
+
+<!--<div id="entry1" class="clonedInput">-->
+
+<div class="row wine-row" id="wine-row-{{ widget.row_number }}">
+    <h2 id="reference" name="reference" class="heading-reference" style="text-align:left; margin-left: 30px;">Add wine:</h2>
+
+    <!-- colonne 4-->
+    <div class="col-sm-6">
+        <div class="container-fluid">
+            <div class="row container-current-images">
+                <h3 class="picture_title">Pictures from domain</h3>
+                <div id="container-current-wine-images-{{ widget.row_number }}"></div>
+            </div>
+        </div>
+
+        <div id="dropzonejs-wine-{{ widget.row_number }}" class="dropzone-box dropzone-wine">
+            <div class="dz-default dz-message">
+                <i class="fa fa-cloud-upload"></i>
+                Drop files in here<br>
+                <span class="dz-text-small">or click to pick manually</span>
+            </div>
+            <form action="//dummy.html">
+                <div class="fallback">
+                    <input name="file" type="file" multiple="" />
+                </div>
+            </form>
+        </div>
+        <!-- /14. $DROPZONEJS_FILE_UPLOADS -->
+    </div>
+
+    <!-- Fin colonne 4-->
+    <!-- colonne 6-->
+    <div class="col-sm-6">
+        <!-- 10. $FORM_EXAMPLE =============================== Form example -->
+        <!-- 11. $STYLED_FILE_INPUTS ========================= Styled file inputs -->
+        <!-- Javascript -->
+        <!-- / Javascript -->
+        <!-- /11. $STYLED_FILE_INPUTS -->
+
+        <div class="form-group">
+            <label for="wine" class="col-sm-2 control-label">Wine </label>
+            <div class="col-sm-10">
+                {% include widget.subwidgets.0.template_name with widget=widget.subwidgets.0 %}
+                <!-- error fields -->
+                {% if 0 in field_errors and field_errors.0 %}
+                    <ul class="errors">
+                        {% for error in field_errors.0 %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <!-- /error fields -->
+
+                <!--<input type="text" class="form-control" id="wine" placeholder="ex : L'Antidote">-->
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="wine_short" class="col-sm-2 control-label">Wine - shortened name </label>
+            <div class="col-sm-10">
+
+                {% include widget.subwidgets.1.template_name with widget=widget.subwidgets.1 %}
+
+                {% if 1 in field_errors and field_errors.1 %}
+                    <ul class="errors">
+                        {% for error in field_errors.1 %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <!--<input type="text" class="form-control" id="wine" placeholder="ex : L'Antidote">-->
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="designation" class="col-sm-2 control-label">Wine Region</label>
+            <div class="col-sm-10">
+
+                {% include widget.subwidgets.2.template_name with widget=widget.subwidgets.2 %}
+
+                {% if 2 in field_errors and field_errors.2 %}
+                    <ul class="errors">
+                        {% for error in field_errors.2 %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <!--<input type="text" class="form-control" id="designation" placeholder="ex : Bandol">-->
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="grape-variety" class="col-sm-2 control-label">Grape variety </label>
+            <div class="col-sm-10">
+
+                {% include widget.subwidgets.3.template_name with widget=widget.subwidgets.3 %}
+
+                {% if 3 in field_errors and field_errors.3 %}
+                    <ul class="errors">
+                        {% for error in field_errors.3 %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <!--<input type="text" class="form-control" id="grape-variety" placeholder="ex : Mourvedre">-->
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="jq-validation-wine-color" class="col-sm-2 control-label">Select color:</label>
+            <div class="col-sm-10">
+                {% include widget.subwidgets.4.template_name with widget=widget.subwidgets.4 %}
+
+                {% if 4 in field_errors and field_errors.4 %}
+                    <ul class="errors">
+                        {% for error in field_errors.4 %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <!--<select class="form-control" name="jq-validation-wine-color" id="jq-validation-wine-color">-->
+                    <!--<option>Please select color?</option>-->
+                    <!--<option value="restaurant">Pink</option>-->
+                    <!--<option value="bar">Red</option>-->
+                    <!--<option value="wineshop">White</option>-->
+                <!--</select>-->
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="year" class="col-sm-2 control-label">Year </label>
+            <div class="col-sm-10">
+
+                {% include widget.subwidgets.5.template_name with widget=widget.subwidgets.5 %}
+
+                {% if 5 in field_errors and field_errors.5 %}
+                    <ul class="errors">
+                        {% for error in field_errors.5 %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <!--<input type="text" class="form-control" id="year" placeholder="ex : 2010">-->
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="sparkling" class="col-sm-2 control-label">Sparkling </label>
+            <div class="col-sm-10" style="text-align:left;">&nbsp;&nbsp;&nbsp;
+                <label>
+
+                    {% include widget.subwidgets.6.template_name with widget=widget.subwidgets.6 %}
+
+                    {% if 6 in field_errors and field_errors.6 %}
+                        {{ field_errors.6 }}
+                    {% endif %}
+                    <!--<input type="checkbox" value="sparkling" class="px"><span class="lbl">&nbsp;</span></label>-->
+                    <!--{# {{ widgets.7 }} {# hidden - ID #} #}-->
+                    {% include widget.subwidgets.7.template_name with widget=widget.subwidgets.7 %} {# hidden - wine_temp_dir #}
+                    {% include widget.subwidgets.8.template_name with widget=widget.subwidgets.8 %} {# hidden - wine_image_ordering #}
+                    <input type="hidden" name="wine_row_number[]" value="{{ widget.row_number }}" />
+                </label>
+            </div>
+        </div>
+    </div>
+    <!-- Fin colonne 6-->
+</div><!-- end #entry1 -->
+<!--</div>-->
+

@@ -1,0 +1,47 @@
+
+<div class="row mt-30">
+    <div class="col-sm-12">
+        <div class="text-left">
+            <h2>Add Venues’ Cheffes on homepage:</h2>    
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group" id="selected_venue_selector">
+                        <select name="selected_venue" class="form-control" id="id_selected_venue" 
+                        tabindex="-1" aria-hidden="true">
+                        </select>
+                    </div>   
+                </div>
+                <div class="col-md-2">
+                    <div id="addDelButtons">
+                        <input type="button" id="btnAdd" class="btn btn-success" value="Add cheffe">
+                    </div>    
+                </div>
+            </div> 
+            <div class="panel todo-tasks mt-30">
+                <div class="panel-heading">
+                    <h3><i class="fa fa-tasks"></i> 8 First Venues’ Cheffes Featured</h3>
+                </div>
+                <div class="panel-body ui-sortable" id="sortable-list">
+                    {% for fch in featured_cheffes %}
+                        <div class="task" data-title="{{fch.id}}" id="task{{fch.id}}">
+                            <div class="fa fa-arrows-v task-sort-icon"></div>
+                            <div class="action-checkbox">
+                                <input type="checkbox" class='featred_cheffe_item' id="todo{{fch.id}}" name="featred_cheffe_item" value="{{fch.id}}">                                    
+                                <label for="todo{{fch.id}}" class="task-title">
+                                {{fch.cheffe.default_fullname}} - {{ fch.cheffe.connected_venue.name }} - {{fch.cheffe.connected_venue.display_full_address}}
+                                </label>
+                            </div>
+                        </div>
+                    {% endfor %}                    
+                </div>
+                  
+                <input type="hidden" name="sort_order" id="sort_order" />
+                <div class="panel-footer clearfix">
+                    <div id="addDelButtons">
+                        <input type="button" id="btnDelFeaturedCheffe" class="btn btn-warning" value="remove cheffe">
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>

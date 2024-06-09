@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="TheAdmin - Responsive admin and web application ui kit">
+    <meta name="keywords" content="admin, dashboard, web app, sass, ui kit, ui framework, bootstrap">
+
+    <title>Owner</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
+
+
+    <!-- Styles -->
+    <link href="../../../web/static/pro_assets/css/core.min.css" rel="stylesheet">
+    <link href="../../../web/static/pro_assets/css/app.css" rel="stylesheet">
+    <link href="../../../web/static/pro_assets/css/intlTelInput.css" rel="stylesheet">
+    <link href="../../../web/static/pro_assets/css/style.css" rel="stylesheet">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="../../../web/static/pro_assets/img/apple-touch-icon.png">
+    <link rel="icon" href="../../../web/static/pro_assets/img/favicon.png">
+</head>
+
+<body onload="addBodyClass();">
+<form class="card form-type-material address-form">
+
+    <div class="card-body">
+        <div class="flexbox gap-items-4">
+            <img class="avatar avatar-xl" src="../../../web/static/pro_assets/img/florian-ehn.jpg" alt="...">
+
+            <div class="flex-grow">
+                <h5>Florian Ehn</h5>
+                <div class="d-felx flex-column flex-sm-row gap-y gap-items-2 mt-16">
+                    <div class="file-group file-group-inline">
+                        <button class="btn btn-sm btn-w-lg btn-outline btn-round btn-secondary file-browser"
+                                type="button">Change Picture
+                        </button>
+                        <input type="file">
+                    </div>
+                    <a class="btn btn-sm btn-w-lg btn-outline btn-round btn-danger align-top" href="#">Delete
+                        Picture</a>
+                </div>
+
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input class="form-control" type="text">
+                    <label>First name</label>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input class="form-control" type="text">
+                    <label>Last name</label>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <input class="form-control" type="text">
+            <label>Email</label>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <select class="form-control" title="&#xA0;" data-provide="selectpicker">
+                        <option>United States</option>
+                        <option>Canada</option>
+                        <option>Mexico</option>
+                        <option>United Kingdom</option>
+                    </select>
+                    <label>Country</label>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group do-float">
+                    <label class="phone-label">Phone</label>
+                    <input class="form-control intlTel" id="phone" name="phone" type="tel">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input type="password" class="form-control" id="input-pass">
+                    <div class="invalid-feedback"></div>
+                    <label for="input-pass">Current Password</label>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input type="password" class="form-control" id="input-pass-confirm">
+                    <div class="invalid-feedback"></div>
+                    <label for="input-pass-confirm">New password</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <select class="form-control" title="&nbsp;" data-provide="selectpicker">
+                        <option>English</option>
+                        <option>French</option>
+                    </select>
+                    <label for="language">Language</label>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="custom-control custom-checkbox mt-16">
+                    <input type="checkbox" class="custom-control-input" required="" checked>
+                    <label class="custom-control-label">Agreed to terms and conditions</label>
+                </div>
+                <div class="invalid-feedback"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <nav class="flexbox mb-2 mt-7 registration-nav">
+        <a class="btn" href="https://www.devpro.raisin.digital/US/2-company-details.html" target="_top"><i
+                class="fa fa-angle-left mr-1"></i> Previous</a>
+        <button type="submit" class="btn">Next <i class="fa fa-angle-right ml-1"></i></button>
+        <!-- Submit then redirect the main window to https://www.devpro.raisin.digital/US/4-plans-addons.html -->
+    </nav>
+
+    <footer class="card-footer text-right">
+        <button class="btn btn-flat btn-primary" type="submit">Save Changes</button>
+    </footer>
+
+</form>
+
+<!-- Scripts -->
+<script src="starter/src/assets/js/core.min.js"></script>
+<script src="starter/src/assets/js/app.min.js"></script>
+<script src="../../../web/static/pro_assets/js/intlTelInput.min.js"></script>
+<script src="../../../web/static/pro_assets/js/script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+{% load i18n %}
+{% load web_extras %}
+
+{% verbatim %}
+<style type="text/css">
+    .col-btn {
+        padding-top: 10px;
+    }
+
+    .btn-group.pdg-group {
+        float: right;
+    }
+</style>
+{% endverbatim %}
+<div class="panel-heading text-left">
+    <div class="row">
+        <div class="col-sm-9">
+            <h3>{{ pdg_title }}</h3>
+        </div>
+        <div class="col-sm-3 col-btn">
+            <div class="btn-group pdg-group">
+                <button type="submit" class="btn btn-success btn-rounded">Save</button>
+            </div>
+
+        </div>
+    </div>
+
+    {% block pdg_right %}
+    {% endblock pdg_right %}
+
+    {% block pdg_below %}
+    {% endblock pdg_below %}
+</div>

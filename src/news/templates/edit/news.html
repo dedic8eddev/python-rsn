@@ -1,0 +1,175 @@
+{% extends "base/layout.html" %}
+
+{% load static %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% load web_extras %}
+
+{% block title %}News - News View - Raisin{% endblock %}
+
+{% block additional_scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script>
+        {% if news.id %}
+            var ajax_related_lists_url = "{% url 'news_related_lists_ajax' id=news.id %}";
+        {% else %}
+            var ajax_related_lists_url = null;
+        {% endif %}
+    </script>
+
+    {% verbatim %}
+    <script type="text/javascript">
+      var max_upload_size = '{% endverbatim %}{{ max_upload_size }}{% verbatim %}';
+    </script>
+{% endverbatim %}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/2.36.0/formatting.min.js"></script>
+
+    <script src="{% static 'assets/javascripts/jquery-ui-sortable.min.js' %}" type="text/javascript"></script>
+{% endblock additional_scripts %}
+
+
+{% block additional_styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/stylesheets/added-jhb.css' %}" />
+
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/confetti.css">
+
+    <!-- map google  -->
+     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <meta charset="utf-8">
+        <style>
+
+        </style>
+
+{% endblock additional_styles %}
+
+{% block main_content %}
+{% verbatim %}
+    <style type="text/css">
+        .d-flex{
+            display: flex;
+        }
+        .align-items-center{
+            align-items: center;
+        }
+        .flex-column{
+            flex-direction: column;
+        },
+        .label_input{
+            text-align: start;
+            margin-left: 10px;
+        }
+    </style>
+{% endverbatim %}
+
+    <div class="panel" style="font-size:16px!important;">
+        <form id="placeform" novalidate accept-charset="UTF-8" action="{{ action_url }}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% include 'pdg-widget-news.html' %}
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success alert-dismissible show" role="alert">
+                      <strong>Success!</strong> {{ message }}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-3 text-left" style="padding-top: 20px;">
+
+                        <label for="id_image_event" class="mt-30">Image:</label>
+                        <div class="row d-flex align-items-center flex-column">
+                            <div class="col-md-12">
+                                <img src="{% if image %}{{ image }}{% else %}{% static 'assets/img/missing.gif' %}{% endif %}" alt=""  class="img-responsive">
+                            </div>
+                            <div class="col-md-12">
+                                <script>
+                                    init.push(function () {
+                                        //$('#styled-finputs-example').pixelFileInput({ placeholder: 'No file selected...' });
+                                      $('#id_image').pixelFileInput({ placeholder: 'No file selected...' });
+                                    })
+                                </script>
+                                {{ form.image }}
+                                {{ form.image.errors }}
+                            </div>
+                        </div>
+
+                        <ul id="image_error_list" class="errorlist" hidden>
+                          <li id="image_error">{% trans 'Maximum File Size Limit is' %} {{ max_upload_size }} kB.</li>
+                        </ul>
+
+                    </div>
+                    <div class="col-sm-9" style="padding-top: 20px">
+                        <div class="form-group">
+                            <div  class="edit-page-title-label">
+                            <div><label for="title" class="col-sm-12 control-label text-left">{{ form.title.label }} - <b class="label-language-title">{{ language_code|upper }}</b>:
+                            You have <b><span id="myCounter1">{{ title|length }}</span></b> characters left <span id="left_limit1">200</span></label></div>
+                            {% if news %}<div>
+                                <a href="{{new_raisin_url}}" target="_blank"
+                                    class="website-href">
+                                    <i class="fa fa-eye"></I>
+                                </a></div>
+                            {% endif %}  
+                            </div>                  
+                        <div class="col-sm-12">
+                                {{ form.title|add_class:"form-control title_field limit-input"|attr:"data-counter:myCounter1"|attr:"data-left:left_limit1" }}
+                                {{ form.title.errors }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="meta_description" class="col-sm-12 control-label text-left"><span for="meta_description" style="text-align:left;">{{ form.meta_description.label }} - <b class="label-language-description">{{ language_code|upper }}</b>:</span>
+                            You have <b><span id="myCounter2">{{ meta_description|length }}</span></b> characters left <span id="left_limit2">300</span>   </label>                           
+                            <div class="col-sm-12">
+                                {{ form.meta_description|add_class:"form-control decription_field limit-input"|attr:"data-counter:myCounter2"|attr:"data-left:left_limit2" }}
+                                {{ form.meta_description.errors }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="content" class="col-sm-12 control-label text-left">{{ form.content.label }}</label>
+                            <div class="col-sm-12">
+                                {{ form.content|attr:"id:tiny-mce"|add_class:"form-control" }}
+                                {{ form.content.errors }}
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div style="display:none">
+                    {{ form.status }}
+                    
+                    {{ form.language }}
+                    {{ form.type }}
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="related_lists"></div>
+                    </div>
+                </div>
+
+            </div> {# end of container-fluid #}
+
+        </form>
+    <!-- fin colonne 12-->
+    </div><!-- enf of profile-full-name -->
+
+{% endblock main_content %}
+
+{% block additional_bottom_scripts %}
+<script src="{% static 'assets/javascripts/list-item-operations.js' %}"></script>
+<script src="{% static 'assets/javascripts/edit.news.js' %}" ></script>
+<script src="{% static 'assets/javascripts/tinymce.min.js' %}"></script>
+<script src="{% static 'assets/javascripts/edit/edit.description.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/pdg-widget.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/language-widget.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/type-widget.js' %}"></script>
+
+{% endblock additional_bottom_scripts %}

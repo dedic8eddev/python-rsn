@@ -1,0 +1,17 @@
+{#{{ object }}#}
+{##}
+{#<div>Alternative names</div>#}
+{#{% for alt_name in object.alt_names.all %}#}
+{#    <div>{{ alt_name.name }} - {{ alt_name.language_code }} - is_preferred: {{ alt_name.is_preferred }}</div>#}
+{#{% endfor %}#}
+
+
+{% extends "cities/cities_base.html" %}
+
+{% load static %}
+
+{% block title %}Places - Home - Raisin{% endblock %}
+
+{% block main_content %}
+{% include 'cities/city_by_ua_list_content.html' %}
+{%  endblock %}

@@ -1,0 +1,15 @@
+{% load i18n %}
+
+<div class="row" id="current-images-inside">
+    {% if images %}
+        {% for image in images %}
+        <div class="col-sm-2 image-list-item" cnt-data-image-file="{{ image.ident }}">
+            <a href="{{ image.url }}" data-toggle="lightbox"  data-gallery="images-gallery" ><img src="{{ image.url }}" data-image-file="{{ image.ident }}" alt="" class="img-responsive" /></a>
+            <p  class="delete_image"><a href="#"><i class="fa fa-times"></i></a></p>
+        </div>
+        {% endfor %}
+    {% else %}
+    <h4>No images</h4>
+    {% endif %}
+</div>
+

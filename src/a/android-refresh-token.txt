@@ -1,0 +1,1 @@
+{"scope": "https://www.googleapis.com/auth/androidpublisher", "refresh_token": "1/h2y08ADwp-3VsQN_9N-ywXS2ibrULUoK4zWn6hvJm_I", "token_type": "Bearer", "access_token": "ya29.Glv4Bd2Wxor8v3fWmCAuBslbSb6XcZ3u96Xq5hH_3XKU3UCsGo7oXPUL9IGlmOR5b4qh0qT0u_yxMofyuyHrjilmRFSbIFlkqaM_TuDCNrEyw8ZwN8W1CMdtoBMN", "expires_in": 3600, "created_at_ts": 1534194908.0119884}

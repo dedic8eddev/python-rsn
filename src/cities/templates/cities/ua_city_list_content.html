@@ -1,0 +1,264 @@
+{% load static %}
+
+<div class="table table-striped vmiddle" style="font-size:14px;">
+
+<!-- 32.4. $BOOTSTRAP_DATEPICKER_RANGE ============================================================= user.html Range -->
+
+    <div role="grid" id="jq-datatables-example_wrapper" class="dataTables_wrapper form-inline no-footer">
+        <div class="table-header clearfix">
+            <div class="table-caption">
+                <a href="{% url 'continent_list' %}">CONTINENTS</a> -
+                <a href="{% url 'country_list' continent_slug=region.country.continent.slug %}">{{ region.country.continent.name }}</a> -
+                <a href="{% url 'region_list' continent_slug=region.country.continent.slug country_slug=region.country.slug %}">{{ region.country.name }}</a> -
+                {{ region.name }} : Urban Areas + Cities
+            </div>
+            <div class="DT-lf-right">
+                <div class="DT-per-page">
+                    <div class="dataTables_length" id="jq-datatables-example_length">
+                        <label>Per page:
+                            <select name="jq-datatables-example_length" aria-controls="jq-datatables-example" class="form-control input-sm" onchange="javascript:handleSelect(this)">
+                                <option value="10" {% if page_size == "10" %}selected{% endif %}>10</option>
+                                <option value="25" {% if page_size == "25" %}selected{% endif %}>25</option>
+                                <option value="50" {% if page_size == "50" %}selected{% endif %}>50</option>
+                                <option value="100" {% if page_size == "100" %}selected{% endif %}>100</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+                <div class="DT-search-cities-autocomplete">
+                    <div id="jq-datatables-example_filter" class="dataTables_filter">
+                        <label>
+                            <input
+                                id="autocomplete"
+                                type="text"
+                                name="search"
+                                class="form-control input-sm"
+                                aria-controls="jq-datatables-example"
+                                placeholder="Search..."
+                                value="{{ search_name|default:'' }}"
+                            >
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered dataTable no-footer" id="jq-datatables-example" aria-describedby="jq-datatables-example_info">
+        <thead>
+            <tr role="row">
+{#                <th style="width: 14px;" class="sorting_asc" tabindex="0" aria-controls="jq-datatables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label=": activate to sort column ascending"><br><input type="checkbox" id="toggle-all" name="check-all"></th>#}
+                <th style="width: 73px;" class="" tabindex="0" aria-controls="jq-datatables-example" rowspan="1" colspan="1" aria-label="Picture: activate to sort column ascending">Picture</th>
+                <th
+                    class="{% if '-updated_at' in order_by %}sorting_asc{% elif 'updated_at' in order_by %}sorting_desc{% else %}sorting{% endif %}"
+                    tabindex="0"
+                    aria-controls="jq-datatables-example"
+                    rowspan="1"
+                    colspan="1"
+                    aria-label="Date: activate to sort column ascending"
+                    style="width: 242px;"
+                    data-ordering="{% if '-updated_at' in order_by %}updated_at{% else %}-updated_at{% endif %}"
+                    onclick="javascript:handleOrdering(this)"
+                >Date</th>
+                <th
+                    class=""
+                    tabindex="0"
+                    aria-controls="jq-datatables-example"
+                    rowspan="1"
+                    colspan="1"
+                    aria-label="Last Editor: activate to sort column ascending"
+                    style="width: 124px;"
+                    data-ordering="{% if '-last_editor__full_name' in order_by %}last_editor__full_name{% else %}-last_editor__full_name{% endif %}"
+                    onclick="javascript:handleOrdering(this)"
+                >Last Editor</th>
+                <th
+                    class="{% if '-display_name' in order_by %}sorting_asc{% elif 'display_name' in order_by %}sorting_desc{% else %}sorting{% endif %}"
+                    tabindex="0"
+                    aria-controls="jq-datatables-example"
+                    rowspan="1"
+                    colspan="1"
+                    aria-label="Cities: activate to sort column ascending"
+                    style="width: 257px;"
+                    data-ordering="{% if '-display_name' in order_by %}display_name{% else %}-display_name{% endif %}"
+                    onclick="javascript:handleOrdering(this)"
+                >Cities</th>
+                <th>Districts</th>
+                <th
+                    class="{% if '-venues_count' in order_by %}sorting_asc{% elif 'venues_count' in order_by %}sorting_desc{% else %}sorting{% endif %}"
+                    tabindex="0"
+                    aria-controls="jq-datatables-example"
+                    rowspan="1"
+                    colspan="1"
+                    aria-label="Nbr of Venues: activate to sort column desending"
+                    style="width: 231px;"
+                    data-ordering="{% if '-venues_count' in order_by %}venues_count{% else %}-venues_count{% endif %}"
+                    onclick="javascript:handleOrdering(this)"
+                >Nbr of Venues</th>
+                <th
+                    class="{% if '-cities_count' in order_by %}sorting_asc{% elif 'cities_count' in order_by %}sorting_desc{% else %}sorting{% endif %}"
+                    tabindex="0"
+                    aria-controls="jq-datatables-example"
+                    rowspan="1"
+                    colspan="1"
+                    aria-label="Urban Areas &amp;amp; Cities: activate to sort column ascending"
+                    style="width: 325px;"
+                    data-ordering="{% if '-cities_count' in order_by %}cities_count{% else %}-cities_count{% endif %}"
+                    onclick="javascript:handleOrdering(this)"
+                >Urban Areas &amp; Cities</th>
+                <th tabindex="0" aria-controls="jq-datatables-example" rowspan="1" colspan="1" aria-label="EN" style="width: 62px;">EN</th>
+                <th tabindex="0" aria-controls="jq-datatables-example" rowspan="1" colspan="1" aria-label="FR: activate to sort column ascending" style="width: 61px;">FR</th>
+                <th tabindex="0" aria-controls="jq-datatables-example" rowspan="1" colspan="1" aria-label="JA: activate to sort column ascending" style="width: 61px;">JA</th>
+                <th tabindex="0" aria-controls="jq-datatables-example" rowspan="1" colspan="1" aria-label="IT: activate to sort column ascending" style="width: 61px;">IT</th>
+                <th tabindex="0" aria-controls="jq-datatables-example" rowspan="1" colspan="1" aria-label="ES: activate to sort column ascending" style="width: 61px;">ES</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in object_list %}
+                <tr class="gradeA odd" id="c-tooltips-demo">
+{#                    <td class="sorting_1"><input type="checkbox" id="colors-1-toggle-0" name="colors-1[]" value="color_c"></td>#}
+                    <td>
+                        {% if object.urban_area %}
+                            {% if object.urban_area.image %}
+                                <img
+                                    src="{{ object.urban_area.get_image_url }}"
+                                    alt="{{ object.name }}"
+                                    width="45"
+                                    height="45"
+                                >
+                            {% else %}
+                                <img
+                                    src="{% static 'cities/images/untitled.png' %}"
+                                    alt="{{ object.name }}"
+                                    width="45"
+                                    height="45"
+                                >
+                            {% endif %}
+                        {% else %}
+                            {% if object.image %}
+                                <img
+                                    src="{{ object.get_image_url }}"
+                                    alt="{{ object.name }}"
+                                    width="45"
+                                    height="45"
+                                >
+                            {% else %}
+                                <img
+                                    src="{% static 'cities/images/untitled.png' %}"
+                                    alt="{{ object.name }}"
+                                    width="45"
+                                    height="45"
+                                >
+                            {% endif %}
+                        {% endif %}
+                        </a>
+                    </td>
+                    <td class="text-left">
+                        {% if object.urban_area %}
+                            {{ object.urban_area.updated_at }}
+                        {% else %}
+                            {{ object.updated_at }}
+                        {% endif %}
+                    </td>
+                    <td class="picture-small">
+                        {% if object.urban_area %}
+                            {% if object.urban_area.last_edotor %}
+                                <a href="{[ object.urban_area.last_editor.get_absolute_url }}" target="_blank">
+                                {% if object.urban_area.last_editor.get_images.image %}
+                                    <img src="{{ object.urban_area.last_editor.get_images.image }}"
+                                        data-toggle="tooltip"
+                                        title="{{ object.urban_area.last_editor.full_name }}"
+                                        data-placement="bottom"
+                                        data-original-title="{{ object.urban_area.last_editor.full_name }}"
+                                    >
+                                {% else %}
+                                    <img src="https://cms.raisin.digital/static/assets/img/missing.gif"
+                                        data-toggle="tooltip"
+                                        title="{{ object.urban_area.last_editor.full_name }}"
+                                        data-placement="bottom"
+                                        data-original-title="{{ object.urban_area.last_editor.full_name }}"
+                                    >
+                                {% endif %}
+                                </a>
+                            {% else %}
+                                -
+                            {% endif %}
+                        {% else %}
+                            {% if object.last_editor %}
+                                <a href="{{ object.last_editor.get_absolute_url }}" target="_blank">
+                                {% if object.last_editor.get_images.image %}
+                                    <img src="{{ object.last_editor.get_images.image }}"
+                                        data-toggle="tooltip"
+                                        title="{{ object.last_editor.full_name }}"
+                                        data-placement="bottom"
+                                        data-original-title="{{ object.last_editor.full_name }}"
+                                    >
+                                {% else %}
+                                    <img src="https://cms.raisin.digital/static/assets/img/missing.gif"
+                                        data-toggle="tooltip"
+                                        title="{{ object.last_editor.full_name }}"
+                                        data-placement="bottom"
+                                        data-original-title="{{ object.last_editor.full_name }}"
+                                    >
+                                {% endif %}
+                                </a>
+                            {% else %}
+                                -
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    <td class="text-center bold">{{ object.display_name }}</td>
+                    <td class="text-center">
+                        {% if not object.urban_area and object.district_count and object.admin_level %}
+                            <a href="{% url 'district_list' continent_slug=object.country.continent.slug country_slug=object.country.slug region_slug=object.region.slug city_slug=object.slug %}">
+                               {{ object.district_count }}
+                            </a>
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td class="text-center"><span class="label label-flat label-default none">{{ object.venues_count }}</span></td>
+                    {% if object.urban_area %}
+                        <td class="text-center">
+                            <a href="{% url 'cities_by_ua_list' continent_slug=region.country.continent.slug country_slug=region.country.slug region_slug=object.region.slug name=object.urban_area.name %}" class="linkto" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Cities Listed In This Urban Area">{{ object.cities_count }}</a>
+                        </td>
+                    {% else %}
+                        <td class="text-center"><a href="{% url 'venues_by_city_list' continent_slug=region.country.continent.slug country_slug=region.country.slug region_slug=object.region.slug slug=object.slug%}" class="grayici" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Venues Listed In This Town"> <i class="fa fa-sign-in"></i> </a></td>
+                    {% endif %}
+                    {% if object.urban_area %}
+                        <td><a href="{% url 'ua_update' continent_slug=object.country.continent.slug pk=object.urban_area.id country_slug=object.country.slug region_slug=object.region.slug language='en' %}" class="{% if object.urban_area.published_en %}success{% else %}incomplete{% endif %}" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Draft"> <i class="fa fa-edit"></i>{#% for an in object.alt_name_codes %} {{ an }} {% endfor % </a></td>#}
+                        <td><a href="{% url 'ua_update' continent_slug=object.country.continent.slug pk=object.urban_area.id country_slug=object.country.slug region_slug=object.region.slug language='fr' %}" class="{% if object.urban_area.published_fr %}success{% else %}incomplete{% endif %}" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Published"> <i class="fa fa-edit"></i>  </a></td>
+                        <td><a href="{% url 'ua_update' continent_slug=object.country.continent.slug pk=object.urban_area.id country_slug=object.country.slug region_slug=object.region.slug language='ja' %}" class="{% if object.urban_area.published_ja %}success{% else %}incomplete{% endif %}" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Draft"> <i class="fa fa-edit"></i> </a></td>
+                        <td><a href="{% url 'ua_update' continent_slug=object.country.continent.slug pk=object.urban_area.id country_slug=object.country.slug region_slug=object.region.slug language='it' %}" class="{% if object.urban_area.published_it %}success{% else %}incomplete{% endif %}" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Published"> <i class="fa fa-edit"></i>  </a></td>
+                        <td><a href="{% url 'ua_update' continent_slug=object.country.continent.slug pk=object.urban_area.id country_slug=object.country.slug region_slug=object.region.slug language='es' %}" class="{% if object.urban_area.published_es %}success{% else %}incomplete{% endif %}" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Draft"> <i class="fa fa-edit"></i> </a></td>
+                    {% else %}
+                        <td><a href="{% url 'city_update' continent_slug=object.country.continent.slug country_slug=object.country.slug region_slug=object.region.slug slug=object.slug language='en' %}" class="{% if object.published_en %}success{% else %}incomplete{% endif %}" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Draft"> <i class="fa fa-edit"></i>{#% for an in object.alt_name_codes %} {{ an }} {% endfor % </a></td>#}
+                        <td><a href="{% url 'city_update' continent_slug=object.country.continent.slug country_slug=object.country.slug region_slug=object.region.slug slug=object.slug language='fr' %}" class="{% if object.published_fr %}success{% else %}incomplete{% endif %}" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Published"> <i class="fa fa-edit"></i>  </a></td>
+                        <td><a href="{% url 'city_update' continent_slug=object.country.continent.slug country_slug=object.country.slug region_slug=object.region.slug slug=object.slug language='ja' %}" class="{% if object.published_ja %}success{% else %}incomplete{% endif %}" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Draft"> <i class="fa fa-edit"></i> </a></td>
+                        <td><a href="{% url 'city_update' continent_slug=object.country.continent.slug country_slug=object.country.slug region_slug=object.region.slug slug=object.slug language='it' %}" class="{% if object.published_it %}success{% else %}incomplete{% endif %}" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Published"> <i class="fa fa-edit"></i>  </a></td>
+                        <td><a href="{% url 'city_update' continent_slug=object.country.continent.slug country_slug=object.country.slug region_slug=object.region.slug slug=object.slug language='es' %}" class="{% if object.published_es %}success{% else %}incomplete{% endif %}" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Draft"> <i class="fa fa-edit"></i> </a></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% include 'cities/pagination.html' %}
+</div>
+<script type="text/javascript">
+    function handleSelect(elm)
+    {
+        search_name = document.getElementById('autocomplete')
+        if (!search_name.value){
+            window.location = '?page_size='+elm.value;
+        }
+        window.location = '?name='+search_name.value+'&page_size='+elm.value;
+    }
+    function handleOrdering(elm)
+    {
+        search_name = document.getElementById('autocomplete')
+        page_size = {{ page_size }}
+        if (search_name) {
+            window.location = '?name='+search_name.value+'&page_size='+page_size+"&order_by="+elm.dataset.ordering;
+        }
+        else {
+            window.location = '&page_size='+page_size+'&order_by='+elm.dataset.ordering;
+        }
+    }
+</script>

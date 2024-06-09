@@ -1,0 +1,25 @@
+{% load widget_tweaks %}
+{% load static %}
+{% load i18n %}
+
+<form id="edit-form2" action="{% url 'pro_post_food' %}" method="POST" autocomplete="off">
+    {% csrf_token %}
+    <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="lead"><strong>{% trans 'DELETE this POST?' %}</strong></p>
+                    <p class="lead mb-0">{% trans 'You will no longer have access to it.' %}</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'NO' %}</button>
+                    <button type="submit" class="btn btn-danger" id="post-delete" name="postType"
+                            value="delete">{% trans 'Delete' %}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="food-id-delete" name="foodId">
+</form>

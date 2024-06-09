@@ -1,0 +1,141 @@
+{% load static %}
+{% load web_extras %}
+{% load i18n %}
+<div class="tab-pane fade" id="company-details">
+  <form class="card form-type-material address-form" id="company_details_form"
+    data-provide="validation"
+    enctype="multipart/form-data"
+    data-disable="false" novalidate="true">
+    {% csrf_token %}
+    <h3 class="card-title registration-hidden">{% trans 'Company Details' %}</h3>
+    <div class="card-body">
+
+        <div class="flexbox gap-items-4">
+            <img class="avatar avatar-xl" id="company-image" src="{{owner_user.get_images.company_image_thumb}}" alt="...">
+
+            <div class="flex-grow">
+                <h5>{% firstof owner_user.customer.company owner_user.customer.billing_address.company '-' %}</h5>
+                <div class="d-flex flex-column flex-sm-row gap-y gap-items-2 mt-16">
+                    <div class="file-group file-group-inline">
+                        <button class="btn btn-sm btn-w-lg btn-outline btn-round btn-secondary file-browser"
+                                type="button">{% trans 'Change Picture' %}
+                        </button>
+                        <input type="file" id="company-image-input" name="companyImage">
+                    </div>
+                    <a class="btn btn-sm btn-w-lg btn-outline btn-round btn-danger align-top" href="#"
+                      id="delete-company-picture" href="#">
+                      {% trans 'Delete Picture' %}</a>
+                    <input type="hidden" id="company-picture-removed" name="company-picture-removed" value=""/>
+                </div>
+
+                <p id="extension-error-owner-logo"
+                   style="display:none; color:#FF0000; text-align: center">{% trans 'Invalid Image Format' %}.</p>
+                <p id="size-error-owner-logo" style="display:none; color:#FF0000; text-align: center">
+                    {% trans 'Maximum File Size Limit is 5MB' %}.</p>
+
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group disabled">
+                    <input class="form-control" disabled type="text" value=
+                    {% if owner_user.customer.billing_address %}
+                      "{% firstof owner_user.customer.billing_address.company owner_user.customer.company '-' %}"
+                    {% else %}
+                      "{% firstof owner_user.customer.company '-' %}"
+                    {% endif %}>
+                      <div class="input-group-append">
+                          <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                      </div>
+                    <label>{% trans 'CORPORATE NAME' %}</label>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group disabled" >
+                    <input class="form-control" disabled type="text" value="{% if owner_user.customer.vat_number %}{{owner_user.customer.country}}{{owner_user.customer.vat_number}}{% else %}-{% endif %}">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                    </div>
+                    <label>{% trans 'VAT NUMBER' %}</label>
+                </div>
+            </div>
+
+          <!--  <div class="col-sm-6">
+                <div class="form-group disabled">
+                    <input class="form-control" disabled type="text" value='-'>
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                    </div>
+                    <label>{% trans 'LEGAL FORM' %}</label>
+                </div>
+            </div>
+          -->
+        </div>
+
+        <div class="row">
+          {% if owner_user.customer.billing_address %}
+
+            <div class="col-sm-6">
+              <div class="form-group disabled">
+                <input class="form-control" disabled type="text" value=
+                "{{ owner_user.customer.billing_address.line1 }}{% if owner_user.customer.billing_address.line2 %}, {{owner_user.customer.billing_address.line2}}{% endif %}{% if owner_user.customer.billing_address.line3 %}, {{owner_user.customer.billing_address.line3}}{% endif %}"
+                >
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                </div>
+                <label>{% trans 'BILLING ADDRESS' %}</label>
+
+                <input class="form-control" disabled type="text" value=
+                "{{ owner_user.customer.billing_address.city }}{% if owner_user.customer.billing_address.zip %} - {{ owner_user.customer.billing_address.zip }}{% endif %}">
+
+                <input class="form-control" disabled type="text" value=
+                "{% if owner_user.customer.billing_address.state %}{{ owner_user.customer.billing_address.state }}, {% endif %}{{ owner_user.customer.billing_address.country }}">
+              </div>
+            </div>
+
+          {% else %}
+
+              <div class="col-sm-6">
+                  <div class="form-group disabled">
+                      <input class="form-control" disabled type="text" value='-'>
+                      <div class="input-group-append">
+                          <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                      </div>
+                      <label>{% trans 'BILLING ADDRESS' %}</label>
+                  </div>
+                  {% trans 'Please fill in your billing address details in your Chargebee account.' %}
+              </div>
+
+          {% endif %}
+
+          <div class="col-sm-6">
+              <div class="form-group disabled">
+                  <input class="form-control" disabled type="text" value=
+                  {% if owner_user.customer.billing_address %}
+                    {% firstof owner_user.customer.billing_address.email owner_user.customer.email '-' %}>
+                  {% else %}
+                    {% firstof owner_user.customer.email '-' %}>
+                  {% endif %}
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                    </div>
+                  <label>{% trans 'BILLING E-MAIL' %}</label>
+              </div>
+          </div>
+
+      </div>
+    </div>
+
+    <nav class="flexbox mb-2 mt-7 registration-nav">
+        <a class="btn" href="https://www.devpro.raisin.digital/US/1-Your-venue.html" target="_top"><i
+                class="fa fa-angle-left mr-1"></i> Previous</a>
+        <button type="submit" class="btn">Next <i class="fa fa-angle-right ml-1"></i></button>
+        <!-- Submit then redirect the main window to https://www.devpro.raisin.digital/US/3-owners.html -->
+    </nav>
+
+  </form>
+</div>

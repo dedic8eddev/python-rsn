@@ -1,0 +1,103 @@
+{% load static %}
+{% load widget_tweaks %}
+{% load web_extras %}
+{% load i18n %}
+
+<div class="modal-dialog" style="width: 80%;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Winelist Details: {{ filename }}</h3>
+            <button type="button" class="close text-right" data-dismiss="modal">x</button>
+        </div>
+        <div class="modal-body position-static">
+            <div class="row">
+                <div class="col-sm-12 position-static">
+                    <div class="table table-striped vmiddle">
+                        {% for score in all_scores %}
+                        <!-- score rows -->
+                        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-left table-ocr-rows" id="jq-datatables-example"  data-wine-id="{{ wl_id }}">
+                            <thead>
+                            <tr class="stats_header">
+                                <td colspan="2">
+                                    <h4>SCANNED ITEMS</h4>
+                                </td>
+                                <td colspan="2" valign="middle" class="total_score"><h4 class="top_score"><b>SCORE: {{ score.score_percent}}%</b></h4></td>
+                            </tr>
+                            <tr>
+                                <th width="35%">Item</th>
+                                <th width="5%">STATUS</th>
+                                <th width="30%">WHERE?</th>
+                                <th width="30%">WHAT?</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in score.rows_out %}
+                            <tr {% if item.res == 'yes' %}class="tr_yes"{% endif %}>
+                                <td>{{ item.row|safe }} <!-- <button
+                                class="btn btn-xs btn-success
+                                btn-outline"><span class="fa
+                                fa-refresh"></span></button> --></td>
+                                <!-- <td class="rescol">{{ item.res }}</td>
+                                <td><input type="checkbox" name="incs" value="{{ item.ind }}" {% if item.inc %}checked="checked"{% endif %}></td> -->
+                                <td>
+                                    <select name="incs" class="row-status form-control {% if item.status == 20 %}naturalSelected{% endif %}{% if item.status == 30 %}bioOrganicSelected{% endif %}{% if item.status == 25 %}notNaturalSelected{% endif %}{% if item.status == 45 %}toInvestigateSelected{% endif %}{% if item.status == 10 %}draftSelected{% endif %}">
+                                        <option value="15" {% if item.status == 15 %}selected{% endif %}>IN DOUBT</option>
+                                        <option value="20" {% if item.status == 20 %}selected{% endif %}>NATURAL</option>
+                                        <option value="30" {% if item.status == 30 %}selected{% endif %}>BIO ORGANIC</option>
+                                        <option value="45" {% if item.status == 45 %}selected{% endif %}>TO INVESTIGATE</option>
+                                        <option value="25" {% if item.status == 25 %}selected{% endif %}>NOT NATURAL</option>
+                                        <option value="2" {% if item.status == 2 %}selected{% endif %}>NO DATA</option>
+                                        <option value="10" {% if item.status == 10 %}selected{% endif %}>DRAFT</option>
+                                        <option value="0" {% if item.status == 0 %}selected{% endif %}>NULL</option>
+                                    </select>
+                                </td>
+                                <td>{% if item.found_where %}{{ item.found_where|safe }}{% endif %}</td>
+                                <td>{% if item.found_what %}
+                                        {{ item.found_what|safe }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <td colspan="2"></td>
+                                <!-- <td class="text-center">
+                                    <button type="button" data-wine-id="{{ wl_id }}" class="btn_recalculate btn btn-md btn-success">{% trans 'Recalculate status' %}</button>
+                                </td> -->
+                                <td colspan="2" valign="middle" class="total_score"><h4><b>SCORE: {{ score.score_percent}}%<b></h4></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- statistics -->
+                        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-left table-ocr-stats" id="jq-datatables-example" >
+                            <tr class="stats_header">
+                                <td colspan="2">
+                                    <h4>TOTAL STATISTICS</h4>
+                                </td>
+                            </tr>
+                            <tr class="tr_yes">
+                                <td width="90%">NATURAL</td>
+                                <td>{{ score.num_rows_yes}}</td>
+                            </tr>
+                            <tr>
+                                <td>OTHER</td>
+                                <td>{{ score.num_rows_no}}</td>
+                            </tr>
+                            <tr>
+                                <td>TOTAL</td>
+                                <td>{{ score.num_rows_total}}</td>
+                            </tr>
+                            <tr>
+                                <td>COMPLIANCY SCORE</td>
+                                <td>{{ score.score_percent}}%</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

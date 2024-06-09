@@ -1,0 +1,164 @@
+{% load static %}
+{% load i18n %}
+
+<!-- Preloader -->
+<div class="preloader">
+    <div class="spinner-dots"><img src="{% static 'pro_assets/img/preloading.gif' %}" alt="{% trans 'preloading Raisin Pro website' %}" width="60" height="100"/></div>
+</div>
+
+<!-- Sidebar -->
+<aside class="sidebar sidebar-expand-lg sidebar-light sidebar-sm sidebar-color-info">
+    <header class="sidebar-header bg-info">
+    <span class="logo">
+       <a href="{% url 'pro_dashboard' %}"><img src="{% static 'pro_assets/img/raisin-pro-vert.png' %}" width="190" class="d-block mx-auto" alt="Raisin pro"/></a>
+    </span>
+        <!--<span class="sidebar-toggle-fold"></span>-->
+    </header>
+    {% if display_pro_version %}
+        <!-- <p style="padding-left: 20px; background-color: #69b169; color: white;"> App version: v{{version_number}} {{version_name}} </p> -->
+    {% endif %}
+
+    <nav class="sidebar-navigation">
+        <ul class="menu menu-sm menu-bordery">
+
+            <div class="venuename"
+                 style="display:inline-block; margin:10px; margin-top:15px; border-bottom:1px #f9fafb solid;">
+                <h6>{{ establishment_name }}</h6>
+                <p>{{ full_address }}</p>
+
+            </div>
+
+
+            <li class="menu-item {% if current_tab == 'dashboard' %}active{% endif %}">
+              {% if pid %}
+                <a class="menu-link" href="{% url 'pro_dashboard' pid=pid %}">
+<!--                    <span class="title">DASHBOARD</span>  TODO: RESTORE IN STEP#2 -->
+                    <span class="title">{% trans 'DASHBOARD' %}</span>
+                </a>
+              {% else %}
+                <a class="menu-link" href="{% url 'pro_dashboard' %}">
+<!--                    <span class="title">DASHBOARD</span>  TODO: RESTORE IN STEP#2 -->
+                    <span class="title">{% trans 'DASHBOARD' %}</span>
+                </a>
+              {% endif %}
+            </li>
+
+            <li class="menu-item {% if current_tab == 'wines' %}active{% endif %}">
+              {% if pid %}
+                <a class="menu-link" href="{% url 'pro_wines' pid=pid %}">
+                    <span class="title">{% trans 'WINES' %}</span>
+                </a>
+              {% else %}
+                <a class="menu-link" href="{% url 'pro_wines' %}">
+                    <span class="title">{% trans 'WINES' %}</span>
+                </a>
+              {% endif %}
+            </li>
+
+            {% if pid %}
+            <li class="menu-item {% if current_tab == 'wines_by_users' %}active{% endif %}">
+                <a class="menu-link" href="{% url 'pro_wines_by_users' pid=pid %}">
+                    <span class="title">{% trans 'WINES BY USERS' %}</span>
+                </a>
+            </li>
+            {% endif %}
+
+            <li class="menu-item {% if current_tab == 'food' %}active{% endif %}">
+              {% if pid %}
+                <a class="menu-link" href="{% url 'pro_food' pid=pid %}">
+                    <span class="title">{% trans 'FOOD' %}</span>
+                </a>
+              {% else %}
+                <a class="menu-link" href="{% url 'pro_food' %}">
+                    <span class="title">{% trans 'FOOD' %}</span>
+                </a>
+              {% endif %}
+            </li>
+
+            <li class="menu-item {% if current_tab == 'reviews' %}active{% endif %}">
+              {% if pid %}
+                <a class="menu-link" href="{% url 'pro_reviews_and_likes' pid=pid %}">
+                    <span class="title">{% trans 'REVIEWS & LIKES' %}</span>
+                    <span class="badge badge-pill badge-info" id="total-number-unread" {% if not unread_comments %}style="display:none;"{% endif %}> {{ unread_comments }}</span>
+                </a>
+              {% else %}
+                <a class="menu-link" href="{% url 'pro_reviews_and_likes' %}">
+                    <span class="title">{% trans 'REVIEWS & LIKES' %}</span>
+                    <span class="badge badge-pill badge-info" id="total-number-unread" {% if not unread_comments %}style="display:none;"{% endif %}> {{ unread_comments }}</span>
+                </a>
+              {% endif %}
+            </li>
+
+            <li class="menu-item {% if current_tab == 'establishment' %}active{% endif %}">
+              {% if pid %}
+                <a class="menu-link" href="{% url 'pro_establishment' pid=pid %}">
+                    <span class="title">{% trans 'ESTABLISHMENT' %}</span>
+                </a>
+              {% else %}
+                <a class="menu-link" href="{% url 'pro_establishment' %}">
+                    <span class="title">{% trans 'ESTABLISHMENT' %}</span>
+                </a>
+              {% endif %}
+            </li>
+
+            <li class="menu-item {% if current_tab == 'settings' %}active{% endif %}">
+              {% if pid %}
+                <a class="menu-link" href="{% url 'pro_settings' pid=pid %}">
+                    <span class="title">{% trans 'SETTINGS' %}</span>
+                </a>
+              {% else %}
+                <a class="menu-link" href="{% url 'pro_settings' %}">
+                    <span class="title">{% trans 'SETTINGS' %}</span>
+                </a>
+              {% endif %}
+            </li>
+
+
+            {% if user_lang == 'FR' %}
+            <li class="menu-item">
+                <a class="menu-link" href="https://www.pro.raisin.digital/100-grands-vins-demotions.html">
+                    <span class="title">{% trans 'LIVRE' %}</span>
+                </a>
+            </li>
+            {% endif %}
+
+            {% if pid %}
+              <li class="menu-item {% if current_tab == 'feedback' %}active{% endif %}">
+                <a class="menu-link" href="{% url 'pro_canny_feedback' pid=pid %}">
+                    <span class="title">{% trans 'NEED SUPPORT?' %}</span>
+                </a>
+              </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+</aside>
+<!-- END Sidebar -->
+
+
+<!-- Topbar -->
+<header class="topbar">
+    <div class="topbar-left">
+        <span class="topbar-btn sidebar-toggler"><i style="color:#66B266">&#9776;</i></span>
+        {#        <a class="logo d-lg-none" href="{% url 'pro_dashboard' %}"><img class="avatar" src="{{ user.get_images.image }}" alt="logo"></a>#}
+    </div>
+
+    <div class="topbar-right">
+
+        <ul class="topbar-btns">
+            <li class="dropdown">
+                <span class="topbar-btn" data-toggle="dropdown">{{ user.username }}  <img class="avatar" src="{{ user.get_images.image }}"
+                                                                     alt="..."></span>
+                <div class="dropdown-menu dropdown-menu-right">
+                    {% if logged_as_admin %}
+                    <a class="dropdown-item" href="{% url 'list_places_subscribers' %}"><i class="ti-list"></i>{% trans 'Subscribers' %}</a>
+                    {% endif %}
+                    <a class="dropdown-item" href="{% url 'pro_logout' %}"><i class="ti-power-off"></i> {% trans 'Logout' %}</a>
+                </div>
+            </li>
+        </ul>
+
+
+    </div>
+</header>
+<!-- END Topbar -->

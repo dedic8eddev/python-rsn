@@ -1,0 +1,1183 @@
+Aktualizacja push_user_id i push_user_token
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+aaa
+URL: /api/users/push/update
+
+metoda: POST
+
+pola:
+    push_user_id (wymagane)
+    push_user_token (opcjonalne)
+
+
+Przykładowe zapytanie CURL:
+    curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTUxZjRkMzctZDViNS00OTI3LWIxMzAtODkxYTcyY2M5ZThhIiwiZXhwIjoxNzk3MTAwMjM2LCJodHRwX3Jvb3QiOiJodHRwOi8vbG9jYWxob3N0IiwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4ifQ.JVYrVHPnM0fh3BNNkkKJaj0GK2gAWzqBtTYLfE-IL7c" -d '{"push_user_id": "xxxxx", "push_user_token": "yyyyy"}' http://localhost:9002/api/users/push/update
+
+Zwrotka:
+    {
+        "data": {
+            "all_posts_number": 1615,
+            "comment_number": 1,
+            "created_time": "2016-11-30T02:42:26Z",
+            "description": null,
+            "drank_it_too_number": 1,
+            "email": "admin@example.com",
+            "full_name": "admin adminer",
+            "id": "e51f4d37-d5b5-4927-b130-891a72cc9e8a",
+            "image": "http://localhost:9002/media/users/jhb.jpg",
+            "is_confirmed": false,
+            "likevote_number": 5,
+            "modified_time": "2016-11-30T02:42:26Z",
+            "notify_comments": false,
+            "notify_drank_it_toos": false,
+            "notify_likes": false,
+            "notify_wine_reviewed": false,
+            "post_number": 0,
+            "push_user_id": "xxxxx",
+            "push_user_token": "yyyyy",
+            "star_review_number": 1,
+            "status": 10,
+            "type": 30,
+            "username": "admin",
+            "website_url": null,
+            "wine_post_number": 1615
+        },
+        "date": "2016-12-14T18:33:12Z",
+        "host": "localhost",
+        "status": 100,
+        "success": true
+    }
+
+Statusy:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    OK - HTTP CODE 200:
+        STATUS_OK = 100
+
+    Errors - HTTP CODE 400:
+        WRONG_PARAMETERS = 101 - niepoprawna walidacja
+        WRONG_AUTH = 111 - zła autoryzacja
+        RESULT_ERROR = 102 - inny błąd
+
+================================================================================================================
+
+
+Dodanie miejsca z apki
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    URL: /api/places/place/add
+    method: POST
+
+    sample CURL request:
+        curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -F 'data={"name":"Degustatornia", "type": "20", "description": "Very nice bar located nearby Motlawa river in the center of Gdansk (Old Town)", "street_address": "ul. Grodzka 16 (za hotelem Hilton)", "house_number": "16", "zip_code": "80841", "city": "Gdansk", "country": "Poland", "country_iso_code": "PL", "phone_number": "+48 888 728 272", "website_url": "degustatornia.eu", "email": "degu@degustatornia.eu", "latitude": "54.35409", "longitude": "18.6574003", "social_facebook_url": "https://web.facebook.com/DEGUSTATORNIA/", "social_twitter_url": "", "social_instagram_url": ""}' -F "images=@/home/krzysiek/degustatornia.jpg" -F "images=@/home/krzysiek/degustatornia2.jpg" http://localhost:9002/api/places/place/add
+        curl -X POST -H "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQV4YW1wbGUuY29tIiwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsInVzZXJfaWQiOiJlNTFmNGQzNy1kNWI1LTQ5MjctYjEzMC04OTFhNzJjYzllOGEiLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNzk2MzM1NjI2fQ.jbRRbm_c0OtzUkdee3awmzd8eIxm8kJCBpVddnIJtw4" -F 'data={"name":"Degustatornia", "type": "20", "description": "Very nice bar located nearby Motlawa river in the center of Gdansk (Old Town)", "street_address": "ul. Grodzka 16 (za hotelem Hilton)", "house_number": "16", "zip_code": "80841", "city": "Gdansk", "country": "Poland", "country_iso_code": "PL", "phone_number": "+48 888 728 272", "website_url": "degustatornia.eu", "email": "degu@degustatornia.eu", "latitude": "54.35409", "longitude": "18.6574003", "social_facebook_url": "https://web.facebook.com/DEGUSTATORNIA/", "social_twitter_url": "", "social_instagram_url": ""}' -F "images=@/home/krzysiek/degustatornia.jpg" -F "images=@/home/krzysiek/degustatornia2.jpg" http://localhost:9002/api/places/place/add
+
+    fields:
+        images - uploaded images (one or more). Optional.
+
+        data - JSON data field. Serialized JSON should be sent through it:
+            required:
+
+                name
+                type (10 - restaurant/ 20 - bar/ 30 - wine shop)
+                description
+
+            optional:
+                taken from Google maps data:
+                    street_address
+                    house_number
+                    zip_code
+                    city
+                    country
+                    country_iso_code
+                    latitude
+                    longitude
+
+            not used yet as for App sketches, but working (optional):
+                phone_number
+                website_url
+                email
+                social_facebook_url
+                social_twitter_url
+                social_instagram_url
+
+    result data:
+
+        {
+            "data": {
+                "author": "admin adminer",
+                "author_avatar_url": "http://localhost:9002/media/users/jhb.jpg",
+                "city": "Gdansk",
+                "comment_number": 0,
+                "country": "Poland",
+                "country_iso_code": "PL",
+                "created_time": "2016-12-05T22:07:35Z",
+                "description": "Very nice bar located nearby Motlawa river in the center of Gdansk (Old Town)",
+                "email": "degu@degustatornia.eu",
+                "house_number": "16",
+                "id": 1703,
+                "is_archived": false,
+                "is_bar": false,
+                "is_restaurant": false,
+                "is_wine_shop": false,
+                "latitude": 54.35409,
+                "likevote_number": 0,
+                "longitude": 18.6574003,
+                "main_image": "http://localhost:9002/media/places/degustatornia_8Ir2J3Q.jpg",
+                "modified_time": "2016-12-05T22:07:35Z",
+                "name": "Degustatornia",
+                "phone_number": "+48 888 728 272",
+                "social_facebook_url": "https://web.facebook.com/DEGUSTATORNIA/",
+                "social_instagram_url": "",
+                "social_twitter_url": "",
+                "state": "None",
+                "status": "10",
+                "sticker_sent": false,
+                "street_address": "ul. Grodzka 16 (za hotelem Hilton)",
+                "type": 20,
+                "website_url": "degustatornia.eu",
+                "zip_code": "80841"
+            },
+            "date": "2016-12-05T22:07:35Z",
+            "host": "localhost",
+            "status": 100,
+            "success": true
+        }
+    status codes:
+        OK - HTTP CODE 200:
+            STATUS_OK = 100
+
+        Errors - HTTP CODE 400:
+            WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrectprovided
+            WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+            RESULT_ERROR = 102 - other error occurred
+
+
+
+
+usunięcie postu z apki
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    URL: /api/posts/delete
+    method: POST
+
+    sample CURL query:
+
+        curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{ "post_id: 25"}' http://localhost:8000/api/posts/delete
+        curl -X POST -H "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZTUxZRkMzctZDViNS00OTI3LWIxMzAtODkxYTcyY2M5ZThhIiwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsImV4cCI6MTc5NjMzMDAyMCwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4ifQ.Qk2OMMeYnvMcc3ZRFPvBEw_B03GeMQMDBO8Q2xm8T6o" -d '{ "post_id: 25"}' http://localhost:8000/api/posts/delete
+
+    fields:
+        post_id OR tl_id - one is required
+
+    result data:
+        {
+            "data": {
+                "archived_item": {
+                    "author": "admin adminer",
+                    "author_avatar_url": "http://localhost:9002/media/users/jhb.jpg",
+                    "author_id": "e51f4d37-d5b5-4927-b130-891a72cc9e8a",
+                    "comment_number": 0,
+                    "created_time": "2016-12-05T21:29:44Z",
+                    "description": "EDITED - Just a test non-wine post to check the function.",
+                    "drank_it_too_number": 0,
+                    "foursquare_place_name": null,
+                    "foursquare_place_url": null,
+                    "id": 25,
+                    "is_parent_post": false,
+                    "is_star_review": false,
+                    "likevote_number": 0,
+                    "modified_time": "2016-12-05T21:29:44Z",
+                    "place_data": null,
+                    "place_id": null,
+                    "post_id": 25,
+                    "post_main_image": "http://localhost:9002/media/posts/degustatornia_srXK0sl.jpg",
+                    "post_status": 10,
+                    "star_review_number": 0,
+                    "title": "EDITED - Test non-wine post",
+                    "type": 20,
+                    "wine": null,
+                    "wine_data": null,
+                    "wine_id": null,
+                    "wine_main_image": null,
+                    "wine_year": null
+                }
+            },
+            "date": "2016-12-05T21:42:08Z",
+            "host": "localhost",
+            "status": 100,
+            "success": true
+        }
+    status codes:
+        OK - HTTP CODE 200:
+            STATUS_OK = 100
+
+        Errors - HTTP CODE 400:
+            WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+            WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+            RESULT_ERROR = 102 - other error occurred
+
+
+----------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+edycja general postu z apki
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+edit a non-wine (general) post
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    URL: /api/posts/general/edit
+    method: POST
+
+    sample CURL query:
+
+        curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -F 'data={"post_id" :  25, "title" : "EDITED - Test non-wine post", "description" : "EDITED - Just a test non-wine post to check the function."}' -F "images=@/home/krzysiek/degustatornia.jpg" http://localhost:8000/api/posts/general/edit
+        curl -X POST -H "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZTUxZRkMzctZDViNS00OTI3LWIxMzAtODkxYTcyY2M5ZThhIiwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsImV4cCI6MTc5NjMzMDAyMCwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4ifQ.Qk2OMMeYnvMcc3ZRFPvBEw_B03GeMQMDBO8Q2xm8T6o" -F 'data={"post_id" :  25, "title" : "EDITED - Test non-wine post", "description" : "EDITED - Just a test non-wine post to check the function."}' -F "images=@/home/krzysiek/degustatornia.jpg" http://localhost:8000/api/posts/general/edit
+
+    fields:
+        images - uploaded images (one or more). Optional.
+
+        data - JSON data field. Serialized JSON should be sent through it:
+            required (all fields are required):
+                title
+                description
+
+    result data:
+
+        {
+            "data": {
+                "author": "admin adminer",
+                "author_avatar_url": "http://localhost:9002/media/users/jhb.jpg",
+                "author_id": "e51f4d37-d5b5-4927-b130-891a72cc9e8a",
+                "comment_number": 0,
+                "created_time": "2016-12-05T21:29:44Z",
+                "description": "EDITED - Just a test non-wine post to check the function.",
+                "drank_it_too_number": 0,
+                "foursquare_place_name": null,
+                "foursquare_place_url": null,
+                "id": 25,
+                "is_parent_post": false,
+                "is_star_review": false,
+                "likevote_number": 0,
+                "modified_time": "2016-12-05T21:29:44Z",
+                "place_data": null,
+                "place_id": null,
+                "post_id": 25,
+                "post_main_image": "http://localhost:9002/media/posts/degustatornia_srXK0sl.jpg",
+                "post_status": 10,
+                "star_review_number": 0,
+                "title": "EDITED - Test non-wine post",
+                "type": 20,
+                "wine": null,
+                "wine_data": null,
+                "wine_id": null,
+                "wine_main_image": null,
+                "wine_year": null
+            },
+            "date": "2016-12-05T21:30:13Z",
+            "host": "localhost",
+            "status": 100,
+            "success": true
+        }
+    status codes:
+        OK - HTTP CODE 200:
+            STATUS_OK = 100
+
+        Errors - HTTP CODE 400:
+            WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+            WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+            RESULT_ERROR = 102 - other error occurred
+
+
+----------------------------------------------------------------------------------------------------------------------
+
+
+edycja wine postu z apki
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        URL: /api/posts/wine/edit
+        method: POST
+
+        sample CURL query"
+            curl -X POST -H "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZTUxZRkMzctZDViNS00OTI3LWIxMzAtODkxYTcyY2M5ZThhIiwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsImV4cCI6MTc5NjMzMDAyMCwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4ifQ.Qk2OMMeYnvMcc3ZRFPvBEw_B03GeMQMDBO8Q2xm8T6o" -F 'data={"post_id": 2, "name" : "EDITED - a Dilettante Tranquille", "description" : "EDITED - Just a post about La Dillettante Tranquille", "domain" : "EDITED - Breton", "designation" : "EDITED - Vouvray", "grape_variety" : "EDITED - Chenin, Menu Pineau, Chardonnay", "region" : "EDITED - Loire", "color" : "20", "year" : "2016", "is_sparkling" : "", "winemaker_id" : "1"}' -F "images=@/home/krzysiek/degustatornia.jpg" http://localhost:9002/api/posts/wine/edit
+
+        fields:
+            images - uploaded images (one or more). Optional.
+
+            data - JSON data field. Serialized JSON should be sent through it:
+                post_id OR tl_id (one of those is required)
+
+                required (all fields are required):
+                    name
+                    description
+                    domain
+                    designation
+                    grape_variety
+                    region
+                    color
+                    year
+                    winemaker_name OR winemaker_id
+                    \q
+                optional:
+                    place_id - for wines added with relation to a place
+
+        result data:
+            {
+                "data": {
+                    "author": "admin adminer",
+                    "author_avatar_url": "http://localhost:9002/media/users/jhb.jpg",
+                    "author_id": "e51f4d37-d5b5-4927-b130-891a72cc9e8a",
+                    "comment_number": 0,
+                    "created_time": "2016-11-30T02:42:28Z",
+                    "description": "EDITED - Just a post about La Dillettante Tranquille",
+                    "drank_it_too_number": 0,
+                    "foursquare_place_name": null,
+                    "foursquare_place_url": null,
+                    "id": 2,
+                    "is_parent_post": true,
+                    "is_star_review": true,
+                    "likevote_number": 0,
+                    "modified_time": "2016-12-05T21:09:01Z",
+                    "place_data": null,
+                    "place_id": null,
+                    "post_id": 2,
+                    "post_main_image": "http://localhost:9002/media/posts/degustatornia_f5Bwqzf.jpg",
+                    "post_status": 10,
+                    "star_review_number": 0,
+                    "title": "EDITED - a Dilettante Tranquille 2016",
+                    "type": 10,
+                    "wine": "EDITED - a Dilettante Tranquille",
+                    "wine_data": {
+                        "author": "Matt Krell",
+                        "color": 20,
+                        "created_time": "2016-11-30T02:42:28Z",
+                        "designation": "EDITED - Vouvray",
+                        "domain": "EDITED - Breton",
+                        "grape_variety": "EDITED - Chenin, Menu Pineau, Chardonnay",
+                        "id": 1,
+                        "is_archived": false,
+                        "is_sparkling": false,
+                        "main_image": "http://localhost:9002/media/wines/degustatornia_ugzlfv0.jpg",
+                        "modified_time": "2016-11-30T02:42:28Z",
+                        "name": "EDITED - a Dilettante Tranquille",
+                        "region": "EDITED - Loire",
+                        "similiar_wine_exists": false,
+                        "similiar_wine_id": null,
+                        "status": "20",
+                        "total_comment_number": 1,
+                        "total_drank_it_too_number": 5,
+                        "total_likevote_number": 3,
+                        "total_star_review_number": 0,
+                        "wine_post_number": 2,
+                        "winemaker": {
+                            "author": "admin adminer",
+                            "author_id": "e51f4d37-d5b5-4927-b130-891a72cc9e8a",
+                            "city": "Restign\u00e9",
+                            "country": "France",
+                            "country_iso_code": "FR",
+                            "created_time": "2016-11-30T02:42:28Z",
+                            "description": "Good winemaker from Loire region",
+                            "domain": "Domaine Breton",
+                            "email": "contact@domainebreton.net",
+                            "house_number": "8",
+                            "id": 1,
+                            "latitude": 45.7524376,
+                            "longitude": 3.6628124,
+                            "main_image": "http://localhost:9002/media/winemakers/catherine-pierre-breton.jpeg",
+                            "mobile_phone_number": null,
+                            "modified_time": "2016-11-30T02:42:28Z",
+                            "name": "Catherine & Pierre Breton",
+                            "phone_number": "(+33) 6 12 22 61 10",
+                            "region": "Loire",
+                            "social_facebook_url": "www.facebook.com/ellsworthparis",
+                            "social_instagram_url": "",
+                            "social_twitter_url": "",
+                            "status": 20,
+                            "street_address": "Route de Peu Muleau",
+                            "total_comment_number": 1,
+                            "total_drank_it_too_number": 5,
+                            "total_is_parent_post_number": 2,
+                            "total_likevote_number": 3,
+                            "total_star_review_number": 1,
+                            "total_wine_number": 2,
+                            "total_wine_post_number": 3,
+                            "website_url": "www.domainebreton.net",
+                            "zip_code": "37140"
+                        },
+                        "winemaker_id": 1,
+                        "winemaker_name": "Catherine & Pierre Breton",
+                        "year": "2010"
+                    },
+                    "wine_id": 1,
+                    "wine_main_image": "http://localhost:9002/media/wines/degustatornia_ugzlfv0.jpg",
+                    "wine_year": "2016"
+                },
+                "date": "2016-12-05T21:09:53Z",
+                "host": "localhost",
+                "status": 100,
+                "success": true
+            }
+        status codes:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+                WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+                RESULT_ERROR = 102 - other error occurred
+
+
+-----------------------------------------------------------------------------------------------------------------------
+
+
+- edycja miejsca z apki
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    URL: /api/places/place/edit
+    method: POST
+
+    sample CURL request:
+        curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -F 'data={"place_id" : 1, "name":"Degustatornia EDITED", "is_bar": true, "is_restaurant": false, "is_wine_shop": false, "description": "EDITED test edition - Very nice bar located nearby Motlawa river in the center of Gdansk (Old Town)", "street_address": "EDITED ul. Grodzka 16 (za hotelem Hilton)", "house_number": "16E", "zip_code": "66333", "city": "Gdansk EDITED", "country": "Poland EDITED", "country_iso_code": "PL", "phone_number": "+46 888 728 999", "website_url": "degustatornia-edited.eu", "email": "degu@degustatornia-edited.eu", "latitude": "54.35410", "longitude": "18.6574010", "social_facebook_url": "https://web.facebook.com/DEGUSTATORNIA/EDITED", "social_twitter_url": "", "social_instagram_url": "EDITED"}' -F "images=@/home/krzysiek/degustatornia.png"  http://localhost:9002/api/places/place/edit
+        curl -X POST -H "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZTUxZjRkMzctZDViNS00OTI3LWIxMzAtODkxYTcyY2M5ZThhIiwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsImV4cCI6MTc5NjMzMDAyMCwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoiYWRtaW4ifQ.Qk2OMMeYnvMcc3ZRFPvBEw_B03GeMQMDBO8Q2xm8T6o" -F 'data={"place_id" : 1, "name":"Degustatornia EDITED", "is_bar": true, "is_restaurant": false, "is_wine_shop": false, "description": "EDITED test edition - Very nice bar located nearby Motlawa river in the center of Gdansk (Old Town)", "street_address": "EDITED ul. Grodzka 16 (za hotelem Hilton)", "house_number": "16E", "zip_code": "66333", "city": "Gdansk EDITED", "country": "Poland EDITED", "country_iso_code": "PL", "phone_number": "+46 888 728 999", "website_url": "degustatornia-edited.eu", "email": "degu@degustatornia-edited.eu", "latitude": "54.35410", "longitude": "18.6574010", "social_facebook_url": "https://web.facebook.com/DEGUSTATORNIA/EDITED", "social_twitter_url": "", "social_instagram_url": "EDITED"}' -F "images=@/home/krzysiek/degustatornia.png"  http://localhost:9002/api/places/place/edit
+
+    fields:
+        images - uploaded images (one or more). Optional.
+
+        data - JSON data field. Serialized JSON should be sent through it:
+            required:
+                tl_id (timeline item id) OR place_id - one of them is required
+
+                name
+                description
+
+            optional:
+                is_post
+                is_restaurant
+                is_bar
+
+                taken from Google maps data:
+                    street_address
+                    house_number
+                    zip_code
+                    city
+                    country
+                    country_iso_code
+                    latitude
+                    longitude
+
+            not used yet as for App sketches, but working (optional):
+                phone_number
+                website_url
+                email
+                social_facebook_url
+                social_twitter_url
+                social_instagram_url
+
+    result data:
+        date
+        {
+            "data": {
+                "author": "admin adminer",
+                "author_avatar_url": "http://localhost:9002/media/users/jhb.jpg",
+                "city": "Gdansk EDITED",
+                "comment_number": 0,
+                "country": "Poland EDITED",
+                "country_iso_code": "PL",
+                "created_time": "2016-11-30T02:42:28Z",
+                "description": "EDITED test edition - Very nice bar located nearby Motlawa river in the center of Gdansk (Old Town)",
+                "email": "degu@degustatornia-edited.eu",
+                "house_number": "16E",
+                "id": 1,
+                "is_archived": false,
+                "is_bar": true,
+                "is_restaurant": false,
+                "is_wine_shop": false,
+                "latitude": 54.3541,
+                "likevote_number": 1,
+                "longitude": 18.657401,
+                "main_image": "http://localhost:9002/media/places/spp-logo-ks07_view_png_1fKmQ6T.png",
+                "modified_time": "2016-12-01T21:55:35Z",
+                "name": "Degustatornia EDITED",
+                "phone_number": "+46 888 728 999",
+                "social_facebook_url": "https://web.facebook.com/DEGUSTATORNIA/EDITED",
+                "social_instagram_url": "EDITED",
+                "social_twitter_url": "",
+                "state": "\u00cele-de-France",
+                "status": "10",
+                "sticker_sent": false,
+                "street_address": "EDITED ul. Grodzka 16 (za hotelem Hilton)",
+                "type": null,
+                "website_url": "degustatornia-edited.eu",
+                "zip_code": "66333"
+            },
+            "date": "2016-12-05T20:51:45Z",
+            "host": "localhost",
+            "status": 100,
+            "success": true
+        }
+    status codes:
+        OK - HTTP CODE 200:
+            STATUS_OK = 100
+
+        Errors - HTTP CODE 400:
+            WRONG_PARAMETERS = 101 - required parameters were not provided or their syntax is incorrect
+            WRONG_AUTH = 111 - wrong credentials, wrong token, user does not exist, etc
+            RESULT_ERROR = 102 - other error occurred
+
+
+
+===============================================================================================================
+===============================================================================================================
+
+Dodanie general postu z apki - cały scenariusz
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+W apce klikamy na "Add" -> "It's not wine" i podajemy dane postu.
+
+
+URL: /api/posts/general/add
+
+Pola formularza:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    images - opcjonalne - uploadowane obrazki (jeden lub więcej)
+
+    data - pole zawierające zserializowany JSON.
+        pola wymagane:
+            title - tytuł posta
+            description - treść posta
+
+        pola opcjonalne:
+            place_id - id miejsca z bazy
+            foursquare_place_url - url miejsca w FourSquare
+            foursquare_place_name - nazwa miejsca w FourSquare
+
+
+Przykładowe zapytanie CURL:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -F 'data={"title" : "Test non-wine post", "description" : "Just a test non-wine post to check the function."}' -F "images=@/home/krzysiek/degustatornia.jpg" -F "images=@/home/krzysiek/degustatornia2.jpg" -F "images=@/home/krzysiek/bbb.jpg" http://146.185.166.173:8000//api/posts/general/add
+    curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsImV4cCI6MTc5NTcxNjQzNywiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsInVzZXJfaWQiOiIyYzE1MTQzNS0wNmE5LTQ4M2UtOGFkYy01MjcwYjMyMmI3YTAifQ.lcm5PTN8c5nqYxB_BkmuMBz-V4c6SKk_X2f65_x-E5w" -F 'data={"title" : "Test non-wine post", "description" : "Just a test non-wine post to check the function.", "foursquare_place_name": "Place ABC", "foursquare_place_url": "http://raisin.digital"}' -F "images=@/home/krzysiek/degustatornia2.jpg" http://146.185.166.173:8000/api/posts/general/add
+
+Zwrotka:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    "data": {
+        "author": "Top Admin",
+        "author_avatar_url": "http://146.185.166.173:8000/media/users/degustatornia_e2SZFlP.jpg",
+        "author_id": "2c151435-06a9-483e-8adc-5270b322b7a0",
+        "comment_number": 0,
+        "created_time": "2016-11-28T18:13:12Z",
+        "description": "Just a test non-wine post to check the function.",
+        "drank_it_too_number": 0,
+        "foursquare_place_name": "Place ABC",
+        "foursquare_place_url": "http://raisin.digital",
+        "id": 55,
+        "is_parent_post": false,
+        "is_star_review": false,
+        "likevote_number": 0,
+        "modified_time": "2016-11-28T18:13:12Z",
+        "place_data": null,
+        "place_id": null,
+        "post_id": 55,
+        "post_main_image": "http://146.185.166.173:8000/media/posts/degustatornia2_2iejzJb.jpg",
+        "post_status": 10,
+        "star_review_number": 0,
+        "title": "Test non-wine post",
+        "type": 20,
+        "wine": null,
+        "wine_data": null,
+        "wine_id": null,
+        "wine_main_image": null,
+        "wine_year": null
+    },
+    "date": "2016-11-28T18:13:12Z",
+    "host": "localhost",
+    "status": 100,
+    "success": true
+}
+
+
+Statusy:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    OK - HTTP CODE 200:
+        STATUS_OK = 100
+
+    Errors - HTTP CODE 400:
+        WRONG_PARAMETERS = 101 - niepoprawna walidacja
+        WRONG_AUTH = 111 - zła autoryzacja
+        RESULT_ERROR = 102 - inny błąd
+
+
+
+
+
+
+========================================================================================================
+========================================================================================================
+========================================================================================================
+
+Dodanie wina z APKI - cały scenariusz
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- użytkownik wybiera "Dodaj wino"
+
+- pod pole nazwa podpięty jest endpoint do autocomplete nazwy wina:
+        URL: /api/autocomplete/wine
+
+        Przykładowe zapytanie CURL:
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{"wine_name": "La Dilettante Trenquille"}' http://146.185.166.173:8000/api/wine/similiar/items
+
+
+        Pola formularza:
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            query - zapytanie, np. "Breton"
+
+            query_type: - wartości
+                "contains" - domyślna - nazwa winemakera zawiera wprowadzony string, np. "Breton" zwróci też "Catherine & Pierre Breton"
+                "starts" - nazwa winemakera zaczyna się od wprowadzonego stringu, np. "Cath" zwróci "Catherine & Pierre Breton",
+                "ends"  - nazwa winemakera kończy się na wprowadzanym stringu, np. "ton" zwróci "Catherine & Pierre Breton"
+
+            min_letters - domyślna 0 - minimalna liczba znaków zapytania, od której zaczynane jest wyszukiwanie
+                Przykładowo, jeśli ustawimy parametr na "3", query_type = "starts"  i zaczniemy pisać "Ca",
+                to nic nie zwróci; ale jeśli wpiszemy "Cat", to zwróci "Catherine & Pierre Breton".
+
+            UWAGA: jeśli nie podamy żadnego zapytanie (query_string), a wartość min_letters = 0 lub nie jest ustawiona
+            (użyta będzie wtedy domyślna, która też jest 0), to zwrócone zostaną WSZYSTKIE nazwy winemakerów. Powinno się tego generalnie
+            unikać ze względów wydajnościowych.
+
+        Przykładowe zapytanie CURL
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+            curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{"query_type": "starts", "query": "Cat", "min_letters" : "3"}' http://146.185.166.173:8000/api/autocomplete/wine
+            curl -X POST -H "Authorization: Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3ODc5MjAwNjMsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJodHRwX3Jvb3QiOiJodHRwOi8vbG9jYWxob3N0IiwidXNlcl9pZCI6IjFmNjI5OTBmLTM0YWItNDYyOC1hYjA3LWI4MTdmZjg0NzRhMyIsInVzZXJuYW1lIjoiYWRtaW4ifQ.I9Tjkq4pAYBYrs4NsiYFzfAVQR2lDBxX_fWF5dI0ECc" -d '{"query_type": "starts", "query": "Cat", "min_letters" : "3"}' http://146.185.166.173:8000/api/autocomplete/wine
+
+        Zwrotka:
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        {
+            "data": {
+                "items": [
+                    {
+                        "author": "Matt Krell",
+                        "color": 20,
+                        "created_time": "2016-10-22T17:18:58Z",
+                        "designation": "Vouvray",
+                        "domain": "Breton",
+                        "grape_variety": "Chenin, Menu pineau, Chardonnay, C\u00f4t, Malbec, Gamay",
+                        "id": 1,
+                        "is_archived": false,
+                        "is_sparkling": false,
+                        "main_image": "http://146.185.166.173:8000/media/wines/la-dilletante-bulles_Iht83Xl.jpg",
+                        "modified_time": "2016-10-22T17:18:58Z",
+                        "name": "LA DILETTANTE (bulles) m\u00e9thode traditionnelle",
+                        "region": "Loire",
+                        "similiar_wine_exists": false,
+                        "similiar_wine_id": null,
+                        "status": "20",
+                        "total_comment_number": 0,
+                        "total_drank_it_too_number": 5,
+                        "total_likevote_number": 3,
+                        "total_star_review_number": 0,
+                        "wine_post_number": 3,
+                        "winemaker_id": 1,
+                        "winemaker_name": "Catherine & Pierre Breton",
+                        "year": "2010"
+                    },
+                    ......
+                ],
+                "query": "dile"
+            },
+            "date": "2016-11-24T15:31:40Z",
+            "host": "localhost",
+            "status": 100,
+            "success": true
+        }
+
+- pod pole winemaker podpięty jest autocomplete dla winemakera:
+    URL: /api/autocomplete/winemaker
+
+    pola formularza:
+    ~~~~~~~~~~~~~~~~~~~~~~
+        query - zapytanie, np. "Breton"
+
+        query_type: - wartości
+            "contains" - domyślna - nazwa winemakera zawiera wprowadzony string, np. "Breton" zwróci też "Catherine & Pierre Breton"
+            "starts" - nazwa winemakera zaczyna się od wprowadzonego stringu, np. "Cath" zwróci "Catherine & Pierre Breton",
+            "ends"  - nazwa winemakera kończy się na wprowadzanym stringu, np. "ton" zwróci "Catherine & Pierre Breton"
+
+        min_letters - domyślna 0 - minimalna liczba znaków zapytania, od której zaczynane jest wyszukiwanie
+            Przykładowo, jeśli ustawimy parametr na "3", query_type = "starts"  i zaczniemy pisać "Ca",
+            to nic nie zwróci; ale jeśli wpiszemy "Cat", to zwróci "Catherine & Pierre Breton".
+
+        UWAGA: jeśli nie podamy żadnego zapytanie (query_string), a wartość min_letters = 0 lub nie jest ustawiona
+        (użyta będzie wtedy domyślna, która też jest 0), to zwróceni zostaną WSZYSCY winemakerzy. Powinno się tego generalnie
+        unikać ze względów wydajnościowych.
+
+
+    zwrotka:
+    ~~~~~~~~~~~~~~~~~~~~~~
+        {
+            "data": {
+                "items": [
+                    {
+                        "author": "Top Admin",
+                        "author_id": "2c151435-06a9-483e-8adc-5270b322b7a0",
+                        "city": "Restign\u00e9",
+                        "country": "France",
+                        "country_iso_code": "",
+                        "created_time": "2016-10-22T17:18:58Z",
+                        "description": "Good winemaker from Loire region",
+                        "domain": "Domaine Breton",
+                        "email": "contact@domainebreton.net",
+                        "house_number": "8",
+                        "id": 1,
+                        "latitude": 45.7524376,
+                        "longitude": 3.6628124,
+                        "main_image": "http://146.185.166.173:8000/media/winemakers/romuald-cardon-agent-de-vignerons-catherine-et-pierre-breton-vins-de-loire.250.jpg",
+                        "modified_time": "2016-11-09T15:51:04Z",
+                        "name": "Catherine & Pierre Breton",
+                        "phone_number": "(+33) 6 12 22 61 10",
+                        "region": "Loire",
+                        "social_facebook_url": "www.facebook.com/ellsworthparis",
+                        "social_instagram_url": "",
+                        "social_twitter_url": "",
+                        "status": 20,
+                        "street_address": "Route de Peu Muleau",
+                        "total_comment_number": 0,
+                        "total_drank_it_too_number": 7,
+                        "total_is_parent_post_number": 2,
+                        "total_likevote_number": 5,
+                        "total_star_review_number": 2,
+                        "total_wine_number": 8,
+                        "total_wine_post_number": 5,
+                        "website_url": "www.domainebreton.net",
+                        "zip_code": "37140"
+                    },
+                    ......
+                ],
+                "query": "Bret"
+            },
+            "date": "2016-11-24T15:37:40Z",
+            "host": "localhost",
+            "status": 100,
+            "success": true
+        }
+
+    statusy:
+    ~~~~~~~~~~~~~~~~~~~~~~
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+                RESULT_EMPTY = 110
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - zła walidacja
+                WRONG_AUTH = 111 - niepoprawna autoryzacja
+                RESULT_ERROR = 102 - inny błąd
+-----------------------------------------------------------------------------------------
+
+- PROPOZYCJA: pod pole "place" podpięty będzie autocomplete dla miejsca:
+    URL: /api/autocomplete/place
+
+    pola formularza:
+    ~~~~~~~~~~~~~~~~~~~~~~
+        query - zapytanie, np. "Rub"
+
+        query_type: - wartości
+            "contains" - domyślna - nazwa winemakera zawiera wprowadzony string, np. "ubi" zwróci też "Le Rubis"
+            "starts" - nazwa winemakera zaczyna się od wprowadzonego stringu, np. "Rub" zwróci "Le Rubis",
+            "ends"  - nazwa winemakera kończy się na wprowadzanym stringu, np. "bis" zwróci "Le Rubis"
+
+        min_letters - domyślna 0 - minimalna liczba znaków zapytania, od której zaczynane jest wyszukiwanie
+            Przykładowo, jeśli ustawimy parametr na "4", query_type = "starts"  i zaczniemy pisać "Le",
+            to nic nie zwróci; ale jeśli wpiszemy "Le R", to zwróci "Le Rubis".
+
+        UWAGA: jeśli nie podamy żadnego zapytanie (query_string), a wartość min_letters = 0 lub nie jest ustawiona
+        (użyta będzie wtedy domyślna, która też jest 0), to zwrócone zostaną WSZYSTKIE miejsca. Powinno się tego generalnie
+        unikać ze względów wydajnościowych.
+
+
+    zwrotka:
+    ~~~~~~~~~~~~~~~~~~~~~~
+        {
+            "data": {
+                "items": [
+                    {
+                        "author": "Top Admin",
+                        "city": "London",
+                        "comment_number": 0,
+                        "country": "United Kingdom",
+                        "country_iso_code": "",
+                        "created_time": "2016-11-16T02:08:47Z",
+                        "description": "",
+                        "email": null,
+                        "house_number": null,
+                        "id": 849,
+                        "is_archived": false,
+                        "is_bar": false,
+                        "is_restaurant": true,
+                        "is_wine_shop": false,
+                        "latitude": 51.5620563,
+                        "likevote_number": 0,
+                        "longitude": -0.0753621999999723,
+                        "main_image": "http://146.185.166.173:8000/media/places/9930ddb8-acec-11e6-835b-040164388201.jpg",
+                        "modified_time": "2016-11-16T02:08:47Z",
+                        "name": "Rubedo",
+                        "phone_number": "+44 20 7254 0364",
+                        "social_facebook_url": "https://www.facebook.com/Rubedolondon",
+                        "social_instagram_url": null,
+                        "social_twitter_url": null,
+                        "state": "None",
+                        "status": "20",
+                        "sticker_sent": false,
+                        "street_address": "35 Stoke Newington Church Street",
+                        "type": null,
+                        "website_url": "http://www.rubedolondon.com",
+                        "zip_code": "N16 0NX"
+                    },
+                    {
+                        "author": "Top Admin",
+                        "city": "Fukuoka",
+                        "comment_number": 0,
+                        "country": "Japan",
+                        "country_iso_code": "",
+                        "created_time": "2016-11-16T02:09:15Z",
+                        "description": "",
+                        "email": null,
+                        "house_number": null,
+                        "id": 1082,
+                        "is_archived": false,
+                        "is_bar": false,
+                        "is_restaurant": true,
+                        "is_wine_shop": false,
+                        "latitude": 33.8813948,
+                        "likevote_number": 0,
+                        "longitude": 130.8783523,
+                        "main_image": "http://146.185.166.173:8000/media/places/3fa64625-acf7-11e6-835b-040164388201.jpg",
+                        "modified_time": "2016-11-16T02:09:15Z",
+                        "name": "Le Rubis",
+                        "phone_number": "+(81) 93-533-0339",
+                        "social_facebook_url": "https://www.facebook.com/le.rubis.jp",
+                        "social_instagram_url": null,
+                        "social_twitter_url": null,
+                        "state": "None",
+                        "status": "20",
+                        "sticker_sent": false,
+                        "street_address": "\u798f\u5ca1\u770c\u5317\u4e5d\u5dde\u5e02 \u5c0f\u5009\u5317\u533a\u99ac\u501f1\u4e01\u76ee 4-19 \u718a\u672c\u30d3\u30eb1F",
+                        "type": null,
+                        "website_url": "http://www.le-rubis.jp/",
+                        "zip_code": "802-0077 "
+                    },
+                    ......
+                ],
+                "query": "Rub"
+            },
+            "date": "2016-11-24T15:40:27Z",
+            "host": "localhost",
+            "status": 100,
+            "success": true
+        }
+
+    statusy:
+    ~~~~~~~~~~~~~~~~~~~~~~
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+                RESULT_EMPTY = 110
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - zła walidacja
+                WRONG_AUTH = 111 - niepoprawna autoryzacja
+                RESULT_ERROR = 102 - inny błąd
+-----------------------------------------------------------------------------------------
+
+- po uzupełnieniu nazwy, winemakera i ew. place użytkownik wypełnia resztę pól i klika SUBMIT - w tym momencie
+    wywoływany jest endpoint /api/posts/wine/add. Zachowanie tego endpointa jest następujące:
+    @ sprawdza, czy wino o określonej nazwie, winemakerze i innych parametrach oprócz roku istnieje w bazie.
+        Winemakera sprawdzamy po polu winemaker_id lub winemaker_name - zalecane to winemaker_id,
+        które podajemy z autocomplete.
+
+        TAK:
+            dodaj jako kolejną recenzję dla tego wina
+                UWAGA: jeśli wino jest zwalidowane, to recenzja otrzymuje automatycznie status PUBLISHED.
+                Jeżeli wino nie jest zwalidowane, recenzja otrzymuje status DRAFT (ON_HOLD) i będzie
+                opublikowana dopiero w momencie zatwierdzenia wina w CMS-ie.
+                Ten przypadek nie byl opisany w dokumentacji, więc pewnie trzeba będzie dopytać Bretina,
+                 ale moim zdaniem takie rozwiązanie jest logiczne i na razie możemy je wdrożyć
+
+        NIE:
+            # czy winemaker istniał w bazie?
+                Jeżeli podano winemaker_id, to zakładamy że istniał,
+                    a jak  id jest błędne, to zwraca błąd (WRONG_PARAMETERS).
+
+                Jeżeli podano winemaker_name, to:
+                    - sprawdzamy, czy winemaker o dokładnie takiej nazwie jest w bazie
+                        TAK:
+                            wybieramy tego winemakera i używamy jego winemaker_id dla wina
+
+                        NIE:
+                            dodajemy winemakera do bazy (status DRAFT)
+                            pobieramy ID nowo dodanego winemakera i używamy go dla wina
+
+                            UWAGA: winemaker zostanie automatycznie zwalidowany (status VALIDATED)
+                            po zatwierdzeniu wina w CMS-ie
+
+            # dodaj jako nowe wino
+                - dodaje wpis typu "wine" (tabela web_wine), status ON_HOLD, winemaker_id z powyższego punktu
+                - dodaje pierwszy parent post (tabela web_post), czyli post o fladze is_parent_post = true,
+                status DRAFT
+
+
+
+    Dane endpointa /api/posts/wine/add:
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        URL: /api/posts/wine/add
+        metoda: POST
+
+        przykładowe zapytanie CURL:
+
+
+            isniejące wino (znalezione)
+                curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -F 'data={"name" : "La Dilettante Tranquille", "description" : "Just a post about La Dillettante Tranquille", "domain" : "Breton", "designation" : "Vouvray", "grape_variety" : "Chenin, Menu Pineau, Chardonnay", "region" : "Loire", "color" : "20", "year" : "2010", "is_sparkling" : "", "winemaker_id" : "1"}' -F "images=@/home/krzysiek/degustatornia.jpg" -F "images=@/home/krzysiek/degustatornia2.jpg" -F "images=@/home/krzysiek/bbb.jpg" http://localhost:8000/api/posts/wine/add
+                curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwidXNlcl9pZCI6ImY2YjMxNGUyLTI2MWMtNGFmMC05YTgzLTE2OWY3M2I4NmFjZiIsImV4cCI6MTQ3MjY3MjYzNCwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.lwS8fEdgCjyBb8BwNDuIs0QjojIlwJ97oXABSIpKfcY" -F 'data={"name" : "La Dilettante Tranquille", "description" : "Just a post about La Dillettante Tranquille", "domain" : "Breton", "designation" : "Vouvray", "grape_variety" : "Chenin, Menu Pineau, Chardonnay", "region" : "Loire", "color" : "20", "year" : "2010", "is_sparkling" : "", "winemaker_id" : "1"}' -F "images=@/home/krzysiek/degustatornia.jpg" -F "images=@/home/krzysiek/degustatornia2.jpg" -F "images=@/home/krzysiek/bbb.jpg" http://localhost:8000/api/posts/wine/add
+                -- doda nowy winepost do wina, jako kolejną recenzję.
+
+            nowe wino:
+                curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXx" -F 'data={"name" : "La Dilettante Superb Tres Bien", "description" : "Just a post about La Dillettante Tranquille", "domain" : "Breton", "designation" : "Vouvray", "grape_variety" : "Chenin, Menu Pineau, Chardonnay", "region" : "Loire", "color" : "20", "year" : "2010", "is_sparkling" : "", "winemaker_id" : "1"}' -F "images=@/home/krzysiek/degustatornia.jpg" -F "images=@/home/krzysiek/degustatornia2.jpg" -F "images=@/home/krzysiek/bbb.jpg" http://localhost:8000/api/posts/wine/add
+                curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwidXNlcl9pZCI6ImY2YjMxNGUyLTI2MWMtNGFmMC05YTgzLTE2OWY3M2I4NmFjZiIsImV4cCI6MTQ3MjY3MjYzNCwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.lwS8fEdgCjyBb8BwNDuIs0QjojIlwJ97oXABSIpKfcY" -F 'data={"name" : "La Dilettante Superb Tres Bien", "description" : "Just a post about La Dillettante Tranquille", "domain" : "Breton", "designation" : "Vouvray", "grape_variety" : "Chenin, Menu Pineau, Chardonnay", "region" : "Loire", "color" : "20", "year" : "2010", "is_sparkling" : "", "winemaker_id" : "1"}' -F "images=@/home/krzysiek/degustatornia.jpg" -F "images=@/home/krzysiek/degustatornia2.jpg" -F "images=@/home/krzysiek/bbb.jpg" http://localhost:8000/api/posts/wine/add
+
+            wino z podanym place_id (dla nowego lub istniejącego wina - miejsce to miejsce):
+                curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwidXNlcl9pZCI6ImY2YjMxNGUyLTI2MWMtNGFmMC05YTgzLTE2OWY3M2I4NmFjZiIsImV4cCI6MTQ3MjY3MjYzNCwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.lwS8fEdgCjyBb8BwNDuIs0QjojIlwJ97oXABSIpKfcY" -F 'data={"name" : "La Dilettante Tranquille", "description" : "Just a post about La Dillettante Tranquille", "domain" : "Breton", "designation" : "Vouvray", "grape_variety" : "Chenin, Menu Pineau, Chardonnay", "region" : "Loire", "color" : "20", "year" : "2010", "is_sparkling" : "", "winemaker_id" : "1", "place_id" : "1"}' -F "images=@/home/krzysiek/degustatornia.jpg" -F "images=@/home/krzysiek/degustatornia2.jpg" -F "images=@/home/krzysiek/bbb.jpg" http://localhost:8000/api/posts/wine/add
+
+        pola
+            images - opcjonalne - uploadowane obrazki (jeden lub więcej)
+
+            data - pole zawierające zserializowany JSON.
+                pola wymagane:
+                    name
+                    description
+                    domain
+                    designation
+                    grape_variety
+                    region
+                    color
+                    winemaker_name LUB winemaker_id (patrz wyżej)
+                    year - rok
+
+                pola opcjonalne:
+                    place_id - for wines added with relation to a place
+                    foursquare_place_name nazwa miejsca z FourSquare
+                    foursquare_place_url - URL miejsca z FourSquare
+
+                    similiar_wine_exists - istnieje podobne wino - flaga ustawiana przy pomyślnym
+                        wyniku z autocomplete dla nazwy (/api/wine/similiar/items)
+                    similiar_wine_id - id podobnego wina - bierzemy ID pierwszego pomnyślnie znalezionego wina
+                        z autocomplete dla nazwy
+
+        result data:
+            status
+            date
+
+            data: dane winepostu, np:
+                {
+                    "author": "admin adminer",
+                    "author_id": "a157257e-df17-4c45-a939-fdebc0fb0f2c",
+                    "created_time": "2016-08-24 19:01:33.125234+00:00",
+                    "description": "Just a post about La Dillettante Tranquille",
+                    "id": 25,
+                    "modified_time": "2016-08-24 19:01:33.125246+00:00",
+                    "post_id": 25,
+                    "post_main_image": null,
+                    "title": "La Dilettante Superb Tres Bien 2010",
+                    "wine": "La Dilettante Superb Tres Bien",
+                }
+
+        statusy:
+            OK - HTTP CODE 200:
+                STATUS_OK = 100
+
+            Errors - HTTP CODE 400:
+                WRONG_PARAMETERS = 101 - niepoprawna walidacja
+                WRONG_AUTH = 111 - zła autoryzacja
+                RESULT_ERROR = 102 - inny błąd
+
+
+
+
+KONIEC SCENARIUSZA DODAWANIA NOWEGO WINA
+===========================================================
+===========================================================
+===========================================================
+
+
+
+
+
+CREATE EXTENSION pg_trgm;
+CREATE INDEX tgrm_idx on web_wine USING gist ("name" gist_trgm_ops);
+
+Znalezienie podobnego wina w bazie
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+URL: /api/wine/similiar/items
+
+Przykładowe zapytanie CURL:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{"wine_name": "La Dilettante Trenquille"}' http://146.185.166.173:8000/api/wine/similiar/items
+curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbluIiwidXNlcl9pZCI6IjFiMWFjYjg0LTYyMWEtNGFmZC05N2FmLTczNTY2ODMxZjEzMSIsImV4cCI6MTc5NTIyODEyMiwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.fnRq4CdJvSyCYGC7NWdmUZOJN-bOo9-w7dUa2dxvmEM" -d '{"wine_name": "La Dilettante Tankistaquille"}' http://146.185.166.173:8000/api/wine/similiar/items
+
+curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbluIiwidXNlcl9pZCI6IjFiMWFjYjg0LTYyMWEtNGFmZC05N2FmLTczNTY2ODMxZjEzMSIsImV4cCI6MTc5NTIyODEyMiwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.fnRq4CdJvSyCYGC7NWdmUZOJN-bOo9-w7dUa2dxvmEM" -F 'data={"name" : "La Dilettante TRAQ TRAQ Tranquille", "description" : "Just a post about La Dillettante Tranquille TRAQ TRAQ", "domain" : "Breton", "designation" : "Vouvray", "grape_variety" : "Chenin, Menu Pineau, Chardonnay", "region" : "Loire", "color" : "20", "year" : "2010", "is_sparkling" : "", "winemaker_id" : "1", "similiar_"}' -F "images=@/home/krzysiek/degustatornia.jpg" -F "images=@/home/krzysiek/degustatornia2.jpg" -F "images=@/home/krzysiek/degustatornia.jpg" http://146.185.166.173:8000/api/posts/wine/add
+
+
+Pola formularza:
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+    wine_name (obowiązkowe)
+
+Zwrotka:
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Współczynnik podobieństwa jest w polu similarity w każdym itemie. Itemy są sortowane
+po similarity (malejąco).
+
+{
+    "data": {
+        "items": [
+            {
+                "author": "Matt Krell",
+                "color": 20,
+                "created_time": "2016-11-18T17:02:31Z",
+                "designation": "Vouvray",
+                "domain": "Breton",
+                "grape_variety": "Chenin, Menu Pineau, Chardonnay",
+                "id": 10,
+                "is_archived": false,
+                "is_sparkling": false,
+                "main_image": "http://localhost:8000/media/wines/la-dilettante-tranquille-2013.jpg",
+                "modified_time": "2016-11-18T17:02:31Z",
+                "name": "La Dilettante Tranquille",
+                "region": "Loire",
+                "similarity": 0.785714,
+                "status": "20",
+                "total_comment_number": 0,
+                "total_drank_it_too_number": 0,
+                "total_likevote_number": 0,
+                "total_star_review_number": 0,
+                "wine_post_number": 1,
+                "winemaker_id": 1,
+                "winemaker_name": "Catherine & Pierre Breton",
+                "year": "2014"
+            },
+            {
+                "author": "Matt Krell",
+                "color": 20,
+                "created_time": "2016-11-18T17:02:30Z",
+                "designation": "Vouvray",
+                "domain": "Breton",
+                "grape_variety": "Chenin, Menu Pineau, Chardonnay",
+                "id": 1,
+                "is_archived": false,
+                "is_sparkling": false,
+                "main_image": "http://localhost:8000/media/wines/la-dilettante-tranquille-2013.jpg",
+                "modified_time": "2016-11-18T17:02:30Z",
+                "name": "La Dilettante Tranquille",
+                "region": "Loire",
+                "similarity": 0.785714,
+                "status": "20",
+                "total_comment_number": 1,
+                "total_drank_it_too_number": 5,
+                "total_likevote_number": 3,
+                "total_star_review_number": 0,
+                "wine_post_number": 2,
+                "winemaker_id": 1,
+                "winemaker_name": "Catherine & Pierre Breton",
+                "year": "2010"
+            }
+        ]
+    },
+    "date": "2016-11-23T02:41:55Z",
+    "host": "localhost",
+    "status": 100,
+    "success": true
+}
+
+Dodanie informacji o podobnym winie w bazie do dodawanego wina
+
+Aby dodać informację o podobnym winie w bazie do dodawanego wina, używamy parametrów:
+    similiar_wine_id : id_podobnego_wina oraz
+    similiar_wine_exists: true
+
+    metody http://146.185.166.173:8000/api/posts/wine/add
+
+    Parametry te są opcjonalne, jeżeli nie chcemy zaznaczyć podobieństwa, to po prostu ich nie podajemy.
+    Domyślą wartością similiar_wine_exists jest false, a similiar_wine_id - None
+
+    curl -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwidXNlcl9pZCI6IjFiMWFjYjg0LTYyMWEtNGFmZC05N2FmLTczNTY2ODMxZjEzMSIsImV4cCI6MTc5NTIyODEyMiwiaHR0cF9yb290IjoiaHR0cDovL2xvY2FsaG9zdCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.fnRq4CdJvSyCYGC7NWdmUZOJN-bOo9-w7dUa2dxvmEM" -F 'data={"name" : "La Dilettante Tranquille TEST TEST", "description" : "Just a post about La Dillettante Tranquille TEST TEST", "domain" : "Breton", "designation" : "Vouvray", "grape_variety" : "Chenin, Menu Pineau, Chardonnay", "region" : "Loire", "color" : "20", "year" : "2010", "is_sparkling" : "", "winemaker_id" : "1", "similiar_wine_id": 1, "similiar_wine_exists": true}' -F "images=@/home/krzysiek/degustatornia.jpg" -F "images=@/home/krzysiek/degustatornia2.jpg" -F "images=@/home/krzysiek/degustatornia.jpg" http://146.185.166.173:8000/api/posts/wine/add
+
+
+
+Get I Like it - sprawdź, czy lubię (zalogowany użytkownik) post
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+URL: /api/likes/get-i-like
+
+Przykładowe zapytanie CURL:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+curl -H "Accept-Encoding: flat" -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{"post_id" :3}' http://146.185.166.173:8000/api/likes/get-i-like
+
+curl -H "Accept-Encoding: flat" -X POST -H "Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJodHRwX3Jvb3QiOiJodHRwOi8vbG9jYWxob3N0IiwidXNlcl9pZCI6IjJjMTUxNDM1LTA2YTktNDgzZS04YWRjLTUyNzBiMzIyYjdhMCIsImV4cCI6MTc5NDg1NjAzNiwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.ZKujOiM9n2R7Ppi89Ema5t8RU1cgxSsWoKWPjYiS4aU" -d '{"post_id" :3}' http://146.185.166.173:8000/api/likes/get-i-like
+
+
+
+Pola formularza:
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+    post_id LUB place_id
+
+
+Zwrotka:
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+UWAGA: zawsze zwraca i_drank_it_too i i_like_it, nawet dla obiektów, do których to nie pasuje
+(np. miejsc czy general postów) - w takim przypadku dana wartość będzie równa "false"
+ {
+    "data": {
+        "i_drank_it_too": false,
+        "i_like_it": true
+    },
+    "date": "2016-11-18T19:02:17Z",
+    "host": "localhost",
+    "status": 100,
+    "success": true
+}
+
+
+Search - posts - str. 15 / 16 UX
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+URL: /api/search/posts
+
+Pola formularza:
+    query - zapytanie - wymagane - wielkość liter NIE MA ZNACZENIA
+    min_letters - minimalna liczba znaków, od której zaczynamy wyszukiwanie (opcjonalne)
+    query_type - rodzaj zapytania (opcjonalne, domyślne "contains" - "zawiera")
+        starts - zaczyna się od.... np. "Le" -> "Le dilettante tranquille"
+        ends - kończy się na.... np. "ille" -> "Le dilettante tranquille"
+        contains - zawiera.... np. "dilet" -> "Le dilettante tranquille"
+
+
+Przykładowe zapytanie CURL:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    curl -X POST -H "Authorization: Token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx" -d '{"query" : "tran"}' http://localhost:8000/api/search/posts
+
+Zwrotka:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+    "data": {
+        "items": [
+            {
+                "author": "Matt Krell",
+                "author_avatar_url": "http://localhost:8000/media/users/matt-krell.jpg",
+                "author_id": "fcaa90cf-72e7-4395-8c06-49e6755c3e93",
+                "comment_number": 1,
+                "created_time": "2016-11-16T01:58:05Z",
+                "description": "On a mis du temps \u00e0 se r\u00e9concilier avec le Domaine Breton. Non pas que nous \u00e9tions f\u00e2ch\u00e9s, mais plut\u00f4t une mauvaise exp\u00e9rience li\u00e9e \u00e0 l'achat d'une caisse de diff\u00e9rents vins (Bougrueil, Chinon, etc.) en provenance de ce domaine qui a

@@ -1,0 +1,32 @@
+{% extends 'pro_base/layout.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Raisin PRO{% endblock %}
+
+{% block additional_styles %}
+    <link href="{% static 'pro_assets/css/page.css' %}" rel="stylesheet">
+{% endblock additional_styles %}
+
+{% block body_open_tag %}
+    <body class="layout-centered bg-img"
+          style="background-image: url('{% static  "pro_assets/img/bg/fond-raisin.jpg" %}');">
+{% endblock body_open_tag %}
+
+{% block body %}
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="bg-white rounded shadow-7 w-400 mw-100 p-6">
+            <h5 class="mb-6">{% trans 'Recover your password' %}</h5>
+            <form action="{% url 'pro_reset_password_login_screen' %}" class="input-line1" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.email|add_class:"form-control input-lg"|attr:email_placeholder }}
+                </div>
+                <button class="btn btn-lg btn-block btn-primary" type="submit">{% trans 'Reset Password' %}</button>
+            </form>
+        </div>
+    </main>
+    <!-- /.main-content -->
+{% endblock body %}

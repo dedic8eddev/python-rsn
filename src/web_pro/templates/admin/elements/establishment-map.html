@@ -1,0 +1,90 @@
+{% load widget_tweaks %}
+{% load static %}
+{% load i18n %}
+
+
+<div class="tab-pane fade" id="map_tab">
+    <form class="card form-type-material address-form" id="establishment_map_form">
+        {% csrf_token %}
+
+        <h3 class="card-title text-gray">{% trans 'Establishment Location' %}</h3>
+        <div class="card-body">
+            {% language 'en' %}
+            <div class="h-300px" id="map-meta-info" data-draggable="true" data-provide="map"
+                 data-lat="{{ establishment.lat }}" data-lng="{{ establishment.lng }}"
+                 data-marker-lat="{{ establishment.pin_lat }}"
+                 data-marker-lng="{{ establishment.pin_lng }}"
+                 data-marker-icon="{% static 'pro_assets/img/vector/localisation.png' %}"
+                 data-info="{{ address_info }}"></div>
+            {% endlanguage %}
+
+
+            <!-- <div class="input-group disabled">
+                <input type="text" class="form-control" id="name" required value="[Establishment name]" disabled>
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                </div>
+              </div> -->
+
+            <div class="form-group disabled mt-30">
+                <label class="text-fader">{% trans 'ADDRESS' %}</label>
+                <input class="form-control" id="address" type="text" value="[Address]" disabled>
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                </div>
+            </div>
+
+            <div class="form-group disabled">
+                <label class="text-fader">{% trans 'CITY' %}</label>
+                <input class="form-control" id="city" type="text" value="[City]" disabled>
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group disabled col-md-6">
+                    <label class="text-fader">{% trans 'Country' %}</label>
+                    <select class="form-control" id="country" title="&#xA0;" data-provide="selectpicker" disabled>
+                        <option selected="">United States</option>
+                        <option>Canada</option>
+                        <option>Mexico</option>
+                        <option>United Kingdom</option>
+                    </select>
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group disabled col-md-6">
+                    <label class="text-fader">{% trans 'STATE/PROVINCE' %}</label>
+                    <select class="form-control" id="state" title="&#xA0;" data-provide="selectpicker" disabled>
+                        <option selected="">California</option>
+                        <option>New Mexico</option>
+                        <option>Nevada</option>
+                        <option>New York</option>
+                    </select>
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group disabled col-md-6">
+                    <label class="text-fader">{% trans 'ZIP/POSTAL' %}</label>
+                    <input class="form-control" id="zip" type="text" value="90201" disabled>
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6 do-float">
+                    <input class="form-control intlTel" id="phone" name="phone_number" type="tel">
+                    <label class="phone-label text-fader">{% trans 'PHONE' %}</label>
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+</div>

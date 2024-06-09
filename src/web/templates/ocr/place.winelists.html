@@ -1,0 +1,91 @@
+{% load i18n %}
+<h3>Current Winelists</h3>
+<div id="current-winelists-inside" class="current-winelists-inside">
+    <table class="table">
+        <tr class="all-bold-row">
+            <td>Wine list score: </td>
+            <td>{% if data.place %}
+                    {% if data.place.wl_added %}
+                        {{ data.scores.total_wl_score }}%
+                    {% endif %}
+                {% else %}
+                    {{ data.scores.total_wl_score }}%
+                {% endif %}</td>
+            <td>Last updated: </td>
+            <td>{{ data.scores.last_wl_an_time|date:"Y-m-d H:i:s" }}</td>
+            <td>
+                {% if data.is_temp %}
+                    <a id="wl-refresh-button" href="#" title="Refresh the total score for this Place" data-place-id="{{ data.pid }}" class="refresh_temp_score">
+                        <i class="fa fa-refresh"></i>
+                    </a>
+                {% else %}
+                    <a id="wl-refresh-button" href="#" title="Refresh the total score for this Place" data-place-id="{{ data.pid }}" class="refresh_score">
+                        <i class="fa fa-refresh"></i>
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+
+    <table class="table table-striped">
+        {% if data.files %}
+            <tr>
+                <th>Status</th>
+                <th>Name</th>
+                <th>Score</th>
+                <th colspan="3">Actions</th>
+            </tr>
+            {% for item in data.files %}
+            <tr>
+                <td>
+                    {% if item.status == 10 %}
+                        Uploaded:
+                    {% elif item.status == 20 %}
+                        Analyzed:
+                    {% elif item.status == 30 %}
+                        <b>In background</b>
+                    {% endif %}
+                </td>
+                {% if item.in_bg %}
+                <td>
+                    {{ item.name }}
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+                <td style="padding-right: 15px;">
+                    <a href="{{ item.file_url }}" title="Download the Winelist file"><i class="fa fa-download"></i></a>
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+                {% else %}
+                    <td>
+                        <a href="javascript:;" class="wl_details_open" data-winelistfile-id="{{ item.wf_id }}"  data-wine-id="{{ item.id }}" title="See the winelist details">{{ item.name }}</a>
+                    </td>
+                    <td>
+                        {{ item.score_percent }}% ({{ item.num_rows_yes }} rows in {{ item.num_rows_total }})
+                    </td>
+                    <td style="padding-right: 15px;">
+                        <a href="javascript:;" class="edit_winelist" data-winelistfile-id="{{ item.wf_id }}"><i class="fa fa-edit"></i></a>
+                    </td>
+                    <td style="padding-right: 15px;">
+                        <a href="{{ item.file_url }}" target="_blank" title="Download the Winelist file"><i class="fa fa-download"></i></a>
+                    </td>
+                    <td>
+                        <a href="javascript:;" class="delete_winelist" data-wine-id="{{ item.id }}" data-wine-name="{{ item.name }}" title="Delete this winelist">
+                            <i class="fa fa-times-circle"></i>
+                        </a>
+                    </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="3"><b>No Winelists</b> - use the dropzone below to upload some.</td>
+            </tr>
+        {% endif %}
+    </table>
+
+
+</div>

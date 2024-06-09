@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<!--
+
+TABLE OF CONTENTS.
+
+Use search to find needed section.
+
+=====================================================
+
+|  1. $BODY                 |  Body                 |
+|  2. $MAIN_NAVIGATION      |  Main navigation      |
+|  3. $NAVBAR_ICON_BUTTONS  |  Navbar Icon Buttons  |
+|  4. $MAIN_MENU            |  Main menu            |
+|  5. $PROFILE              |  Profile              |
+
+=====================================================
+
+-->
+
+
+<!--[if IE 8]>         <html class="ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="ie9 gt-ie8"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="gt-ie8 gt-ie9 not-ie"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<meta name="googlebot" content="noindex,nofollow">
+	<meta name="robots" content="noindex,nofollow">
+
+	<title>New Place - Raisin</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+	<!-- Open Sans font from Google CDN -->
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin" rel="stylesheet" type="text/css">
+
+	<!-- Pixel Admin's stylesheets -->
+	<link href="assets/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/stylesheets/pixel-admin.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/stylesheets/widgets.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/stylesheets/pages.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/stylesheets/rtl.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/stylesheets/themes.css" rel="stylesheet" type="text/css">
+	<link href="assets/stylesheets/added-jhb.css" rel="stylesheet" type="text/css">
+
+
+
+
+<!-- Opening hours gendelf.github.io/jquery.businessHours -->
+<script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.2.17/jquery.timepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.2.17/jquery.timepicker.min.css"/>
+<!--  Opening hours -->
+
+
+
+	<!--[if lt IE 9]>
+		<script src="assets/javascripts/ie.min.js"></script>
+	<![endif]-->
+
+<!-- map google  -->
+ <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+      .controls {
+        margin-top: 10px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 300px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      .pac-container {
+        font-family: Roboto;
+      }
+
+      #type-selector {
+        color: #fff;
+        background-color: #4d90fe;
+        padding: 5px 11px 0px 11px;
+      }
+
+      #type-selector label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+
+
+	 'CSS	>   TO ADD JHB Dec 2nd  2019  --> '
+
+	  .conteneur{position: relative;}
+	  .conteneur iframe	{position: absolute; top: 0; left: 0; width: 100%; 	height: 100%;}
+
+
+
+    </style>
+
+<!-- fin map google  -->
+
+
+
+
+<!-- include codemirror (codemirror.css, codemirror.js, xml.js, formatting.js)-->
+		<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.min.css" />
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/blackboard.min.css">
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/monokai.min.css">
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/mode/xml/xml.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/2.36.0/formatting.min.js"></script>
+
+
+
+
+
+</head>
+
+
+<!-- 1. $BODY ======================================================================================
+
+	Body
+
+	Classes:
+	* 'theme-{THEME NAME}'
+	* 'right-to-left'      - Sets text direction to right-to-left
+	* 'main-menu-right'    - Places the main menu on the right side
+	* 'no-main-menu'       - Hides the main menu
+	* 'main-navbar-fixed'  - Fixes the main navigation
+	* 'main-menu-fixed'    - Fixes the main menu
+	* 'main-menu-animated' - Animate main menu
+-->
+<body class="theme-default main-menu-animated page-profile no-main-menu" id="jhb">
+
+<script>var init = [];</script>
+<!-- Demo script --> <script src="assets/demo/demo.js"></script> <!-- / Demo script -->
+
+<div id="main-wrapper">
+
+
+<!-- 2. $MAIN_NAVIGATION ===========================================================================
+
+	Main navigation
+-->
+	<div id="main-navbar" class="navbar navbar-inverse" role="navigation">
+		<!-- Main menu toggle -->
+		<button type="button" id="main-menu-toggle"><i class="navbar-icon fa fa-bars icon"></i><span class="hide-menu-text">HIDE MENU</span></button>
+
+			<div class="navbar-inner">
+			<!-- Main navbar header -->
+			<div class="navbar-header"><a href="#" class="navbar-brand"><img src="../img/logo-raisin-menu.png" alt="Raisin" style="padding:2px; margin:2px;" /></a>
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar-collapse"><i class="navbar-icon fa fa-bars"></i></button>
+
+			</div> <!-- / .navbar-header -->
+
+			<div id="main-navbar-collapse" class="collapse navbar-collapse main-navbar-collapse">
+				<div>
+
+
+
+					<div class="right clearfix">
+						<ul class="nav navbar-nav pull-right right-navbar-nav">
+
+
+							<li class="dropdown">
+								<li class="dropdown">
+								<a href="#" class="dropdown-toggle user-menu" data-toggle="dropdown" style="text-decoration:none;">
+									<img src="assets/demo/avatars/1.jpg" alt="">
+									<span>JHB</span>
+								</a>
+								<ul class="dropdown-menu">
+									<li><a href="user.html">Profile</a></li>
+									<li class="divider"></li>
+									<li><a href="index.html"><i class="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Log Out</a></li>
+								</ul>
+							</li>
+							</li>
+						</ul> <!-- / .navbar-nav -->
+					</div> <!-- / .right -->
+				</div>
+			</div> <!-- / #main-navbar-collapse -->
+		</div> <!-- / .navbar-inner -->
+	</div> <!-- / #main-navbar -->
+<!-- /2. $END_MAIN_NAVIGATION -->
+
+
+
+
+	<div id="content-wrapper">
+<!-- 5. $PROFILE ===================================================================================
+
+		Profile
+-->
+
+
+<form class="form-horizontal" id="jq-validation-form">
+
+
+
+<ul class="breadcrumb breadcrumb-page">
+			<div class="breadcrumb-label text-light-gray">You are here: </div>
+			<li><a href="places.html">places</a></li>
+			<li>new</li>
+		</ul>
+
+		<div class="profile-full-name-jhb">
+			<div class="row">
+
+					<div class="panel-body">
+
+				<div style="float:right;"><a href="new-place.html" class="btn btn-outline btn-lg btn-labeled" role="button" style="z-index:1; margin-top:8px; cursor: pointer;"><span class="btn-label icon fa fa-plus"></span>ADD NEW</a></div>
+
+
+						<ul class="nav nav-pills">
+								<li class="active"><a href="places.html" style="text-decoration: underline;">places<span class="badge label-warning">16</span></a></li>
+								<li><a href="wine-posts.html">wine posts<span class="badge label-warning">14</span></a></li>
+								<li><a href="list-winemakers.html">wine makers</a></li>
+								<li><a href="posts.html">posts<span class="badge label-warning">16</span></a></li>
+								<li><a href="users.html">users</a></li>
+							</ul>
+
+
+					<div class="panel" style="font-size:16px!important;">
+
+
+
+							<div class="panel-heading text-left">
+
+								<span class="panel-title" style="font-size:22px;">[ESTABLISHMENT]</span>
+
+
+								<div class="text-right">
+
+									<span class="panel-title"><strong>Saved on:</strong> May 31, 2016 @ 15:10 by <a href="">jhbretin</a></span>&nbsp;&nbsp;&nbsp;
+
+									<div class="btn-group">
+										<button type="submit" class="btn btn-success btn-rounded">Save</button>
+										<button type="button" class="btn">Draft</button>
+										<button type="button" class="btn dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-down"></i></button>
+										<ul class="dropdown-menu">
+											<li><a href="#">Publish</a></li>
+										</ul>
+									</div>
+									<!--&nbsp;&nbsp;<button class="btn btn-flat">OK</button>-->
+
+								</div>
+
+
+
+
+							</div>
+
+
+
+
+							<!-- colonne gauche 12-->
+							<div class="col-sm-12">
+
+
+									<!-- 13.1. $DEFAULT_TABS ===========================================================================
+
+										Default tabs
+								-->
+										<div class="row">
+											<br>
+											<div class="col-sm-12">
+												<ul id="uidemo-tabs-default-demo" class="nav nav-tabs">
+													<li class="active">
+														<a href="#information" data-toggle="tab">Information</a>
+													</li>
+													<li>
+														<a href="#subscription-layer" data-toggle="tab">Subscription</a>
+													</li>
+
+													<li>
+														<a href="#dashboard" data-toggle="tab">Dashboard</a>
+													</li>
+
+													<li>
+														<a href="#wine-layer" data-toggle="tab">Wine</a>
+													</li>
+													<li>
+														<a href="#food-layer" data-toggle="tab">Food</a>
+													</li>
+													<li>
+														<a href="#likes-layer" data-toggle="tab">Likes / Reviews</a>
+													</li>
+													<li>
+														<a href="#establishment" data-toggle="tab">Establishment</a>
+													</li>
+													<li>
+														<a href="#settings" data-toggle="tab">Settings</a>
+													</li>
+												</ul>
+
+
+
+
+
+												<div class="tab-content tab-content-bordered">
+
+
+
+														<div class="tab-pane fade in active" id="information">
+
+																	<!-- row-->
+																	<div class="row" style="text-align:left;">
+
+
+
+																						<!-- colonne gauche 6 part 1-->
+							<div class="col-md-6">
+
+								<div style="text-align:left; padding:15px;">
+									<h2>Informations:</h2>
+								</div>
+
+
+
+
+
+										<!-- 5. $JQUERY_VALIDATION =========================================================================
+
+														jQuery Validation
+										-->
+														<!-- Javascript -->
+										<script>
+											init.push(function () {
+												// Setup validation
+												$("#jq-validation-form").validate({
+													ignore: '.ignore, .select2-input',
+													focusInvalid: false,
+													rules: {
+														'jq-validation-name': {
+															required: true
+														},
+
+														'jq-validation-select2': {
+															required: true
+														},
+													},
+													messages: {
+														'jq-validation-policy': 'You must check it!'
+													}
+												});
+											});
+										</script>
+										<!-- / Javascript -->
+
+
+								<div class="form-group">
+									<label for="jq-validation-name" class="col-sm-3 control-label">Name</label>
+									<div class="col-sm-9"><input type="text" class="form-control" id="jq-validation-name" name="jq-validation-name" placeholder="Name"></div>
+								</div>
+
+
+								<div class="form-group">
+									<label for="jq-validation-phone" class="col-sm-3 control-label">Phone</label>
+									<div class="col-sm-9"><input type="text" class="form-control" id="jq-validation-phone" name="jq-validation-phone" placeholder="Phone: (999) 999-9999"></div>
+								</div>
+
+
+
+
+
+							<div class="form-group">
+									<label for="jq-validation-type" class="col-sm-3 control-label">Select a type:</label>
+									<div class="col-sm-9" style="margin-left:-25px; margin-top:-10px; text-align: left; padding-left:80px;"><label class="checkbox-inline">
+											<input type="checkbox" id="inlineCheckbox1" value="restaurant" class="px"> <span class="lbl">Restaurant</span>
+										</label>
+										<label class="checkbox-inline">
+											<input type="checkbox" id="inlineCheckbox2" value="bar" checked="" class="px"> <span class="lbl">Bar</span>
+										</label>
+										<label class="checkbox-inline">
+											<input type="checkbox" id="inlineCheckbox3" value="wineshop" class="px"> <span class="lbl">Wine Shop</span>
+										</label></div>
+								</div>
+
+
+
+
+								<div class="form-group">
+									<label for="jq-validation-url-website" class="col-sm-3 control-label">URL Website</label>
+									<div class="col-sm-9"><input type="text" class="form-control" id="jq-validation-url-website" name="jq-validation-url-website" placeholder="Url"></div>
+								</div>
+
+								<div class="form-group">
+									<label for="jq-validation-url-facebook" class="col-sm-3 control-label">Facebook</label>
+									<div class="col-sm-9"><input type="text" class="form-control" id="jq-validation-url-facebook" name="jq-validation-url-facebook" placeholder="Url"></div>
+								</div>
+
+								<div class="form-group">
+									<label for="jq-validation-url-twitter" class="col-sm-3 control-label">Twitter</label>
+									<div class="col-sm-9"><input type="text" class="form-control" id="jq-validation-url-twitter" name="jq-validation-url-twitter" placeholder="Url"></div>
+								</div>
+
+								<div class="form-group">
+									<label for="jq-validation-url-instagram" class="col-sm-3 control-label">Instagram</label>
+									<div class="col-sm-9"><input type="text" class="form-control" id="jq-validation-url-instagram" name="jq-validation-url-instagram" placeholder="Url"></div>
+								</div>
+
+
+
+
+							</div>
+							<!-- fin colonne gauche 6 part 1-->
+
+
+							<!-- colonne gauche 6 part 2-->
+							<div class="col-md-5">
+
+								<div style="text-align:left; padding:15px;">
+									<h2>Opening hours:</h2>
+								</div>
+
+
+								<div style="text-align:left;">
+								<a href="http://www.raisin.digital/wp-content/jquery.businessHours-master/index.html" target="_blank"><img src="../img/date-picker.png" alt="date-picker" width="539" height="162"></a>
+					            <p>Source here : <a href="http://www.raisin.digital/wp-content/jquery.businessHours-master/index.html" target="_blank">date picker on Raisin</a> - <a href="https://gendelf.github.io/jquery.businessHours/">Github</a></p>
+					            <p><small>Scripts are conflicting but was unable to find where. If no compatibility possible. Open modal embedding plug-in and use submitted data.</small></p>
+
+					            </div>
+
+
+					            <!--
+					            <div id="businessHoursContainer3"></div>
+					            <div class="clean"/></div>
+
+
+							    <script>
+							        (function() {
+							            Rainbow.color();
+
+							            var businessHoursManager1 = $("#businessHoursContainer1").businessHours();
+							            $("#btnSerialize").click(function() {
+							                $("#businessHoursOutput1").val(JSON.stringify(businessHoursManager1.serialize()));
+							            });
+
+							            $("#btnInit").click(function() {
+							                try{
+							                    var businessHours = jQuery.parseJSON($("#businessHoursData").val());
+							                    $("#businessHoursContainerJson").businessHours({
+							                        operationTime: businessHours
+							                    });
+							                }catch(e) {
+							                    alert("JSON non valid: " + e.message);
+							                }
+							            });
+
+							            var businessHoursManager2 = $("#businessHoursContainer2").businessHours({
+							                checkedColorClass: "workingBusinssDay",
+							                inputDisabled: true,
+							                uncheckedColorClass: "dayOff",
+							                dayTmpl: '<div class="dayContainer">' +
+							                        '<div data-original-title="" class="colorBox"><input type="checkbox" class="invisible operationState"/></div>' +
+							                        '<div class="weekday"></div></div>'
+							            });
+
+							            var b3 = $("#businessHoursContainer3");
+							            var businessHoursManagerBootstrap = b3.businessHours({
+							                postInit:function(){
+							                    b3.find('.operationTimeFrom, .operationTimeTill').timepicker({
+							                        'timeFormat': 'H:i',
+							                        'step': 15
+							                    });
+							                },
+							                dayTmpl: '<div class="dayContainer" style="width: 80px;">' +
+							                        '<div data-original-title="" class="colorBox"><input type="checkbox" class="invisible operationState"/></div>' +
+							                        '<div class="weekday"></div>' +
+							                        '<div class="operationDayTimeContainer">' +
+							                        '<div class="operationTime input-group"><span class="input-group-addon"><i class="fa fa-sun-o"></i></span><input type="text" name="startTime" class="mini-time form-control operationTimeFrom" value=""/></div>' +
+							                        '<div class="operationTime input-group"><span class="input-group-addon"><i class="fa fa-moon-o"></i></span><input type="text" name="endTime" class="mini-time form-control operationTimeTill" value=""/></div>' +
+							                        '</div></div>'
+							            });
+							        })();
+							    </script>
+							-->
+
+
+
+
+							</div>
+							<!-- fin colonne gauche 6 part 2-->
+
+
+				<!-- colonne 1-->
+				<div class="col-md-1">
+					&nbsp;
+				</div>
+				<!-- fin colonne 1-->
+
+
+
+							<!-- Hr -->
+							<div class="col-sm-12">
+							 <hr class="panel-small">
+							</div>
+							<!-- fin HR -->
+
+
+
+
+
+<!-- colonne 12-->
+<div class="col-sm-12">
+
+
+	<div style="text-align:left; padding:15px;">
+					<h2>Description:</h2>
+	</div>
+
+
+
+	<!-- colonne 1-->
+		<div class="col-sm-1">
+			&nbsp;
+		</div>
+	<!-- fin colonne 1-->
+
+
+
+			<!-- colonne gauche 10 part -->
+			<div class="col-sm-10">
+
+
+
+
+
+	<!-- 5. $SUMMERNOTE_WYSIWYG_EDITOR =================================================================
+
+		Summernote WYSIWYG-editor
+-->
+
+		<!-- Javascript -->
+		<script>
+			init.push(function () {
+				if (! $('html').hasClass('ie8')) {
+					$('#summernote-example').summernote({
+						height: 200,
+						tabsize: 2,
+						codemirror: {
+							theme: 'monokai'
+						}
+					});
+				}
+				$('#summernote-boxed').switcher({
+					on_state_content: '<span class="fa fa-check" style="font-size:11px;"></span>',
+					off_state_content: '<span class="fa fa-times" style="font-size:11px;"></span>'
+				});
+				$('#summernote-boxed').on($('html').hasClass('ie8') ? "propertychange" : "change", function () {
+					var $panel = $(this).parents('.panel');
+					if ($(this).is(':checked')) {
+						$panel.find('.panel-body').addClass('no-padding');
+						$panel.find('.panel-body > *').addClass('no-border');
+					} else {
+						$panel.find('.panel-body').removeClass('no-padding');
+						$panel.find('.panel-body > *').removeClass('no-border');
+					}
+				});
+			});
+		</script>
+		<!-- / Javascript -->
+
+
+			<div class="panel-body" style="text-align:left;">
+				<textarea class="form-control" id="summernote-example" rows="10"><p>Write texte here</b></p></textarea>
+			</div>
+
+			<!-- /5. $SUMMERNOTE_WYSIWYG_EDITOR -->
+
+
+			</div>
+
+
+
+
+		<!-- colonne 1-->
+		<div class="col-sm-1">&nbsp;</div>
+		<!-- fin colonne 1-->
+
+
+
+
+</div>
+<!-- fincolonne 12-->
+
+
+
+
+<!-- Hr -->
+<div class="col-sm-12">
+	<hr class="panel-small">
+</div>
+<!-- fin HR -->
+
+
+
+
+
+
+
+
+
+
+	<!-- colonne 12-->
+	<div class="col-sm-12">
+
+						<div style="text-align:left; padding:15px;">
+							<h2>Map:</h2>
+						</div>
+
+
+						<!-- colonne 1-->
+						<div class="col-sm-1">&nbsp;</div>
+						<!-- fin colonne 1-->
+
+
+						<!-- Map colonne 5-->
+						<div class="col-sm-5">
+
+									 <div>
+
+										    <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+										    <div id="type-selector" class="controls">
+										      <input type="radio" name="type" id="changetype-all" checked="checked">
+										      <label for="changetype-all">All</label>
+
+										      <input type="radio" name="type" id="changetype-establishment">
+										      <label for="changetype-establishment">Establishments</label>
+
+										      <input type="radio" name="type" id="changetype-address">
+										      <label for="changetype-address">Addresses</label>
+
+										      <input type="radio" name="type" id="changetype-geocode">
+										      <label for="changetype-geocode">Geocodes</label>
+										    </div>
+
+
+										   <div class="map" style="width:100%; height:400px; margin-bottom:30px;"></div>
+
+
+										    <script>
+										      // This example requires the Places library. Include the libraries=places
+										      // parameter when you first load the API. For example:
+										      // <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2sCS5QpgQQOmMYtkWPR8-_8hXFJ8nDdk&libraries=places">
+
+										      function initMap() {
+										        var map = new google.maps.Map(document.getElementById('map'), {
+										          center: {lat: -33.8688, lng: 151.2195},
+										          zoom: 13
+										        });
+										        var input = /** @type {!HTMLInputElement} */(
+										            document.getElementById('pac-input'));
+
+										        var types = document.getElementById('type-selector');
+										        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+										        map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+
+										        var autocomplete = new google.maps.places.Autocomplete(input);
+										        autocomplete.bindTo('bounds', map);
+
+										        var infowindow = new google.maps.InfoWindow();
+										        var marker = new google.maps.Marker({
+										          map: map,
+										          anchorPoint: new google.maps.Point(0, -29)
+										        });
+
+										        autocomplete.addListener('place_changed', function() {
+										          infowindow.close();
+										          marker.setVisible(false);
+										          var place = autocomplete.getPlace();
+										          if (!place.geometry) {
+										            window.alert("Autocomplete's returned place contains no geometry");
+										            return;
+										          }
+
+										          // If the place has a geometry, then present it on a map.
+										          if (place.geometry.viewport) {
+										            map.fitBounds(place.geometry.viewport);
+										          } else {
+										            map.setCenter(place.geometry.location);
+										            map.setZoom(17);  // Why 17? Because it looks good.
+										          }
+										          marker.setIcon(/** @type {google.maps.Icon} */({
+										            url: place.icon,
+										            size: new google.maps.Size(71, 71),
+										            origin: new google.maps.Point(0, 0),
+										            anchor: new google.maps.Point(17, 34),
+										            scaledSize: new google.maps.Size(35, 35)
+										          }));
+										          marker.setPosition(place.geometry.location);
+										          marker.setVisible(true);
+
+										          var address = '';
+										          if (place.address_components) {
+										            address = [
+										              (place.address_components[0] && place.address_components[0].short_name || ''),
+										              (place.address_components[1] && place.address_components[1].short_name || ''),
+										              (place.address_components[2] && place.address_components[2].short_name || '')
+										            ].join(' ');
+										          }
+
+										          infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+										          infowindow.open(map, marker);
+										        });
+
+										        // Sets a listener on a radio button to change the filter type on Places
+										        // Autocomplete.
+										        function setupClickListener(id, types) {
+										          var radioButton = document.getElementById(id);
+										          radioButton.addEventListener('click', function() {
+										            autocomplete.setTypes(types);
+										          });
+										        }
+
+										        setupClickListener('changetype-all', []);
+										        setupClickListener('changetype-address', ['address']);
+										        setupClickListener('changetype-establishment', ['establishment']);
+										        setupClickListener('changetype-geocode', ['geocode']);
+										      }
+										    </script>
+										    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2sCS5QpgQQOmMYtkWPR8-_8hXFJ8nDdk&libraries=places&callback=initMap" async defer></script>
+									 </div>
+
+							</div>
+							<!-- Map fin colonne 5-->
+
+
+
+							<!-- colonne 4-->
+							<div class="col-sm-5">
+
+
+									<div class="infos" style="padding-top:35px;">
+
+
+										   		 <script>
+										      // This example displays an address form, using the autocomplete feature
+										      // of the Google Places API to help users fill in the information.
+
+										      // This example requires the Places library. Include the libraries=places
+										      // parameter when you first load the API. For example:
+										      // <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2sCS5QpgQQOmMYtkWPR8-_8hXFJ8nDdk&libraries=places">
+
+										      var placeSearch, autocomplete;
+										      var componentForm = {
+										        street_number: 'short_name',
+										        route: 'long_name',
+										        locality: 'long_name',
+										        administrative_area_level_1: 'short_name',
+										        country: 'long_name',
+										        postal_code: 'short_name'
+										      };
+
+										      function initAutocomplete() {
+										        // Create the autocomplete object, restricting the search to geographical
+										        // location types.
+										        autocomplete = new google.maps.places.Autocomplete(
+										            /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+										            {types: ['geocode']});
+
+										        // When the user selects an address from the dropdown, populate the address
+										        // fields in the form.
+										        autocomplete.addListener('place_changed', fillInAddress);
+										      }
+
+										      function fillInAddress() {
+										        // Get the place details from the autocomplete object.
+										        var place = autocomplete.getPlace();
+
+										        for (var component in componentForm) {
+										          document.getElementById(component).value = '';
+										          document.getElementById(component).disabled = false;
+										        }
+
+										        // Get each component of the address from the place details
+										        // and fill the corresponding field on the form.
+										        for (var i = 0; i < place.address_components.length; i++) {
+										          var addressType = place.address_components[i].types[0];
+										          if (componentForm[addressType]) {
+										            var val = place.address_components[i][componentForm[addressType]];
+										            document.getElementById(addressType).value = val;
+										          }
+										        }
+										      }
+
+										      // Bias the autocomplete object to the user's geographical location,
+										      // as supplied by the browser's 'navigator.geolocation' object.
+										      function geolocate() {
+										        if (navigator.geolocation) {
+										          navigator.geolocation.getCurrentPosition(function(position) {
+										            var geolocation = {
+										              lat: position.coords.latitude,
+										              lng: position.coords.longitude
+										            };
+										            var circle = new google.maps.Circle({
+										              center: geolocation,
+										              radius: position.coords.accuracy
+										            });
+										            autocomplete.setBounds(circle.getBounds());
+										          });
+										        }
+										      }
+										    </script>
+										    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2sCS5QpgQQOmMYtkWPR8-_8hXFJ8nDdk&libraries=places&callback=initAutocomplete" async defer></script>
+
+
+										   		<div class="form-group">
+											   		<label for="street-address" class="col-sm-3 control-label">Auto-completion</label>
+											   		<div class="col-sm-9"><input id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="text"></input></div>
+											    </div>
+
+
+										       <div class="form-group">
+													<label for="street-address" class="col-sm-3 control-label">Number/ Address</label>
+													<div class="col-sm-9" style="text-align:left; padding-left:34px;"><input class="field" id="street_number" disabled="true" style="width:70px;"></input>
+														<input class="field" id="route" disabled="true" style="width:345px;"></input></div>
+											   </div>
+
+										         <div class="form-group">
+													<label for="city" class="col-sm-3 control-label">City</label>
+													<div class="col-sm-9"><input class="field" id="locality" disabled="true"></input></div>
+											   </div>
+										        <div class="form-group">
+													<label for="state" class="col-sm-3 control-label">State</label>
+													<div class="col-sm-9"><input class="field" id="administrative_area_level_1" disabled="true"></input></div>
+											   </div>
+
+										        <div class="form-group">
+													<label for="state" class="col-sm-3 control-label">Zip code</label>
+													<div class="col-sm-9"><input class="field" id="postal_code" disabled="true"></input></div>
+											   </div>
+
+											     <div class="form-group">
+													<label for="state" class="col-sm-3 control-label">Country</label>
+													<div class="col-sm-9"><input class="field" id="country" disabled="true"></input></div>
+											   </div>
+											</div>
+
+
+							</div>
+							<!-- fin colonne 4-->
+
+
+
+
+				<!-- colonne 1-->
+				<div class="col-sm-1">
+					&nbsp;
+				</div>
+				<!-- fin colonne 1-->
+
+
+
+
+				</div>
+				<!-- fin colonne 12-->
+
+
+
+
+				<!-- Hr -->
+				<div class="col-sm-12">
+				<hr class="panel-small">
+				</div>
+				<!-- fin HR -->
+
+
+				<!-- colonne 12-->
+				<div class="col-sm-12">
+						<div style="text-align:left; padding:15px;">
+						<h2>Images:</h2>
+						</div>
+				</div>
+				<!-- fin colonne 12-->
+
+
+
+
+				<!-- colonne 1-->
+				<div class="col-sm-1">
+					&nbsp;
+				</div>
+				<!-- fin colonne 1-->
+
+
+
+							<!-- colonne gauche 10 part 1-->
+							<div class="col-sm-10">
+
+
+								<!-- 14. $DROPZONEJS_FILE_UPLOADS ==================================================================
+
+														Dropzone.js file uploads
+										-->
+														<!-- Javascript -->
+														<script>
+															init.push(function () {
+																$("#dropzonejs-example").dropzone({
+																	url: "//dummy.html",
+																	paramName: "file", // The name that will be used to transfer the file
+																	maxFilesize: 0.5, // MB
+
+																	addRemoveLinks : true,
+																	dictResponseError: "Can't upload file!",
+																	autoProcessQueue: false,
+																	thumbnailWidth: 138,
+																	thumbnailHeight: 120,
+
+																	previewTemplate: '<div class="dz-preview dz-file-preview"><div class="dz-details"><div class="dz-filename"><span data-dz-name></span></div><div class="dz-size">File size: <span data-dz-size></span></div><div class="dz-thumbnail-wrapper"><div class="dz-thumbnail"><img data-dz-thumbnail><span class="dz-nopreview">No preview</span><div class="dz-success-mark"><i class="fa fa-check-circle-o"></i></div><div class="dz-error-mark"><i class="fa fa-times-circle-o"></i></div><div class="dz-error-message"><span data-dz-errormessage></span></div></div></div></div><div class="progress progress-striped active"><div class="progress-bar progress-bar-success" data-dz-uploadprogress></div></div></div>',
+
+																	resize: function(file) {
+																		var info = { srcX: 0, srcY: 0, srcWidth: file.width, srcHeight: file.height },
+																			srcRatio = file.width / file.height;
+																		if (file.height > this.options.thumbnailHeight || file.width > this.options.thumbnailWidth) {
+																			info.trgHeight = this.options.thumbnailHeight;
+																			info.trgWidth = info.trgHeight * srcRatio;
+																			if (info.trgWidth > this.options.thumbnailWidth) {
+																				info.trgWidth = this.options.thumbnailWidth;
+																				info.trgHeight = info.trgWidth / srcRatio;
+																			}
+																		} else {
+																			info.trgHeight = file.height;
+																			info.trgWidth = file.width;
+																		}
+																		return info;
+																	}
+																});
+															});
+														</script>
+														<!-- / Javascript -->
+
+
+																<div id="dropzonejs-example" class="dropzone-box">
+																	<div class="dz-default dz-message">
+																		<i class="fa fa-cloud-upload"></i>
+																		Drop files in here<br><span class="dz-text-small">or click to pick manually</span>
+																	</div>
+																	<form action="//dummy.html">
+																		<div class="fallback">
+																			<input name="file" type="file" multiple="" />
+																		</div>
+																	</form>
+																</div>
+										<!-- /14. $DROPZONEJS_FILE_UPLOADS -->
+
+
+
+
+										<!-- 46.1. $JQUERY_GROWL_NOTIFICATIONS_EXAMPLES ====================================================
+
+												Examples
+										-->
+												<!-- Javascript -->
+												<script>
+													init.push(function () {
+
+														$('#jq-growl-error').click(function () {
+															$.growl.error({ message: "Picture is bigger than 150 K.O" });
+														});
+													});
+												</script>
+												<!-- / Javascript -->
+
+												<div class="row">
+															<div class="col-md-12" style="text-align:left;">
+														<button id="jq-growl-error" class="btn btn-danger">Error</button>&nbsp;&nbsp;&nbsp;
+														</div>
+												</div>
+										<!-- /46. $JQUERY_GROWL_NOTIFICATIONS -->
+
+
+
+							</div>
+							<!-- fin colonne gauche 10 part -->
+
+
+						<!-- Hr -->
+				<div class="col-sm-1">
+				&nbsp;
+				</div>
+				<!-- fin HR -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+																	</div>
+																	<!-- end of row-->
+
+
+													</div> <!-- / .tab-pane -->
+
+
+
+
+
+													<div class="tab-pane fade" id="dashboard" style="text-align: left;">
+															<iframe class="iframe" width="98%" height="1800" src="https://www.devpro.raisin.digital/us/admin/index.html" border="0"  ></iframe>
+															URL: <a href="https://www.devpro.raisin.digital/us/admin/index.html">https://www.devpro.raisin.digital/us/admin/index.html</a>
+
+													</div> <!-- / .tab-pane -->
+
+
+													<div class="tab-pane fade" id="subscription-layer" style="text-align: left;">
+
+
+															<!-- row-->
+															<div class="row">
+
+																	<!-- col-sm-6 1-->
+																	<div class="col-sm-6">
+																		<h3>Customer Details</h3>
+																		<ul>
+																			<li><strong>Customer Id:</strong> <a href="#">2sUBzwvLRfpmp2aW5d</a></li>
+																			<li><strong>First Name:</strong> Alban</li>
+																			<li><strong>Last Name:</strong> DELALANDE</li>
+																			<li><strong>Company:</strong> LE COURT CIRCUIT</li>
+																			<li><strong>Email:</strong> contact.lecourtcircuit@gmail.com</li>
+																			<li><strong>Phone:</strong> +33646356352</li>
+																		</ul>
+																	</div>
+																	<!-- end col-sm-6 1-->
+
+																	<!-- col-sm-6 2-->
+																	<div class="col-sm-6">
+																	<h3>Subscription Info</h3>
+																	<ul>
+																		<li><strong>Subscription Id:</strong> <a href="#">2sUBzx1YRf4ZBULGEH</a></li>
+																		<li><strong>Payment Status:</strong>
+
+																				<!-- All Payment Status =============================================================-->
+																					<div class="row">
+																						<div class="col-sm-12">
+																							<button class="btn btn-xs">NO</button> &nbsp;&nbsp;&nbsp;
+																							<button class="btn btn-xs btn-primary">NON_RENEWING</button> &nbsp;&nbsp;&nbsp;
+																							<button class="btn btn-xs btn-info">PAUSED</button> &nbsp;&nbsp;&nbsp;
+																							<button class="btn btn-xs btn-success">ACTIVE</button> &nbsp;&nbsp;&nbsp;
+																							<button class="btn btn-xs btn-warning">IN_TRIAL</button> &nbsp;&nbsp;&nbsp;
+																							<button class="btn btn-xs btn-danger">CANCELLED</button>
+																						</div>
+																					</div>
+
+
+																		</li>
+																		<li><strong>Plan:</strong> STICKER - EUR - EN - 25 EUR</li>
+																		<li><strong>Plan Amount:</strong> EUR 14,99 / Month × 1</li>
+																		<li><strong>Addons:</strong> sticker </li>
+																		<li><strong>Next Billing On:</strong> -</li>
+																		<li><strong>Next Billing Amount:</strong> -</li>
+																		<li><strong>Monthly Recurring Revenue (MRR):</strong> </li>
+																		<li><strong>Payment Method Details:</strong> Credit card </li>
+																		<li><strong>Auto Collection:</strong> OFF </li>
+																	</ul>
+																	</div>
+																	<!-- end col-sm-6 2-->
+
+															</div>
+															<!-- end of row-->
+
+													<hr>
+
+															<!-- row-->
+															<div class="row">
+
+															<!-- col-sm-6 1-->
+															<div class="col-sm-6">
+															<h3>Billing address:</h3>
+															<ul>
+																<li>Florian Ehn</li>
+																<li>Unchained Selections</li>
+																<li>Herrengasse 3</li>
+																<li>Ybbs an der Donau</li>
+																<li>Lower Austria, Austria.</li>
+																<li>+43 676 9080076</li>
+																<li>office@unchainedselections.at</li>
+															</ul>
+																</div>
+															<!-- end col-sm-6 1-->
+
+
+															<!-- col-sm-6 2-->
+															<div class="col-sm-6">
+															<h3>Configurations:</h3>
+															<ul>
+																<li>Florian Ehn</li>
+																<li>Locale German (Austria) </li>
+																<li><strong>Preferred Online Currency:</strong> Euro (EUR) </li>
+																<li><strong>Billing Info:</strong> Austria </li>
+																<li><strong>Payment Method Details:</strong> credit card</li>
+																<li><strong>Auto Collection:</strong> On </li>
+															</ul>
+															</div>
+															<!-- end col-sm-6 2-->
+
+															</div>
+															<!-- end of row-->
+
+													</div> <!-- / .tab-pane -->
+
+
+													<div class="tab-pane fade in" id="wine-layer" style="text-align:left;">
+
+													<iframe class="iframe" width="98%" height="1800" src="https://www.devpro.raisin.digital/step1/us/admin-step1/wines.html" border="0"  ></iframe>
+															URL: <a href="https://www.devpro.raisin.digital/step1/us/admin-step1/wines.html">https://www.devpro.raisin.digital/us/admin/index.html</a>
+
+
+
+													</div>
+
+													<div class="tab-pane fade in" id="food-layer" style="text-align:left;">
+
+															<iframe class="iframe" width="98%" height="1800" src="https://www.devpro.raisin.digital/step1/us/admin-step1/food.html" border="0"  ></iframe>
+															URL: <a href="https://www.devpro.raisin.digital/step1/us/admin-step1/food.html">https://www.devpro.raisin.digital/us/admin/index.html</a>
+
+													</div>
+
+
+													<div class="tab-pane fade in" id="likes-layer" style="text-align:left;">
+
+															<iframe class="iframe" width="98%" height="1800" src="https://www.devpro.raisin.digital/us/admin/reviews.html" border="0"  ></iframe>
+															URL: <a href="https://www.devpro.raisin.digital/us/admin/wine.html">https://www.devpro.raisin.digital/us/admin/reviews.html</a>
+
+
+													</div>
+
+
+													<div class="tab-pane fade in" id="establishment" style="text-align:left;">
+
+															<iframe class="iframe" width="98%" height="1800" src="https://www.devpro.raisin.digital/us/admin/establishment.html" border="0"  ></iframe>
+															URL: <a href="https://www.devpro.raisin.digital/us/admin/wine.html">https://www.devpro.raisin.digital/us/admin/establishment.html</a>
+
+													</div>
+
+
+													<div class="tab-pane fade in" id="settings" style="text-align:left;">
+														<iframe class="iframe" width="98%" height="1800" src="https://www.devpro.raisin.digital/us/admin/settings.html" border="0"  ></iframe>
+															URL: <a href="https://www.devpro.raisin.digital/us/admin/settings.html">https://www.devpro.raisin.digital/us/admin/settings.html</a>
+
+													</div>
+
+
+
+
+
+
+
+												</div> <!-- / .tab-content -->
+											</div>
+										</div>
+										<!-- End 13.1. $DEFAULT_TABS ===========================================================================
+
+										Default tabs
+								-->
+
+							</div>
+							<!-- end of colonne gauche 12-->
+
+
+
+
+
+
+
+
+
+						<!-- Hr -->
+				<div class="col-sm-1">
+				&nbsp;
+				</div>
+				<!-- fin HR -->
+
+
+
+
+
+
+
+
+							<div class="row">
+								<div class="col-md-12">&nbsp;</div>
+							</div>
+
+
+
+
+
+
+							<!-- colonne 12-->
+							<div class="col-sm-12" style="text-align:left; padding-top:50px;">
+
+
+								<span class="panel-title"><strong>Created by: </strong>Jean-Hugues</span>
+
+								<div class="btn-group">
+									<button type="button" class="btn">Actions</button>
+									<button type="button" class="btn dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-down"></i></button>
+									<ul class="dropdown-menu">
+										<li><a href="#">Duplicate</a></li>
+										<li><a href="#">Delete</a></li>
+									</ul>
+
+								</div>
+
+							</div>
+							<!-- fin colonne 12-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+		    </div><!-- end of row -->
+		</div><!-- enf of profile-full-name -->
+
+
+
+
+
+
+
+</div> <!-- / #main-wrapper -->
+
+
+
+
+
+
+
+<script src="{% static 'assets/javascripts/jquery.min.js' %}"></script><!-- <![endif]-->
+
+
+<!-- Pixel Admin's javascripts -->
+<script src="assets/javascripts/bootstrap.min.js"></script>
+<script src="assets/javascripts/pixel-admin.min.js"></script>
+
+<script type="text/javascript">
+	init.push(function () {
+		$('#profile-tabs').tabdrop();
+
+		$("#leave-comment-form").expandingInput({
+			target: 'textarea',
+			hidden_content: '> div',
+			placeholder: 'Write message',
+			onAfterExpand: function () {
+				$('#leave-comment-form textarea').attr('rows', '3').autosize();
+			}
+		});
+	})
+	window.PixelAdmin.start(init);
+</script>
+
+
+							</form>
+
+</body>
+</html>

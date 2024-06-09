@@ -1,0 +1,90 @@
+{% load static %}
+{% load i18n %}
+
+
+<!Doctype html>
+<html lang="en">
+<head>
+    {% block meta %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+        <meta name="googlebot" content="noindex,nofollow">
+        <meta name="robots" content="noindex,nofollow">
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    {% endblock meta %}
+    <title>{% language user_lang %}{% block title %}{% endblock %}{% endlanguage %}</title>
+
+    {% block basic_styles %}
+        <!-- Styles -->
+        <link href="{% static 'pro_starter/src/assets/vendor/dropzone/dropzone.css' %}" rel="stylesheet">
+        <link href="{% static 'pro_assets/css/jquery.typeahead.min.css' %}" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+        <link href="{% static 'pro_assets/css/intlTelInput.css' %}" rel="stylesheet">
+
+
+        <!-- Favicons -->
+        <link href="{% static 'pro_assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+        <link href="{% static 'pro_assets/img/favicon.png' %}" rel="icon">
+    {% endblock basic_styles %}
+
+<!--    {% comment %} -->
+<!--    {% block basic_js %}-->
+<!--        <script src="{% static 'pro_starter/src/assets/js/core.min.js' %}"></script>-->
+<!--        <script src="{% static 'pro_starter/src/assets/js/app.min.js' %}"></script>-->
+<!--        <script src="{% static 'pro_assets/js/script.js' %}"></script>-->
+<!--        <script src="{% static 'pro_assets/js/jquery.typeahead.min.js' %}"></script>-->
+<!--        <script src="{% static 'pro_assets/js/intlTelInput.min.js' %}"></script>-->
+<!--    {% endblock basic_js %}-->
+<!--    {% endcomment %}-->
+
+    {% block enabled_styles %}
+        <link href="{% static 'pro_assets/css/core.min.css' %}" rel="stylesheet">
+        <link href="{% static 'pro_assets/css/app.css' %}" rel="stylesheet">
+        <link href="{% static 'pro_assets/css/style.css' %}" rel="stylesheet">
+        <link href="{% static 'pro_assets/css/datatables.min.css' %}" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{% static 'pro_assets/css/responsive.dataTables.min.css' %}" type="text/css">
+        <link rel="stylesheet" href="{% static 'pro_assets/css/dataTables.bootstrap4.min.css' %}" type="text/css">
+
+    {% endblock enabled_styles %}
+
+    {% block additional_fonts %}
+    {% endblock additional_fonts %}
+
+    {% block additional_styles %}
+    {% endblock additional_styles %}
+
+<!--    {% comment %}-->
+<!--    {% block additional_scripts %}-->
+<!--    {% endblock additional_scripts %}-->
+<!--    {% endcomment %}-->
+</head>
+{% block body_open_tag %}
+    <body>
+{% endblock body_open_tag %}
+{% language user_lang %}
+    {% get_current_language as LANGUAGE_CODE %}
+    {% block body %}
+    {% endblock body %}
+{% endlanguage %}
+{% block end_scripts %}
+{% endblock end_scripts %}
+
+
+    {% block basic_js %}
+        <script src="{% static 'pro_starter/src/assets/js/core.min.js' %}"></script>
+        <script src="{% static 'pro_starter/src/assets/js/app.min.js' %}"></script>
+        <script src="{% static 'pro_assets/js/script.js' %}"></script>
+        <script src="{% static 'pro_assets/js/jquery.typeahead.min.js' %}"></script>
+        <script src="{% static 'pro_assets/js/datatables.min.js' %}"></script>
+        <script src="{% static 'pro_assets/js/dataTables.responsive.min.js' %}"></script>
+        <script src="{% static 'pro_assets/js/dataTables.bootstrap4.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    {% endblock basic_js %}
+
+    {% block additional_scripts %}
+    {% endblock additional_scripts %}
+
+    </body>
+</html>

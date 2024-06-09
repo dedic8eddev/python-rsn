@@ -1,0 +1,35 @@
+<div style="height: auto;" id="action" class="collapse">
+    <div class="bandeau action-main action-main-left report_action" id="action_main" style="text-align: left;">
+        <h3><span class="action_item_number">[XX]</span> entries selected</h3>
+        <div class="d-inline-flex">
+            <h4>What do you want to do?</h4>
+            <div class="d-flex">
+                <div>
+                    <button id="ui-bootbox-delete" class="btn btn-lg btn-danger">Delete</button>
+                    <button id="ui-bootbox-cancel" class="btn btn-lg btn-cancel">Cancel</button>
+                </div>
+                <div class="text-right">
+                    <button id="ui-bootbox-ban-user" class="btn btn-lg btn-danger" data-toggle="tooltip" >Ban Author</button>
+                    <button id="ui-bootbox-unban-user" class="btn btn-lg btn-danger" data-toggle="tooltip" >Un-ban banned Author</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bandeau action-confirm" id="action_delete_confirm" style="display: none;">
+        <h3>You are about to refuse (delete) <span class="action_item_number">[XX]</span> Entries</h3>
+        <div class="panel-body">
+            <button id="ui-bootbox-delete-cancel" class="btn btn-lg btn-info">Don't Delete</button>
+            <button id="ui-bootbox-delete-confirm" class="btn btn-lg btn-danger">Delete</button>&nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
+
+    <div class="bandeau action-confirm" id="action_ban_user_confirm" style="display: none;">
+        <h3>You are about to ban authors of <span class="action_item_number">[XX]</span> Entries</h3>
+        <div class="panel-body">
+            <button id="ui-bootbox-ban-user-cancel" class="btn btn-lg btn-info">Don't Ban</button>
+            <button id="ui-bootbox-ban-user-confirm" class="btn btn-lg btn-danger">Ban</button>&nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
+
+</div>

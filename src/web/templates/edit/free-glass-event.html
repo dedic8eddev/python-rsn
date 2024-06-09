@@ -1,0 +1,135 @@
+{% extends "base/layout.html" %}
+
+{% load static %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block title %}Free Glass Event - Edition - Raisin{% endblock %}
+
+{% block additional_buttons %}
+{% endblock additional_buttons %}
+
+{% block additional_styles %}
+    <link href="{% static 'assets/stylesheets/edit/free-glass-event.css' %}" rel="stylesheet" type="text/css">
+{% endblock additional_styles %}
+
+{% block add_new_button %}{% endblock add_new_button %}
+
+{% block basic_js %}
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{% static 'assets/javascripts/bootstrap.min.js' %}"></script>
+    {# <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> #}
+
+    <!--[if lt IE 9]>
+    <script src="{% static 'assets/javascripts/ie.min.js' %}"></script>
+    <![endif]-->
+{% endblock basic_js %}
+
+
+{% block main_content %}
+{% verbatim %}
+{% endverbatim %}
+
+<div class="panel">
+    <!--niveau1-->
+    <form accept-charset="UTF-8" action="{{ action_url }}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="niveau1">
+            <hr class="no-panel-padding-h" />
+            {% include 'base/elements/edit/pdg-widget-free-glass.html' %}
+            <hr class="no-panel-padding-h" />
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="{{ form.name.id_for_label }}" class="col-sm-2">{{ form.name.label }}</label>
+                            <div class="col-sm-10">
+                                {{ form.name|add_class:"form-control"|attr:"style:width:565px;"}}
+                                {{ form.name.errors }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="{{ form.announcement_date.id_for_label }}" class="col-sm-2">{{ form.announcement_date.label }}</label>
+                            <div class="col-sm-10">
+                                {{ form.announcement_date|add_class:"form-control"|attr:"style:width:565px;"}}
+                                {{ form.announcement_date.errors }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="{{ form.start_date.id_for_label }}" class="col-sm-2">{{ form.start_date.label }}</label>
+                            <div class="col-sm-10">
+                                {{ form.start_date|add_class:"form-control"|attr:"style:width:565px;"}}
+                                {{ form.start_date.errors }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="{{ form.end_date.id_for_label }}" class="col-sm-2">{{ form.end_date.label }}</label>
+                            <div class="col-sm-10">
+                                {{ form.end_date|add_class:"form-control"|attr:"style:width:565px;"}}
+                                {{ form.end_date.errors }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!--fin panel-->
+
+
+{% endblock main_content %}
+
+{% block additional_bottom_scripts %}
+{% endblock additional_bottom_scripts %}
+
+{% block bottom_js_scripts %}
+{% verbatim %}
+<script type="text/javascript">
+        $("#id_start_date").datepicker({   
+            "minDate": '2018-01-01',
+            "dateFormat": 'yy-mm-dd'
+        });
+        $("#id_end_date").datepicker({
+            "minDate": '2018-01-01',
+            "dateFormat": 'yy-mm-dd'
+        });
+        $("#id_announcement_date").datepicker({
+            "minDate": '2018-01-01',
+            "dateFormat": 'yy-mm-dd'
+        });
+
+        $("#id_announcement_date").change(function(){
+            $("#id_start_date").datepicker("option", "minDate", $(this).val());
+            $("#id_end_date").datepicker("option", "minDate", $(this).val());
+        });
+        $("#id_start_date").change(function(){
+            $("#id_end_date").datepicker("option", "minDate", $(this).val());
+            $("#id_announcement_date").datepicker("option", "maxDate", $(this).val());
+        });
+        $("#id_end_date").change(function(){
+            $("#id_start_date").datepicker("option", "maxDate", $(this).val());
+            $("#id_announcement_date").datepicker("option", "maxDate", $("#id_end_date").val());
+        });
+</script>
+
+{% endverbatim %}
+
+{% endblock bottom_js_scripts %}

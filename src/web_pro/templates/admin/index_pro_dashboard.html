@@ -1,0 +1,172 @@
+{% extends 'pro_base/layout.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load i18n %}
+
+{% block meta %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="TheAdmin - Responsive admin and web application ui kit">
+    <meta name="keywords" content="admin, dashboard, web app, sass, ui kit, ui framework, bootstrap">
+{% endblock meta %}
+
+{% block title %}{% trans 'DASHBOARD - Raisin Pro.' %}{% endblock %}
+
+{% block additional_fonts %}
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Comfortaa&display=swap" rel="stylesheet">
+{% endblock additional_fonts %}
+
+{% block additional_scripts %}
+    <!-- <script type="text/javascript">
+        var language = '{{ user_lang }}';
+    </script> -->
+    <script src="{% static 'pro_assets/js/handlers/wine_food/dashboardTableHandler.js' %}"></script>
+    <script src="{% static 'pro_assets/js/handlers/wine_food/editFoodHandler.js' %}"></script>
+    <script src="{% static 'pro_assets/js/handlers/wine_food/editWineHandler.js' %}"></script>
+    <script src="{% static 'pro_assets/js/handlers/heic.js' %}"></script>
+    <script src="{% static 'pro_assets/js/handlers/wine_food/imageInputHandler.js' %}"></script>
+    <script src="{% static 'pro_assets/js/handlers/wine_food/inputHandler.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    {% verbatim %}
+    <script id="food-template" type="text/x-handlebars-template">
+      <a class="media media-single foodclass" href="#food-user-details" data-toggle="quickview" id="{{id}}" name="{{post_id}}">
+        <img class="w-130px rounded" src="{{ref_image }}" alt="{{title}}">
+        <div class="media-body food">
+          <p class="fs-16"><strong>{{title}}</strong></p>
+          <p class="name fs-14 mtn-5">{{description}}</p>
+          <p class="name fs-14 mtn-5">&nbsp;</p>
+        </div>
+        <div class="wine_badge_date">
+            <small class="bottom-right-icon">{{modified_time_human}}</small>
+            
+            <!-- <span class="top-right-icon">
+                <img src="{{status.[badge]}}" data-toggle="tooltip" data-placement="left" title="" data-tooltip-type="{{status.[status_short]}}" data-original-title="{{status.[description]}}">
+            </span> -->
+        </div>
+      </a>
+    </script>
+    <script id="wine-template" type="text/x-handlebars-template">
+      <a class="media media-single wineclass wine-status-{{status.[status_short]}}" href="#qv-user-details" data-toggle="quickview" id="{{id}}" name="{{post_id}}" status="{{status.[status_short]}}">
+        <img class="w-130px rounded" src="{{thumb_image }}" alt="VN (red)">
+        <div class="media-body wines">
+          <p class="fs-16"><strong>{{name}}</strong></p>
+          <p class="domain fs-15 mtn-5" style="color: {{{style_color}}} !important;">{{domain}}</p>
+          <p class="name fs-14 mtn-5">{{winemaker_name}}</p>
+          <p class="name fs-14 mtn-5"><b>{{year}}</b></p>
+          <p class="name fs-14 mtn-5">&nbsp;</p>
+        </div>
+        <div class="wine_badge_date">
+            <small class="bottom-right-icon">{{modified_time_human}}</small>
+            <span class="top-right-icon">
+            <img src="{{status.[badge]}}" data-toggle="tooltip" data-placement="left" title="" data-tooltip-type="{{status.[status_short]}}" data-original-title="{{status.[description]}}">
+            </span>
+        </div>
+      </a>
+    </script>
+    {% endverbatim %}
+    <script type="text/javascript">
+        var overscopePage = 'dashboard';
+        var pid = {{ pid }};
+
+        var missingFoodImage = "{% static 'pro_assets/img/food/food-void-min.png' %}",
+            missingWineImage = "{% static 'pro_assets/img/wines/void.gif' %}",
+            missingImage = "{% static 'pro_assets/img/missing-image.gif' %}",
+            foodListUrl = '/pro/ajax/v2/foodposts/?&place_id={{pid}}',
+            winePostUrl = '{% url "pro_get_winepost" post_id=12345%}',
+            wineListUrl = '/pro/ajax/v2/wineposts/?&place_id={{pid}}';
+
+        // var section_titles = {
+        //     'food': "{{ section_titles.food }}",
+        // }
+
+        // Keeps track of user changes on page - it's required for invoking SAVE BEFORE LEAVING modal
+        var changed = 0;
+
+        //  Typeahead:  Results for typeahead source
+        var winemakersArray = get_ajax_list_data("{% url 'pro_typeahead' option='winemakers' %}"),
+            wineDomainArray = get_ajax_list_data("{% url 'pro_typeahead' option='domain' %}");
+
+        // Keeps track of user changes on page - it's required for invoking SAVE BEFORE LEAVING modal
+        var changed = 0;
+
+        render_dashboard_wines();
+        render_dashboard_food();
+    </script>
+    <script src="{% static 'pro_assets/js/handlers/wine_food/foodHandler.js' %}"></script>
+    <script src="{% static 'pro_assets/js/handlers/wine_food/wineHandler.js' %}"></script>
+{% endblock additional_scripts %}
+
+
+{% block body %}
+
+
+    {% include 'pro_base/navigation.html' %}
+
+
+    <!-- Main container -->
+    <main class="main-container">
+
+
+        <div class="main-content">
+          <div class="col-12 h-50px"></div>
+		       {% include 'admin/dashboard-wines.html' %}
+
+          <div class="col-12 h-50px"></div>
+          {% include 'admin/dashboard-food.html' %}
+
+          <div class="col-12 h-50px"></div>
+
+
+        </div><!--/.main-content -->
+
+
+        {% include 'pro_base/footer.html' %}
+
+    </main>
+    <!-- END Main container -->
+
+    <div id="popup-autoshow" class="popup col-6 col-md-4 desktop-only" data-animation="slide-up" data-autoshow="2000"
+         data-autohide="10000">
+        <button type="button" class="close" data-dismiss="popup" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="media">
+            <div class="media-body">
+                <p class="mb-0 fs-14"><br>{% trans "😎 Since you never get a second chance at a first impression... Make sure to complete your establishment's info in detail,  it's time to shine like a diamond 💎" %}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="save" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="lead"><strong>{% trans 'NEW INFORMATION NOT SAVED!' %}</strong></p>
+                    <p class="lead mb-0">{% trans 'Would you like to save before exiting?' %}</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="dismiss" class="btn btn-secondary" data-dismiss="modal">{% trans 'NO' %}</button>
+                    <button type="button" id="no-dismiss" class="btn btn-success" data-dismiss="modal">{% trans 'YES' %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Global quickview -->
+    <div id="qv-global" class="quickview" data-url="../assets/data/quickview-global.html">
+        <div class="spinner-linear">
+            <div class="line"></div>
+        </div>
+    </div>
+    <!-- END Global quickview -->
+
+
+    <!-- WINE Quickview - User detail -->
+    {% include 'admin/elements/edit-wine.html' with show_delete_button=False %}
+    {% include 'admin/elements/edit-food.html' with show_delete_button=False %}
+
+
+{% endblock body %}

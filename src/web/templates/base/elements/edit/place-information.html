@@ -1,0 +1,498 @@
+{% load static %}
+{% load widget_tweaks %}
+{% load i18n %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/stylesheets/added-jhb.css' %}" />
+
+
+<script>
+    var current_user_id = '{{current_user.id}}'
+</script>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <div class="edit-page-title-label">
+                <div><h2 class="f400"> Information: </h2></div>
+                {% if place and venue_is_visible %}<div>
+                    <a href="{{new_raisin_url}}" target="_blank"
+                     class="website-href">
+                        <i class="fa fa-eye"></I>
+                    </a></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <!-- colonne gauche 6 part 1-->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="jq-validation-name" class="col-sm-3 control-label text-right">{{ form.name.label }}</label>
+                <div class="col-sm-9">
+                    {% if form.name.errors %}
+                        {{ form.name|add_class:"form-control error-field" }}
+                    {% else %}
+                        {{ form.name|add_class:"form-control" }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="jq-validation-phone" class="col-sm-3 control-label text-right">{{ form.phone_number.label }}</label>
+                <div class="col-sm-9">
+                    {% if form.phone_number.errors %}
+                        {{ form.phone_number|add_class:"form-control error-field" }}
+                    {% else %}
+                        {{ form.phone_number|add_class:"form-control" }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="jq-validation-type" class="col-sm-3 control-label text-right">{{ form.type.label }}</label>
+
+                <div class="col-sm-9" style="margin-top:-10px; text-align: left;">
+                    <label class="checkbox-inline">
+                        {{ form.is_restaurant|add_class:"px" }}
+                        <span class="lbl">{{ form.is_restaurant.label }}</span>
+                    </label>
+                    <label class="checkbox-inline">
+                        {{ form.is_bar|add_class:"px" }}
+                        <span class="lbl">{{ form.is_bar.label}}</span>
+                    </label>
+                    <label class="checkbox-inline">
+                        {{ form.is_wine_shop|add_class:"px" }}
+                        <span class="lbl">{{ form.is_wine_shop.label}}</span>
+                    </label>
+                </div>
+            </div>
+
+            {% comment %}
+            <div class="form-group">
+                <label for="jq-validation-type" class="col-sm-3 control-label text-right">{{ form.type.label }}</label>
+                <div class="col-sm-9" >
+                    {% if form.type.errors %}
+                        {{ form.type|add_class:"form-control error-field" }}
+                    {% else %}
+                        {{ form.type|add_class:"form-control" }}
+                    {% endif %}
+                </div>
+            </div>
+            {% endcomment %}
+
+            <div class="form-group">
+                <label for="jq-validation-url-website" class="col-sm-3 control-label text-right">{{ form.website_url.label }}</label>
+                <div class="col-sm-9">
+                    {% if form.website_url.errors %}
+                        {{ form.website_url|add_class:"form-control error-field" }}
+                    {% else %}
+                        {{ form.website_url|add_class:"form-control" }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="jq-validation-url-facebook" class="col-sm-3 control-label text-right">{{ form.social_facebook_url.label }}</label>
+                <div class="col-sm-9">
+                    {% if form.social_facebook_url.errors %}
+                        {{ form.social_facebook_url|add_class:"form-control error-field" }}
+                    {% else %}
+                        {{ form.social_facebook_url|add_class:"form-control" }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="jq-validation-url-twitter" class="col-sm-3 control-label text-right">{{ form.social_twitter_url.label }}</label>
+                <div class="col-sm-9">
+                    {% if form.social_twitter_url.errors %}
+                        {{ form.social_twitter_url|add_class:"form-control error-field" }}
+                    {% else %}
+                        {{ form.social_twitter_url|add_class:"form-control" }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="jq-validation-url-instagram" class="col-sm-3 control-label text-right">{{ form.social_instagram_url.label }}</label>
+                <div class="col-sm-9">
+                    {% if form.social_instagram_url.errors %}
+                        {{ form.social_instagram_url|add_class:"form-control error-field" }}
+                    {% else %}
+                        {{ form.social_instagram_url|add_class:"form-control" }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="jq-validation-url-email" class="col-sm-3 control-label text-right">{{ form.email.label }}</label>
+                <div class="col-sm-9">
+                    {% if form.email.errors %}
+                        {{ form.email|add_class:"form-control error-field" }}
+                    {% else %}
+                        {{ form.email|add_class:"form-control" }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="jq-validation-url-email" class="col-sm-3 control-label text-right">{{ form.secondary_emails.label }}:</label>
+                <div class="col-sm-9">
+                    {% if form.secondary_emails.errors %}
+                        {{ form.secondary_emails|add_class:"form-control error-field" }}
+                    {% else %}
+                        {{ form.secondary_emails|add_class:"form-control" }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {% comment %}
+                <!--<label for="jq-validation-type" class="col-sm-3 control-label text-left">{{ form.sticker_sent.label }}</label>-->
+                <!--<div class="col-sm-9" style="margin-left:-25px; margin-top:-10px; text-align: left; padding-left:80px;">-->
+                    <!--<label class="checkbox-inline">-->
+                        <!--{{ form.sticker_sent }}-->
+                    <!--</label>-->
+                <!--</div>-->
+                {% endcomment %}
+                <label for="jq-validation-type" class="col-sm-3 control-label text-right">{{ form.free_glass.label }}</label>
+                <div class="col-sm-9" style="margin-left:-25px; margin-top:-10px; text-align: left; padding-left:80px;">
+                    <label class="checkbox-inline">
+                        {{ form.free_glass }}
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="jq-validation-type" class="col-sm-3 control-label text-right">{{ form.is_30_p_natural_already.label }}</label>
+                <div class="col-sm-9" style="margin-left:-25px; margin-top:-10px; text-align: left; padding-left:80px;">
+                    <label class="checkbox-inline">
+                        {{ form.is_30_p_natural_already }}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <!-- fin colonne gauche 6 part 1-->
+
+        <!-- colonne gauche 6 part 2-->
+
+        <div class="col-md-6">
+            <div class="form-group team-comments-place">
+                <label for="jq-validation-team_comments" class="col-sm-12 control-label comment_by_team">
+                    {{ form.team_comments.label }}
+                    <span class="comment_info">
+                        <p>No comments made yet.</p>
+                        <a href="javascript:;" class="addComment" onclick="showCommentBox();"><i class="fa fa-comments"></i> Add Comment</a>
+                    </span>
+                </label>
+
+                <div class="comment_box">
+                    {% if form.team_comments.errors %}
+                        {{ form.team_comments|add_class:"form-control error-field" }}
+                    {% else %}
+                        {{ form.team_comments|add_class:"form-control" }}
+                    {% endif %}
+                    <div class="actionButtons">
+                        <button type="button" class="btn_addComment" onclick="addComment();">Add</button>
+                        <button type="button" class="btn_updateComment" onclick="updateComment();">Update</button>
+                    </div>
+                </div>       
+                <div class="commentList">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Comment(s)</th>
+                                <th>action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="commentList"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            {% if is_subscriber and owner.id %}
+            <div class="form-group">
+                <label class="control-label pull-left"> {% trans 'Owner' %}: <a href="{% url 'edit_user' owner.id %}" target="_blank">{{ owner.username }}</a> <a style="text-decoration:none" href="{% url 'pro_dashboard' pid=place.id %}">🧰</a></label>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Hr -->
+        <div class="col-md-12">
+            <hr class="panel-small" />
+        </div>
+        <!-- fin HR -->
+    </div>
+
+    <div class="row">
+        <!-- Hr -->
+        <div class="col-md-12">
+            <hr class="panel-small" />
+        </div>
+        <!-- fin HR -->
+    </div>
+
+    <!-- ------------------------------- description  ------------------------------------------- -->
+    <div class="row">
+        <div class="col-md-12">
+            <div id="related_lists"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <h2>{{ form.description.label }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div>
+                {{ form.description|add_class:"form-control"|attr:"rows:10"|attr:"id:tiny-mce" }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div>
+                <h2>{% trans 'Map:' %}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">  {# ROW FOR MAP AND ADDRESS DETAILS #}
+        <!-- Map colonne 6-->
+        {# map itself #}
+        <div class="col-md-6">
+            <div>
+                <input id="pac-input" class="controls" type="text" placeholder="Enter a location" />
+                <div id="type-selector" class="controls">
+                    <input type="radio" name="_type" id="changetype-all" checked="checked" />
+                    <label for="changetype-all">All</label>
+
+                    <input type="radio" name="type" id="changetype-establishment" />
+                    <label for="changetype-establishment">Establishments</label>
+
+                    <input type="radio" name="type" id="changetype-address" />
+                    <label for="changetype-address">Addresses</label>
+
+                    <input type="radio" name="type" id="changetype-geocode" />
+                    <label for="changetype-geocode">Geocodes</label>
+                </div>
+                <div class="map" style="width:100%; height:400px; margin-bottom:30px;"></div>
+            </div>
+        </div>
+        <!-- Map fin colonne 6-->
+
+        {# geolocation form on the right of the map #}
+        <!-- colonne 4-->
+        <div class="col-md-6">
+            <div class="infos">
+                <div class="form-group">
+                    <label for="street-address" class="col-sm-3 control-label text-left">Enter the address</label>
+                    <div class="col-sm-9">
+                        <input id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="text" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="route" class="col-sm-3 control-label text-left">Displayed Address</label>
+                    <div class="col-sm-9">
+                        <input class="field form-control" id="route" readonly/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="city" class="col-sm-3 control-label text-left">City</label>
+                    <div class="col-sm-9">
+                        <input class="field form-control" id="locality" readonly/>
+                        <span class="city_will_be_created">Will be created</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="state" class="col-sm-3 control-label text-left">State</label>
+                    <div class="col-sm-9">
+                        <input class="field form-control" id="administrative_area_level_1" readonly/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="postal_code" class="col-sm-3 control-label text-left">Zip code</label>
+                    <div class="col-sm-9">
+                        <input class="field form-control" id="postal_code" readonly/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="state" class="col-sm-3 control-label text-left">Country</label>
+                    <div class="col-sm-9">
+                        <input class="field form-control" id="country" readonly/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="enable_location_sharing" class="col-sm-3 control-label text-left">Do you want to share your geolocation?</label>
+                    <div class="col-sm-9">
+                        <input class="field" type="checkbox" id="user_location_share" value="1" />
+                    </div>
+                </div>
+                {{ form.new_city }}
+                {{ form.new_city_name }}
+                <div class="form-group">
+                    <label for="id_district" class="col-sm-3 control-label text-left">District</label>
+                    <div class="col-sm-9">
+                        {{ form.district }}
+                    </div>
+                </div>
+
+                {{ form.new_district_name }}
+            </div>
+        </div>
+        <!-- fin colonne 6-->
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <hr class="panel-small">
+        </div>
+        <!-- fin HR -->
+    </div>
+
+    <div class="row">  {# ROW FOR IMAGES HEADER #}
+        <div class="col-sm-12">
+            <div>
+                <h2>Images:</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4"> {# ROW FOR CURRENT IMAGES LIST AND DROPZONE UPLOADER #}
+        <div class="col-md-6">
+            <div class="container-current-images">
+                <h3 class="picture_title">Pictures from this venue</h3>
+                <div id="container-current-images"></div>
+            </div>
+
+            <script>$(document).find(".picture_title").text("Pictures from this venue")</script>
+        </div>
+        <div class="col-md-6">
+            <div id="dropzonejs-place" class="dropzone-box">
+                <h3>New images</h3>
+                <form enctype="multipart/form-data" {# class="dropzone" #} action="{% url 'image_upload_place_ajax' %}" method="post" name="abc_post">
+                    <div class="dz-default dz-message">
+                        <i class="fa fa-cloud-upload"></i>
+                        Drop files in here<br><span class="dz-text-small">or click to pick manually</span>
+                    </div>
+                    <div class="fallback">
+                        <input name="file" type="file" multiple="" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- colonne gauche 10 part 1-->
+        <div class="col-md-12">
+            {% comment %}
+            <!--<div class="row jq-growl-error-button-container">-->
+                <!--<div class="col-md-12" style="text-align:left;">-->
+                    <!--<button id="jq-growl-error" class="btn btn-danger">Error</button>&nbsp;&nbsp;&nbsp;-->
+                <!--</div>-->
+            <!--</div>-->
+            {% endcomment %}
+        </div>
+        <!-- fin colonne gauche 10 part -->
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <hr class="panel-small" />
+        </div>
+    </div>
+
+    <div class="row"> {# ROW FOR WINELISTS - LABEL AND MODAL DIALOG #}
+        <div class="col-sm-12">
+            <div>
+                <h2>Winelists for the Establishment:</h2>
+            </div>
+            <div class="modal fade modal-wl-details" id="modal-wl-details" role="dialog"></div>
+        </div>
+    </div>
+
+    <div class="row mt-4"> {# ROW FOR CURRENT WINELISTS #}
+        <div class="col-md-6">
+            <div class="container-current-winelists" id="container-current-winelists"></div>
+        </div>
+        <div class="col-md-6">
+            <div id="dropzonejs-winelist-place" class="dropzone-box">
+                <h3>New Winelists<i id="spinner" style="float: right; color: red; font-size:36px; display: none;" class="fa fa-spinner fa-spin"></i></h3>
+
+                <form novalidate accept-charset="UTF-8" action="{{ action_url }}" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="csrfmiddlewaretoken" class="csrftoken" value="FWIXqsRFxnSYfVQEBJpXBoNjkCEW0bs6LkPca2rplRENMPVzrAVnX8IkZ4qvpQlM">
+
+                    <input type="file" name="image" required="" id="id_image">
+                    <button type="submit" onclick="getFileDetails()" class="btn btn-lg btn-success">{% trans 'PROCESS' %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="spinner-dots-list" id="status"><img src="/static/pro_assets/img/preloading.gif" alt="preloading Raisin Pro website" width="60" height="100"></div>
+   
+    <div class="row">
+        <!-- colonne gauche 10 part 1-->
+        <div class="col-sm-12">
+            {% comment %}
+            <!--<div class="row jq-growl-error-button-container">-->
+                <!--<div class="col-md-12" style="text-align:left;">-->
+                    <!--<button id="jq-growl-error" class="btn btn-danger">Error</button>&nbsp;&nbsp;&nbsp;-->
+                <!--</div>-->
+            <!--</div>-->
+            {% endcomment %}
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <hr class="panel-small" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12" style="text-align:left; padding-top:50px;">
+            {% if not is_new %}
+            <span class="panel-title"><strong>Created by: </strong>{{ place.author }} <strong>on:</strong> {{ place.created_time|date:"M d, Y @ H:i" }} </span>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmDelete" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p class="lead">{% trans 'Are you sure you want to delete this comment?' %}</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    {% trans 'Cancel' %}
+                </button>
+                <button type="button" class="btn btn-success confirmDelete" data-dismiss="modal">
+                    {% trans 'Confirm' %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

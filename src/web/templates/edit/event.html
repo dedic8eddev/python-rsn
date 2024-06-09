@@ -1,0 +1,376 @@
+{% extends "base/layout.html" %}
+
+{% load static %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% load web_extras %}
+
+{% block title %}Events - Event View - Raisin{% endblock %}
+
+{% block additional_scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script>
+        {% if event.id %}
+            var ajax_related_lists_url = "{% url 'event_related_lists_ajax' id=event.id %}";
+        {% else %}
+            var ajax_related_lists_url = null;
+        {% endif %}
+    </script>
+
+    {% verbatim %}
+    <script type="text/javascript">
+      var max_upload_size = '{% endverbatim %}{{ max_upload_size }}{% verbatim %}';
+    </script>
+{% endverbatim %}
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/mode/xml/xml.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/2.36.0/formatting.min.js"></script>
+
+    <script src="{% static 'assets/javascripts/jquery-ui-sortable.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'assets/javascripts/edit/edit.place.autocomplete2.js' %}" ></script>
+    <script src="{% static 'assets/javascripts/edit/edit.place.initmap2.js' %}" ></script>
+{% endblock additional_scripts %}
+
+
+{% block additional_styles %}
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/confetti.css">
+
+    <!-- map google  -->
+     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <meta charset="utf-8">
+        <style>
+            .pac-container {
+                z-index: 999999;
+            }
+        </style>
+
+{% endblock additional_styles %}
+
+{% block main_content %}
+{% verbatim %}
+    <style type="text/css">
+        .d-flex{
+            display: flex;
+        }
+        .align-items-center{
+            align-items: center;
+        }
+    </style>
+{% endverbatim %}
+
+    <div class="panel" style="font-size:16px!important;">
+        <form id="placeform" novalidate accept-charset="UTF-8" action="{{ action_url }}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% include 'base/elements/edit/pdg-widget-event.html' %}
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success alert-dismissible show" role="alert">
+                      <strong>Success!</strong> {{ message }}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {{ form.status }}
+            {{ form.loc_lat }}
+            {{ form.loc_lng }}
+
+            <div class="container-fluid">
+                <!-- ------------------------------- information and opening hours ------------------------- -->
+                <div class="row">
+                    <div class="col-sm-3 text-left" style="padding-top: 20px;">
+                        <div class="form-group d-flex align-items-center">
+                            {{ form.is_featured }}
+                            <label class="control-label text-left mb-0" for="id_is_featured">{{ form.is_featured.label }}</label>
+                        </div>
+                        <div class="form-group d-flex align-items-center mb-0">
+                            {{ form.is_raisin_participating }}
+                            <label class="control-label text-left mb-0" for="id_is_raisin_participating">{{ form.is_raisin_participating.label }}</label>
+                        </div>
+
+                        <label for="id_image_event" class="mt-30">Event horizontal visual:</label>
+                        <div class="row d-flex align-items-center">
+                            <div class="col-md-4">
+                                <img src="{% if image %}{{ image }}{% else %}{% static 'assets/img/horizontal-image-placeholder.png' %}{% endif %}" alt=""  class="img-responsive">
+                            </div>
+                            <div class="col-md-8">
+                                <script>
+                                    init.push(function () {
+                                        //$('#styled-finputs-example').pixelFileInput({ placeholder: 'No file selected...' });
+                                      $('#id_image_event').pixelFileInput({ placeholder: 'No file selected...' });
+                                    })
+                                </script>
+                                {{ form.image_event }}
+                                {{ form.image_event.errors }}
+                            </div>
+                        </div>
+
+                        <label for="id_poster_image_event" class="mt-30">Event poster visual:</label>                        
+                        <div class="row d-flex align-items-center">
+                            <div class="col-md-4">
+                                <img  src="{% if poster_image %}{{ poster_image }}{% else %}{% static 'assets/img/poster-placeholder.png' %}{% endif %}"  class="img-responsive" alt="">
+                            </div>
+                            <div class="col-md-8">
+                                <script>
+                                    init.push(function () {
+                                        //$('#styled-finputs-example').pixelFileInput({ placeholder: 'No file selected...' });
+                                      $('#id_poster_image_event').pixelFileInput({ placeholder: 'No file selected...' });
+                                    })
+                                </script>
+                                {{ form.poster_image_event }}
+                                {{ form.poster_image_event.errors }}    
+                            </div>
+                        </div>                
+
+                        <label for="id_gif_image_event" class="mt-30">Animated Gif:</label>                        
+                        <div class="row d-flex align-items-center">
+                            <div class="col-md-4">
+                                <img src="{% if gif_image %}{{ gif_image }}{% else %}{% static 'assets/img/animated-gif.png' %}{% endif %}" alt=""  class="img-responsive">
+                            </div>
+                            <div class="col-md-8">
+                                <script>
+                                    init.push(function () {
+                                        //$('#styled-finputs-example').pixelFileInput({ placeholder: 'No file selected...' });
+                                      $('#id_gif_image_event').pixelFileInput({
+                                          placeholder: 'No file selected...' });
+                                    })
+                                </script>
+                                {{ form.gif_image_event }}
+                                {{ form.gif_image_event.errors }}  
+                            </div>
+                        </div>      
+
+                        {% if event.id and event.external_image_url %}
+                        <div class="form-group" style="padding-top: 40px;">
+                            <label class="control-label text-left">Fallback image (legacy/can not edit)</label>
+                            <img width="250px" height="250px" src="{{ event.external_image_url }}" />
+                        </div>
+                        {% endif %}
+
+                        <ul id="image_error_list" class="errorlist" hidden>
+                          <li id="image_error">{% trans 'Maximum File Size Limit is' %} {{ max_upload_size }} kB.</li>
+                        </ul>
+
+                        <div class="row">
+                            <div class="col-sm-12 mt-30">
+                                <div class="form-group d-flex align-items-center">
+                                    {{ form.use_external_link }}
+                                    <label for="id_use_external_link" class="lbl control-label text-left mb-0">External link</label>
+                                </div>
+                                {{ form.external_url }}
+                                {{ form.external_url.errors }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-9" style="padding-top: 20px">
+                        <div class="form-group">
+                            <label for="title" class="col-sm-12 control-label text-left">{{ form.type.label }}</label>
+                            <div class="col-sm-12">
+                                {{ form.type }}
+                                {{ form.type.errors }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="title" class="col-sm-12 control-label text-left">{{ form.title.label }}</label>
+                            <div class="col-sm-12">
+                                {{ form.title }}
+                                {{ form.title.errors }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description" class="col-sm-12 control-label text-left">{{ form.description.label }}</label>
+                            <div class="col-sm-12">
+                                {{ form.description|attr:"id:tiny-mce"|add_class:"form-control" }}
+                                {{ form.description.errors }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="loc_name" class="col-sm-12 control-label text-left">{{ form.loc_name.label }}</label>
+                            <div class="col-sm-12">
+                                {{ form.loc_name }}
+                                {{ form.loc_name.errors }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="start_date" class="col-sm-6 control-label text-left">Start date/time:</label>
+                            <label for="end_date" class="col-sm-6 control-label text-left">End date/time:</label>
+                            <div class="col-sm-6">
+                                {{ form.start_date }}
+                                {{ form.start_date.errors }}
+                            </div>
+                            <div class="col-sm-6">
+                                {{ form.end_date }}
+                                {{ form.end_date.errors }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 text-left">
+                                <div class="d-flex align-items-center">
+                                    {{ form.is_pro }}
+                                    <label class="control-label text-left mb-0">{{ form.is_pro.label }}</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-1 text-left">
+                                <label class="control-label">{{ form.price.label }}</label>
+                            </div>
+                            <div class="col-sm-5 text-left">
+                                {{ form.price }}
+                                {{ form.price.errors }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="start_date" class="col-sm-6 control-label text-left">{{ form.wine_faire_url.label }}:</label>
+                            <label for="end_date" class="col-sm-6 control-label text-left">{{ form.tickets_url.label }}:</label>
+                            <div class="col-sm-6">
+                                {{ form.wine_faire_url }}
+                                {{ form.wine_faire_url.errors }}
+                            </div>
+                            <div class="col-sm-6">
+
+                                {{ form.tickets_url }}
+                                {{ form.tickets_url.errors }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="start_date" class="col-sm-6 control-label text-left">{{ form.external_author_name.label }}:</label>
+                            <label for="end_date" class="col-sm-6 control-label text-left">{{ form.external_submitter_email.label }}:</label>
+                            <div class="col-sm-6">
+                                {{ form.external_author_name }}
+                                {{ form.external_author_name.errors }}
+                            </div>
+                            <div class="col-sm-6">
+                                {{ form.external_submitter_email }}
+                                {{ form.external_submitter_email.errors }}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="container-fluid">
+                    <!-- ----------------------------------------- map ------------------------------------------- -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div style="text-align:left; padding:15px;">
+                                <h2>{% trans 'Map:' %}</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">  {# ROW FOR MAP AND ADDRESS DETAILS #}
+                        <div class="col-sm-1">
+                			&nbsp;
+                		</div>
+                        <!-- Map colonne 6-->
+                        {# map itself #}
+                        <div class="col-sm-5" style="padding-left: 30px;">
+                            <div>
+                                <input id="pac-input" class="controls" type="text" placeholder="Enter a location" />
+                                <div id="type-selector" class="controls">
+                                    <input type="radio" name="_type" id="changetype-all" checked="checked" />
+                                    <label for="changetype-all">All</label>
+
+                                    <input type="radio" name="type" id="changetype-establishment" />
+                                    <label for="changetype-establishment">Establishments</label>
+
+                                    <input type="radio" name="type" id="changetype-address" />
+                                    <label for="changetype-address">Addresses</label>
+
+                                    <input type="radio" name="type" id="changetype-geocode" />
+                                    <label for="changetype-geocode">Geocodes</label>
+                                </div>
+                                <div class="map" style="width:100%; height:400px; margin-bottom:30px;"></div>
+                            </div>
+                        </div>
+                        <!-- Map fin colonne 6-->
+
+                        {# geolocation form on the right of the map #}
+                        <!-- colonne 4-->
+                        <div class="col-sm-5">
+                            <div class="infos" style="padding-top:10px; padding-left: 40px;">
+                                <div class="form-group">
+                                    <label for="street-address" class="col-sm-3 control-label text-left">Auto-completion (Latin)</label>
+                                    <div class="col-sm-9">
+                                        <input id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="text" style="width: 100%;" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="street-address-jp" class="col-sm-3 control-label text-left">Auto-completion (Japan)</label>
+                                    <div class="col-sm-9">
+                                        <input id="autocomplete-jp" placeholder="Enter your address in Japan" onFocus="geolocate()" type="text" style="width: 100%;" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="route" class="col-sm-3 control-label text-left">Displayed Address</label>
+                                    <div class="col-sm-9" style="">
+                                        {{ form.loc_full_street_address }}
+                                        {{ form.loc_full_street_address.errors }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="city" class="col-sm-3 control-label text-left">City</label>
+                                    <div class="col-sm-9">
+                                        {{ form.loc_city }}
+                                        {{ form.loc_city.errors }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="state" class="col-sm-3 control-label text-left">State</label>
+                                    <div class="col-sm-9">
+                                        {{ form.loc_state }}
+                                        {{ form.loc_state.errors }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="postal_code" class="col-sm-3 control-label text-left">Zip code</label>
+                                    <div class="col-sm-9">
+                                        {{ form.loc_zip_code }}
+                                        {{ form.loc_zip_code.errors }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="state" class="col-sm-3 control-label text-left">Country</label>
+                                    <div class="col-sm-9">
+                                        {{ form.loc_country }}
+                                        {{ form.loc_country.errors }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- fin colonne 6-->
+                    </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="related_lists"></div>
+                    </div>
+                </div>
+
+            </div> {# end of container-fluid #}
+
+        </form>
+    <!-- fin colonne 12-->
+    </div><!-- enf of profile-full-name -->
+
+{% endblock main_content %}
+
+{% block additional_bottom_scripts %}
+<script src="{% static 'assets/javascripts/list-item-operations.js' %}"></script>
+<script src="{% static 'assets/javascripts/edit/edit.event.js' %}" ></script>
+<script src="{% static 'assets/javascripts/tinymce.min.js' %}"></script>
+<script src="{% static 'assets/javascripts/edit/edit.description.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&libraries=places&callback=initMap&language=en" async defer></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/pdg-widget.js' %}"></script>
+{% endblock additional_bottom_scripts %}

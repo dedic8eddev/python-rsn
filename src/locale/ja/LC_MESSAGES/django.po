@@ -1,0 +1,113 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-26 10:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "Congratulations!"
+msgstr "おめでとう！"
+
+
+msgid "Password for user"
+msgstr "「ユーザー"
+
+
+msgid "has been successfully changed. You can now login into the Raisin app"
+msgstr "のパスワードが正常に変更されました。これで、Raisinアプリにログインできます。 」"
+
+
+msgid "Reset your password"
+msgstr "パスワードの再設定"
+
+
+msgid "Reset password"
+msgstr "パスワードの再設定"
+
+
+msgid "Reset Password"
+msgstr "パスワードの再設定"
+
+
+msgid "New password (again)"
+msgstr "新しいパスワード (確認用)"
+
+
+msgid "The two password fields did not match."
+msgstr "2つのパスワードフィールドが一致しませんでした。"
+
+
+msgid "Password can not be empty."
+msgstr "パスワードは空にできません。"
+
+
+msgid "Password must contain a mix of lowercase letters, uppercase letters and numbers."
+msgstr "パスワードには、小文字、大文字、数字を混在させる必要があります。"
+
+
+msgid "Password must be between 6 and 30 characters."
+msgstr "パスワードは6〜30文字である必要があります。"
+
+msgid "Holidays"
+msgstr "臨時休業"
+
+msgid "Public holiday"
+msgstr "祝日"
+
+msgid "From"
+msgstr "から"
+
+msgid "To"
+msgstr "まで"
+
+msgid "characters left"
+msgstr "残り 文字"
+
+msgid "character left"
+msgstr "残り 文字"
+
+msgid "Unwanted commercial content or spam"
+msgstr "迷惑な商業コンテンツやスパム"
+
+msgid "Pornography or sexually explicit material"
+msgstr "ポルノまたは性描写のあるもの"
+
+msgid "Child abuse"
+msgstr "児童虐待"
+
+msgid "Hate speech or graphic violence"
+msgstr "ヘイトスピーチや生々しい暴力"
+
+msgid "Promotes terrorism"
+msgstr "テロの扇動"
+
+msgid "Harassment or bullying"
+msgstr "ハラスメントやいじめ"
+
+msgid "Suicide or self injury"
+msgstr "自殺または自傷行為"
+
+msgid "Misinformation"
+msgstr "虚偽の情報"
+
+msgid "An error has occurred: unable to use the banned account"
+msgstr "エラーが発生しました：禁止されたアカウントを使用することができません。"
+
+msgid "An error has occurred: account does not exist"
+msgstr "エラーが発生しました：ユーザーが見つかりません。"
+
+msgid "An error has occurred: unable to use the inactive account"
+msgstr "エラーが発生しました：ユーザーが非アクティブまたは削除されました。"

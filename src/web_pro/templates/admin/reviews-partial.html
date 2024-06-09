@@ -1,0 +1,43 @@
+{% load i18n %}
+<!--SELECTOR -->
+<header class="flexbox align-items-center media-list-header bg-transparent b-0 py-16 pl-20  mt-10">
+    <div class="flexbox align-items-center">
+        <div class=""> {% trans 'Sort by' %} </div>
+        <div class="dropdown">
+            <select data-provide="selectpicker" id="reviews-sorting-dropdown">
+                <option value="date" selected>{% trans 'Date' %}</option>
+                <option value="name">{% trans 'Name' %}</option>
+                <option value="username">{% trans 'Username' %}</option>
+            </select>
+        </div>
+        <!--search -->
+        <form class="lookup lookup-left ml-20">
+            <input type="text" id="reviews-search" placeholder="{% trans 'Search' %}...">
+            <span class="clear-search input-group-text" id="clear-search" style="display: inline;"><i class="fa fa fa-times"></i></span>
+        </form>
+        <!--search -->
+    </div>
+</header>
+<!-- /SELECTOR -->
+
+<div class="card-body">
+
+    <div class="media-list media-list-divided media-list-hover reviews" data-provide="selectall">
+
+        <div class="media-list-body bg-white b-1" id="reviews_list">
+
+        </div>
+
+
+
+        <footer class="flexbox align-items-center py-20">
+            <nav>
+                <ul class="pagination no-gutters" id="reviews-pagination">
+
+                </ul>
+            </nav>
+        </footer>
+
+
+    </div>
+</div>

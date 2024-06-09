@@ -1,0 +1,19 @@
+#signin-demo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+    background: rgba(0,0,0,.6);
+    padding: 6px;
+    border-radius: 3px;
+}
+#signin-demo img { cursor: pointer; height: 40px; }
+#signin-demo img:hover { opacity: .5; }
+#signin-demo div {
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    padding-bottom: 6px;
+
+
+}

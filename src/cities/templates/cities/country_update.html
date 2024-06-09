@@ -1,0 +1,46 @@
+{% extends "cities/cities_base.html" %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Places - Home - Raisin{% endblock %}
+
+{% block main_content %}
+    <div class="panel" style="font-size:16px!important;">
+        <form id="geo_form" action="{% url 'country_update' continent_slug=continent_slug slug=object.slug language=language_code %}" method="post" enctype="multipart/form-data">
+        {{ form.errors }}
+        {% csrf_token %}
+            <div class="panel-heading text-left">
+                <span class="panel-title" style="font-size:22px;"><a href="{% url 'continent_list' %}">Continents</a> - <a href="{% url 'country_list' continent_slug=continent_slug %}">{{ object.continent.name }}</a> - {{ object.name }} - {{ language_code|upper }}:</span>
+                <div class="text-right">
+                    <span class="panel-title"><strong>Saved on:</strong> {{ object.updated_at|date:"M d, Y @ H:i (T)" }}{% if object.last_editor %} by <a href="{{ object.last_editor.get_absolute_url }}">{{ object.last_editor.full_name }}{% endif %}</a></span>&nbsp;&nbsp;&nbsp;
+                    <div class="btn-group mr-10">
+                        <button type="button" class="btn btn-rounded">{{ language }}</button>
+                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-down"></i></button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'country_update' continent_slug=continent_slug slug=object.slug language='en' %}">English</a></li>
+                            <li><a class="dropdown-item" href="{% url 'country_update' continent_slug=continent_slug slug=object.slug language='fr' %}">Français</a></li>
+                            <li><a class="dropdown-item" href="{% url 'country_update' continent_slug=continent_slug slug=object.slug language='it' %}">Italiano</a></li>
+                            <li><a class="dropdown-item" href="{% url 'country_update' continent_slug=continent_slug slug=object.slug language='es' %}">Castellano</a></li>
+                            <li><a class="dropdown-item" href="{% url 'country_update' continent_slug=continent_slug slug=object.slug language='ja' %}">日本語</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-success btn-rounded">Save</button>
+                        <button type="button" class="btn">{% if published %}Published{% else %}Draft{% endif %}</button>
+                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-down"></i></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="btincluded" id="publish_version">Publish</a></li>
+                            <li><a href="#" class="onhold" id="draft_version">Draft</a></li>
+        {#                    <li><a href="#" class="btdelete">Delete</a></li>#}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+           {% include 'cities/edit_locale_form.html' with  new_raisin_url=new_raisin_url %}
+        </form>
+    </div>
+    {% include 'cities/comements_and_likes.html'%}\
+    <br>
+    {% include 'cities/region_list_content.html' %}
+{% endblock %}

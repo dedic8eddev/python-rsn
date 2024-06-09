@@ -1,0 +1,225 @@
+{% load static %}
+{% load i18n %}
+
+<div class="tab-pane fade active show" id="owner-details">
+    <form class="card form-type-material address-form" id="owner_details_form"
+          data-provide="validation"
+          enctype="multipart/form-data"
+          data-disable="false" novalidate="true">
+        {% csrf_token %}
+        <h3 class="card-title">{% trans 'Owner Details' %}</h3>
+        <div class="card-body">
+
+            <div class="flexbox gap-items-4">
+                <img class="avatar avatar-xl" id="owner-image" src="{{ owner_user.get_images.image_thumb }}" alt="...">
+
+                <div class="flex-grow">
+                    <h5>{{ owner_user.full_name }}</h5>
+                    <div class="d-felx flex-column flex-sm-row gap-y gap-items-2 mt-16">
+                        <div class="file-group file-group-inline">
+                            <button class="btn btn-sm btn-w-lg btn-outline btn-round btn-secondary file-browser"
+                                    type="button">{% trans 'Change Picture' %}
+                            </button>
+                            <input type="file" id="owner-image-input" name="ownerImage">
+                        </div>
+                        <a class="btn btn-sm btn-w-lg btn-outline btn-round btn-danger align-top"
+                           id="delete-picture"
+                           href="#">{% trans 'Delete Picture' %}</a>
+                        <input type="hidden" id="picture-removed" name="picture-removed" value=""/>
+                    </div>
+
+                </div>
+
+            </div>
+            <p id="extension-error-owner-logo"
+               style="display:none; color:#FF0000; text-align: center">{% trans 'Invalid Image Format' %}.</p>
+            <p id="size-error-owner-logo" style="display:none; color:#FF0000; text-align: center">
+                {% trans 'Maximum File Size Limit is 5MB' %}.</p>
+
+            <hr>
+
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group disabled do-float">
+                        <input class="form-control" disabled value="{{ owner_user.username }}">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group disabled do-float">
+                        <input class="form-control" disabled value="{{ owner_user.full_name.split.1 }}">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group disabled do-float">
+                <input class="form-control" disabled value="{{ owner_user.email }}">
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <select class="form-control" title="&#xA0;" name="lang" id="lang" data-provide="selectpicker">
+                            <option value="EN" selected="selected">{% trans 'English' %}</option>
+                            <option value="FR">{% trans 'French' %}</option>
+                            <option value="IT">{% trans 'Italian' %}</option>
+                            <option value="ES">{% trans 'Spanish' %}</option>
+                            <option value="DE">{% trans 'German' %}</option>
+                            <option value="JA">{% trans 'Japanese' %}</option>
+                        </select>
+                        <label for="language">{% trans 'Website language:' %}</label>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group disabled">
+                        <input class="form-control" disabled value="{{ phone_number }}">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group do-float">
+                      <label class="phone-label">Phone</label>
+                      <input class="form-control intlTel" id="phone" name="phone" type="tel">
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <select class="form-control" title="&#xA0;" name="currency" id="currency" data-provide="selectpicker">
+                            <option value="EUR" selected="selected">{% trans "Euro" %}</option>
+                            <option value="USD">{% trans "United States Dollar" %}</option>
+                            <option value="AED">{% trans "United Arab Emirates Dirham" %}</option>
+                            <option value="ARS">{% trans "Argentine Peso" %}</option>
+                            <option value="AUD">{% trans "Australian Dollar" %}</option>
+                            <option value="AZN">{% trans "Azerbaijani Manat" %}</option>
+                            <option value="BGN">{% trans "Bulgarian Lev" %}</option>
+                            <option value="BHD">{% trans "Bahraini Dinar" %}</option>
+                            <option value="BND">{% trans "Brunei Dollar" %}</option>
+                            <option value="BRL">{% trans "Brazilian Real" %}</option>
+                            <option value="CAD">{% trans "Canadian Dollar" %}</option>
+                            <option value="CHF">{% trans "Swiss Franc" %}</option>
+                            <option value="CLP">{% trans "Chilean Peso" %}</option>
+                            <option value="CNY">{% trans "Chinese Yuan" %}</option>
+                            <option value="CZK">{% trans "Czech Koruna" %}</option>
+                            <option value="DKK">{% trans "Danish Krone" %}</option>
+                            <option value="EGP">{% trans "Egyptian Pound" %}</option>
+                            <option value="FJD">{% trans "Fiji Dollar" %}</option>
+                            <option value="GBP">{% trans "Pound Sterling" %}</option>
+                            <option value="HKD">{% trans "Hong Kong Dollar" %}</option>
+                            <option value="HUF">{% trans "Hungarian Forint" %}</option>
+                            <option value="IDR">{% trans "Indonesian rRpiah" %}</option>
+                            <option value="ILS">{% trans "Israeli New Shekel" %}</option>
+                            <option value="INR">{% trans "Indian Rupee" %}</option>
+                            <option value="JPY">{% trans "¥ - Japanese Yen" %}</option>
+                            <option value="KRW">{% trans "South Korean Won" %}</option>
+                            <option value="KWD">{% trans "Kuwaiti Dinar" %}</option>
+                            <option value="LKR">{% trans "Sri Lankan Rupee" %}</option>
+                            <option value="MAD">{% trans "Moroccan Dirham" %}</option>
+                            <option value="MGA">{% trans "Malagasy Ariary" %}</option>
+                            <option value="MXN">{% trans "Mexican Peso" %}</option>
+                            <option value="MYR">{% trans "Malaysian Ringgit" %}</option>
+                            <option value="NOK">{% trans "Norwegian Krone" %}</option>
+                            <option value="NZD">{% trans "New Zealand Dollar" %}</option>
+                            <option value="OMR">{% trans "Omani Rial" %}</option>
+                            <option value="PEN">{% trans "Peruvian Sol" %}</option>
+                            <option value="PGK">{% trans "Papua New Guinean Kina" %}</option>
+                            <option value="PHP">{% trans "Philippine Peso" %}</option>
+                            <option value="PKR">{% trans "Pakistani Rupee" %}</option>
+                            <option value="PLN">{% trans "Polish Złoty" %}</option>
+                            <option value="RUB">{% trans "Russian Ruble" %}</option>
+                            <option value="SAR">{% trans "Saudi Riyal" %}</option>
+                            <option value="SBD">{% trans "Solomon Islands Dollar" %}</option>
+                            <option value="SCR">{% trans "Seychelles Rupee" %}</option>
+                            <option value="SEK">{% trans "Swedish Krona/Kronor" %}</option>
+                            <option value="SGD">{% trans "Singapore Dollar" %}</option>
+                            <option value="THB">{% trans "Thai Baht" %}</option>
+                            <option value="TOP">{% trans "Tongan pPaʻanga" %}</option>
+                            <option value="TRY">{% trans "Turkish Lira" %}</option>
+                            <option value="TWD">{% trans "New Taiwan Dollar" %}</option>
+                            <option value="TZS">{% trans "Tanzanian Shilling" %}</option>
+                            <option value="VEF">{% trans "Venezuelan Bolívar" %}</option>
+                            <option value="VND">{% trans "Vietnamese Dồng" %}</option>
+                            <option value="VUV">{% trans "Vanuatu Vatu" %}</option>
+                            <option value="WST">{% trans "Samoan Tala" %}</option>
+                            <option value="XOF">{% trans "CFA Franc BCEAO" %}</option>
+                            <option value="ZAR">{% trans "South African Rand" %}</option>
+                        </select>
+                        <label for="currency">{% trans 'Website currency:' %}</label>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group disabled">
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="tocCheckbox" checked="checked" disabled="disabled">
+                        <label class="form-check-label" for="tocCheckbox">
+                            {% trans 'Agreed to the' %}
+                            <a href="/us/gcu.html" style="text-decoration: underline;">{% trans 'Terms of Service' %}</a> {% trans 'and' %}
+                            <a href="/us/privacy-policy.html" style="text-decoration: underline;">{% trans 'Privacy policy' %}</a>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form class="card form-type-material address-form"
+          action="{% url 'pro_settings_password' pid=pid %}" method="POST" data-provide="validation"
+          enctype="multipart/form-data"
+          data-disable="false" novalidate="true">
+        {% csrf_token %}
+        <h3 class="card-title">{% trans 'Change Password' %}</h3>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                    {% for error in password_errors %}
+                        <p style="color: rgb(255, 0, 0);">{{ error }}</p>
+                    {% endfor %}
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="input-pass" name="old_password" required data-error="{% trans 'Please provide a valid value.' %}">
+                        <label for="input-pass">{% trans 'CURRENT PASSWORD' %}</label>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="input-pass-confirm" name="new_password" data-error="{% trans 'Please provide a valid value.' %}">
+                        {#                                            data-match="#input-pass"#}
+                        <label for="input-pass-confirm">{% trans 'New password' %}</label>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="card-footer text-right">
+            <button class="btn btn-flat btn-primary" type="submit">{% trans 'Save Changes' %}</button>
+        </footer>
+
+    </form>
+</div>

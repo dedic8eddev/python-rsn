@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="TheAdmin - Responsive admin and web application ui kit">
+    <meta name="keywords" content="admin, dashboard, web app, sass, ui kit, ui framework, bootstrap">
+
+    <title>Search - Raisin Pro</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="../../../web/static/pro_assets/css/core.min.css" rel="stylesheet">
+    <link href="../../../web/static/pro_assets/css/app.css" rel="stylesheet">
+    <link href="../../../web/static/pro_assets/css/jquery.typeahead.min.css" rel="stylesheet">
+    <link href="../../../web/static/pro_assets/css/style.css" rel="stylesheet">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="../../../web/static/pro_assets/img/apple-touch-icon.png">
+    <link rel="icon" href="../../../web/static/pro_assets/img/favicon.png">
+
+    <style>
+        .mtn-5 {
+            margin-top: -5px;
+        }
+
+        .mbm-7 {
+            margin-bottom: 7px;
+        }
+
+        .fs-16 {
+            color: #3b3b3b;
+        }
+
+        .fs-16 img {
+            margin-bottom: 2px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- Preloader -->
+<div class="preloader">
+    <div class="spinner-dots"><img src="../../../web/static/pro_assets/img/preloading.gif" alt="preloading Raisin Pro website" width="60"
+                                   height="100"/></div>
+</div>
+
+
+<!-- Sidebar -->
+<aside class="sidebar sidebar-expand-lg sidebar-light sidebar-sm sidebar-color-info">
+
+    <header class="sidebar-header bg-info">
+        <span class="logo">
+           <a href="/"><img src="../../../web/static/pro_assets/img/raisin-pro-vert.png" width="190" class="d-block mx-auto" alt="Raisin pro"/></a>
+        </span>
+        <!--<span class="sidebar-toggle-fold"></span>-->
+    </header>
+
+    <nav class="sidebar-navigation">
+        <ul class="menu menu-sm menu-bordery">
+
+            <div class="venuename"
+                 style="display:inline-block; margin:10px; margin-top:15px; border-bottom:1px #f9fafb solid;">
+                <h6>[ESTABLISHMENT'S NAME]</h6>
+                <p>Address - Zip code - Town</p>
+            </div>
+
+
+            <li class="menu-item">
+                <a class="menu-link" href="index_pro_dashboard.html">
+                    <span class="title">DASHBOARD</span>
+                </a>
+            </li>
+
+            <li class="menu-item active">
+                <a class="menu-link" href="wines.html">
+                    <span class="title">WINES</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a class="menu-link" href="food.html">
+                    <span class="title">FOOD</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a class="menu-link" href="establishment.html">
+                    <span class="title">INFORMATION</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a class="menu-link" href="reviews.html">
+                    <span class="title">REVIEWS & LIKES</span>
+                    <span class="badge badge-pill badge-info">2</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a class="menu-link" href="settings.html">
+                    <span class="title">SETTINGS</span>
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+
+</aside>
+<!-- END Sidebar -->
+
+
+<!-- Topbar -->
+<header class="topbar">
+    <div class="topbar-left">
+        <span class="topbar-btn sidebar-toggler"><i>&#9776;</i></span>
+        <a class="logo d-lg-none" href="index_pro_dashboard.html"><img src="../../../web/static/pro_assets/img/logo.png" alt="logo"></a>
+
+        <ul class="topbar-btns">
+
+            <!-- Notifications -->
+            <li class="dropdown d-none d-lg-block">
+                <div class="dropdown-menu">
+
+                    <div class="media-list media-list-hover media-list-divided media-list-xs">
+                        <a class="media media-new" href="#">
+                            <span class="avatar bg-success"><i class="ti-user"></i></span>
+                            <div class="media-body">
+                                <p>New user registered</p>
+                                <time datetime="2018-07-14 20:00">Just now</time>
+                            </div>
+                        </a>
+
+                        <a class="media" href="#">
+                            <span class="avatar bg-info"><i class="ti-shopping-cart"></i></span>
+                            <div class="media-body">
+                                <p>New order received</p>
+                                <time datetime="2018-07-14 20:00">2 min ago</time>
+                            </div>
+                        </a>
+
+                        <a class="media" href="#">
+                            <span class="avatar bg-warning"><i class="ti-face-sad"></i></span>
+                            <div class="media-body">
+                                <p>Refund request from <b>Ashlyn Culotta</b></p>
+                                <time datetime="2018-07-14 20:00">24 min ago</time>
+                            </div>
+                        </a>
+
+                        <a class="media" href="#">
+                            <span class="avatar bg-primary"><i class="ti-money"></i></span>
+                            <div class="media-body">
+                                <p>New payment has made through PayPal</p>
+                                <time datetime="2018-07-14 20:00">53 min ago</time>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="dropdown-footer">
+                        <div class="left">
+                            <a href="#">Read all notifications</a>
+                        </div>
+
+                        <div class="right">
+                            <a href="#" data-provide="tooltip" title="Mark all as read"><i
+                                    class="fa fa-circle-o"></i></a>
+                            <a href="#" data-provide="tooltip" title="Update"><i class="fa fa-repeat"></i></a>
+                            <a href="#" data-provide="tooltip" title="Settings"><i class="fa fa-gear"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+            <!-- END Notifications -->
+
+            <!-- Messages -->
+            <li class="dropdown d-none d-lg-block">
+                <div class="dropdown-menu">
+
+                    <div class="media-list media-list-divided media-list-hover media-list-xs scrollable"
+                         style="height: 290px">
+                        <a class="media media-new1" href="../../page-app/mailbox-single.html">
+                  <span class="avatar status-success">
+                    <img src="../../assets/img/avatar/1.jpg" alt="...">
+                  </span>
+
+                            <div class="media-body">
+                                <p><strong>Maryam Amiri</strong>
+                                    <time class="float-right" datetime="2018-07-14 20:00">23 min ago</time>
+                                </p>
+                                <p class="text-truncate">Authoritatively exploit resource maximizing technologies before
+                                    technically.</p>
+                            </div>
+                        </a>
+
+                        <a class="media" href="../../page-app/mailbox-single.html">
+                  <span class="avatar status-warning">
+                    <img src="../../assets/img/avatar/2.jpg" alt="...">
+                  </span>
+
+                            <div class="media-body">
+                                <p><strong>Hossein Shams</strong>
+                                    <time class="float-right" datetime="2018-07-14 20:00">48 min ago</time>
+                                </p>
+                                <p class="text-truncate">Continually plagiarize efficient interfaces after
+                                    bricks-and-clicks niches.</p>
+                            </div>
+                        </a>
+
+                        <a class="media" href="../../page-app/mailbox-single.html">
+                  <span class="avatar status-dark">
+                    <img src="../../assets/img/avatar/3.jpg" alt="...">
+                  </span>
+
+                            <div class="media-body">
+                                <p><strong>Helen Bennett</strong>
+                                    <time class="float-right" datetime="2018-07-14 20:00">3 hours ago</time>
+                                </p>
+                                <p class="text-truncate">Objectively underwhelm cross-unit web-readiness before sticky
+                                    outsourcing.</p>
+                            </div>
+                        </a>
+
+                        <a class="media" href="../../page-app/mailbox-single.html">
+                            <span class="avatar status-success bg-purple">FT</span>
+
+                            <div class="media-body">
+                                <p><strong>Fidel Tonn</strong>
+                                    <time class="float-right" datetime="2018-07-14 20:00">21 hours ago</time>
+                                </p>
+                                <p class="text-truncate">Interactively innovate transparent relationships with holistic
+                                    infrastructures.</p>
+                            </div>
+                        </a>
+
+                        <a class="media" href="../../page-app/mailbox-single.html">
+                  <span class="avatar status-danger">
+                    <img src="../../assets/img/avatar/4.jpg" alt="...">
+                  </span>
+
+                            <div class="media-body">
+                                <p><strong>Freddie Arends</strong>
+                                    <time class="float-right" datetime="2018-07-14 20:00">Yesterday</time>
+                                </p>
+                                <p class="text-truncate">Collaboratively visualize corporate initiatives for web-enabled
+                                    value.</p>
+                            </div>
+                        </a>
+
+                        <a class="media" href="../../page-app/mailbox-single.html">
+                  <span class="avatar status-success">
+                    <img src="../../assets/img/avatar/5.jpg" alt="...">
+                  </span>
+
+                            <div class="media-body">
+                                <p><strong>Freddie Arends</strong>
+                                    <time class="float-right" datetime="2018-07-14 20:00">Yesterday</time>
+                                </p>
+                                <p class="text-truncate">Interactively reinvent standards compliant supply chains
+                                    through next-generation bandwidth.</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="dropdown-footer">
+                        <div class="left">
+                            <a href="#">Read all messages</a>
+                        </div>
+
+                        <div class="right">
+                            <a href="#" data-provide="tooltip" title="Mark all as read"><i
+                                    class="fa fa-circle-o"></i></a>
+                            <a href="#" data-provide="tooltip" title="Settings"><i class="fa fa-gear"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+            <!-- END Messages -->
+
+        </ul>
+    </div>
+
+    <div class="topbar-right">
+
+        <ul class="topbar-btns">
+            <li class="dropdown">
+                <span class="topbar-btn" data-toggle="dropdown"><img class="avatar"
+                                                                     src="../../../web/static/pro_assets/img/florian-ehn.jpg"
+                                                                     alt="..."></span>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="settings.html">Settings</a>
+                    <a class="dropdown-item" href="#">Help</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#"><i class="ti-power-off"></i> Logout</a>
+                </div>
+            </li>
+        </ul>
+
+
+    </div>
+</header>
+<!-- END Topbar -->
+
+
+<!-- Main container -->
+<main class="main-container">
+
+
+    <div class="main-content">
+
+
+        <div class="row">
+            <div class="col-md-4 offset-md-8">
+                <form action="#" class="lookup lookup-right">
+                    <input type="text" placeholder="Lorem ipsum">
+                </form>
+            </div>
+        </div>
+
+
+        <!--SELECTOR Red -->
+        <div class="media-list media-list-divided media-list-hover mt-20" data-provide="selectall" id="red">
+            <!-- /SELECTOR RED -->
+
+
+            <!-- Red WINES -->
+            <div class="card products-card">
+                <div class="card-title">
+                    <header class="flexbox align-items-center media-list-header bg-transparent b-0 pl-20">
+                        <div class="flexbox align-items-center">
+                            <h2>You search: <span class="fs-18">Lorem ipsum</span></h2>
+                            <div class="dropdown">
+                                <a class="btn btn-sm dropdown-toggle" data-toggle="dropdown" href="#">Sort by</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Date</a>
+                                    <a class="dropdown-item" href="#">Wine name</a>
+                                    <a class="dropdown-item" href="#">Winemaker</a>
+                                    <a class="dropdown-item" href="#">Domaine</a>
+                                    <a class="dropdown-item" href="#">Popular (Impressions/ Taps)</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+
+                    </header>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+
+                        <!-- RED Wines you have posted 1 -->
+                        <div class="card-body">
+
+
+                            <div class="media-list media-list-hover media-list-divided">
+
+
+                                <a class="media media-single" href="#qv-user-details" data-toggle="quickview">
+                                    <img class="w-80px rounded" src="../../../web/static/pro_assets/img/wines/void.gif" alt="VN (red)">
+                                    <div class="media-body wines">
+                                        <p class="fs-16"><strong>Lorem ipsum</strong></p>
+                                        <p class="domain fs-15 mtn-5">Lorum ipsum</p>
+                                        <p class="name fs-14 mtn-5">Neque porro quisquam est qui dolorem</p>
+                                        <p class="text-fader"><i class="fa fa-eye mr-1"></i> 22 impressions &nbsp; <i
+                                                class="fa fa-hand-pointer-o"></i> 8 taps</p>
+                                    </div>
+                                    <small class="bottom-right-icon">25/08/2019</small>
+                                    <span class="top-right-icon"><img src="../../../web/static/pro_assets/img/icon-natural.png"
+                                                                      alt="Natural Wine" data-provide="tooltip"
+                                                                      data-placement="left" data-tooltip-color="primary"
+                                                                      title="WINE MADE BY A NATURAL WINEMAKER"/></span>
+                                </a>
+
+
+                                <a class="media media-single" href="#qv-user-details" data-toggle="quickview">
+                                    <img class="w-80px rounded" src="../../../web/static/pro_assets/img/wines/void.gif" alt="VN (red)">
+                                    <div class="media-body wines">
+                                        <p class="fs-16"><strong>Lorem ipsum</strong></p>
+                                        <p class="domain fs-15 mtn-5">Lorum ipsum</p>
+                                        <p class="name fs-14 mtn-5">Neque porro quisquam est qui dolorem</p>
+                                        <p class="text-fader"><i class="fa fa-eye mr-1"></i> 22 impressions &nbsp; <i
+                                                class="fa fa-hand-pointer-o"></i> 8 taps</p>
+                                    </div>
+                                    <small class="bottom-right-icon">24/08/2019</small>
+                                    <span class="top-right-icon"><img src="../../../web/static/pro_assets/img/icon-natural.png"
+                                                                      alt="Natural Wine" data-provide="tooltip"
+                                                                      data-placement="left" data-tooltip-color="primary"
+                                                                      title="WINE MADE BY A NATURAL WINEMAKER"/></span>
+                                </a>
+
+
+                                <a class="media media-single" href="#qv-user-details" data-toggle="quickview">
+                                    <img class="w-80px rounded" src="../../../web/static/pro_assets/img/wines/void.gif" alt="VN (red)">
+                                    <div class="media-body wines">
+                                        <p class="fs-16"><strong>Lorem ipsum</strong></p>
+                                        <p class="domain fs-15 mtn-5">Lorum ipsum</p>
+                                        <p class="name fs-14 mtn-5">Neque porro quisquam est qui dolorem</p>
+                                        <p class="text-fader"><i class="fa fa-eye mr-1"></i> 22 impressions &nbsp; <i
+                                                class="fa fa-hand-pointer-o"></i> 8 taps</p>
+                                    </div>
+                                    <small class="bottom-right-icon">23/08/2019</small>
+                                    <span class="top-right-icon"><img src="../../../web/static/pro_assets/img/icon-natural.png"
+                                                                      alt="Natural Wine" data-provide="tooltip"
+                                                                      data-placement="left" data-tooltip-color="primary"
+                                                                      title="WINE MADE BY A NATURAL WINEMAKER"/></span>
+                                </a>
+
+
+                                <a class="media media-single" href="#qv-user-details" data-toggle="quickview">
+                                    <img class="w-80px rounded" src="../../../web/static/pro_assets/img/wines/void.gif" alt="VN (red)">
+                                    <div class="media-body wines">
+                                        <p class="fs-16"><strong>Lorem ipsum</strong></p>
+                                        <p class="domain fs-15 mtn-5">Lorum ipsum</p>
+                                        <p class="name fs-14 mtn-5">Neque porro quisquam est qui dolorem</p>
+                                        <p class="text-fader"><i class="fa fa-eye mr-1"></i> 22 impressions &nbsp; <i
+                                                class="fa fa-hand-pointer-o"></i> 8 taps</p>
+                                    </div>
+                                    <small class="bottom-right-icon">22/08/2019</small>
+                                    <span class="top-right-icon"><img src="../../../web/static/pro_assets/img/icon-natural.png"
+                                                                      alt="Natural Wine" data-provide="tooltip"
+                                                                      data-placement="left" data-tooltip-color="primary"
+                                                                      title="WINE MADE BY A NATURAL WINEMAKER"/></span>
+                                </a>
+
+
+                            </div>
+
+                        </div>
+                        <!-- /Wines you have posted 1 -->
+
+
+                    </div>
+
+
+                    <div class="col-lg-6">
+
+
+                        <!-- RED Wines you have posted 2 -->
+                        <div class="card-body">
+                            <div class="media-list media-list-hover media-list-divided">
+
+                                <a class="media media-single" href="#qv-user-details" data-toggle="quickview">
+                                    <img class="w-80px rounded" src="../../../web/static/pro_assets/img/wines/void.gif" alt="VN (red)">
+                                    <div class="media-body wines">
+                                        <p class="fs-16"><strong>Lorem ipsum</strong></p>
+                                        <p class="domain fs-15 mtn-5">Lorum ipsum</p>
+                                        <p class="name fs-14 mtn-5">Neque porro quisquam est qui dolorem</p>
+                                        <p class="text-fader"><i class="fa fa-eye mr-1"></i> 22 impressions &nbsp; <i
+                                                class="fa fa-hand-pointer-o"></i> 8 taps</p>
+                                    </div>
+                                    <small class="bottom-right-icon">21/08/2019</small>
+                                    <span class="top-right-icon"><img src="../../../web/static/pro_assets/img/icon-natural.png"
+                                                                      alt="Natural Wine" data-provide="tooltip"
+                                                                      data-placement="left" data-tooltip-color="primary"
+                                                                      title="WINE MADE BY A NATURAL WINEMAKER"></span>
+                                </a>
+
+
+                                <a class="media media-single" href="#qv-user-details" data-toggle="quickview">
+                                    <img class="w-80px rounded" src="../../../web/static/pro_assets/img/wines/void.gif" alt="VN (red)">
+                                    <div class="media-body wines">
+                                        <p class="fs-16"><strong>Lorem ipsum</strong></p>
+                                        <p class="winemaker">Lorum ipsum</p>
+                                        <p class="name fs-14 mtn-5">Neque porro quisquam est qui dolorem</p>
+                                        <p class="text-fader"><i class="fa fa-eye mr-1"></i> 22 impressions &nbsp; <i
+                                                class="fa fa-hand-pointer-o"></i> 8 taps</p>
+                                    </div>
+                                    <small class="bottom-right-icon">20/08/2019</small>
+                                    <span class="top-right-icon"><img src="../../../web/static/pro_assets/img/icon-bio-en.png"
+                                                                      alt="ORGANIC AND/OR BIODYNAMIC WINE"
+                                                                      data-provide="tooltip" data-placement="left"
+                                                                      data-tooltip-color="warning"
+                                                                      title="THIS IS AN ORGANIC AND/OR BIODYNAMIC WINE"> </span>
+                                </a>
+
+
+                                <a class="media media-single" href="#qv-user-details" data-toggle="quickview">
+                                    <img class="w-80px rounded" src="../../../web/static/pro_assets/img/wines/void.gif" alt="VN (red)">
+                                    <div class="media-body wines">
+                                        <p class="fs-16"><strong>Lorem ipsum</strong></p>
+                                        <p class="winemaker">Lorum ipsum</p>
+                                        <p class="name fs-14 mtn-5">Neque porro quisquam est qui dolorem</p>
+                                        <p class="text-fader"><i class="fa fa-eye mr-1"></i> 22 impressions &nbsp; <i
+                                                class="fa fa-hand-pointer-o"></i> 8 taps</p>
+                                    </div>
+                                    <small class="bottom-right-icon">19/08/2019</small>
+                                    <span class="top-right-icon"><img src="../../../web/static/pro_assets/img/icon-conventional.png"
+                                                                      alt="IT'S A CONVENTIONAL WINE!"
+                                                                      data-provide="tooltip" data-placement="left"
+                                                                      data-tooltip-color="danger"
+                                                                      title="IT'S A CONVENTIONAL WINE!"> </span>
+                                </a>
+
+
+                                <a class="media media-single" href="#qv-user-details" data-toggle="quickview">
+                                    <img class="w-80px rounded" src="../../../web/static/pro_assets/img/wines/void.gif" alt="VN (red)">
+                                    <div class="media-body wines">
+                                        <p class="fs-16"><strong>Lorem ipsum</strong></p>
+                                        <p class="winemaker">Lorum ipsum</p>
+                                        <p class="name fs-14 mtn-5">Neque porro quisquam est qui dolorem</p>
+                                        <p class="text-fader"><i class="fa fa-eye mr-1"></i> 22 impressions &nbsp; <i
+                                                class="fa fa-hand-pointer-o"></i> 8 taps</p>
+                                    </div>
+                                    <small class="bottom-right-icon">18/08/2019</small>
+                                    <span class="top-right-icon"><img src="../../../web/static/pro_assets/img/icon-doubtful.png"
+                                                                      alt="NOT SURE ABOUT THIS WINE..."
+                                                                      data-provide="tooltip" data-placement="left"
+                                                                      data-tooltip-color="secondary"
+                                                                      title="NOT SURE ABOUT THIS WINE..."/></span>
+                                </a>
+
+                            </div>
+
+                        </div>
+                        <!--/Wines you have posted 2 -->
+
+                    </div>
+                </div>
+
+                <footer class="list-footer flexbox align-items-center py-20 px-20">
+                    <div class="nb-per-page">
+                        <label class="text-fader">Show</label>
+                        <select title="&#xA0;" data-provide="selectpicker">
+                            <option selected>10</option>
+                            <option>50</option>
+                            <option>100</option>
+                            <option>All</option>
+                        </select>
+                        entries
+                    </div>
+
+                    <nav>
+                        <ul class="pagination">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">
+                                    <span class="ti-arrow-left"></span>
+                                </a>
+                            </li>
+                            <li class="page-item active">
+                                <a class="page-link" href="#">1</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">
+                                    <span class="ti-arrow-right"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                </footer>
+
+
+                <!--/ Red WINES -->
+            </div>
+        </div>
+        <!-- /SELECTOR Red -->
+
+
+        <div class="col-12 h-50px"></div>
+
+
+    </div>
+
+
+    </div><!--/.main-content -->
+
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="text-center text-md-left">Copyright © 2019 <a href="https://www.raisin.digital">Raisin SAS</a>.
+                    All rights reserved.</p>
+            </div>
+
+            <div class="col-md-6">
+                <ul class="nav nav-primary nav-dotted nav-dot-separated justify-content-center justify-content-md-end">
+                    <li class="nav-item">
+                        <a class="nav-link" href="mailto:pro@raisin.digital">Help</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="faq.html">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <!-- END Footer -->
+
+</main>
+<!-- END Main container -->
+
+
+<!-- WINE Quickview - User detail -->
+<div id="qv-user-details" class="quickview quickview-lg wineslider">
+    <header class="quickview-header">
+        <h3>
+            <stong>Edit WINE information</stong>
+        </h3>
+        <span class="close"><i class="ti-close"></i></span>
+    </header>
+    <form action="#" method="POST" autocomplete="off">
+        <div class="quickview-body">
+
+            <div class="quickview-block form-type-material">
+
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <img class="w-80px rounded" src="../../../web/static/pro_assets/img/wines/vins-1.jpg" alt="VN (red)">
+                    </div>
+                    <div class="col-sm-8">
+
+                        <div class="file-group file-group-inline">
+                            <button class="btn btn-square btn-danger"><i class="fa fa-trash-o"></i></button>
+                            <button class="btn btn-secondary file-browser" type="button">MODIFY image</button>
+                            <input type="file">
+                            <p class="mt-10"><small>We accept files in PNG, JPG or GIF format,<br/>up to 5 MB+</small>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="typeahead__container">
+                        <div class="typeahead__field">
+                            <div class="typeahead__query">
+                                <input class="form-control js-typeahead-wines-name" name="winesNameSearch" type="search"
+                                       value="VN (red)" autocomplete="off">
+                                <label>Wine Name</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="typeahead__container">
+                        <div class="typeahead__field">
+                            <div class="typeahead__query">
+                                <input class="form-control js-typeahead-winemaker" name="winemakerSearch" type="search"
+                                       value="Massimo Marchiori & Antonella Gerosa" autocomplete="off">
+                                <label>Winemaker(s)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="typeahead__container">
+                        <div class="typeahead__field">
+                            <div class="typeahead__query">
+                                <input class="form-control js-typeahead-domain-name" name="domainNameSearch"
+                                       type="search" value="Partida Creus" autocomplete="off">
+                                <label>Domain Name</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <input type="text" class="form-control" value="2018">
+                    <label>Vintage</label>
+                </div>
+
+
+                <div class="form-group form-type-material form-control-lg">
+                    <select class="form-control" data-provide="selectpicker">
+                        <option>Select a Color</option>
+                        <option data-icon="wine-icon ic-red">Red</option>
+                        <option data-icon="wine-icon ic-white">White</option>
+                        <option data-icon="wine-icon ic-sparkling">Sparkling</option>
+                        <option data-icon="wine-icon ic-pink" selected>Rosé</option>
+                        <option data-icon="wine-icon ic-orange">Orange</option>
+                    </select>
+
+                    <label>Color</label>
+                </div>
+
+                <div class="h-30px"></div>
+
+
+                <div class="form-group">
+                    <input type="text" class="form-control"
+                           value="Grenache, Garrut, Queixal de Llop, Samsó, Sumoll Rouge, Trepat, Ull de Perdiu">
+                    <label>Grape variety</label>
+                </div>
+
+                <div class="form-group">
+                    <textarea class="form-control" rows="3"></textarea>
+                    <label>Add a comment <small>(to moderator on Raisin)</small></label>
+                </div>
+
+            </div>
+        </div>
+
+        <footer class="p-12 flexbox flex-justified">
+            <button class="btn btn-w-md btn-bold btn-danger">DELETE</button>
+            <button class="btn btn-w-md btn-bold btn-secondary" type="button" data-toggle="quickview">Cancel</button>
+            <button class="btn btn-w-md btn-bold btn-success">POST</button>
+        </footer>
+
+    </form>
+</div>
+<!-- END WINE Quickview - User detail -->
+
+
+<!-- Quickview - Add product -->
+<div id="qv-product-add" class="quickview quickview-lg wineslider">
+    <header class="quickview-header">
+        <h3>
+            <stong>ADD A NEW WINE</stong>
+        </h3>
+        <span class="close"><i class="ti-close"></i></span>
+    </header>
+
+    <div class="quickview-body">
+
+        <div class="quickview-block form-type-material">
+
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <img class="w-80px rounded" src="../../../web/static/pro_assets/img/wines/void.gif" alt="VN (red)">
+                </div>
+                <div class="col-sm-8">
+
+                    <div class="file-group file-group-inline">
+                        <button class="btn btn-secondary file-browser" type="button">ADD Image</button>
+                        <input type="file">
+                        <p class="mt-10"><small>We accept files in PNG, JPG or GIF format,<br/>up to 5 MB+</small></p>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <input type="text" class="form-control" value="">
+                <label>Wine Name</label>
+            </div>
+
+
+            <div class="form-group">
+                <input type="text" class="form-control" value="">
+                <label>Winemaker(s)</label>
+            </div>
+
+
+            <div class="form-group">
+                <input type="text" class="form-control form-control-lg" value="">
+                <label class="winemaker">Domain Name</label>
+            </div>
+
+
+            <div class="form-group">
+                <input type="text" class="form-control" value="">
+                <label>Vintage</label>
+            </div>
+
+
+            <div class="form-group form-type-material form-control-lg">
+                <select class="form-control" data-provide="selectpicker">
+                    <option>Select a Color</option>
+                    <option data-icon="wine-icon ic-red">Red</option>
+                    <option data-icon="wine-icon ic-white">White</option>
+                    <option data-icon="wine-icon ic-sparkling">Sparkling</option>
+                    <option data-icon="wine-icon ic-pink">Rosé</option>
+                    <option data-icon="wine-icon ic-orange">Orange</option>
+                </select>
+
+                <label>Color</label>
+            </div>
+
+
+            <div class="h-30px"></div>
+
+
+            <div class="form-group">
+                <input type="text" class="form-control" value="">
+                <label>Grape variety</label>
+            </div>
+
+            <div class="form-group">
+                <textarea class="form-control" rows="3"></textarea>
+                <label>Add a comment <small>(to moderator on Raisin)</small></label>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="p-12 flexbox flex-justified">
+
+        <button class="btn btn-w-md btn-bold btn-secondary" type="button" data-toggle="quickview">Cancel</button>
+        <button class="btn btn-w-md btn-bold btn-success">POST</button>
+
+    </footer>
+</div>
+<!-- END Quickview - Add user -->
+
+
+<!-- Quickview - Product detail -->
+<div id="qv-product-details" class="quickview quickview-lg">
+    <header class="quickview-header">
+        <p class="quickview-title lead fw-400">Change product</p>
+        <span class="close"><i class="ti-close"></i></span>
+    </header>
+
+    <div class="quickview-body">
+
+        <div class="quickview-block form-type-material">
+            <div class="form-group">
+                <input type="text" class="form-control" value="Web design">
+                <label>Name</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" value="5000">
+                <label>Cost</label>
+            </div>
+
+            <div class="form-group">
+                <textarea class="form-control" rows="5">Designing a website with about 5 common pages: Home, Services, Portfolio, About, Contact</textarea>
+                <label>Description</label>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="p-12 flexbox flex-justified">
+        <button class="btn btn-flat btn-secondary" type="button" data-toggle="quickview">Cancel</button>
+        <a class="btn btn-flat btn-danger">Remove</a>
+        <button class="btn btn-flat btn-primary" type="submit">Save changes</button>
+    </footer>
+</div>
+<!-- END Quickview - Product detail -->
+
+
+<!-- Scripts -->
+<script src="starter/src/assets/js/core.min.js"></script>
+<script src="starter/src/assets/js/app.min.js"></script>
+<script src="../../../web/static/pro_assets/js/jquery.typeahead.min.js"></script>
+<script src="../../../web/static/pro_assets/js/script.js"></script>
+
+</body>
+</html>

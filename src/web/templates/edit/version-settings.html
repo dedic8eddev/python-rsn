@@ -1,0 +1,149 @@
+{% extends "base/layout.html" %}
+
+{% load static %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% block title %}Version settings edition - Raisin{% endblock %}
+
+{% block additional_styles %}
+    <link href="{% static 'assets/stylesheets/edit/generalpost.css' %}" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        .cut-left {
+            padding: 30px;
+        }
+
+        .cut-left .col-sm-4 {
+            border: 1px solid black;
+            height: 100px;
+            padding-top: 30px;
+            padding-left: 30px;
+        }
+    </style>
+{% endblock additional_styles %}
+
+{% block additional_scripts %}
+    <script>
+    </script>
+{% endblock additional_scripts %}
+
+{% block main_content %}
+<div class="panel" style="font-size:16px!important;">
+    <!--niveau1-->
+    <form accept-charset="UTF-8" action="{{ action_url }}" method="POST" enctype="multipart/form-data">
+        <div class="niveau1" style="background-color:#fafafa; text-align:left; margin-bottom: 20px;">
+            {% include 'base/elements/edit/pdg-widget-version-settings.html' %}
+            {% csrf_token %}
+            <!-- hr divider below title -->
+            <hr class="no-panel-padding-h" style="margin:0; padding:0;" />
+            <!-- /hr divider below title -->
+
+            <!-- main form container -->
+            <div class="container-fluid cut-left">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <strong>Setting</strong>
+                    </div>
+                    <div class="col-sm-4">
+                        <strong>iOS</strong>
+                    </div>
+                    <div class="col-sm-4">
+                        <strong>Android</strong>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4" >
+                        <strong>Min. version</strong>
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.ios_min_app_version|add_class:"form-control"|attr:"style:width:200px;"}}
+                        {{ form.ios_min_app_version.errors }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.android_min_build_version|add_class:"form-control"|attr:"style:width:200px;"}}
+                        {{ form.android_min_build_version.errors }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <strong>Build version</strong>
+                    </div>
+                    <div class="col-sm-4">
+                        N/R
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.android_min_model_version|add_class:"form-control"|attr:"style:width:200px;"}}
+                        {{ form.android_min_model_version.errors }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <strong>Newest version</strong>
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.ios_newest_app_version|add_class:"form-control"|attr:"style:width:200px;"}}
+                        {{ form.ios_newest_app_version.errors }}
+                    </div>
+                    <div class="col-sm-4">
+                        N/R
+                    </div>
+                </div>
+
+
+                <!--===============================================-->
+                <!--<div class="row">-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="{{ form.ios_min_app_version.id_for_label }}" class="col-sm-1" style="text-align:left; padding-left: 0px;">{{ form.ios_min_app_version.label }}</label>-->
+                        <!--<div class="col-sm-11">-->
+                            <!--{{ form.ios_min_app_version|add_class:"form-control"|attr:"style:width:565px;"}}-->
+                            <!--{{ form.ios_min_app_version.errors }}-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="row">-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="{{ form.ios_newest_app_version.id_for_label }}" class="col-sm-1" style="text-align:left; padding-left: 0px;">{{ form.ios_newest_app_version.label }}</label>-->
+                        <!--<div class="col-sm-11">-->
+                            <!--{{ form.ios_newest_app_version|add_class:"form-control"|attr:"style:width:565px;"}}-->
+                            <!--{{ form.ios_newest_app_version.errors }}-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="row">-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="{{ form.android_min_model_version.id_for_label }}" class="col-sm-1" style="text-align:left; padding-left: 0px;">{{ form.android_min_model_version.label }}</label>-->
+                        <!--<div class="col-sm-11">-->
+                            <!--{{ form.android_min_model_version|add_class:"form-control"|attr:"style:width:565px;"}}-->
+                            <!--{{ form.android_min_model_version.errors }}-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="row">-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="{{ form.android_min_build_version.id_for_label }}" class="col-sm-1" style="text-align:left; padding-left: 0px;">{{ form.android_min_build_version.label }}</label>-->
+                        <!--<div class="col-sm-11">-->
+                            <!--{{ form.android_min_build_version|add_class:"form-control"|attr:"style:width:565px;"}}-->
+                            <!--{{ form.android_min_build_version.errors }}-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+            </div>
+            <!-- /main form container -->
+        </div>
+    </form>
+</div>
+<!--fin panel-->
+
+
+{% endblock main_content %}
+
+{% block additional_bottom_scripts %}
+<!--<script type="text/javascript" src="{% static 'assets/javascripts/edit/edit.generalpost.js' %}"></script>-->
+<script type="text/javascript" src="{% static 'assets/javascripts/pdg-widget.js' %}"></script>
+{% endblock additional_bottom_scripts %}

@@ -1,0 +1,165 @@
+.edit_icon_list, .edit_icon_list:hover{
+    font-size: 18px!important;
+    font-weight: bold;
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    background: transparent;
+    margin: -2px 0 0 0;
+    width: 16px;
+    line-height: 16px;
+    vertical-align: middle;
+    text-decoration: none;
+}
+.incomplete, .incomplete:hover,.incomplete .fa, .incomplete .fa:hover {
+    color: #1d89cf!important;
+}
+.success, .success:hover, .success .fa, .success .fa:hover{
+    color: #52b553;
+}
+.empty_content, .empty_content:hover ,.empty_content .fa, .empty_content .fa:hover {
+    color: #dbaf5d;
+}
+
+.featured-venues-checkboxes .label-checkbox{
+    font-size: 15px;
+    padding: 0 8px;
+}
+.featured-venues-checkboxes{
+    display: flex;
+    margin-left: 12px;
+}
+.featured-venues-checkboxes .label-checkbox.is-restaurant{
+    color: #9c78ab;
+}
+.featured-venues-checkboxes .label-checkbox.is-bar{
+    color: #5ec0b4;
+}
+.featured-venues-checkboxes .label-checkbox.is-wine-shop{
+    color: #6ec0d4;
+}
+.w49{
+    width: 49%;
+}
+.select2-selection__rendered{
+    padding-left: 12px;
+    font-size: 14px;
+    color: #555;
+    line-height: 32px;
+    text-align: left;
+}
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #d6d6d6;
+    border-radius: 2px;
+    height: 32px;
+}
+.select2-results__option--highlighted {
+    color: #fff !important;
+    background-color: #A59FA9 !important;
+}
+.select2-search--dropdown {
+    line-height: 30px;
+}
+.select2-search--dropdown .select2-search__field {
+    height: 30px;
+    vertical-align: top;
+    outline: none !important;
+}
+.select2-search--dropdown .select2-search__field:focus{
+    border-color: #bca1d2;
+}
+.select2-results {
+    font-size: 14px;
+    text-align: left;
+}
+.select2-results__option {
+    padding: 6px 12px;
+    line-height: 21px;
+}
+.select2-results__options {
+    width: 100%;
+}
+.d-flex-lang {
+    display: flex;
+    justify-content: space-between;
+}
+a.clear-all-btn, a.clear-all-btn:hover, a.clear-all-btn:visited, a.clear-all-btn:active {
+    color: #555;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    width: 100px;
+}
+.dd-tr-translate {
+    padding-left: 0;
+    margin-bottom: 0;
+}
+.dd-tr-translate, .dd-tr-translations {
+    padding-top: 10px;
+    font-size: 13px;
+}
+.dd-tr-translate label, .dd-tr-translations label {
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 0;
+}
+#id_original_language, #id_selected_language {
+    height: 30px;
+    outline: none !important;
+}
+.dd-tr-translate input, .dd-tr-translations input {
+    margin-left: 15px;
+}
+.loader {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0;
+    background: rgb(255 255 255 / 82%);
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9;
+}
+#sortable-list{
+    padding: 0 20px;
+}
+.widget-tasks .task .action-checkbox>input,
+.widget-tasks .task .action-checkbox>label {
+    display: inline-block;
+    margin: 0;
+    position: relative;
+    vertical-align: middle;
+    top: -4px;
+}
+#sortable-list input[type=checkbox] {
+    margin: 0;
+}
+.todo-tasks .panel-heading {
+    margin-bottom: 0;
+}
+.todo-tasks .task {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin: 0 -20px;
+    padding: 0 20px;
+}
+.todo-tasks .task:not(:last-child){
+    border-bottom: 1px solid #ececec;
+}
+.ui-sortable-helper{
+    background-color:#ececec;
+}
+.task-sort-icon {
+    width: 30px;
+    opacity: .5;
+}
+.todo-tasks .task .task-title {
+    margin-bottom: 0;
+    font-weight: 500;
+    padding-left: 10px;
+}

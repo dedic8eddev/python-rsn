@@ -1,0 +1,107 @@
+{# {% extends "base/elements/edit/pdg-widget.html" %} #}
+{% load i18n %}
+
+
+{% load i18n %}
+{% load web_extras %}
+
+<div class="panel-heading">
+
+    {% block pdg_title %}
+        {# "{author} - {Mon DD, YYYY} by {validated_by}" #}
+
+        {% if pdg_validated_by and pdg_validated_at %}
+            <span class="author-validated-by" style="font-size: 14px;">
+                <a href="{% url 'edit_winemaker' id=post.wine.winemaker_id %}">{{ post.wine.winemaker.name }}</a> -
+                {{ pdg_title }}
+                <span class="panel-second-row"> - Posted by:
+                    <span class="picture-bigger">
+                        <a href="{% url 'edit_user' id=post.author_id %}">
+                            <img src="{% if post.author.get_images.image_thumb %}{{ post.author.get_images.image_thumb }}{% endif %}" data-toggle="tooltip" title="{{ post.author }}" data-placement="bottom" />
+                        </a>
+                    </span>
+                    - {{ pdg_validated_at|date:"M d, Y @ H:i" }} by <a href="{% url 'edit_user' id=pdg_validated_by.id %}">{{ pdg_validated_by }}</a>
+                </span>
+            </span>
+        {% else %}
+            <span class="author-validated-by" style="font-size: 14px;">
+                <a href="{% url 'edit_winemaker' id=post.wine.winemaker_id %}">{{ post.wine.winemaker.name }}</a> -
+                {{ pdg_title }}
+                <span class="panel-second-row"> - Posted by:
+                    <span class="picture-bigger">
+                        <a href="{% url 'edit_user' id=post.author_id %}">
+                            <img src="{% if post.author.get_images.image_thumb %}{{ post.author.get_images.image_thumb }}{% endif %}" data-toggle="tooltip" title="{{ post.author }}" data-placement="bottom" />
+                        </a>
+                    </span>
+                </span>
+            </span>
+        {% endif %}
+    {% endblock pdg_title %}
+
+    {% block pdg_right %}
+    <div class="text-right">
+        {% block additional_pdg_buttons %}
+        {% endblock additional_pdg_buttons %}
+
+        {% block saved_by %}
+        {% if not is_new and saved_by %}
+        <span class="panel-title title-bar-saved-by"><strong>{% trans 'Saved on:' %}</strong> {{ saved_at|date:"M d, Y @ H:i" }} {% trans 'by' %} <a href="{% url 'edit_user' id=saved_by.id %}">{% if saved_by.full_name %}{{ saved_by.username }}{% else %}{{ saved_by.username }}{% endif %}</a></span>&nbsp;&nbsp;&nbsp;
+        {% endif %}
+        {% endblock saved_by %}
+
+        <div class="btn-group pdg-group">
+            <button type="submit" class="btn btn-success btn-rounded" id="btn-save">Save</button>
+
+            <button type="button" class="btn pdg-selected" data-val=""></button>
+            <button type="button" class="btn dropdown-toggle pdg-arrow" data-toggle="dropdown">
+                <i class="fa fa-caret-down"></i>
+            </button>
+
+            <ul class="dropdown-menu">
+                {% for opt_i in pdg_options %}
+                    {% if opt_i.class %}
+                        <li><a href="#" class="{{ opt_i.class }} pdg-option" data-class="{{ opt_i.selclass }}" data-val="{{ opt_i.value }}">{{ opt_i.name }}</a></li>
+                    {% else %}
+                        <li><a href="#" class="pdg-option" data-val="{{ opt_i.value }}">{{ opt_i.name }}</a></li>
+                    {% endif %}
+                {% endfor %}
+{#                <!--<li><a href="#" class="onhold pdg-option" data-val="10">ACTIVE</a></li>-->#}
+{#                <!--<li><a href="#" class="onhold pdg-option" data-val="20">INACTIVE</a></li>-->#}
+{#                <!--<li><a href="#" class="onhold pdg-option" data-val="25">BAN</a></li>-->#}
+            </ul>
+        </div>
+{#        <!--&nbsp;&nbsp;<button class="btn btn-flat">OK</button>-->#}
+    </div>
+    {% endblock pdg_right %}
+
+    {% block pdg_below %}
+{#    <!--<hr class="no-panel-padding-h" style="border:0; margin:0; padding-top:0px;">-->#}
+
+    <div style="font-size:14px; width: 100%; display: flex;align-items: center;">
+        <span class="natural_or_other">
+            <input type="radio" name="nat_oth_main_wp" id="nat_oth_n_main_wp" value="natural" {% if post_natural %}checked="checked"{% endif %} /><span>Natural</span>
+            <input type="radio" name="nat_oth_main_wp" id="nat_oth_o_main_wp" value="other" {% if not post_natural %}checked="checked"{% endif %}  /><span>Other</span>
+        </span>
+
+        <span class="display-natural" style="{{ el_style_natural }}">
+            <span class="starreview">{{ form.is_star_review.label }}</span>&nbsp;&nbsp;
+            {{ form.is_star_review }}
+        </span>
+        <span class="display-other" style="{{ el_style_other }}">&nbsp;</span>
+
+        <span class="display-natural" style="{{ el_style_natural }}">
+            <span class="btn-label icon fa fa-bookmark-o" style="padding-left:20px;">&nbsp;&nbsp;</span>Parent Post&nbsp;&nbsp;
+        </span>
+        <span class="display-other" style="{{ el_style_other }}">
+            <span class="btn-label icon" style="padding-left:20px;">®️&nbsp;&nbsp;</span>Referrer&nbsp;&nbsp;
+        </span>
+        {{ form.is_parent_post }}
+
+        <span class="btn-label icon fa  fa-sort-amount-desc" style="padding-left:20px; color:#e3a531">&nbsp;&nbsp;
+            <span>Define as Children</span>&nbsp;&nbsp;
+            <input id="define_as_child" value="1" type="checkbox">
+        </span>
+
+    </div>
+    {% endblock pdg_below %}
+</div>

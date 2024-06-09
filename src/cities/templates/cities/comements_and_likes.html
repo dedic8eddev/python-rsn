@@ -1,0 +1,191 @@
+<script>
+
+    function ban_unban_event() {
+        $('.ban_user').each(function(i, obj) {
+            if($(obj).data('status') == 25) {
+                $(obj).attr('class', 'btn btn-xs btn-outline user_baned')
+                $(obj).attr('title', 'User is banned')
+            }
+        });
+        $('.user_baned').off('click').on('click', function (event){
+            event.preventDefault();
+            let yes_unban = confirm('Do you really want to unban this user?')
+            if (yes_unban) {
+                user_id = $(this).data('author')
+                $.ajax({
+                    url: '/ajax/users/unban',
+                    type: 'post',
+                    data: {ids: user_id},
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+                    },
+                    success: function (data) {
+                        $('.user_baned').each(function(i, obj) {
+                            if($(obj).data('author') == user_id) {
+                                $(obj).attr('class', 'btn btn-xs btn-outline ban_user')
+                                $(obj).attr('title', 'Ban user')
+                            }
+                        });
+                    },
+                    complete: function () {
+                        ban_unban_event()
+                    }
+                })
+            }
+        });
+        $('.ban_user').off('click').on('click', function (event) {
+            event.preventDefault();
+            let yes_ban = confirm('Do you really want to ban this user?')
+            if (yes_ban) {
+                user_id = $(this).data('author')
+                $.ajax({
+                    url: '/ajax/users/ban',
+                    type: 'post',
+                    data: {ids: user_id},
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+                    },
+                    success: function (data) {
+                        $('.ban_user').each(function(i, obj) {
+                            if($(obj).data('author') == user_id) {
+                                $(obj).attr('class', 'btn btn-xs btn-outline user_baned')
+                                $(obj).attr('title', 'User is banned')
+                            }
+                        });
+                    },
+                    complete: function () {
+                        ban_unban_event()
+                    }
+                })
+            }
+        })
+    }
+
+    $(document).ready(function() {
+        model_name = '{{ object.model_name }}'
+        object_id = {{ object.id }}
+        $.ajax({
+            url: '/ajax/admincomments/' + model_name + '/' + object_id + '/',
+            type: 'get',
+            dataType: 'json',
+            success: function(response){
+                comment_count = response.length
+                $('#comment_count').text('('+ comment_count + ') Comments');
+                $.each(response, function(index) {
+                    item =
+                    '<div class="comment" id="comment_' + response[index].id +'">' +
+                    '<a href="/user/edit/' + response[index].author + '/" title=""><img src="' + response[index].author_images.image_thumb + '" alt="" class="comment-avatar"></a>' +
+                    '<div class="comment-body">' +
+                    '<div class="comment-text">' +
+                    '<div class="pushaction">' +
+                    '<a href="#" title="Edit" class="btn btn-xs btn-outline btn-info add-tooltip comment_edit" data-comment="'+ response[index].id +'"><i class="fa fa-pencil"></i></a>' +
+                    '<a href="#" title="Delete" class="btn btn-xs btn-outline btn-danger add-tooltip comment_delete" data-comment="'+ response[index].id +'"><i class="fa fa-trash-o"></i></a>' +
+                    '<a href="#" title="Ban user" class="btn btn-xs btn-outline btn-danger add-tooltip ban_user" data-author="' + response[index].author + '" data-status="' + response[index].author_status + '"><i class="fa fa-lock"></i></a>' +
+                    '</div>' +
+                    '<div class="comment-heading">' +
+                    '<a href="/user/edit/' + response[index].author + '/" title="">' + response[index].author_name + '</a> <span>' + response[index].created_formatted + '</span>' +
+                    '<p id="comment_content_' + response[index].id + '">'+ response[index].content + '</p>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>'
+                    $('#profile-tabs-board').append(item)
+                });
+            },
+            complete: function() {
+                $('.comment_edit').click(function (event) {
+                    event.preventDefault();
+                    comment_id = $(this).data('comment')
+                    comment_content = $('#comment_content_' + comment_id).text()
+                    if ($(this).hasClass('editing')) {
+                        $(this).removeClass('editing')
+                        $('#comment_content_' + comment_id).show()
+                        $('#edit_comment_' + comment_id).remove()
+                    } else {
+                        $(this).addClass('editing')
+                        $('#comment_content_' + comment_id).hide()
+                        $('<div id="edit_comment_' + comment_id + '">' +
+                        '<input type="text" id="edit_comment_field_' + comment_id + '" value="' + comment_content + '"></input>' +
+                        '<div><button class="btn change_comment" data-comment="'+ comment_id +'">Edit</button></div>' +
+                        '</div>').insertAfter('#comment_content_' + comment_id)
+                        $('.change_comment').click(function (event) {
+                            comment_id = $(this).data('comment')
+                            data = {'content': $('#edit_comment_field_'+comment_id).val()}
+                            url = '/ajax/admincomments/'+comment_id+'/'
+                            $.ajax({
+                                url: url,
+                                type: 'patch',
+                                data: data,
+                                beforeSend: function(xhr) {
+                                    xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+                                },
+                                success: function (data) {
+                                    $('#comment_content_' + comment_id).text(data.content)
+                                    $(this).removeClass('editing')
+                                    $('#edit_comment_' + comment_id).remove()
+                                    $('#comment_content_' + comment_id).show()
+                                }
+                            })
+                        })
+                    }
+
+                })
+                $('.comment_delete').click(function (event) {
+                    event.preventDefault();
+                    let yes_delete = confirm("Do you really want to delete the comment?");
+                    if (yes_delete){
+                        comment_id = $(this).data("comment");
+                        $('#comment_'+comment_id).hide();
+                        $.ajax({
+                            url: '/ajax/admincomments/'+comment_id+'/',
+                            type: 'delete',
+                            beforeSend: function(xhr) {
+                                xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+                            },
+                        })
+                    }
+                })
+                ban_unban_event()
+            }
+        });
+        $.ajax({
+            url: '/ajax/likes/' + model_name + '/' + object_id + '/',
+            type: 'get',
+            dataType: 'json',
+            success: function(response){
+                like_count = response.length
+                $('#like_count').text('('+ like_count + ') Likes');
+                $.each(response, function(index) {
+                    item = '<div class="follower">' +
+                        '<img src="' + response[index].author_images.image_thumb + '" alt="" class="follower-avatar">' +
+                        '<div class="body">' +
+                        '<a href="/user/edit/' + response[index].author + '/" class="follower-name">' + response[index].author_name + '</a> - <a href="/user/edit/' + response[index].author + '/" class="follower-username">@' + response[index].author_name + '</a>' +
+                        '</div>' +
+                        '</div>'
+                    $('#profile-tabs-followers').append(item)
+                });
+            }
+        })
+    })
+</script>
+<div class="row">
+    <div class="col-md-12" style="padding-top: 80px;">
+        <div class="profile-content" style="text-align:left;">
+            <ul id="profile-tabs" class="nav nav-tabs" style="font-style:10px!important;"><li class="dropdown pull-right tabdrop hide"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-bars"></i> <b class="caret"></b></a><ul class="dropdown-menu"></ul></li>
+                <li class="active">
+                    <a href="#profile-tabs-board" data-toggle="tab" id="comment_count">(0) Comments</a>
+                </li>
+                <li>
+                    <a href="#profile-tabs-followers" data-toggle="tab" id="like_count"> (0) Likes</a>
+                </li>
+            </ul>
+            <div class="tab-content tab-content-bordered panel-padding commentairesaffiche" style="overflow: scroll; width:100%; height: 400px;">
+                 <!-- / .tab-pane -->
+                <div class="widget-article-comments tab-pane panel no-padding no-border fade in active" id="profile-tabs-board">
+                </div>
+                <div class="tab-pane fade widget-followers" id="profile-tabs-followers">
+                </div> <!-- / .tab-pane -->
+            </div> <!-- / .tab-pane -->
+        </div> <!-- / .tab-content -->
+    </div>
+</div>

@@ -1,0 +1,120 @@
+{% load widget_tweaks %}
+{% load static %}
+{% load i18n %}
+
+
+<form class="card tab-pane fade" data-provide="validation" data-disable="false" novalidate="true" id="infos">
+    {% csrf_token %}
+
+    <h3 class="card-title text-gray">{% trans 'Establishment info' %}</h3>
+    <div class="card-body">
+        <!-- Formulaire ici : <a href="form.html">form.html</a> -->
+        <!-- <form data-provide="validation" data-disable="false" novalidate="true"> -->
+        <!-- <div class="card-body"> -->
+        <div class="form-group row">
+            <label class="col-md-4 col-lg-3 col-form-label require" for="name">{% trans 'ESTABLISHMENT NAME:' %}</label>
+            <div class="col-md-8 col-lg-9">
+                <div class="form-group disabled">
+                    <input type="text" class="form-control" id="name" required value="[{% trans 'Establishment name' %}]" disabled>
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label class="col-md-4 col-lg-3 col-form-label require">{% trans 'SELECT A TYPE' %}</label>
+            <div class="col-md-8 col-lg-3">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" name="is_restaurant" class="custom-control-input">
+                    <label class="custom-control-label">{% trans 'RESTAURANT' %}</label>
+                </div>
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="col-md-8 col-lg-2">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" name="is_bar" class="custom-control-input">
+                    <label class="custom-control-label">{% trans 'BAR' %}</label>
+                </div>
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="col-md-8 col-lg-3">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" name="is_wine_shop" class="custom-control-input">
+                    <label class="custom-control-label">{% trans 'WINE SHOP' %}</label>
+                </div>
+                <div class="invalid-feedback"></div>
+            </div>
+            <center id="type-error" style="margin: 0 auto; display:none; color:#FF0000;">{% trans 'Select At Least One Type.' %}</center>
+        </div>
+
+
+        <!--<div class="form-group row">
+          <label class="col-md-4 col-lg-3 col-form-label require" for="phone">Phone Number <small>(format: xx-xxx-xxx-xxxx):</small></label>
+          <div class="col-md-8 col-lg-9">
+            <input class="form-control intlTel" id="establishment-phone" name="establishment-phone" type="tel">
+          </div>
+        </div>-->
+
+        <div class="form-group row">
+            <label class="col-md-4 col-lg-3 col-form-label" for="input-6">{% trans 'Email' %}</label>
+            <div class="col-md-8 col-lg-9">
+                <input type="email" name="email" class="form-control" id="input-6">
+                <div class="invalid-feedback"></div>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label class="col-md-4 col-lg-3 col-form-label" for="input-7">{% trans 'URL WEBSITE' %}:</label>
+            <div class="col-md-8 col-lg-9">
+                <input type="url" name="website_url" class="form-control" id="input-7">
+                <div class="invalid-feedback"></div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-4 col-lg-3 col-form-label" for="facebook">{% trans 'Facebook' %}:</label>
+            <div class="col-md-8 col-lg-9">
+                <input type="url" name="social_facebook_url" class="form-control" id="facebook">
+                <div class="invalid-feedback"></div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-4 col-lg-3 col-form-label" for="twitter">{% trans 'Twitter' %}:</label>
+            <div class="col-md-8 col-lg-9">
+                <input type="url" name="social_twitter_url" class="form-control" id="twitter">
+                <div class="invalid-feedback"></div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-4 col-lg-3 col-form-label" for="instagram">{% trans 'Instagram' %}:</label>
+            <div class="col-md-8 col-lg-9">
+                <input type="url" name="social_instagram_url" class="form-control" id="instagram">
+                <div class="invalid-feedback"></div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-4 col-lg-3 col-form-label" for="book_table">{% trans 'BOOK A TABLE' %}:</label>
+            <div class="col-md-8 col-lg-9">
+                <div class="input_suffix">?ft-tag=Raisin</div>
+                <input type="url" name="formitable_url" class="form-control" id="book_table">
+                <div class="invalid-feedback"></div>
+            </div>
+        </div>
+        <!-- </div> -->
+        <!-- <footer class="card-footer text-right">
+          <button class="btn btn-primary" type="submit">Save</button>
+        </footer> -->
+        <!-- </form> -->
+    </div>
+
+    <input type="hidden" id="front-img" name="front-img" value="" readonly="readonly">
+    <input type="hidden" id="interior-img" name="interior-img" value="" readonly="readonly">
+    <input type="hidden" id="at_work-img" name="at_work-img" value="" readonly="readonly">
+</form>

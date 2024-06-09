@@ -1,0 +1,77 @@
+{% load widget_tweaks %}
+{% load static %}
+{% load i18n %}
+
+<!-- WINE Quickview - User detail -->
+<form action="{% url 'pro_post_food' %}" id="food-edit-form" method="POST" autocomplete="off" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div id="food-user-details" class="quickview quickview-lg wineslider" name="foodId">
+        <header class="quickview-header" id="foodId">
+            <p class="quickview-title lead fw-400">{% trans 'Edit FOOD' %}</p>
+            <span class="close"><i class="ti-close"></i></span>
+        </header>
+
+        <div class="quickview-body">
+            <div class="quickview-block form-type-material">
+                <div class="row">
+                    <div class="col-sm-4 format-image" id="food-img-container">
+                        <img class="w-130px h-130px rounded" id="food-image" src="{% static 'pro_assets/img/food/food-void-min.png' %}" alt="food">
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="file-group file-group-inline">
+                            <button class="btn btn-square btn-danger" type="button" id="image-delete-food">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                            <input type="hidden" id="picture-removed-food" name="picture-removed" value=""/>
+                            <button class="btn btn-secondary file-browser" type="button">
+                                {% trans 'MODIFY image' %}
+                            </button>
+                            <input type="file" id="modify-image-edit-food" name="imageFile">
+                            <p class="mt-10 files-info">
+                                <small>
+                                    {% trans 'We accept files in PNG, JPG, JPEG or GIF format,<br/>up to 5 MB+' %}
+                                </small>
+                            </p>
+                            <p id="extension-error-edit" style="display:none; color:#FF0000;">{% trans 'Invalid Image Format.' %}</p>
+                            <p id="size-error-edit" style="display:none; color:#FF0000;">{% trans 'Maximum File Size Limit is 5MB.' %}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" id="food-name-edit" name="foodName" value="">
+                    <label>{% trans 'Name' %}</label>
+                </div>
+                <p id="name-error-edit" style="display:none; color:#FF0000;">{% trans 'This Field Cannot Be Empty.' %}</p>
+
+                <br>
+
+                <div class="form-group">
+                    <textarea class="form-control" id="food-description-edit" name="foodDescription" rows="3">
+                    </textarea>
+                    <label>{% trans 'Ingredients' %}</label>
+                </div>
+                <p id="description-error-edit" style="display:none; color:#FF0000;">{% trans 'This Field Cannot Be Empty.' %}</p>
+                <input type="hidden" id="food-id" name="foodId">
+
+
+            </div>
+
+        </div>
+
+        <footer class="p-12 flexbox flex-justified">
+            {% if show_delete_button %}
+            <button type="button" class="btn btn-w-md btn-bold btn-danger" data-toggle="modal"
+                    data-target="#modal-default">{% trans 'Delete' %}
+            </button>
+            {% endif %}
+            <button class="btn btn-w-md btn-bold btn-secondary" type="button" data-toggle="quickview">{% trans 'Cancel' %}
+            </button>
+            <button type="button" class="btn btn-w-md btn-bold btn-success" id="post-edit-food" name="postType"
+                    value="edit">{% trans 'Update' %}
+            </button>
+        </footer>
+    </div>
+</form>

@@ -1,0 +1,8 @@
+<ul id="uidemo-tabs-default-demo" class="nav nav-tabs">
+    <li {% if active == "user_posts" %}class="active" {% endif %}>
+        <a href="{% url 'list_generalposts' %}">Users' posts</a>
+    </li>
+    <li {% if active == "food" %}class="active" {% endif %}>
+        <a href="{% url 'list_food' %}">Venues' food</a>
+    </li>
+</ul>

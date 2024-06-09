@@ -1,0 +1,737 @@
+{% extends "base/layout.html" %}
+
+{% load static %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% load web_extras %}
+
+{% block title %}Winemaker edition - Raisin{% endblock %}
+
+{% block additional_styles %}
+    <link href="{% static 'assets/stylesheets/edit/winemaker.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/stylesheets/edit/other-files.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/stylesheets/list/wineposts.css' %}" rel="stylesheet" type="text/css">
+<!--<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>-->
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+<style type="text/css">
+{% verbatim %}
+
+{% endverbatim %}
+</style>
+{% endblock additional_styles %}
+
+{% block additional_scripts %}
+
+!-- ICI to duplicate forms  -->
+<script type="text/javascript" src="{% static 'assets/javascripts/libs/clone-form-td.js' %}"></script>
+<!-- end to duplicate forms  -->
+
+<script src="{% static 'assets/javascripts/libs/ekko-lightbox.4.0.1.min.js' %}"></script>
+<script src="{% static 'assets/javascripts/edit/edit.place.autocomplete2.js' %}" ></script>
+<script src="{% static 'assets/javascripts/edit/edit.place.initmap2.js' %}" ></script>
+<script src="{% static 'assets/javascripts/jquery-ui-sortable.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/javascripts/edit/init-sortable.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/javascripts/lists/list.wineposts.data-table-factory.js' %}"></script>
+
+
+<script type="text/javascript">
+    var url_get_winepost_items = '{% url 'get_winepost_items_for_winemaker_ajax' id=winemaker.id %}';
+    var url_add_wine_pattern = '{% url 'get_add_wine_widget_ajax' initial_row_number='INITIAL_ROW_NUMBER' %}';
+    var url_delete_wine = '{% url 'wine_delete_ajax' %}';
+
+    var is_new = {% if is_new %}true{% else %}false{% endif %};
+
+    var is_just_open = {% if is_just_open %}true{% else %}false{% endif %};
+
+    other_fields_for_state = ['id_region'];
+
+    var url_translate_dd = "{% url 'translate_domain_description_ajax' %}";
+    var url_clear_dd     = "{% url 'clear_domain_description_translations_ajax' %}";
+    var url_update_dd    = "{% url 'update_domain_description_translations_ajax' %}";
+
+    {% if is_new %}
+        var url_current_images_ajax_wm = '{% url 'current_images_winemaker_temp_ajax' id=form.images_temp_dir_wm.value  %}';
+        var url_image_delete_ajax_wm = '{% url 'delete_image_winemaker_temp_ajax' dir_name=form.images_temp_dir_wm.value %}';
+        var url_image_upload_ajax_wm = '{% url 'image_upload_winemaker_temp_ajax' %}';
+
+
+
+        var url_current_images_ajax_wine_pattern = '{% url 'current_images_wine_temp_ajax' id='TEMP_DIR' %}';
+        var url_current_images_ajax_wine_temp_pattern = '{% url 'current_images_wine_temp_ajax' id='TEMP_DIR' %}';
+        var url_image_delete_ajax_wine_pattern = '{% url 'delete_image_wine_temp_ajax' dir_name='TEMP_DIR' %}';
+
+        var url_image_upload_ajax_wine_pattern = '{% url 'image_upload_wine_temp_ajax' %}';
+        var url_image_upload_ajax_wine_temp_pattern = '{% url 'image_upload_wine_temp_ajax' %}';
+
+        var url_current_wm_files_ajax  = "{% url 'current_temp_wm_files_ajax' id=form.images_temp_dir_wm.value %}";
+        var url_wm_file_delete_ajax = "{% url 'delete_wm_file_temp_ajax' dir_name=form.images_temp_dir_wm.value %}";
+        var url_wm_file_upload_ajax = "{% url 'upload_wm_file_temp_ajax' %}";
+
+        var winemaker_id = null;
+        var url_update_ordering_ajax = null;
+    {% else %}
+        var url_current_images_ajax_wm = '{% url 'current_images_winemaker_ajax' id=winemaker.id %}';
+        var url_image_delete_ajax_wm = '{% url 'delete_image_winemaker_ajax'  %}';
+        var url_image_upload_ajax_wm = '{% url 'image_upload_winemaker_ajax' %}';
+
+
+        var url_current_images_ajax_wine_pattern = '{% url 'current_images_wine_temp_ajax' id='TEMP_DIR' %}';
+        var url_current_images_ajax_wine_temp_pattern = '{% url 'current_images_wine_temp_ajax' id='TEMP_DIR' %}';
+        var url_image_delete_ajax_wine_pattern = '{% url 'delete_image_wine_temp_ajax' dir_name='TEMP_DIR' %}';
+
+        var url_image_upload_ajax_wine_pattern = '{% url 'image_upload_wine_temp_ajax' %}';
+        var url_image_upload_ajax_wine_temp_pattern = '{% url 'image_upload_wine_temp_ajax' %}';
+
+        var winemaker_id = {{ winemaker.id }};
+
+        
+        var url_change_parent_post_list_winemaker_ajax = '{% url "change_parent_post_list_winemaker_ajax" id=winemaker.id %}';
+        var url_update_ordering_ajax =  '{% url 'image_update_ordering_winemaker_ajax' %}';
+
+        var url_current_wm_files_ajax  = "{% url 'current_wm_files_ajax' id=winemaker.id %}";
+        var url_wm_file_upload_ajax = "{% url 'upload_wm_file_ajax' %}";
+        var url_wm_file_delete_ajax = "{% url 'delete_wm_file_ajax' %}";
+
+    {% endif %}
+</script>
+<script>
+    var current_user_id = '{{current_user.id}}'
+</script>
+{% endblock additional_scripts %}
+
+{% block additional_buttons %}
+<div style="float:right;">
+    {% if not is_new %}
+        <a href="{% url 'winemaker_star_reviews' id=winemaker.id %}" class="btn btn-lg btn-labeled fa fa-star opt starrvs" role="button" data-toggle="tooltip" title="Star Reviews for wines by '{{ winemaker.name }}'" data-placement="top"></a>
+        <a href="{% url 'winemaker_referees' id=winemaker.id %}" class="btn btn-lg btn-labeled fa fa-bookmark-o opt" role="button"  data-toggle="tooltip" title="Referees for wines by '{{ winemaker.name }}'" data-placement="top"></a>
+        <a href="{% url add_wm_url %}" class="btn btn-lg btn-labeled fa fa-plus opt add" role="button" data-toggle="tooltip" title="Add New Winemaker" data-placement="top"></a>
+    {% else %}
+        <a href="{% url 'list_star_reviews_all' %}" class="btn btn-lg btn-labeled fa fa-star opt starrvs" role="button" data-toggle="tooltip" title="All Star Reviews in the CMS" data-placement="top"></a>
+        <a href="{% url 'list_referees_all' %}" class="btn btn-lg btn-labeled fa fa-bookmark-o opt" role="button"  data-toggle="tooltip" title="All referees in the CMS" data-placement="top"></a>
+        <a href="{% url add_wm_url %}" class="btn btn-lg btn-labeled fa fa-plus opt add" role="button" data-toggle="tooltip" title="Add New Winemaker" data-placement="top"></a>
+    {% endif %}
+</div>
+{% endblock additional_buttons %}
+
+{% block add_new_button %}{% endblock add_new_button %}
+
+{% block main_content %}
+    <div class="panel" style="font-size:16px!important;">
+        <form novalidate accept-charset="UTF-8" action="{{ action_url }}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {{ form.status }}
+
+            {{ form.images_temp_dir_wm }}
+
+            {{ form.full_street_address }}
+            {{ form.street_address }}
+            {{ form.house_number}}
+
+            {{ form.zip_code }}
+            {{ form.city }}
+            {{ form.country }}
+            {{ form.country_iso_code }}
+            {{ form.state }}
+
+            {{ form.latitude}}
+            {{ form.longitude}}
+
+            {{ form.pin_latitude }}
+            {{ form.pin_longitude }}
+
+            {{ form.image_ordering }}
+            {{ form.current_translations }}
+
+            {% include 'base/elements/edit/pdg-widget-winemaker.html' %}
+
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- colonne gauche 6 part 1-->
+                    <div class="col-md-6 info_inputs">
+                        <div style="text-align:left; padding:15px;">
+                            <h2>Information:</h2>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="jq-validation-name" class="col-sm-3 control-label">
+                                {{ form.name.label }}
+                            </label>
+                            <div class="col-sm-9">
+                                {% if form.name.errors %}
+                                    {{ form.name|add_class:"form-control error-field" }}
+                                {% else %}
+                                    {{ form.name|add_class:"form-control" }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="jq-validation-name_short" class="col-sm-3 control-label">
+                                {{ form.name_short.label }}
+                            </label>
+                            <div class="col-sm-9">
+                                {% if form.name_short.errors %}
+                                    {{ form.name_short|add_class:"form-control error-field" }}
+                                {% else %}
+                                    {{ form.name_short|add_class:"form-control" }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="jq-validation-domain" class="col-sm-3 control-label">
+                                {{ form.domain.label }}
+                            </label>
+                            <div class="col-sm-9">
+                                {% if form.domain.errors %}
+                                    {{ form.domain|add_class:"form-control error-field" }}
+                                {% else %}
+                                    {{ form.domain|add_class:"form-control" }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="jq-validation-domain_short" class="col-sm-3 control-label">
+                                {{ form.domain_short.label }}
+                            </label>
+                            <div class="col-sm-9">
+                                {% if form.domain_short.errors %}
+                                    {{ form.domain_short|add_class:"form-control error-field" }}
+                                {% else %}
+                                    {{ form.domain_short|add_class:"form-control" }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="jq-validation-phone" class="col-sm-3 control-label">
+                                {{ form.phone_number.label }}
+                            </label>
+                            <div class="col-sm-9">
+                                {% if form.phone_number.errors %}
+                                    {{ form.phone_number|add_class:"form-control error-field" }}
+                                {% else %}
+                                    {{ form.phone_number|add_class:"form-control" }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="jq-validation-region" class="col-sm-3 control-label">
+                                {{ form.region.label }}
+                            </label>
+                            <div class="col-sm-9">
+                                {% if form.region.errors %}
+                                    {{ form.region|add_class:"form-control error-field" }}
+                                {% else %}
+                                    {{ form.region|add_class:"form-control" }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="jq-validation-url-website" class="col-sm-3 control-label">
+                                {{ form.website_url.label }}
+                            </label>
+                            <div class="col-sm-9">
+                                {% if form.website_url.errors %}
+                                    {{ form.website_url|add_class:"form-control error-field" }}
+                                {% else %}
+                                    {{ form.website_url|add_class:"form-control" }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="jq-validation-url-facebook" class="col-sm-3 control-label">
+                                {{ form.social_facebook_url.label }}
+                            </label>
+                            <div class="col-sm-9">
+                                {% if form.social_facebook_url.errors %}
+                                    {{ form.social_facebook_url|add_class:"form-control error-field" }}
+                                {% else %}
+                                    {{ form.social_facebook_url|add_class:"form-control" }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="jq-validation-url-twitter" class="col-sm-3 control-label">
+                                {{ form.social_twitter_url.label }}
+                            </label>
+                            <div class="col-sm-9">
+                                {% if form.social_twitter_url.errors %}
+                                    {{ form.social_twitter_url|add_class:"form-control error-field" }}
+                                {% else %}
+                                    {{ form.social_twitter_url|add_class:"form-control" }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="jq-validation-url-instagram" class="col-sm-3 control-label">
+                                {{ form.social_instagram_url.label }}
+                            </label>
+                            <div class="col-sm-9">
+                                {% if form.social_instagram_url.errors %}
+                                    {{ form.social_instagram_url|add_class:"form-control error-field" }}
+                                {% else %}
+                                    {{ form.social_instagram_url|add_class:"form-control" }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="jq-validation-email" class="col-sm-3 control-label">
+                                {{ form.email.label }}
+                            </label>
+                            <div class="col-sm-9">
+                                {% if form.email.errors %}
+                                    {{ form.email|add_class:"form-control error-field" }}
+                                {% else %}
+                                    {{ form.email|add_class:"form-control" }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="jq-validation-domain_description" class="col-sm-3 control-label">
+                                {{ form.domain_description.label }} <br />
+                            </label>
+                            <div class="col-sm-9">
+                                <div class="modal fade tr-loading" id="tr-loading" data-backdrop="static" data-keyboard="false">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="modal-title">
+                                                    <h2 class="modal-title" id="abcd">
+                                                        Translation ongoing...
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                &nbsp;
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% if form.domain_description.errors %}
+                                    {{ form.domain_description|add_class:"form-control error-field" }}
+                                {% else %}
+                                    {{ form.domain_description|add_class:"form-control" }}
+                                {% endif %}
+
+                                <div class="d-flex-lang">
+                                    <div id="dd_tr_translate" class="form-group dd-tr-translate">
+                                        <label >{{ form.original_language.label }}:</label>
+                                        {{ form.original_language }}
+                                        <input type="button" id="btn_trans" class="btn btn-info" value="TRANSLATE" />
+                                    </div>
+                                    <div id="dd_tr_translations" class="form-group dd-tr-translations" style="display: none;">
+                                        <label> {{ form.selected_language.label }}:</label>
+                                        {{ form.selected_language}}
+                                        {# <!--<input type="button" id="btn_trans_update" class="btn btn-warning" value="UPDATE THIS VERSION" style="margin-left: 15px; "/>--> #}
+                                        <div class="col-sm-12 text-left id-trans-footer" style="" id="id_trans_footer"></div>
+                                    </div>
+                                    
+                                    <a href="#" class="clear-all-btn" onclick="TransEngine.clear_dd_translations(); return false;"> <i class="fa fa-times-circle"></i> Clear all</a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="jq-validation-team_comments" class="col-sm-3 control-label">
+                                {{ form.team_comments.label }}
+                            </label>
+                            <div class="col-sm-9">
+                                <div class="comment_info">
+                                    <p>No comments made yet.</p>
+                                    <a href="javascript:;" class="addComment" onclick="showCommentBox();"><i class="fa fa-comments"></i> Add Comment</a>
+                                </div>
+                                <div class="comment_box">
+                                    {% if form.team_comments.errors %}
+                                        {{ form.team_comments|add_class:"form-control error-field" }}
+                                    {% else %}
+                                        {{ form.team_comments|add_class:"form-control" }}
+                                    {% endif %}
+
+                                    <div class="actionButtons">
+                                        <button type="button" class="btn_addComment" onclick="addComment();">Add</button>
+                                        <button type="button" class="btn_updateComment">Update</button>
+                                    </div>
+                                </div>
+                                <div class="commentList">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Comment(s)</th>
+                                                <th>action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="commentList"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="jq-validation-certification" class="col-sm-3 control-label">
+                                {% trans 'Certification' %}
+                            </label>
+                            <div class="col-sm-4 text-left chspace">
+                                {{ form.is_organic }}
+                                {{ form.is_organic.label }}
+                            </div>
+                            <div class="col-sm-5 text-left chspace">
+                                {{ form.is_biodynamic }}
+                                {{ form.is_biodynamic.label }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="jq-validation-certified_by" class="col-sm-3 control-label">
+                                {{ form.certified_by.label }}
+                            </label>
+                            <div class="col-sm-9">
+                                {% if form.certified_by.errors %}
+                                    {{ form.certified_by|add_class:"form-control error-field" }}
+                                {% else %}
+                                    {{ form.certified_by|add_class:"form-control" }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="jq-validation-specification" class="col-sm-3 control-label">
+                                {% trans 'Specification' %}
+                            </label>
+                            <div class="col-sm-4 text-left chspace">
+                                {{ form.wine_trade }}
+                                {{ form.wine_trade.label }}
+                            </div>
+                            <div class="col-sm-5 text-left chspace">
+                                {{ form.plough_horse }}
+                                {{ form.plough_horse.label }}
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- fin colonne gauche 6 part 1-->
+                    <!-- colonne gauche 5 part 2-->
+                    <div class="col-md-6">
+                        <div class="container-fluid">                            
+                            <div class="row container-current-images">
+                                <h3 class="picture_title">Pictures from domain</h3>
+                                <div id="container-current-images-winemaker"></div>
+                            </div>
+                        </div>
+
+                        <div id="dropzonejs-winemaker" class="dropzone-box">
+                            <div class="dz-default dz-message">
+                                <i class="fa fa-cloud-upload"></i>
+                                Drop files in here<br><span class="dz-text-small">or click to pick manually</span>
+                            </div>
+                            <!--<form action="//dummy.html">-->
+                                <div class="fallback">
+                                    <input name="file" type="file" multiple="" />
+                                </div>
+                            <!--</form>-->
+                        </div>
+                        <!-- /14. $DROPZONEJS_FILE_UPLOADS -->
+
+
+                        <div style="width: 100%;">
+                            <div class="row container-current-wm-files" id="container-other-files"></div>
+
+                            <div id="dropzonejs-wm-files" class="dropzone-box">
+                                <div class="dz-default dz-message">
+                                    <i class="fa fa-cloud-upload"></i>
+                                    Drop files in here<br><span class="dz-text-small">or click to pick manually</span>
+                                </div>
+                                <!--<form action="//dummy.html">-->
+                                    <div class="fallback">
+                                        <input name="file" type="file" multiple="" />
+                                    </div>
+                                <!--</form>-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- fin colonne gauche 6 part 2-->
+                </div>
+
+                <div class="row">
+                    <!-- Hr -->
+                    <div class="col-sm-12">
+                        <hr class="panel-small" />
+                    </div>
+                    <!-- fin HR -->
+                </div>
+
+                <!-- Hr -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <hr class="panel-small" />
+                    </div>
+                </div>
+                <!-- fin HR -->
+            </div> {# end of container-fluid #}
+
+
+            <div class="container-fluid">
+                {% if not is_new %}
+                <div class="row">  <!-- wineposts for winemaker - header -->
+                    <!-- col-sm-12 -->
+                    <div class="col-sm-12 table table-striped vmiddle" style="font-size: 13px">
+                        <!--<div class="table table-striped vmiddle" style="font-size:13px;">-->
+                        <!--<div style="width: 100%; overflow-x: auto;">-->
+                        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="jq-datatables-wineposts" style="100%; ">
+                            <thead>
+                                <tr>
+                                    <th style="width:15px"><br><input type="checkbox" class="toggle-all" name="check-all" /> </th>
+                                    <th style="width:40px">Picture</th>
+                                    <th style="width:40px">Label</th>
+                                    <th style="width:40px">Vuforia image</th>
+                                    <th style="min-width: 150px;">Author</th>
+                                    <th>Wine post.</th>
+                                    <th>Status</th>
+                                    <th>Wine Region</th>
+                                    <th>Grape variety</th>
+                                    <th>Year</th>
+                                    <th>Color</th>
+                                    <th>Sparkling</th>
+                                    <th class="center"><i class="fa fa-comments" data-toggle="tooltip" title="comments" data-placement="top"></i></th>
+                                    <th class="center"><i class="fa fa-heart" data-toggle="tooltip" title="likes" data-placement="top"></i></th>
+                                    <th class="center"><img src="{% static 'assets/img/drank-it-too.gif' %}" alt="drank-it-too" width="13" height="12"  data-toggle="tooltip" title="Drank it too!" data-placement="top"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <!--</div>&lt;!&ndash; end jquery table jhb &ndash;&gt;-->
+                    </div>
+                    <!-- end of col-sm-12 -->
+                </div>
+
+                <!-- Hr -->
+                <div class="row">  <!-- wineposts for winemaker - items -->
+                    <div class="col-sm-12">
+<!-- {#                        {% include 'base/elements/lists/action_footer_wineposts.html' %} #} -->
+                        {% include 'base/elements/lists/action_footer_wineposts_pro.html' %}
+                        <hr class="panel-small" />
+                    </div>
+                </div>
+                <!-- fin HR -->
+                {% endif %}
+                <!--<div style="width: 300px; height:auto; border: 1px solid red;">-->
+                <!--</div>-->
+            </div>  {# end of container-fluid #}
+            <!-- duplicate -->
+            <div class="container-fluid" id="wines-list">
+                {% for w_item in form.wines_coll.items %}
+{# <!--                    {% include widget.template_name with widget=w_item %}--> #}
+                    {{ w_item.bound_object }}
+                {% endfor %}
+            </div>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12" style="padding-top:0px;">
+                        <div id="addDelButtons" style="padding-top:50px;">
+                            <input type="button" id="btn_add" class="btn btn-info" value="add section">
+                            <input type="button" id="btn_del" class="btn btn-warning" value="remove section above">
+                            <!--<button type="button" id="loading-example-btn" data-loading-text="Loading..." class="btn btn-success" style="margin-left: 40px;">Publish Wine</button>-->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <hr class="panel-small" />
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!--=============================================================================================================-->
+            <div class="container-fluid">
+                <!-- ----------------------------------------- map ------------------------------------------- -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div style="text-align:left; padding:15px;">
+                            <h2>{% trans 'Map:' %}</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Map colonne 6-->
+                    {# map itself #}
+                    <div class="col-sm-6" style="padding-left: 30px;">
+                        <div>
+                            <input id="pac-input" class="controls" type="text" placeholder="Enter a location" />
+                            <div id="type-selector" class="controls">
+                                <input type="radio" name="_type" id="changetype-all" checked="checked" />
+                                <label for="changetype-all">All</label>
+
+                                <input type="radio" name="type" id="changetype-establishment" />
+                                <label for="changetype-establishment">Establishments</label>
+
+                                <input type="radio" name="type" id="changetype-address" />
+                                <label for="changetype-address">Addresses</label>
+
+                                <input type="radio" name="type" id="changetype-geocode" />
+                                <label for="changetype-geocode">Geocodes</label>
+                            </div>
+                            <div class="map" style="width:100%; height:400px; margin-bottom:30px;"></div>
+                        </div>
+                    </div>
+                    <!-- Map fin colonne 6-->
+
+                    {# geolocation form on the right of the map #}
+                    <!-- colonne 4-->
+                    <div class="col-sm-6">
+                        <div class="infos" style="padding-top:10px; padding-left: 40px;">
+                            <div class="form-group">
+                                <label for="street-address" class="col-sm-3 control-label text-left">Auto-completion (Latin)</label>
+                                <div class="col-sm-9">
+                                    <input id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="text" style="width: 100%;"  />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="street-address-jp" class="col-sm-3 control-label text-left">Auto-completion (Japan)</label>
+                                <div class="col-sm-9">
+                                    <input id="autocomplete-jp" placeholder="Enter your address in Japan" onFocus="geolocate()" type="text" style="width: 100%;" />
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="route" class="col-sm-3 control-label text-left">Displayed Address</label>
+                                <div class="col-sm-9" style="">
+                                    <input class="field form-control" id="route"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="city" class="col-sm-3 control-label text-left">City</label>
+                                <div class="col-sm-9">
+                                    <input class="field form-control" id="locality"  />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="state" class="col-sm-3 control-label text-left">State</label>
+                                <div class="col-sm-9">
+                                    <input class="field form-control" id="administrative_area_level_1"  />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="postal_code" class="col-sm-3 control-label text-left">Zip code</label>
+                                <div class="col-sm-9">
+                                    <input class="field form-control" id="postal_code"  />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="state" class="col-sm-3 control-label text-left">Country</label>
+                                <div class="col-sm-9">
+                                    <input class="field form-control" id="country"  />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="enable_location_sharing" class="col-sm-3 control-label text-left">Do you want to share your geolocation?</label>
+                                <div class="col-sm-9">
+                                    <input class="field" type="checkbox" id="user_location_share" value="1" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- fin colonne 6-->
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <hr class="panel-small" />
+                        </div>
+                    </div>
+
+                </div>
+                <!-- ----------------------------------------- /map ------------------------------------------ -->
+                <!--=============================================================================================================-->
+
+                {# ========================= WYSIWYG EDITOR ======================== #}
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div style="text-align:left; padding:15px;">
+                            <h2>{{ form.description.label }}</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panel-body" style="text-align:left;">
+                            {{ form.description|attr:"id:tiny-mce"|add_class:"form-control"|attr:"rows:9"|attr:"style: font-size:14px;;"  }}
+                        </div>
+                    </div>
+                </div>
+                {# ========================= /WYSIWYG EDITOR ======================== #}
+
+                <div class="row">
+                    <!-- colonne 12-->
+                    <div class="col-sm-12" style="text-align:left; padding-top:50px;">
+                        {% if not is_new %}
+                        <span class="panel-title"><strong>Created by: </strong>{{ winemaker.author }} <strong>on:</strong> {{ winemaker.created_time|date:"M d, Y @ H:i" }} </span>
+                        {% endif %}
+                    </div>
+                    <!-- fin colonne 12-->
+                </div>
+
+            </div>  {# end of container-fluid #}
+
+        </form>
+
+        <div class="modal fade" id="confirmDelete" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p class="lead">{% trans 'Are you sure you want to delete this comment?' %}</p>
+                    </div>
+        
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            {% trans 'Cancel' %}
+                        </button>
+                        <button type="button" class="btn btn-success confirmDelete" data-dismiss="modal">
+                            {% trans 'Confirm' %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div> {# end of div class="panel" #}
+{% endblock main_content %}
+
+{% block additional_bottom_scripts %}
+<script type="text/javascript" src="{% static 'assets/javascripts/jquery.unveil.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/image-manager.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/sortable-manager.js' %}"></script>
+
+
+
+<!--<script src="{% static 'assets/javascripts/list-item-operations.js' %}"></script>-->
+<script type="text/javascript" src="{% static 'assets/javascripts/edit/edit.winemaker.js' %}"></script>
+<script src="{% static 'assets/javascripts/lists/list.pipeline.js' %}"></script>
+
+<!--<script type="text/javascript" src="{% static 'assets/javascripts/edit/edit.winemaker.list.wineposts.js' %}"></script>-->
+<script type="text/javascript" src="{% static 'assets/javascripts/edit/edit.winemaker.list.wineposts.pro.js' %}"></script>
+
+<script src="{% static 'assets/javascripts/tinymce.min.js' %}"></script>
+<script src="{% static 'assets/javascripts/edit/edit.description.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/pdg-widget.js' %}"></script>
+<script src="{% static 'assets/javascripts/bottom-js-list.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&libraries=places&callback=initMap&language=en" async defer></script>
+{% endblock additional_bottom_scripts %}

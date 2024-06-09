@@ -1,0 +1,88 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+src/docker/raisin-2022-04-29-12_00_01.sql
+# C extensions
+*.so
+# Distribution / packaging
+.Python
+src/data/android-*
+
+bin/
+build/
+processed_images/
+extraction
+dist/
+processed_images
+lib/
+*.egg-info/
+*.egg
+.installed.cfg
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+logs
+logs/*
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# Django stuff:
+*.log
+*.pot
+
+.DS_Store
+.idea
+Thumbs.db
+
+# static/
+src/static/
+
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+bower_components
+.sass-cache
+node_modules
+
+commands/media/
+src/media/
+media/
+src/image_filepath
+
+src/celerybeat-schedule.db
+
+# ENV
+src/raisin/.env
+src/raisin/.env_dev
+.venv/
+
+temp.py
+SET_IN_LOCAL*
+GDAL-*
+image_filepath
+src/celerybeat.pid
+src/celery.pid
+src/dump.rdb
+src/docker-compose.local.yml
+src/docker-compose-local.yml
+src/docker/data/
+src/docker-compose.db-dev.yml
+src/.pytest_cache
+src/data

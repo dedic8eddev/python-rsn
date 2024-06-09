@@ -1,0 +1,248 @@
+{% extends "base/layout.html" %}
+
+{% load static %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% load web_extras %}
+
+{% block title %}Places - Place edition - Raisin{% endblock %}
+
+{% block additional_scripts %}
+
+
+    <style type="text/css">
+        .missing-fields-info {
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .missing-fields-info ul li {
+            display: none;
+        }
+
+        h2, h3 {
+            font-weight: bold;
+        }
+        .city_will_be_created {
+            color: red;
+            margin-left: 20px;
+            display: none;
+        }
+    </style>
+    <script>
+        var is_new = {% if is_new %} true {% else %} false {% endif %};
+
+        {% if is_new %}
+            var url_current_images_ajax = '{% url 'current_images_place_temp_ajax' id=form.images_temp_dir.value %}';
+            var url_image_delete_ajax = '{% url 'delete_image_place_temp_ajax' dir_name=form.images_temp_dir.value  %}';
+            var url_image_upload_ajax = '{% url 'image_upload_place_temp_ajax' %}';
+
+            var place_id = null;
+            var subscription_id = null;
+            var url_update_ordering_ajax = null;
+            var ajax_related_lists_url = null;
+
+            var url_current_winelists_ajax  = "{% url 'get_winelist_temp_items_ajax' pid=form.images_temp_dir.value %}";
+            var url_winelist_upload_ajax = "{% url 'upload_winelist_item_ajax' %}";
+            var url_winelist_delete_ajax = "{% url 'delete_winelist_item_ajax' %}";
+            var url_winelist_update_ajax = "{% url 'update_winelist_item_ajax' %}";
+            var url_winelist_refresh_place_score_ajax = null;
+        {% else %}
+            var url_current_images_ajax = '{% url 'current_images_place_ajax' id=place.id %}';
+            var url_image_delete_ajax = '{% url 'delete_image_place_ajax'  %}';
+            var url_image_upload_ajax = '{% url 'image_upload_place_ajax' %}';
+
+            var place_id = {{ place.id }};
+
+            {% if place.subscription %}
+              var subscription_id = '{{ place.subscription.id }}';
+              var customer_id = '{{ place.subscription.customer.id }}';
+            {% else %}
+              var subscription_id = null;
+              var customer_id = null;
+            {% endif %}
+
+            var chargebee_url = '{% get_chargebee_url %}';
+            var url_update_ordering_ajax =  '{% url 'image_update_ordering_place_ajax' %}';
+            var ajax_related_lists_url = "{% url 'place_related_lists_ajax' id=place.id %}";
+
+            var url_current_winelists_ajax  = "{% url 'get_winelist_items_ajax' pid=place.id %}";
+            var url_winelist_upload_ajax = "{% url 'upload_winelist_item_ajax' %}";
+            var url_winelist_delete_ajax = "{% url 'delete_winelist_item_ajax' %}";
+            var url_winelist_update_ajax = "{% url 'update_winelist_item_ajax' %}";
+            var url_winelist_refresh_place_score_ajax = "{% url 'refresh_place_score_ajax' pid=place.id %}";
+            var url_subscription_ajax = "{% url 'get_subscription_details' %}";
+        {% endif %}
+
+    </script>
+    <script src="{% static 'assets/javascripts/jquery.businessHours.min.js' %}" type="text/javascript"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.2.17/jquery.timepicker.min.js"></script>
+
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/mode/xml/xml.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/2.36.0/formatting.min.js"></script>
+
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2sCS5QpgQQOmMYtkWPR8-_8hXFJ8nDdk&libraries=places">-->
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2sCS5QpgQQOmMYtkWPR8-_8hXFJ8nDdk&libraries=places&callback=initMap" async defer></script>-->
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADLcHWBMa-p_4mqGxApSuWl7eN2DHjT_I&libraries=places&callback=initMap" async defer></script>-->
+
+    <script src="{% static 'assets/javascripts/edit/edit.place.autocomplete2.js' %}" ></script>
+
+    <script src="{% static 'assets/javascripts/edit/edit.place.initmap2.js' %}" ></script>
+    <script src="{% static 'assets/javascripts/jquery-ui-sortable.min.js' %}" type="text/javascript"></script>
+    <!--<script src="{% static 'assets/javascripts/edit/init-sortable.js' %}" type="text/javascript"></script>-->
+
+
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAS9w_qO694LYhLjhP6jOTaS1B2TocFb-w&libraries=places&callback=initAutocomplete" async defer></script>-->
+
+{% endblock additional_scripts %}
+
+
+{% block additional_styles %}
+    <!-- Opening hours gendelf.github.io/jquery.businessHours -->
+<!--    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.2.17/jquery.timepicker.min.css"/>-->
+<!--    <link rel="stylesheet" type="text/css" href="{% static 'assets/stylesheets/jquery.businessHours.css' %}" />-->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/stylesheets/edit/place.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/stylesheets/edit/ocr.css' %}" />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/stylesheets/ekko-lightbox.min.css' %}" />
+
+
+    <!-- map google  -->
+     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <meta charset="utf-8">
+        <style>
+
+        </style>
+    <!-- fin map google  -->
+
+    <!-- include codemirror (codemirror.css, codemirror.js, xml.js, formatting.js)-->
+            <!--<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.min.css" />-->
+            <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/blackboard.min.css">-->
+            <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/monokai.min.css">-->
+{% endblock additional_styles %}
+
+{% block main_content %}
+    <div class="panel" style="font-size:16px!important;">
+        <form id="placeform" novalidate accept-charset="UTF-8" action="{{ action_url }}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {{ form.status }}
+            {{ form.images_temp_dir }}
+
+            {{ form.full_street_address }}
+            {{ form.street_address }}
+            {{ form.house_number}}
+            {{ form.zip_code }}
+            {{ form.city }}
+            {{ form.country }}
+            {{ form.country_iso_code }}
+            {{ form.state }}
+
+            {{ form.latitude }}
+            {{ form.longitude }}
+
+            {{ form.pin_latitude }}
+            {{ form.pin_longitude }}
+
+            {{ form.image_ordering }}
+
+            {% include 'base/elements/edit/pdg-widget-place.html' %}
+
+            <div class="container-fluid">
+                <!-- ------------------------------- information and opening hours ------------------------- -->
+
+                <div class="row">
+                    <br>
+                    <div class="col-sm-12">
+                        <ul id="uidemo-tabs-default-demo" class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#information" data-toggle="tab">Information</a>
+                            </li>
+
+                            <li>
+                                <a href="#subscription-layer" data-toggle="tab">Subscription</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content tab-content-bordered" style="margin-bottom:10px;">
+                            <div class="tab-pane fade in active" id="information" style="text-align:left;">
+                              {% include 'base/elements/edit/place-information.html' %}
+                            </div>
+                            <div class="tab-pane fade" id="subscription-layer" style="text-align: left;">
+                              {% include 'base/elements/edit/place-subscription.html' %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end of container fluid -->
+        </form>
+    <!-- fin colonne 12-->
+    </div><!-- end of profile-full-name -->
+
+
+
+<div id="modal_is_complete" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Some important fields are missing:</h3>
+            </div>
+            <div class="modal-body missing-fields-info">
+                <ul>
+                    <li id="info-li-name">Name</li>
+                    <li id="info-li-type">Activity / establishment type (bar / wine shop / restaurant)</li>
+                    <li id="info-li-address">Address</li>
+                </ul>
+
+                <button id="ui-bootbox-pp-no" class="btn btn-lg btn-danger" onclick="cancel_save(); return false;">Return and fill them up.</button>&nbsp;&nbsp;&nbsp;
+                <button id="ui-bootbox-pp-yes" class="btn btn-lg btn-success" onclick="confirm_save(); return false;">Publish anyway</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="addKeyword" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+            <div class="f18">This keyword will be excluded from the Natural Wine List Analyser.  Please, update the related page accordingly: <b><div class="keywordList"></div></b></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <button type="button" class="btn btn_add_keyword"  data-dismiss="modal">Yes</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock main_content %}
+
+{% block additional_bottom_scripts %}
+
+<script type="text/javascript" src="{% static 'assets/javascripts/image-manager.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/sortable-manager.js' %}"></script>
+<script src="{% static 'assets/javascripts/list-item-operations.js' %}"></script>
+<script src="{% static 'assets/javascripts/edit/edit.place.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/javascripts/tinymce.min.js' %}"></script>
+<script src="{% static 'assets/javascripts/edit/edit.description.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/pdg-widget.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&libraries=places&callback=initMap&language=en" async defer></script>
+<script src="{% static 'assets/javascripts/list-item-operations.js' %}"></script>
+<script src="{% static 'assets/javascripts/bottom-js-list.js' %}"></script>
+<script src="{% static 'assets/javascripts/get-subscription-details.js' %}"></script>
+<script src="{% static 'assets/javascripts/libs/ekko-lightbox.4.0.1.min.js' %}"></script>
+
+{% verbatim %}
+
+
+{% endverbatim %}
+
+
+
+
+{% endblock additional_bottom_scripts %}

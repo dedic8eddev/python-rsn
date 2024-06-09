@@ -1,0 +1,60 @@
+{% extends "base/layout.html" %}
+
+{% load static %}
+
+{% block title %}Users - Raisin{% endblock %}
+
+{% block main_content %}
+
+{% verbatim %}
+<script>
+    var url_get_user_items_ajax = "{% endverbatim %}{% url 'get_user_items_ajax' %}{% verbatim %}";
+    var url_users_ban_ajax = '{% endverbatim %}{% url 'users_ban_ajax' %}{% verbatim %}';
+</script>
+{% endverbatim %}
+
+<script src="{% static 'assets/javascripts/lists/list.pipeline.js' %}"></script>
+<script src="{% static 'assets/javascripts/lists/list.users.js' %}"></script>
+
+<div class="table table-striped vmiddle" style="font-size:14px;">
+    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="jq-datatables-example">
+        <thead>
+            <tr>
+                <th style="width:15px;"><br><input type="checkbox" id="toggle-all" name="check-all" /> </th>
+                <th>User</th>
+                <th>Full Name</th>
+                <th>E-mail</th>
+                <th>Posts</th>
+                <th>Star Reviews</th>
+                <th>Account created</th>
+                <th>Status</th>
+                <th>Language</th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+</div><!-- end jquery table jhb -->
+
+<div id="action" class="collapse">
+    <div class="bandeau">
+        <h3>Are you sure you want to ban <span class="action_item_number">[XX]</span> selected users ?</h3>
+        <button id="ui-bootbox-ban" class="btn btn-lg btn-info">BAN</button>&nbsp;&nbsp;&nbsp;
+        <button id="ui-bootbox-cancel" class="btn btn-lg btn-cancel">Cancel</button>&nbsp; &nbsp;
+        Their accounts will be blocked.
+    </div>
+</div>
+
+<div id="banuser" class="collapse">
+    <div class="bandeau" >
+        <h3>Are you sure you want to ban this user?</h3>
+        <button id="ui-bootbox-ban-one" class="btn btn-lg btn-info">BAN</button>&nbsp;&nbsp;&nbsp;
+        <button id="ui-bootbox-cancel-one" class="btn btn-lg btn-cancel">Cancel</button>&nbsp; &nbsp;
+        His/her account will be blocked.
+    </div>
+</div>
+
+{% endblock %}
+
+{% block additional_bottom_scripts %}
+    {% include 'base/elements/bottom_js_list.html' %}
+{% endblock additional_bottom_scripts %}

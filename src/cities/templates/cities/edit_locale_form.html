@@ -1,0 +1,128 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'assets/stylesheets/added-jhb.css' %}" />
+<div class="panel-body text-left">
+    <div class="row">
+        <div class="col-md-3">
+            {% if object.image %}
+            <img src="{{ object.get_image_url }}" alt="{{ object.name }}" width="200" height="200">
+            {% else %}
+            <img src="{% static 'cities/images/untitled.png' %}" alt="{{ object.name }}" width="200" height="200">
+            {% endif %}
+            <input type="file" name="image">
+
+            <div class="panel panel-info mt-4">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Author - Info</h3>
+                    <div class="panel-heading-controls">
+                        <div class="panel-heading-icon"><i class="fa fa-user-circle" aria-hidden="true"></i></div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group row">
+                                <label for="TEXT" class="col-sm-4 control-label"></label>
+                                {% if object.author and object.author.image %}
+                                <div class="col-sm-12">
+                                    <img src="{{ object.author.get_image_url }}" data-toggle="tooltip" title=""
+                                        data-placement="bottom" width="120" height="120">
+                                </div>
+                                {% else %}
+                                <div class="col-sm-12">
+                                    <img src="https://cms.raisin.digital/static/assets/img/missing.gif"
+                                        data-toggle="tooltip" title="" data-placement="bottom" width="120" height="120">
+                                </div>
+                                {% endif %}
+                            </div>
+                            <!-- / Picture result -->
+                            <!-- Picture -->
+                            <div class="form-group row">
+                                <label for="author__image" class="col-sm-4 control-label">Picture</label>
+                                <div class="col-sm-8">
+                                    <input type="file" id="author__image" name="author__image">
+                                </div>
+                            </div>
+                            <!-- Picture -->
+
+                            <div class="form-group row">
+                                <label for="fullname" class="col-sm-4 control-label">Full Name</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" style="width:100%;" id="fullname"
+                                        name="author__name" placeholder="Full Name" value="{{ object.author.name }}">
+                                </div>
+                            </div>
+                            <!-- / Full Name -->
+
+                            <div class="form-group row">
+                                <label for="url" class="col-sm-4 control-label">URL</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" style="width:100%;" id="url"
+                                        name="author__url" placeholder="http://www.website.com"
+                                        value="{{ object.author.url }}">
+                                </div>
+                            </div> <!-- /URL -->
+
+                            <div class="form-group row">
+                                <label for="TEXT" class="col-sm-4 control-label">Author's descrip.</label>
+                                <div class="col-sm-8">
+                                    <textarea class="form-control" style="width:100%;" id="TEXT"
+                                        name="author__description">{{ object.author.description|default:'' }}</textarea>
+                                </div>
+                            </div> <!-- / .form-group -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-1">
+            <input style="display: none" type="checkbox" name="published_{{ language_code }}" id="published_flag"
+                {% if published %}checked="true" {% endif %}>
+            <div class="edit-page-title-label">
+                <div><label for="title_{{ language_code }}" style="text-align:left;">Title (H1) -
+                        {{ language_code|upper }}:</label>
+                    You have <b><label id="myCounter1">{{ title|length }}</label></b> characters left <label
+                        id="left_limit1">200</label>
+                </div>
+                {% if new_raisin_url %}<div>
+                    <a href="{{new_raisin_url}}" target="_blank" class="website-href">
+                        <i class="fa fa-eye"></I>
+                    </a></div>
+                    {% endif %}
+                
+            </div>
+            <textarea class="inputtextfield form-control limit-input title_field" maxlength="200"
+                data-left="left_limit1" data-counter="myCounter1" id="title_{{ language_code }}"
+                name="title_{{ language_code }}" rows="1" wrap="physical" value="Toulon: down with natural wine lovers!"
+                cols="40">{{ title }}</textarea>
+
+            <br>
+            <label for="meta_description_{{ language_code }}" style="text-align:left;">META DESCRIPTION -
+                {{ language_code|upper }}:</label>
+            You have <b><label id="myCounter2">{{ meta_description|length }}</label></b> characters left <label
+                id="left_limit2">300</label>
+            <br>
+            <textarea class="inputtextfield form-control limit-input description_field" maxlength="300"
+                data-left="left_limit2" data-counter="myCounter2" id="meta_description_{{ language_code }}"
+                name="meta_description_{{ language_code }}" rows="3" wrap="physical"
+                cols="40">{{ meta_description }}</textarea>
+            <br>
+            <div class="form-group">
+                <label for="description_{{ language_code }}">CONTENT - {{ language_code|upper }}:</label>
+                <div class="form-group">
+                    <textarea class="inputtextfield form-control limit2" id="description_{{ language_code }}"
+                        id="tiny-mce" name="description_{{ language_code }}" rows="10" wrap="physical"
+                        cols="40">{{ description }}</textarea>
+                    <!--  Use tiny editor on events page -->
+                    {#                                <img src="../img/use-tiny-editor-on-events-pages.png" alt="Use tiny editor on events page" width="930" height="310">#}
+                </div>
+            </div>
+            {% if form.admin_level %}
+            <div>
+                <label>Create districts for this city:</label>
+                {{ form.admin_level }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

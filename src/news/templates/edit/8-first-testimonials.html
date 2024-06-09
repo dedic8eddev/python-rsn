@@ -1,0 +1,47 @@
+
+<div class="row mt-30">
+    <div class="col-sm-12">
+        <div class="text-left">
+            <h2>Add Venues’ Testimonial on homepage:</h2>    
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group" id="selected_venue_selector">
+                        <select name="selected_venue" class="form-control" id="id_selected_venue" 
+                        tabindex="-1" aria-hidden="true">
+                        </select>
+                    </div>   
+                </div>
+                <div class="col-md-2">
+                    <div id="addDelButtons">
+                        <input type="button" id="btnAdd" class="btn btn-success" value="Add testimonial">
+                    </div>    
+                </div>
+            </div> 
+            <div class="panel todo-tasks mt-30">
+                <div class="panel-heading">
+                    <h3><i class="fa fa-tasks"></i> 8 First Venues’ Testimonials Featured</h3>
+                </div>
+                <div class="panel-body ui-sortable" id="sortable-list">
+                    {% for ft in featured_testimonials %}
+                        <div class="task" data-title="{{ft.id}}" id="task{{ft.id}}">
+                            <div class="fa fa-arrows-v task-sort-icon"></div>
+                            <div class="action-checkbox">
+                                <input type="checkbox" class='featred_testimonial_item' id="todo{{ft.id}}" name="featred_testimonial_item" value="{{ft.id}}">                                    
+                                <label for="todo{{ft.id}}" class="task-title">
+                                    {{ ft.testimonial.default_username }} - {{ft.testimonial.default_title}}
+                                </label>
+                            </div>
+                        </div>
+                    {% endfor %}                    
+                </div>
+                  
+                <input type="hidden" name="sort_order" id="sort_order" />
+                <div class="panel-footer clearfix">
+                    <div id="addDelButtons">
+                        <input type="button" id="btnDelFeaturedTestimonial" class="btn btn-warning" value="remove testimonial">
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>

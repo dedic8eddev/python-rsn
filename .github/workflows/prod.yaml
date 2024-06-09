@@ -1,0 +1,23 @@
+name: nwla_refactoring
+
+on:
+  push:
+    branches: [ nwla_refactoring ]
+
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: executing remote ssh commands using ssh key
+      uses: appleboy/ssh-action@master
+      with:
+        host:  "88.198.18.28"
+        username: ubuntu
+        key: ${{ secrets.PR }}
+        port: 22
+        script: cd /home/ubuntu/raisin/repo2 && git pull &&cd src &&  source raisin/bin/activate &&  sudo supervisorctl restart raisin && sudo systemctl restart celery && sudo systemctl restart celerybeat
+
+

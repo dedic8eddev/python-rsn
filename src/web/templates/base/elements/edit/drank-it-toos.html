@@ -1,0 +1,14 @@
+<div class="tab-pane fade widget-followers" id="profile-tabs-following">
+    {% if not is_new and drank_it_toos %}
+        {% for drank_it_too in drank_it_toos %}
+        <div class="follower">
+            <img src="{{ drank_it_too.author_image }}" alt="" class="follower-avatar">
+            <div class="body">
+                <a href="{% url 'edit_user' id=drank_it_too.author_id %}" class="follower-name">{{ drank_it_too.author }}</a>
+ - <a href="{% url 'edit_user' id=drank_it_too.author_id %}" class="follower-username">@{{ drank_it_too.author }}</a>
+            </div>
+        </div>
+
+        {% endfor %}
+    {% endif %}
+</div> <!-- / .tab-pane -->

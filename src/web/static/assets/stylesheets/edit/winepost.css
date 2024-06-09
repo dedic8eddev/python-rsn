@@ -1,0 +1,417 @@
+.place-autocomplete-suggestion, .place-autocomplete-empty {
+    cursor: pointer;
+    position: relative;
+    min-width: 330px;
+    padding: 10px;
+    background: white;
+    margin-bottom: 0px;
+    border: 1px solid #dddddd;
+}
+
+.place-autocomplete-suggestion:hover{
+    background: lightblue;
+}
+
+.place-autocomplete-suggestion img {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 70px;
+    height: 70px;
+    border-radius: 5px;
+}
+
+.dz-processing{
+    display: flex;
+    flex-direction: column;
+    color: transparent !important;    
+	line-height: 1px;
+}
+.dz-processing img{
+	width: 100px;
+	margin: 0 auto;
+}
+.dz-nopreview {
+    line-height: 20px;
+}
+.dz-processing .text-danger,.dz-processing{
+    color: transparent !important;   
+}
+.place-autocomplete-suggestion .geo-details {
+    min-height: 80px;
+    padding-left: 80px;
+}
+
+.place-autocomplete-suggestion .geo-details h3{
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 0;
+    margin-top: 3px;
+}
+
+.place-autocomplete-suggestion .geo-details h4{
+    font-size: 13px;
+    font-weight: normal;
+    padding-top: 0;
+    margin-top: 3px;
+}
+
+.place-autocomplete-empty {
+    min-width: 310px;
+    cursor: pointer;
+}
+
+.place-autocomplete-empty p{
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.img-winepost {
+    width: 340px;
+    height: 340px;
+    border: 1px solid #e4e4e4;
+}
+
+.small-checkbox-with-label { }
+
+.small-checkbox-with-label input {
+    margin-top:9px;
+    margin-right: 5px;
+}
+
+.small-checkbox-with-label label { }
+
+.geolocation-input-row{
+    padding-bottom: 15px;
+}.
+
+.geolocation-input-row input{
+    width: 330px;
+}
+
+.geolocation-input-row a{
+    margin-left: 10px;
+}
+
+.pixel-file-input {
+    margin-top: 5px;
+    width: 340px;
+}
+
+.error-field{
+    border-color: red;
+}
+
+.title-bar-main{
+    font-size: 13px;
+}
+.title-bar-buttons, .title-bar-saved-by{
+    font-size: 12px;
+}
+
+.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style><style>
+#demo-themes {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    border-bottom-left-radius: 5px;
+    overflow: hidden;
+}
+
+#demo-themes .demo-themes-row {
+    display: block;
+}
+
+#demo-themes .demo-theme {
+    display: block;
+    float: left;
+    text-align: center;
+    width: 50%;
+    padding: 25px 0;
+    color: #888;
+    position: relative;
+    overflow: hidden;
+}
+
+#demo-themes .demo-theme:hover {
+    color: #fff;
+}
+
+#demo-themes .theme-preview {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    overflow: hidden !important;
+}
+
+#demo-themes .theme-preview img {
+    width: 100%;
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+}
+
+#demo-themes .demo-theme .overlay {
+    background: #1d1d1d;
+    background: rgba(0,0,0,.8);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -100%;
+    width: 100%;
+}
+
+#demo-themes .demo-theme span {
+    position: relative;
+    color: #fff;
+    color: rgba(255,255,255,0);
+}
+
+#demo-themes .demo-theme span,
+#demo-themes .demo-theme .overlay {
+    -we bkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+}
+
+#demo-themes .demo-theme.active span,
+#demo-themes .demo-theme:hover span {
+    color: #fff;
+    color: rgba(255,255,255,1);
+}
+
+#demo-themes .demo-theme.active .overlay,
+#demo-themes .demo-theme:hover .overlay {
+    left: 0;
+}
+
+.select2-selection__rendered {
+    font-size: 13px;
+    width: 100%;
+}
+
+.select2-container .select2-selection--multiple{
+    max-height: 30px;
+}
+
+.select2-search__field{
+    max-height: 23px;
+}
+
+.select2-selection__choice {
+    max-height: 23px;
+    line-height: 25px !important;
+    margin-top: 0px;
+    margin-bottom: 3px;
+    padding: 0 5px 5px 7px !important;
+}
+
+.select2-results__option--highlighted {
+    color: #fff !important;
+    background-color: #bca1d2 !important;
+}
+
+.all-winepost-years > ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.all-winepost-years > ul li {
+    float: left;
+}
+
+.all-winepost-years > ul li span,
+.all-winepost-years > ul li a,
+.all-winepost-years > ul li a:hover,
+.all-winepost-years > ul li a:visited {
+    font-size: 11px;
+    float: left;
+    margin-right: 15px;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a.wp-sel-year, a.wp-sel-year:hover, a.wp-sel-year:visited {
+    text-decoration: underline!important;
+}
+
+a.re-upload-image-btn, a.re-upload-image-btn:visited {
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a.re-upload-image-btn:hover {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+
+.natural_or_other {
+    font-weight: bold;
+}
+
+.natural_or_other > input {
+    margin-right: 5px;
+}
+
+.natural_or_other > span {
+    margin-right: 10px;
+}
+
+
+.vuf-big-arrow *, a.vuf-big-arrow, a.vuf-big-arrow:visited, a.vuf-big-arrow:hover, a.vuf-big-arrow:active {
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+}
+.year-item {
+    margin-left: 8px;
+    margin-right: 6px !important;
+}
+.year-delete-btn {
+    margin-right: 4px;
+}
+.year-item-sep {
+    margin-left: 0;
+    margin-right: 0;
+}
+.comment_info {
+    display: flex;
+    margin-top: 2px;
+}
+.comment_info p{
+    font-weight: 400;
+    display: none;
+}
+.comment_info.no_comments p{
+    display: inline-block;
+}
+.comment_info > *{
+    margin-left: 10px;
+}
+.addComment {
+    color: #6e329d !important;
+    text-align: left;
+    display: block;
+    line-height: 20px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+.addComment i{
+    margin-right: 5px;
+}
+.commentList {
+    display: none;
+    max-height: 500px;
+    overflow: auto;
+    width: 100%;
+}
+.commentList .table {
+    border: 1px solid #ebebeb;
+}
+.commentList td {
+    text-align: left;
+}
+.commentList td.commentAction,.commentList th:last-child{
+    text-align: right;
+}
+.commentAction a{
+    margin-left: 5px;
+}
+.commentAction {
+    width: 70px;
+    padding-left: 0 !important;
+}
+.info_inputs .form-group label{
+    text-align: right;
+}
+.chspace {
+    display: flex;
+    align-items: center;
+}
+.commentDate {
+    font-size: 14px;
+    opacity: .6;
+    margin-bottom: 0;
+}
+#commentList tr:nth-of-type(even) td {
+    border: 0 !important;
+}
+.commentList th {
+    background: #f3f3f3;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600!important;
+}
+.commentMessage {
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 10px;
+    word-break: break-all;
+    white-space: pre-wrap;
+}
+.commentBy a {
+    color: #6e329d;
+    font-size: 14px;
+}
+textarea.form-control {
+    padding: 15px;
+    resize: none;
+    font-size: 14px;
+}
+.comment_box{
+    display: none;
+}
+.actionButtons button {
+    border: 1px solid #5bc0de;
+    color: #fff;
+    display: inline-block;
+    margin: 15px 0;
+    width: 70px;
+    line-height: 35px;
+    height: 35px;
+    text-align: center;
+    border-radius: 4px;
+    background-image: linear-gradient(to bottom,#5fc2df 0,#46b8da 100%);
+    background-repeat: repeat-x;
+    padding: 0;
+    font-size: 15px;
+}
+.actionButtons{
+    text-align: left;
+}
+.actionButtons button.btn_updateComment{
+    display: none;
+}
+.comment_by_team {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #e1dddd;
+}
+.modal-body p {
+    font-size: 16px;
+    line-height: 24px;
+    margin: 20px 0 !important;
+    text-align: left;
+}
+#confirmDelete .modal-dialog {
+    max-width: 450px;
+}
+#confirmDelete .modal-footer {
+    border-top: 0;
+    padding-top: 0;
+}
+.mt-3{
+    margin-top: 1.5rem;
+}

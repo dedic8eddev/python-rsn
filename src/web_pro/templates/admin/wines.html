@@ -1,0 +1,321 @@
+{% extends 'pro_base/layout.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load i18n %}
+
+{% block meta %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="TheAdmin - Responsive admin and web application ui kit">
+    <meta name="keywords" content="admin, dashboard, web app, sass, ui kit, ui framework, bootstrap">
+{% endblock meta %}
+
+{% block title %}{%trans 'Wine - Raisin Pro' %}{% endblock %}
+
+{% block additional_fonts %}
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
+{% endblock additional_fonts %}
+
+{% block additional_styles %}
+    <style>
+        .mbm-7 {
+            margin-bottom: 7px;
+        }
+
+        .fs-16 img {
+            margin-bottom: 2px;
+        }
+    </style>
+{% endblock additional_styles %}
+
+{% block additional_scripts %}
+    <script type="text/javascript">
+    var language = '{{ user_lang }}';
+    var option_text = "{% trans '➜ Click HERE to add this wine 🍷'  %}";
+    </script>
+    <script type="text/javascript" src="{% static 'assets/javascripts/handlebars.min.js' %}"></script>
+    <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+    <script src="{% static 'pro_assets/js/handlers/wine_food/tableHandler.js' %}"></script>
+    <script src="{% static 'pro_assets/js/handlers/wine_food/editWineHandler.js' %}"></script>
+    <script src="{% static 'pro_assets/js/handlers/heic.js' %}"></script>
+    <script src="{% static 'pro_assets/js/handlers/wine_food/imageInputHandler.js' %}"></script>
+    <script src="{% static 'pro_assets/js/handlers/wine_food/inputHandler.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    {% verbatim %}
+
+    <script id="wine-template" type="text/x-handlebars-template">
+      <a class="media media-single wineclass  wine-status-{{status.[status_short]}}" href="#qv-user-details" data-toggle="quickview" id="{{id}}" name="{{post_id}}" status="{{status.[status_short]}}">
+        <img class="w-130px rounded" src="{{thumb_image }}" alt="VN (red)">
+        <div class="media-body wines">
+          <p class="fs-16"><strong>{{name}}</strong></p>
+          <p class="domain fs-15 mtn-5" style="color: {{{style_color}}} !important">{{domain}}</p>
+          <p class="name fs-14 mtn-5">{{winemaker_name}}</p>
+          <p class="name fs-14 mtn-5"><b>{{year}}</b></p>
+          <p class="name fs-14 mtn-5">&nbsp;</p>
+        </div>
+        <div class="wine_badge_date">
+            <small class="bottom-right-icon">{{modified_time_human}}</small>
+            <span class="top-right-icon">
+            <img src="{{status.[badge]}}" data-toggle="tooltip" data-placement="left" title="" data-tooltip-type="{{status.[status_short]}}" data-original-title="{{status.[description]}}">
+            </span>
+        </div>
+      </a>
+    </script>
+
+    {% endverbatim %}
+
+    <script type="text/javascript">
+        var overscopePage = 'wines';
+
+        var missingFoodImage = "{% static 'pro_assets/img/food/food-void-min.png' %}",
+            missingWineImage = "{% static 'pro_assets/img/wines/void.gif' %}",
+            missingImage = "{% static 'pro_assets/img/missing-image.gif' %}",
+            winePostUrl = '{% url "pro_get_winepost" post_id=12345%}',
+            wineListUrl = '/pro/ajax/v2/wineposts/?&place_id={{pid}}';
+            foodListUrl = '/pro/ajax/v2/foodposts/?&place_id={{pid}}';
+            userLang = '{{user_lang}}';
+            place_id = '{{pid}}';
+        var section_titles = {
+            'allcolors': "{{ section_titles.wines }}",
+        }
+
+        var you_search_text = "{{ you_search_text }}";
+
+        // Pagination: Number of pages for each wine list
+        var redPages = 0,
+            whitePages = 0,
+            pinkPages = 0,
+            sparklingPages = 0,
+            orangePages = 0;
+
+        //  Typeahead:  Results for typeahead source
+        var winemakersArray = get_ajax_list_data("{% url 'pro_typeahead' option='winemakers' %}"),
+            wineDomainArray = get_ajax_list_data("{% url 'pro_typeahead' option='domain' %}");
+        var domain_url = '{% url 'autocomplete_domain_by_winemaker_ajax' %}'
+
+        // Keeps track of user changes on page - it's required for invoking SAVE BEFORE LEAVING modal
+        var changed = 0;
+    </script>
+    <script src="{% static 'pro_assets/js/handlers/wine_food/wineHandler.js' %}"></script>
+
+{% endblock additional_scripts %}
+
+{% block body %}
+    {% include 'pro_base/navigation.html' %}
+    <!-- Main container -->
+    <main class="main-container">
+        <div class="main-content">
+            <div class="row">
+                <div class="col-md-4 offset-md-8">
+                    <form action="#" class="lookup lookup-right">
+                        <input type="text" id="list-search-allcolors" placeholder="{% trans 'Search' %}">
+                        <span class="clear-search input-group-text" id="clear-search" style="display: inline;"><i class="fa fa fa-times"></i></span>
+                    </form>
+                </div>
+            </div>
+            <br>
+            {% for color, config in color_config.items %}
+            <div class="media-list media-list-divided media-list-hover" data-provide="selectall" id="{{color}}">
+                <!-- wines list -->
+                <div class="card products-card">
+                    <div class="card-title">
+                        <header class="flexbox align-items-center media-list-header bg-transparent b-0 pl-20">
+                            <div class="flexbox align-items-center">
+                                <h2>
+                                    <img src="{{ config.icon }}" alt="wine icon {{color}}" width="26" height="26" class="mbm-7">
+                                    {{config.capitalised}}
+                                </h2>
+                                <div class="dropdown" id="{{color}}-sort">
+                                    <select data-provide="selectpicker" id="list-select-sorting-{{color}}">
+                                        <option value="date" selected>{% trans 'Date' %}</option>
+                                        <option value="name">{% trans 'Wine name' %}</option>
+                                        <option value="winemaker">{% trans 'Winemaker' %}</option>
+                                        <option value="domain">{% trans 'Domain' %}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="row" id="result-{{color}}">
+                        <div class="spinner-dots-list" style="display: none"><img src="/static/pro_assets/img/preloading.gif" alt="preloading Raisin Pro website" width="60" height="100"></div>
+                        <div class="col-lg-6" id="result-{{color}}1"></div>
+                        <div class="col-lg-6" id="result-{{color}}2"></div>
+                    </div>
+                    <footer class="list-footer flexbox align-items-center py-20 px-20" id="footer-{{color}}">
+                        <div class="nb-per-page">
+                            <label class="text-fader">{% trans 'Show' %}</label>
+                            <select data-provide="selectpicker" id="list-select-per-page-{{color}}">
+                                <option value="10" selected>10</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="1000">{% trans 'All' %}</option>
+                            </select>
+                            {% trans 'entries' %}
+                        </div>
+
+                        <nav>
+                            <ul class="pagination" id="pagination-{{color}}"></ul>
+                        </nav>
+                    </footer>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="media-list media-list-divided media-list-hover" data-provide="selectall" id="allcolors">
+                <!-- wines list -->
+                <div class="card products-card">
+                    <div class="card-title">
+                        <header class="flexbox align-items-center media-list-header bg-transparent b-0 pl-20">
+                            <div class="flexbox align-items-center">
+                                <h2 id="category-title-allcolors">
+                                    -
+                                </h2>
+                                <div class="dropdown" id="allcolors-sort">
+                                    <select data-provide="selectpicker" id="list-select-sorting-allcolors">
+                                        <option value="date" selected>{% trans 'Date' %}</option>
+                                        <option value="name">{% trans 'Wine name' %}</option>
+                                        <option value="winemaker">{% trans 'Winemaker' %}</option>
+                                        <option value="domain">{% trans 'Domain' %}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="row" id="result-allcolors">
+                        <div class="spinner-dots-list" style="display: none"><img src="/static/pro_assets/img/preloading.gif" alt="preloading Raisin Pro website" width="60" height="100"></div>
+                        <div class="col-lg-6" id="result-allcolors1"></div>
+                        <div class="col-lg-6" id="result-allcolors2"></div>
+                    </div>
+                    <footer class="list-footer flexbox align-items-center py-20 px-20" id="footer-allcolors">
+                        <div class="nb-per-page">
+                            <label class="text-fader">{% trans 'Show' %}</label>
+                            <select data-provide="selectpicker" id="list-select-per-page-allcolors">
+                                <option value="10" selected>10</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="1000">{% trans 'All' %}</option>
+                            </select>
+                            {% trans 'entries' %}
+                        </div>
+
+                        <nav>
+                            <ul class="pagination" id="pagination-allcolors"></ul>
+                        </nav>
+                    </footer>
+                </div>
+            </div>
+
+            <div class="col-12 h-50px"></div>
+        </div><!--/.main-content -->
+        {% include 'pro_base/footer.html' %}
+    </main>
+
+
+
+    <div class="fab fab-fixed">
+        <a href="#qv-product-add" title="{% trans 'Post Wine' %}" data-provide="tooltip" data-toggle="quickview" class="btn_post">
+            <img src="{% static 'pro_assets/img/glass-wine.svg' %}" alt=""> {% trans 'Post Wine' %}
+        </a>
+    </div>
+
+
+    <!-- WINE Quickview - User detail -->
+    {% include 'admin/elements/edit-wine.html' with show_delete_button=True %}
+    {% include 'admin/elements/add-new-wine.html' %}
+    <!-- END WINE Quickview - User detail -->
+
+
+
+<!--    &lt;!&ndash; Quickview - Product detail &ndash;&gt;-->
+<!--    <div id="qv-product-details" class="quickview quickview-lg">-->
+<!--        <header class="quickview-header">-->
+<!--            <p class="quickview-title lead fw-400">Change product</p>-->
+<!--            <span class="close"><i class="ti-close"></i></span>-->
+<!--        </header>-->
+
+<!--        <div class="quickview-body">-->
+
+<!--            <div class="quickview-block form-type-material">-->
+<!--                <div class="form-group">-->
+<!--                    <input type="text" class="form-control" value="Web design">-->
+<!--                    <label>Name</label>-->
+<!--                </div>-->
+
+<!--                <div class="form-group">-->
+<!--                    <input type="text" class="form-control" value="5000">-->
+<!--                    <label>Cost</label>-->
+<!--                </div>-->
+
+<!--                <div class="form-group">-->
+<!--                    <textarea class="form-control" rows="5">Designing a website with about 5 common pages: Home, Services, Portfolio, About, Contact</textarea>-->
+<!--                    <label>Description</label>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--        </div>-->
+
+<!--        <footer class="p-12 flexbox flex-justified">-->
+<!--            <button class="btn btn-flat btn-secondary" type="button" data-toggle="quickview">Cancel</button>-->
+<!--            <a class="btn btn-flat btn-danger">Remove</a>-->
+<!--            <button class="btn btn-flat btn-primary" type="submit">Save changes</button>-->
+<!--        </footer>-->
+<!--    </div>-->
+    <!-- END Quickview - Product detail -->
+
+
+    <!-- autoshow popup -->
+    <div id="popup-autoshow" class="popup col-6 col-md-4 desktop-only" data-animation="slide-up" data-autoshow="2000" data-autohide="10000">
+        <button type="button" class="close" data-dismiss="popup" aria-label="{% trans 'Close' %}">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="media">
+            <div class="media-body">
+                <h5>{% trans '🍷 POST WINES YOU LOVE!' %}</h5>
+                <p class="mb-0  fs-14"><br>
+                    {% trans "💡 They get featured on Raisin's main screen of users in your area. The more you post, the more you get noticed!<br> 📸 Share as many wine pictures as you wish, to give the best understanding of what you sell!" %}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="save" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="lead"><strong>{% trans 'NEW INFORMATION NOT SAVED!' %}</strong></p>
+                    <p class="lead mb-0">{% trans 'Would you like to save before exiting?' %}</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="dismiss" class="btn btn-secondary" data-dismiss="modal">
+                        {% trans 'NO' %}
+                    </button>
+                    <button type="button" id="no-dismiss" class="btn btn-success" data-dismiss="modal">
+                        {% trans 'YES' %}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="wineAlreadyPosted" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="lead mb-0">{% trans 'This wine has already been posted.' %}</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="dismiss" class="btn btn-secondary" data-dismiss="modal">
+                        {% trans 'Cancel' %}
+                    </button>
+                    <button type="button"  class="btn btn-success btn_add_wine_anyway" data-dismiss="modal">
+                        {% trans 'Confirm' %}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'admin/elements/delete-wine.html' %}
+
+{% endblock body %}

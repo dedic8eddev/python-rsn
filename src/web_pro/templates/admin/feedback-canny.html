@@ -1,0 +1,122 @@
+{% extends 'pro_base/layout.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load i18n %}
+
+{% block meta %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="TheAdmin - Responsive admin and web application ui kit">
+    <meta name="keywords" content="admin, dashboard, web app, sass, ui kit, ui framework, bootstrap">
+{% endblock meta %}
+{% block title %}{% trans 'FEEDBACK' %}{% endblock %}
+{% block additional_fonts %}
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
+{% endblock additional_fonts %}
+{% block additional_styles %}
+    <!-- Styles -->
+    <link href="{% static 'pro_assets/css/core.min.css' %}" rel="stylesheet">
+    <link href="{% static 'pro_assets/css/app.css' %}" rel="stylesheet">
+{% endblock additional_styles %}
+
+{% block additional_scripts %}
+<script>
+$(document).ready(function () {
+  var pid = '{{pid}}';
+  var userid = '{{owner.id}}';
+  var userLang = '{{user_lang}}';
+
+  const firstBoardToken = '{{canny_boards.boards.0.token | safe}}';
+
+  $('.nav a:first').addClass('active')
+
+     // render first board on page load 
+     Canny('render', {
+      boardToken: firstBoardToken && firstBoardToken,
+      basePath: null, //`pro/feedback/${pid}` this is set in navigation.html doesn't need to be set here
+      ssoToken: '{{user_sso_token}}' // See step 3
+    })
+
+  
+  $('.board-link').click(function () {
+    $('.active').removeClass('active')
+    $(this).addClass('active')
+    $('#canny-iframe').remove()
+    Canny('render', {
+      boardToken: $(this).attr('board-token'),
+      basePath: null, //`pro/feedback/${pid}` this is set in navigation.html doesn't need to be set here
+      ssoToken: '{{user_sso_token}}' // See step 3
+    })
+  })
+})
+
+  // Embed the canny widget function that draws iframe with boards
+  !(function (w, d, i, s) {
+    function l() {
+      if (!d.getElementById(i)) {
+        var f = d.getElementsByTagName(s)[0],
+          e = d.createElement(s)
+        ;(e.type = 'text/javascript'),
+          (e.async = !0),
+          (e.src = 'https://canny.io/sdk.js'),
+          f.parentNode.insertBefore(e, f)
+      }
+    }
+    if ('function' != typeof w.Canny) {
+      var c = function () {
+        c.q.push(arguments)
+      }
+      ;(c.q = []),
+        (w.Canny = c),
+        'complete' === d.readyState
+          ? l()
+          : w.attachEvent
+          ? w.attachEvent('onload', l)
+          : w.addEventListener('load', l, !1)
+    }
+  })(window, document, 'canny-jssdk', 'script')
+</script>
+{% endblock additional_scripts %} 
+  {% block body %} 
+    {% include 'pro_base/navigation.html' %}
+
+<!-- Main container -->
+
+
+<main class="main-container">
+  <div class="main-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 tab-content">
+          <div class="card">
+            <h3 class="card-title text-gray">{% trans 'FEEDBACK' %}</h3>
+            <div class="card-body">
+              <header class="header bg-ui-general">
+                <div class="header-action">
+                  <nav class="nav">
+                    {% if canny_boards %} 
+                      {% for board in canny_boards.boards %}
+                          <a
+                            id="{{board.name}}"
+                            class="nav-link board-link"
+                            href="#"
+                            board-token="{{board.token}}"
+                            aria-selected="false"
+                            >{{ board.name }} <strong>({{board.postCount}})</strong></a
+                          >
+                          {% endfor %}
+                    {% else %}
+                    <h3>No boards.</h3>
+                    {% endif %}
+                  </nav>
+                </div>
+              </header>
+              <div data-canny />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock body %}

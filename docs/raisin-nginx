@@ -1,0 +1,60 @@
+upstream raisin_app_server {
+    # fail_timeout=0 means we always retry an upstream even if it failed
+    # to return a good HTTP response (in case the Unicorn master nukes a
+    # single worker for timing out).
+    server unix:/home/raisin/server/gsock/gunicorn.sock fail_timeout=0;
+}
+
+server {
+    # listen   443;
+    listen   8000;
+    server_name localhost;
+
+    # chunked_transfer_encoding off;    client_max_body_size 500M;
+
+    access_log /home/raisin/server/logs/raisin-nginx-access.log;
+    error_log /home/raisin/server/logs/raisin-nginx-error.log;
+
+    # location /static/ {
+    #   alias   /var/www/workspaces/raisin/src/static/;
+    # }
+
+    location /media/ {
+        gzip on;
+        gzip_min_length 1000;
+        gzip_types      text/plain application/xml text/css application/json application/x-javascript image/jpeg image/png image/svg+xml;
+        expires    modified +24h;
+
+        alias   /var/www/raisin/src/media/;
+    }
+
+    location / {
+        gzip on;
+        gzip_min_length 1000;
+        gzip_types      text/plain application/xml text/css application/json application/x-javascript image/jpeg image/png image/svg+xml;
+        expires    modified +24h;
+
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+
+        proxy_redirect off;
+
+        proxy_set_header Host $http_host;        # we don't want nginx trying to do something clever with
+                                                # redirects, we set the Host: header above already.
+
+        if (!-f $request_filename) {
+            proxy_pass http://raisin_app_server;
+            break;
+        }
+
+   }
+
+   # Error pages
+   # error_page 500 502 503 504 /500.html;
+   # location = /500.html {
+   #    root /var/www/raisin/static/;
+   # }
+}
+
+
+

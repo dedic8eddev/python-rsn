@@ -1,0 +1,55 @@
+{% extends "base/layout.html" %}
+
+{% load static %}
+
+{% block title %}Est. Com. - Raisin{% endblock %}
+
+{% block additional_buttons %}
+{% endblock additional_buttons %}
+
+{% block add_new_button %}{% endblock add_new_button %}
+
+{% block main_content %}
+{% verbatim %}
+<script>
+    var url_est_com_items_ajax = "{% endverbatim %}{% url 'get_est_com_items_ajax' %}{% verbatim %}";
+
+    var url_est_com_delete_ajax = '{% endverbatim %}{% url 'est_com_delete_ajax' %}{% verbatim %}';
+    var url_est_com_undelete_ajax = '{% endverbatim %}{% url 'est_com_undelete_ajax' %}{% verbatim %}';
+    var url_est_com_ban_user_ajax = '{% endverbatim %}{% url 'est_com_ban_user_ajax' %}{% verbatim %}';
+    var url_est_com_unban_user_ajax = '{% endverbatim %}{% url 'est_com_unban_user_ajax' %}{% verbatim %}';
+    var url_comments = '{% endverbatim %}{% url 'list_est_comments' %}{% verbatim %}';
+    var url_places = '{% endverbatim %}{% url 'list_places' %}{% verbatim %}';
+    var total_records_places = '{% endverbatim %}{{ total_records_places }}{% verbatim %}';
+    var url_free_glass = '{% endverbatim %}{% url 'list_est_free_glass' %}{% verbatim %}';
+</script>
+{% endverbatim %}
+
+<script src="{% static 'assets/javascripts/lists/list.pipeline.js' %}"></script>
+<script src="{% static 'assets/javascripts/lists/list.est-com.js' %}"></script>
+
+<div class="table table-striped vmiddle">
+    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="jq-datatables-example" >
+        <thead>
+            <tr>
+                <th style="width:15px;"><br><input type="checkbox" id="toggle-all" name="check-all" /></th>
+                <th style="width:45px;">Date</th>
+                <th style="width:150px;">Author</th>
+                <th style="width:45px;">Est. photo</th>
+                <th style="width:200px;">Est. name</th>
+                <th>Description</th>
+                <th>Est. status</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div><!-- end jquery table jhb -->
+
+{% include 'base/elements/lists/action_footer_est_com.html' %}
+
+{% endblock %}
+
+{% block additional_bottom_scripts %}
+    {% include 'base/elements/bottom_js_list.html' %}
+{% endblock additional_bottom_scripts %}

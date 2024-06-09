@@ -1,0 +1,30 @@
+{
+    "sEmptyTable":     "Nessuna fattura disponibile nella tabella.",
+    "sInfo":           "Mostra da _START_ a _END_ di _TOTAL_ elementi",
+    "sInfoEmpty":      "Mostra da 0 a 0 di 0 elementi",
+    "sInfoFiltered":   "(filtrato da _MAX_ totale elementi)",
+    "sInfoPostFix":    "",
+    "sInfoThousands":  ",",
+    "sLengthMenu":     "Mostra _MENU_ elementi",
+    "sLoadingRecords": "Caricamento in corso...",
+    "sProcessing":     "in lavorazione...",
+    "sSearch":         "Cerca :",
+    "sZeroRecords":    "nessuna corrispondenza trovata",
+    "oPaginate": {
+        "sFirst":    "Prima",
+        "sLast":     "Scorsa",
+        "sNext":     "successiva",
+        "sPrevious": "precedente"
+    },
+    "oAria": {
+        "sSortAscending":  ": attivare per ordinare la colonna in ordine crescente",
+        "sSortDescending": ": attivare per ordinare la colonna decrescente"
+    },
+    "select": {
+            "rows": {
+                "_": "%d righe selezionate",
+                "0": "Nessuna linea selezionata",
+                "1": "1 riga selezionata"
+            }
+    }
+}

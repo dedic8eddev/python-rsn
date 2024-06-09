@@ -1,0 +1,75 @@
+{% extends 'pro_base/layout.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load i18n %}
+
+
+{% block title %}Raisin PRO{% endblock %}
+
+{% block additional_styles %}
+    <link href="{% static 'pro_assets/css/page.css' %}" rel="stylesheet">
+{% endblock additional_styles %}
+
+{% block enabled_styles %}
+{% endblock enabled_styles %}
+
+{% block additional_scripts %}
+    <script src="{% static 'pro_assets/js/handlers/login/loginHandler.js' %}"></script>
+{% endblock additional_scripts %}
+
+{% block body_open_tag %}
+    <body class="layout-centered bg-img"
+          style="background-image: url('{% static  "pro_assets/img/bg/fond-raisin.jpg" %}');">
+{% endblock body_open_tag %}
+
+{% block body %}
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="bg-white rounded shadow-7 w-400 mw-100 p-6">
+            <h5 class="mb-7">{% trans 'Sign into your account' %}</h5>
+            <form action="{% url 'pro_login' %}" id="signin-form_id" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.username|add_class:"form-control input-lg"|attr:username_placeholder }}
+                </div>
+                <div class="form-group">
+                    {{ form.password|add_class:"form-control input-lg"|attr:password_placeholder }}
+                    {% if error %}
+                        <p style="color: red"> {{ error }}</p>
+                    {% endif %}
+                </div>
+                <div class="form-group flexbox py-3">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="remember-me" name="checkbox" checked>
+                        <label class="custom-control-label" for="remember-me">{% trans 'Remember me' %}</label>
+                    </div>
+                    <a class="text-muted small-2" style="color: #66B266 !important;"
+                       href="{% url 'pro_reset_password_login_screen' %}">{% trans 'Forgot password?' %}</a>
+                </div>
+            <div class="form-group">
+             <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="terms" checked>
+              <label class="custom-control-label" for="terms" id="terms-label">
+                  <span>
+                      {% trans 'I accept the' %}&nbsp;
+                      <a href="/us/gcu.html" style="text-decoration: underline;">{% trans 'Terms of Service' %}</a>&nbsp;{% trans 'and' %}&nbsp;
+                      <a href="/us/privacy-policy.html" style="text-decoration: underline;">{% trans 'Privacy policy' %}</a>
+                  </span>
+              </label>
+            </div>
+
+          </div>
+                <div class="form-group">
+                    {% if fatal_error %}
+                        <p style="color: red; text-align: center;">{{ fatal_error|safe }}</p>
+                    {% endif %}
+                    <button class="btn btn-block btn-primary" type="submit" id="submit">{% trans 'Login' %}</button>
+                </div>
+            </form>
+            <hr class="w-30">
+            <p class="text-center text-muted small-2">{% trans 'Don\'t have an account?' %} <a href="https://pro.raisin.digital/"
+                                                                                style="color: #66B266">{% trans 'Register here' %}</a></p>
+        </div>
+    </main>
+    <!-- /.main-content -->
+{% endblock body %}

@@ -1,0 +1,167 @@
+{% load widget_tweaks %}
+{% load static %}
+{% load i18n %}
+
+<!-- Quickview - Add wine -->
+<form id="add-form" action="{% url 'pro_post_wine' %}" method="POST" autocomplete="off" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="hidden" id="wine-id-autocomplete-add" name="wineId">
+    <div id="qv-product-add" class="quickview quickview-lg wineslider">
+        <header class="quickview-header">
+            <h3>
+                <p class="quickview-title lead fw-400">{% trans 'Add a new wine' %}</p>
+            </h3>
+            <span class="close"><i class="ti-close"></i></span>
+        </header>
+
+        <div class="quickview-body">
+
+            <div class="quickview-block form-type-material">
+                <div class="row">
+                    <div class="col-sm-4 format-image">
+                        <img class="w-130px h-130px rounded" id="wine-image-add" src="{% static 'pro_assets/img/wines/void.gif' %}" alt="VN (red)">
+                    </div>
+                    <div class="col-sm-8">
+
+                        <div class="file-group file-group-inline">
+                            <button class="btn btn-secondary file-browser" type="button">{% trans 'ADD Image' %}
+                            </button>
+                            <input type="file" id="modify-image-add" name="imageFile" value="">
+                            <p class="mt-10 files-info">
+                                <small>{% trans 'We accept files in PNG, JPG, JPEG or GIF format,<br/>up to 5 MB+' %}</small>
+                            </p>
+                            <p id="extension-error-add" style="display:none; color:#FF0000;">{% trans 'Invalid Image Format.' %}</p>
+                            <p id="size-error-add" style="display:none; color:#FF0000;">{% trans 'Maximum File Size Limit is 5MB.' %}</p>
+                            <p id="missing-image-error-add" style="display:none; color:#FF0000;">{% trans 'Please, provide an image' %} 📷</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <br>
+
+                <div class="form-group">
+                    <div class="typeahead__container" id="typeahead-name">
+                        <div class="typeahead__field">
+                            <div class="typeahead__query" id="wine-name-add">
+                                <input id="add_fake_user_name" name="add_fake_user_name" style="position:absolute; top:-100px;visibility: hidden;" type="text" value="Safari Autofill Me">
+                                <input class="form-control js-typeahead-wines-name" id="n-ame-typeahead-add"  name="n-ame-typeahead" type="search"
+                                    value="" autocomplete="off">
+                                <label>{% trans 'WINE N&zwnj;AME' %}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p id="name-error-add" style="display:none; color:#FF0000;">{% trans 'Select Wine Name.' %}</p>
+
+                <br>
+                <div class="form-group">
+                    <div class="typeahead__container">
+                        <div class="typeahead__field">
+                            <div class="typeahead__query" id="wine-maker-add">
+                                <input class="form-control winemakers-typeahead" id="winemakers-typeahead-add" name="wineWinemaker" type="search" value="" autocomplete="off">
+                                <label>{% trans 'Winemaker' %}</label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <p id="winemakers-error-add" style="display:none; color:#FF0000;">{% trans 'Select Winemaker.' %}</p>
+
+
+                <br>
+                <div class="form-group">
+                    <div class="typeahead__container">
+                        <div class="typeahead__field">
+                            <div class="typeahead__query" id="wine-domain-add">
+                                <input class="form-control domain-typeahead" id="domain-typeahead-add" name="wineDomain" type="search" value="" autocomplete="off">
+                                <label>{% trans 'DOMAIN N&zwnj;AME' %}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p id="domain-error-add" style="display:none; color:#FF0000;">{% trans 'Select Domain.' %}</p>
+
+                <br>
+                <div class="form-group" id="wine-year-add">
+                    <input type="number" min="1000" max="2099" class="form-control" id="wine-year-input-add" name="wineYear" value="">
+                    <label>{% trans 'VINTAGE' %}</label>
+                </div>
+                <p id="year-error-add" style="display:none; color:#FF0000;">{% trans 'Invalid Year Format.' %}</p>
+
+                <br>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group form-type-material form-control-lg" id="wine-color-add" name="wineColor">
+                            <select class="form-control" data-provide="selectpicker" name="wineColor" id="wineColor-add">
+                                <option data-icon="wine-icon ic-red" value="10">{% trans 'Red' %}</option>
+                                <option data-icon="wine-icon ic-white" value="20">{% trans 'White' %}</option>
+                                <option data-icon="wine-icon ic-pink" value="30" selected>{% trans 'Rosé' %}</option>
+                                <option data-icon="wine-icon ic-orange" value="40">{% trans 'Orange' %}</option>
+                            </select>
+                            <label>{% trans 'COLOR' %}</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mt-15">
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="sparkling-add" name="isSparkling">
+                                <label class="custom-control-label lowercase" for="sparkling">
+                                    {% trans 'Sparkling' %}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                <div class="form-group mt-5">
+                    <input type="text" class="form-control" id="wine-grape-variety-add" name="wineGrapeVariety" value="">
+                    <label>{% trans 'Grape Variety' %}</label>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="form-group">
+                            <div class="typeahead__container">
+                                <div class="typeahead__field">
+                                    <div class="typeahead__query">
+                                        <input class="form-control" name="wine-price" id="wine-price-add" type="search" value="" autocomplete="off" />
+                                        <label>{% trans 'Price' %}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 mt-15">
+                        {% if user_currency == 'JPY' %}¥{% else %}{{ user_currency }}{% endif %}
+                    </div>
+                </div>
+                <p id="price-add-error" style="display:none; color:#FF0000;">{% trans 'Incorrect price.' %}</p>
+                <br>
+                <div class="form-group">
+                    <textarea class="form-control" id="wine-comment-input-add" name="wineComment" rows="3"></textarea>
+                    <label>{% trans 'Add a comment' %}
+                        <small>({% trans 'to moderator on Raisin' %})</small>
+                    </label>
+                </div>
+
+            </div>
+        </div>
+
+        <footer class="p-12 flexbox flex-justified">
+            <button class="btn btn-w-md btn-bold btn-secondary" type="button" data-toggle="quickview">
+                {% trans 'Cancel' %}
+            </button>
+            <button class="btn btn-w-md btn-bold btn-success" type="button" id="post-add" name="postType" value="add">
+                {% trans 'POST' %}
+            </button>
+        </footer>
+    </div>
+</form>
+<!-- END Quickview - Add wine -->
+
+
+<script>
+    var userLang = '{{user_lang}}';
+</script>

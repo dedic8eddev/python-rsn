@@ -1,0 +1,251 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<!--
+
+TABLE OF CONTENTS.
+
+Use search to find needed section.
+
+=====================================================
+
+|  1. $BODY                 |  Body                 |
+|  2. $MAIN_NAVIGATION      |  Main navigation      |
+|  3. $NAVBAR_ICON_BUTTONS  |  Navbar Icon Buttons  |
+|  4. $MAIN_MENU            |  Main menu            |
+|  5. $PROFILE              |  Profile              |
+
+=====================================================
+
+-->
+
+<!--[if IE 8]>         <html class="ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="ie9 gt-ie8"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="gt-ie8 gt-ie9 not-ie"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta name="googlebot" content="noindex,nofollow">
+    <meta name="robots" content="noindex,nofollow">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+    {% block basic_styles %}
+    <!-- Open Sans font from Google CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css2?family=Open+Sans' rel='stylesheet' type='text/css'>
+{#    <link href='https://fonts.googleapis.com/css2?family=Roboto:400,500' rel='stylesheet' type='text/css'>#}
+
+    <!-- Pixel Admin's stylesheets -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+
+   {# <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet"> ----- #}
+    <link href="{% static 'assets/stylesheets/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/stylesheets/tinymce.skin.min.css' %}" rel="stylesheet" type="text/css">    
+    <link href="{% static 'assets/stylesheets/pixel-admin.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/stylesheets/widgets.min.css' %}" rel="stylesheet" type="text/css">
+
+    <link href="{% static 'assets/stylesheets/pages.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/stylesheets/rtl.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/stylesheets/themes.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/stylesheets/added-jhb.min.css' %}" rel="stylesheet" type="text/css">
+
+    <link href="{% static 'assets/stylesheets/ekko-lightbox.min.css' %}" rel="stylesheet" type="text/css">
+
+{#    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">#}
+    <link href="{% static 'assets/img/favicon.png' %}" rel="shortcut icon" type="image/png">
+        {% verbatim %}
+        <style type="text/css">
+            /* i like padding - you can ignore this css. see the actual css / less files in the repository for styling the gallery navigation */
+
+            div.top-header {
+                margin-bottom:100px;
+            }
+            h3.page-header {
+                margin-top: 50px;
+            }
+            figure {
+                position: relative;
+            }
+            figure figcaption {
+                font-size: 22px;
+                color: #fff;
+                text-decoration: none;
+                bottom: 10px;
+                right: 20px;
+                position: absolute;
+                background-color: #000;
+            }
+            code {
+                white-space: pre-wrap;       /* css-3 */
+                white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+                white-space: -pre-wrap;      /* Opera 4-6 */
+                white-space: -o-pre-wrap;    /* Opera 7 */
+                word-wrap: break-word;       /* Internet Explorer 5.5+ */
+            }
+
+            .dropdown-menu.black-color > li > a{
+                color: #555 !important;
+            }
+
+            .navbar-white{
+                background-color: #FFFFFF;
+            }
+
+            .breadcrumb.breadcrumb-page{
+                border-bottom: 1px solid #e9e9e9;
+            }
+
+            .published {background-color:#6c6c66; border-bottom:3px solid #52b553;}
+            .draft {background-color:#6c6c66; border-bottom:3px solid #f2a749;}
+
+            .buttons-top-right * {
+                z-index: 300;
+            }
+        </style>
+        {% endverbatim %}
+
+    {% endblock basic_styles %}
+
+    {% block basic_js %}
+
+    <script src="{% static 'assets/javascripts/jquery.min.js' %}"></script>
+
+{# <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> #}
+
+    <script src="{% static 'assets/javascripts/bootstrap.min.js' %}"></script>
+    {# <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> #}
+
+    <!--[if lt IE 9]>
+    <script src="{% static 'assets/javascripts/ie.min.js' %}"></script>
+    <![endif]-->
+    {% endblock basic_js %}
+
+
+    {% block additional_styles %}
+    {% endblock additional_styles %}
+
+    {% block additional_scripts %}
+    {% endblock additional_scripts %}
+
+</head>
+
+
+<!-- 1. $BODY ======================================================================================
+
+    Body
+
+    Classes:
+    * 'theme-{THEME NAME}'
+    * 'right-to-left'      - Sets text direction to right-to-left
+    * 'main-menu-right'    - Places the main menu on the right side
+    * 'no-main-menu'       - Hides the main menu
+    * 'main-navbar-fixed'  - Fixes the main navigation
+    * 'main-menu-fixed'    - Fixes the main menu
+    * 'main-menu-animated' - Animate main menu
+-->
+{% block body_open_tag %}
+<body class="theme-default main-menu-animated page-profile no-main-menu" id="jhb">
+{% endblock body_open_tag %}
+
+{% block body %}
+
+    <script>var init = [];</script>
+    <!-- Demo script --> {# <script src="{% static 'pro_assets/demo/demo.js' %}"></script> #}<!-- / Demo script -->
+
+    <div id="main-wrapper">
+
+    <!-- 2. $MAIN_NAVIGATION ===========================================================================
+
+        Main navigation
+    -->
+        <div id="main-navbar" class="navbar navbar-white" role="navigation">
+            <!-- Main menu toggle -->
+            <button type="button" id="main-menu-toggle"><i class="navbar-icon fa fa-bars icon"></i><span class="hide-menu-text">HIDE MENU</span></button>
+
+            <div class="navbar-inner">
+                <!-- Main navbar header -->
+                <div class="navbar-header"><a href="#" class="navbar-brand"><img src="{% static 'assets/img/logo-raisin-menu.png' %}" alt="Yahoo Original Content Dashboard Header" style="padding:2px; margin:2px;" /></a>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar-collapse"><i class="navbar-icon fa fa-bars"></i></button>
+                </div> <!-- / .navbar-header -->
+
+                <div id="main-navbar-collapse" class="collapse navbar-collapse main-navbar-collapse">
+                    <div>
+                        <div class="right clearfix">
+                            <ul class="nav navbar-nav pull-right right-navbar-nav">
+                                {% if request.user %}
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle user-menu" data-toggle="dropdown" style="text-decoration:none;">
+                                        <img src="{{ request.user.get_images.image }}" alt="">
+                                        <span>{{ request.user.username }}</span>
+                                    </a>
+                                    <ul class="dropdown-menu black-color" >
+                                        <li><a href="{% url 'edit_user' id=request.user.id %}">Profile</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="{% url 'logout' %}"><i class="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Log Out</a></li>
+                                    </ul>
+                                </li>
+                                {% endif %}
+                            </ul> <!-- / .navbar-nav -->
+                        </div> <!-- / .right -->
+                    </div>
+                </div> <!-- / #main-navbar-collapse -->
+            </div> <!-- / .navbar-inner -->
+        </div> <!-- / #main-navbar -->
+    <!-- /2. $END_MAIN_NAVIGATION -->
+
+        <div id="content-wrapper">
+            <!-- 5. $PROFILE ===================================================================================
+                Profile
+            -->
+
+            {% block breadcrumb %}
+                {% include 'base/elements/breadcrumb.html' %}
+            {% endblock breadcrumb %}
+
+            <div class="profile-full-name-jhb">
+                <div class="row">
+                    <div class="panel-body"> {# whole later part of the body content is UNDER THIS TAG!!! #}
+                        <div style="float:right;" class="buttons-top-right">
+                            {% block add_new_button %}
+                                {% if add_new_url %}
+                                <a href="{% url add_new_url %}" class="btn btn-outline btn-lg btn-labeled" role="button"
+                                                 style="z-index:1; margin-top:8px; cursor: pointer;">
+                                    <span class="btn-label icon fa fa-plus"></span>ADD NEW
+                                </a>
+                                {% endif %}
+                            {% endblock add_new_button %}
+
+                            {% block additional_buttons %}
+                            {% endblock additional_buttons %}
+                        </div>
+
+                        {% block main_menu %}
+                            {% include 'base/elements/mainmenu.html' %}
+                        {% endblock main_menu %}
+
+                        {% block main_content %}
+                        {% endblock main_content %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
+
+{% block bottom_js_scripts %}
+{#  <script src="{% static 'assets/javascripts/libs/select2-3.4.5/select2.js' %}"></script>#}
+    <script src="{% static 'assets/javascripts/libs/select2-4.0.3/select2.min.js' %}"></script>
+{#  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.js"></script>#}
+{#  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>#}
+{% include 'base/elements/bottom_js_common.html' %}
+{% endblock bottom_js_scripts %}
+
+{% block additional_bottom_scripts %}{% endblock additional_bottom_scripts %}
+</body>
+</html>

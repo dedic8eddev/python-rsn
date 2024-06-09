@@ -1,0 +1,31 @@
+{% load i18n %}
+
+<div class="panel-heading text-left">
+
+    <span class="panel-title">{% if not is_new %}{{ user.full_name}} <i>[{{ user.username }}]</i>{% else %}[new user]{% endif %}</span>
+    <div class="text-right">
+
+        {% if not is_new and saved_by %}
+        <span class="panel-title" style="font-size: 14px;"><strong>{% trans 'Saved on:' %}</strong> {{ saved_at|date:"M d, Y @ H:i" }} {% trans 'by' %} <a href="{% url 'edit_user' id=saved_by.id %}">{{ saved_by.full_name }}</a></span>&nbsp;&nbsp;&nbsp;
+        {% endif %}
+
+        <div class="btn-group pdg-group">
+            <button type="submit" class="btn btn-success btn-rounded">Save</button>
+
+            <button type="button" class="btn pdg-selected" data-val="10">ACTIVE</button>
+            <button type="button" class="btn dropdown-toggle pdg-arrow" data-toggle="dropdown">
+                <i class="fa fa-caret-down"></i>
+            </button>
+
+            <ul class="dropdown-menu">
+                {% for opt_i in pdg_options %}
+                    <li><a href="#" class="onhold pdg-option" data-val="{{ opt_i.0 }}">{{ opt_i.1 }}</a></li>
+                {% endfor %}
+                <!--<li><a href="#" class="onhold pdg-option" data-val="10">ACTIVE</a></li>-->
+                <!--<li><a href="#" class="onhold pdg-option" data-val="20">INACTIVE</a></li>-->
+                <!--<li><a href="#" class="onhold pdg-option" data-val="25">BAN</a></li>-->
+            </ul>
+        </div>
+        <!--&nbsp;&nbsp;<button class="btn btn-flat">OK</button>-->
+    </div>
+</div>

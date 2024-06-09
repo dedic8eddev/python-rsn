@@ -1,0 +1,6 @@
+# data that persists between containers, i.e. DB
+*
+docker/data/
+node_modules/
+npm-debug.log
+!requirements.txt

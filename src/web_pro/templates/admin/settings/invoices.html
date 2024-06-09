@@ -1,0 +1,107 @@
+{% load static %}
+{% load web_extras %}
+{% load i18n %}
+
+{% verbatim %}
+<script>
+var pro_invoices = '{% endverbatim %}{% url 'pro_invoices' %}{% verbatim %}';
+var pro_invoice_pdf_url = '{% endverbatim %}{% url 'pro_invoice_pdf_url' %}{% verbatim %}';
+var lang_url = '/static/pro_assets/localisation/{% endverbatim %}{{LANGUAGE_CODE}}{% verbatim %}.json';
+var lang_code = '{% endverbatim %}{{ LANGUAGE_CODE }}{% verbatim %}';
+var subscription_id = '{% endverbatim %}{{ subscription.id }}{% verbatim %}';
+var is_in_trial = {% endverbatim %}{% if subscription.status in "in_trial" %}{% verbatim %} true {% endverbatim %}{% else %}{% verbatim %} false {% endverbatim %}{% endif %}{% verbatim %};
+if (is_in_trial){
+  var trial_text = "{% endverbatim %}{% trans 'Trial remaining ' %}: {{ subscription.next_billing_at|get_days_until }} {% trans 'days - Trial ends on ' %} {{ subscription.next_billing_at | date:'j-b-Y H:i' }}{% verbatim %}.";
+} else {
+  var trial_text = '';
+}
+</script>
+{% endverbatim %}
+
+<div class="tab-pane fade" id="invoices">
+
+      <div class="card form-type-material address-form">
+
+          <h3 class="card-title">{% trans 'Invoices' %}</h3>
+          <div class="card-body">
+              <div class="col-12">
+                <h4>{% trans 'Plan Details' %}</h4>
+                <p class="lead">
+
+                  {% if subscription %}
+
+                    <span>{% trans 'Current Plan' %}: </span>
+                    <strong>{% trans subscription.periodicity %}.</strong>
+                    <br>
+                    {% if subscription.status == 'in_trial' %}
+
+                      <span>{% trans 'Trial remaining ' %}: </span>
+                      <strong>{{ subscription.next_billing_at|get_days_until }}</strong>
+                      <span>{% trans 'days - Trial ends on ' %}</span>
+                      <strong>{{ subscription.next_billing_at | date:"j-b-Y H:i" }}.</strong>
+                      <br>
+                    {% endif %}
+
+
+                    <span>{% trans 'Your plan will renew on' %} </span>
+                    <strong>{{ subscription.next_billing_at | date:"F j, Y" }}</strong>
+                    <span>{% trans 'for' %}</span>
+                    <strong>{{ subscription.get_converted_price }} {{ subscription.currency_code }}.</strong>
+                    <br>
+                    <br>
+                    <span>{% trans 'To change your plan to upgrade, downgrade, cancel or switch billing frequency' %}:</span>
+
+                  {% else %}
+
+                    <span>{% trans "You don't have any subscriptions assigned to this establishment." %}</span>
+
+                  {% endif %}
+
+                  <br>
+                  <span>{% trans 'Please, email our support at' %}:</span>
+                  <a href="mailto:pro@raisin.digital" style="text-decoration: underline;">pro@raisin.digital</a>
+
+                  {% if subscription %}
+
+                  <br><br>
+                  <span>{% trans 'Payment Status' %}: </span><span>{% autoescape off %}{{ subscription.get_status_html }}{% endautoescape %}</span>
+                  <br>
+                  <span>{% trans 'Plan' %}: </span><strong>{{ subscription.plan_id }}</strong>
+                  <br>
+                  <span>{% trans 'Plan Amount' %}: </span>
+                    <strong>{{ subscription.currency_code }}</strong>
+                    <strong>{{ subscription.get_converted_price }}</strong> /
+                    <strong>{{ subscription.billing_period_unit }}</strong> X
+                    <strong>{{ subscription.billing_period }}</strong>
+
+                  {% endif %}
+
+                </p>
+              </div>
+
+              {% if owner_user.customer.subscription_set.last %}
+                <div class="col-12" style="padding-top: 20px;">
+                  <table id="invoices-table" class="cell-border hover stripe  dt-responsive"  style="width:100%">
+                    <thead>
+                        <tr>
+                          <th>{% trans 'Invoice Number' %}</th>
+                          <th>{% trans 'Establishment' %}</th>
+                          <th>{% trans 'Company' %}</th>
+                          <th>{% trans 'Status' %}</th>
+                          <th>{% trans 'Invoice issued on:' %}</th>
+                          <th>{% trans 'Amount' %}</th>
+                        </tr>
+                    </thead>
+
+                    <tfoot>
+                    </tfoot>
+
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+              {% endif %}
+          </div>
+      </div>
+
+</div>

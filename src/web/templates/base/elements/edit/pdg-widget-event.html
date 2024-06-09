@@ -1,0 +1,68 @@
+{# {% extends "base/elements/edit/pdg-widget.html" %} #}
+{% load i18n %}
+
+
+{% load i18n %}
+{% load web_extras %}
+
+<div class="panel-heading text-left">
+
+    {% block pdg_title %}
+    <span class="author-validated-by" style="font-size: 14px;">
+        {{ pdg_title|safe}}
+        {% if event.id %}
+        <span class="panel-second-row">
+            {% if event.validated_by %} - Published by: {% else %} - Posted by: {% endif %}
+            {% if authority_id %}
+                <span class="picture-bigger">
+                    <a href="{% url 'edit_user' id=authority_id %}" style="text-decoration: none;">
+                        <img src="{% if authority_avatar_url %}{{ authority_avatar_url }}{% endif %}" style="margin-right:5px" data-toggle="tooltip" title="{{ authority_name }}" data-placement="bottom" /> {{ event.external_author_name }}
+                    </a> 
+                </span>
+                 <a href="mailto:{{ event.external_submitter_email }}">({{ event.external_submitter_email }})</a> 
+            {% else %}
+                {{ event.external_author_name }}  <a href="mailto:{{ event.external_submitter_email }}">({{ event.external_submitter_email }})</a>
+                <!-- <span> Wordpress (legacy ) </span> -->
+            {% endif %}
+            </span>
+        {% endif %}
+    </span>
+
+    {% endblock pdg_title %}
+
+    {% block pdg_right %}
+    <div class="text-right">
+        {% block additional_pdg_buttons %}
+        {% endblock additional_pdg_buttons %}
+
+        {% block saved_by %}
+        {% if event.id and saved_by %}
+            <span class="panel-title title-bar-saved-by"><strong>{% trans 'Saved on:' %}</strong> {{ saved_at|date:"M d, Y @ H:i" }} {% trans 'by' %} <a href="{% url 'edit_event' id=saved_by.id %}">{% if saved_by.full_name %}{{ saved_by.username }}{% else %}{{ saved_by.username }}{% endif %}</a></span>&nbsp;&nbsp;&nbsp;
+        {% endif %}
+        {% endblock saved_by %}
+
+        <div class="btn-group pdg-group">
+            <button type="submit" class="btn btn-success btn-rounded">Save</button>
+
+            <button type="button" class="btn pdg-selected" data-val=""></button>
+            <button type="button" class="btn dropdown-toggle pdg-arrow" data-toggle="dropdown">
+                <i class="fa fa-caret-down"></i>
+            </button>
+
+            <ul class="dropdown-menu">
+                {% for opt_i in pdg_options %}
+                    {% if opt_i.class %}
+                        <li><a href="#" class="{{ opt_i.class }} pdg-option" data-class="{{ opt_i.selclass }}" data-val="{{ opt_i.value }}">{{ opt_i.name }}</a></li>
+                    {% else %}
+                        <li><a href="#" class="pdg-option" data-val="{{ opt_i.value }}">{{ opt_i.name }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+    {% endblock pdg_right %}
+
+    {% block pdg_below %}
+    {% endblock pdg_below %}
+</div>

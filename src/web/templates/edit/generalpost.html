@@ -1,0 +1,267 @@
+{% extends "base/layout.html" %}
+
+{% load static %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% block title %}Posts - Post edition - Raisin{% endblock %}
+
+{% block additional_styles %}
+    <link href="{% static 'assets/stylesheets/edit/generalpost.css' %}" rel="stylesheet" type="text/css">
+{% endblock additional_styles %}
+
+{% block additional_scripts %}
+    <script>
+    var ajax_related_lists_url = "{% url 'generalpost_related_lists_ajax' id=post.id %}";
+
+    {% if is_new %}
+        var is_new = true;
+    {% else %}
+        var is_new = false;
+    {% endif %}
+    </script>
+{% endblock additional_scripts %}
+
+{% block main_content %}
+<div class="panel" style="font-size:16px!important;">
+    <!--niveau1-->
+    <form accept-charset="UTF-8" action="{{ action_url }}" method="POST" enctype="multipart/form-data">
+        <div class="niveau1" style="background-color:#fafafa; text-align:left; margin-bottom: 20px;">
+            {% include 'base/elements/edit/pdg-widget.html' %}
+            <!--<div class="panel-heading text-left" style="font-size:22px;">-->
+
+                    <!-- title bar -->
+                    <!--<div>-->
+                        <!--<span class="panel-title" style="font-size:22px;">{% if not is_new %}{{ post.title }}{% else %}[New article]{% endif %}</span>-->
+                        <!-- - <span style="font-size:15px;">Posted by:</span> <span class="picture-bigger">-->
+                            <!--<a href="{% url 'edit_user' id=post.author_id %}">-->
+                                <!--<img src="{% if post.author_avatar_url %}{{ post.author_avatar_url }}{% endif %}" data-toggle="tooltip" title="{{ post.author }}" data-placement="bottom" />-->
+                            <!--</a>-->
+                          <!--</span>-->
+                        <!--<div style="float:right;">-->
+
+                            <!--{% if not is_new %}-->
+                                <!--<span class="panel-title"><strong>{% trans 'Saved on:' %}</strong> {{ saved_at|date:"M d, Y @ H:i" }} {% trans 'by' %} <a href="{% url 'edit_user' id=saved_by.id %}">{{ saved_by.full_name }}</a></span>&nbsp;&nbsp;&nbsp;-->
+                            <!--{% endif %}-->
+
+                            <!--<div class="btn-group">-->
+                                <!--<button type="submit" class="btn btn-success btn-rounded">Save</button>-->
+                                <!--{% if not is_new %}-->
+                                <!--<button type="button" class="btn">{{ current_status }}</button>-->
+                                <!--<button type="button" class="btn dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-down"></i></button>-->
+                                <!--<ul class="dropdown-menu">-->
+                                    <!--<li><a href="#" class="onhold">Draft</a></li>-->
+                                    <!--<li><a href="#" class="btdelete">Delete</a></li>-->
+                                <!--</ul>-->
+                                <!--{% else %}-->
+                                <!--<button type="button" class="btn">[NEW] </button>-->
+                                <!--{% endif %}-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!-- /title bar -->
+
+                    <!-- hr divider below title -->
+                    <hr class="no-panel-padding-h" style="margin:0; padding:0;" />
+                    <!-- /hr divider below title -->
+
+                    <!-- main form container -->
+                    <div class="container-fluid">
+                        <!-- main form row -->
+
+                            {% csrf_token %}
+                            {{ form.status }}
+                            <div class="col-sm-3">
+                                <script>
+                                        init.push(function () {
+                                          $('#id_image').pixelFileInput({ placeholder: 'No file selected...' });
+                                        })
+                                    </script>
+                                <div>
+                                    {% if post.main_image %}
+                                    <img src="{{ post.get_main_image }}" alt="{{ post.title }}" class="imgsmaller" width="640" height="640">
+                                    {% else %}
+                                    <img src="{% static 'assets/img/missing.gif' %}" alt="{{ post.title }}" class="imgsmaller" width="640" height="640">
+                                    {% endif %}
+                                    {{ form.image }}
+                                </div>
+                            </div>
+                            <!--end 2-->
+
+                            <div class="col-sm-2">&nbsp;</div>
+                            <!--5-->
+                            <div class="col-sm-7" style="padding-top:50px; margin-left:-80px;">
+                                <!-- 11. $STYLED_FILE_INPUTS ==============================================================================
+                                Styled file inputs
+                                -->
+                                <!-- Javascript -->
+                                <script>
+                                        init.push(function () {
+                                            $('#styled-finputs-example').pixelFileInput({ placeholder: 'No file selected...' });
+                                        })
+                                    </script>
+                                <!-- / Javascript --><!-- /11. $STYLED_FILE_INPUTS -->
+                                <div>
+                                    <div class="form-group">
+                                        <label for="{{ form.title.id_for_label }}" class="col-sm-1" style="text-align:left; padding-left: 0px;">{{ form.title.label }}</label>
+                                        <div class="col-sm-11">
+                                            {{ form.title|add_class:"form-control"|attr:"style:width:565px;"}}
+                                            {{ form.title.errors }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label" for="{{ form.description.id_for_label }}" style="padding-left: 0px;">{{ form.description.label }}</label>
+                                        <div class="row form-group" style="padding-left: 12px;" >
+                                            {{ form.description|add_class:"form-control"|attr:"rows:10"|attr:"style:font-size: 14px; height: 241px; font-family: Roboto"|attr:"id:tiny-mce" }}
+                                            {{ form.description.errors }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label" for="{{ form.description.id_for_label }}" style="padding-left: 0px; color:red;">DANGER ZONE: temporary fix for transferring to FOOD by ADMINS. DO NOT EDIT unless you know what you are doing.</label>
+                                        <div class="row form-group" style="padding-left: 12px;" >
+                                            {{ form.type|add_class:"form-control" }}
+                                            {{ form.type.errors }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="row">
+                            <!-- main form itself, divided into cols -->
+                            <!-- /main form itself, divided into cols -->
+                        </div>
+                        <! -- /main form row -->
+                    </div>
+
+                <!-- /main form container -->
+            <!--</div>-->
+        </div>
+    </form>
+</div>
+<!--fin panel-->
+
+
+<!-- related lists (likes, comments, etc.) -->
+<div id="related_lists">
+</div>
+<!-- /related lists (likes, comments, etc.) -->
+
+
+&nbsp;
+
+
+<div id="banuser" class="collapse">
+    <div class="bandeau">
+        <h3>Are you sure you want to ban this user?</h3>
+        <button id="ui-bootbox-custom" class="btn btn-lg btn-info">BAN  </button>&nbsp;&nbsp;&nbsp;
+        <button id="ui-bootbox-custom" class="btn btn-lg btn-cancel" data-toggle="collapse" data-target="#banuser">Cancel</button>
+        &nbsp; &nbsp;
+       His/her account will be blocked.
+    </div>
+</div>
+
+<div id="erasemessage" class="collapse">
+    <div class="bandeau">
+        <h3>Are you sure you want to delete this message?</h3>
+        <button id="ui-bootbox-custom" class="btn btn-lg btn-danger">DELETE</button>&nbsp;&nbsp;&nbsp;
+        <button id="ui-bootbox-custom" class="btn btn-lg btn-cancel" data-toggle="collapse" data-target="#erasemessage">Cancel</button>
+        &nbsp; &nbsp;
+        This cannot be undone.
+    </div>
+</div>
+
+<div id="actionpost" class="collapse">
+    <div class="bandeau">
+        <h3>[XX] entries selected</h3> What do you want to do?&nbsp;&nbsp;&nbsp;<button id="ui-bootbox-alert" class="btn btn-lg btn-success">Include</button>&nbsp;&nbsp;&nbsp;  <button id="ui-bootbox-confirm" class="btn btn-lg btn-danger">Refuse</button>&nbsp;&nbsp;&nbsp;
+        <button id="ui-bootbox-custom" class="btn btn-lg btn-info">On Hold</button>&nbsp;&nbsp;&nbsp;
+        <button id="ui-bootbox-custom" class="btn btn-lg btn-cancel" data-toggle="collapse" data-target="#actionpost">Cancel</button>
+    </div>
+</div>
+
+<div id="actiontoconfirm" class="collapse">
+    <div class="panel-body">
+        <button id="ui-bootbox-custom" class="btn btn-lg btn-info">Don't Delete</button>
+        <button id="ui-bootbox-confirm" class="btn btn-lg btn-danger">Delete</button>&nbsp;&nbsp;&nbsp;
+    </div>
+</div>
+
+<div class="panel2">
+    <div cf-context-menu="top" class="delete-confirm" style="display: none;">
+        <p>You are about to delete 2 Entries</p>
+        <div class="panel-body">
+            <button id="ui-bootbox-custom" class="btn btn-lg btn-info">Don't Delete</button>
+            <button id="ui-bootbox-confirm" class="btn btn-lg btn-danger">Delete</button>&nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
+</div>
+
+
+
+{% verbatim %}
+    <script src="{% static 'assets/javascripts/libs/ekko-lightbox.4.0.1.min.js' %}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function ($) {
+
+            // delegate calls to data-toggle="lightbox"
+            $(document).delegate('*[data-toggle="lightbox"]:not([data-gallery="navigateTo"])', 'click', function(event) {
+                event.preventDefault();
+                return $(this).ekkoLightbox({
+                    onShown: function() {
+                        if (window.console) {
+                            return console.log('onShown event fired');
+                        }
+                    },
+                    onContentLoaded: function() {
+                        if (window.console) {
+                            return console.log('onContentLoaded event fired');
+                        }
+                    },
+                    onNavigate: function(direction, itemIndex) {
+                        if (window.console) {
+                            return console.log('Navigating '+direction+'. Current item: '+itemIndex);
+                        }
+                    }
+                });
+            });
+
+            //Programatically call
+            $('#open-image').click(function (e) {
+                e.preventDefault();
+                $(this).ekkoLightbox();
+            });
+            $('#open-youtube').click(function (e) {
+                e.preventDefault();
+                $(this).ekkoLightbox();
+            });
+
+            $(document).delegate('*[data-gallery="navigateTo"]', 'click', function(event) {
+                event.preventDefault();
+                return $(this).ekkoLightbox({
+                    onShown: function() {
+                        var lb = this;
+                        $(lb.modal_content).on('click', '.modal-footer a#jumpit', function(e) {
+                            e.preventDefault();
+                            lb.navigateTo(2);
+                        });
+                        $(lb.modal_content).on('click', '.modal-footer a#closeit', function(e) {
+                            e.preventDefault();
+                            lb.close();
+                        });
+                    }
+                });
+            });
+
+        });
+    </script>
+{% endverbatim %}
+
+{% endblock main_content %}
+
+{% block additional_bottom_scripts %}
+<script src="{% static 'assets/javascripts/libs/ekko-lightbox.4.0.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/edit/edit.generalpost.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/pdg-widget.js' %}"></script>
+<script src="{% static 'assets/javascripts/tinymce.min.js' %}"></script>
+<script src="{% static 'assets/javascripts/edit/edit.description.js' %}"></script>
+{% endblock additional_bottom_scripts %}

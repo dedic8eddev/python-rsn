@@ -1,0 +1,19 @@
+    <div class="d-flex justify-content-between align-items-center h36">
+        <div class="d-flex align-items-center">
+            <div class="breadcrumb-label text-light-gray">You are here: </div>
+            <ul class="breadcrumb breadcrumb-page">
+                {% if bc_path %}
+                    {% for i in bc_path %}
+                        <li>
+                            {% if i.0 == active %}
+                                {{ i.1 }}
+                            {% else %}
+                                <a href="{{ i.0 }}">{{ i.1 }}</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+        <p class="pull-right"> App version: v{{version_number}} {{version_name}} </p>
+    </div>

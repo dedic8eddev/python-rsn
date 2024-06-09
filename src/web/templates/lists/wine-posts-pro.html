@@ -1,0 +1,117 @@
+{% extends "base/layout.html" %}
+
+{% load static %}
+
+{% block title %}Wine Posts - Raisin{% endblock %}
+
+{% block additional_buttons %}
+    <a href="{% url 'list_star_reviews_all' %}" class="btn btn-lg btn-labeled fa fa-star opt starrvs" role="button" data-toggle="tooltip" title="All Star Reviews in the CMS" data-placement="top"></a>
+    <a href="{% url 'list_referees_all' %}" class="btn btn-lg btn-labeled fa fa-bookmark-o opt" role="button"  data-toggle="tooltip" title="All referees in the CMS" data-placement="top"></a>
+    <a href="{% url add_wm_url %}" class="btn btn-lg btn-labeled fa fa-plus opt add" role="button" data-toggle="tooltip" title="Add New Winemaker" data-placement="top"></a>
+{% endblock additional_buttons %}
+
+{% block additional_styles %}
+    <link href="{% static 'assets/stylesheets/list/wineposts.css' %}" rel="stylesheet" type="text/css">
+    <script>
+        $(document).on('click', '.clear-search', function() {
+            $(this).siblings('input').val('');
+            $(this).parents('.positionFilter').removeClass('searched')
+            
+            window.usersDataTableDrawElement.search('').draw(true);
+            window.ownersDataTableDrawElement.search('').draw(true);
+            window.geolocatedDataTableDrawElement.search('').draw(true);
+            window.allDataTableDrawElement.search('').draw(true);
+        });
+
+        
+    var lastModeratedWineId = localStorage.getItem("lastModeratedWineId");
+    </script>
+{% endblock additional_styles %}
+
+
+{% block add_new_button %}{% endblock add_new_button %}
+
+{% block main_content %}
+{% verbatim %}
+<script>
+    {% endverbatim %}{% if opti %}{% verbatim %}
+    // USING OPTIMIZED ITEMS
+    var url_winepost_items_all_ajax = "{% endverbatim %}{% url 'get_winepost_items_opti_ajax' list_for='all' %}{% verbatim %}";
+    var url_winepost_items_users_ajax = "{% endverbatim %}{% url 'get_winepost_items_opti_ajax' list_for='users' %}{% verbatim %}";
+    var url_winepost_items_owners_ajax = "{% endverbatim %}{% url 'get_winepost_items_opti_ajax' list_for='owners'%}{% verbatim %}";
+    var url_winepost_items_geolocated_ajax = "{% endverbatim %}{% url 'get_winepost_items_opti_ajax' list_for='geolocated'%}{% verbatim %}";
+
+    {% endverbatim %}{% else %}{% verbatim %}
+    // USING OLD, SLOW ITEMS
+    var url_winepost_items_ajax = "{% endverbatim %}{% url 'get_winepost_items_ajax' %}{% verbatim %}";
+    {% endverbatim %}{% endif %}{% verbatim %}
+</script>
+{% endverbatim %}
+
+<script src="{% static 'assets/javascripts/lists/list.pipeline.js' %}"></script>
+<script src="{% static 'assets/javascripts/lists/list.wineposts.data-table-factory.js' %}"></script>
+<script src="{% static 'assets/javascripts/lists/list.wineposts.pro.all.js' %}"></script>
+<script src="{% static 'assets/javascripts/lists/list.wineposts.pro.users.js' %}"></script>
+<script src="{% static 'assets/javascripts/lists/list.wineposts.pro.owners.js' %}"></script>
+<script src="{% static 'assets/javascripts/lists/list.wineposts.pro.geolocated.js' %}"></script>
+
+
+<div class="panel" style="font-size:16px!important;">
+    <div class="panel-heading text-left">
+        <div class="table-caption">Wine Posts - scan counter: {{ vuforia_scans_total }}</div>
+        {% comment %} <span class="panel-title" style="font-size:22px;">[WINE POSTS] - scan counter: {{ vuforia_scans_total }}</span> {% endcomment %}
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <ul id="uidemo-tabs-default-demo" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#all" data-toggle="tab">All <span class="custom-tabs-label label-success">{{ all_total }}</span> - <span class="custom-tabs-label label-info">{{ all_drafts }}</span></a>
+                    </li>
+                    <li>
+                        <a href="#owners" data-toggle="tab">Owners <span class="custom-tabs-label label-success">{{ owners_total }}</span> - <span class="custom-tabs-label label-info">{{ owners_drafts }}</span></a>
+                    </li>
+                    <li>
+                        <a href="#geolocated" data-toggle="tab">Geolocated <span class="custom-tabs-label label-success">{{ geoloc_total }}</span> - <span class="custom-tabs-label label-info">{{ geoloc_drafts }}</span></a>
+                    </li>
+                    <li>
+                        <a href="#users" data-toggle="tab">Users <span class="custom-tabs-label label-success">{{ users_total }}</span> - <span class="custom-tabs-label label-info">{{ users_drafts }}</span></a>
+                    </li>
+                </ul>
+                <div class="tab-content tab-content-bordered" style="">
+                    <div class="tab-pane fade in active" id="all">
+                        {% include 'base/elements/lists/wine-posts-pro-all.html' %}
+                    </div>
+                    <div class="tab-pane fade" id="owners">
+                        {% include 'base/elements/lists/wine-posts-pro-owners.html' %}
+                    </div>
+                    <div class="tab-pane fade" id="geolocated">
+                        {% include 'base/elements/lists/wine-posts-pro-geolocated.html' %}
+                    </div>
+                    <div class="tab-pane fade" id="users">
+                        {% include 'base/elements/lists/wine-posts-pro-users.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% verbatim %}
+<style type="text/css">
+
+
+</style>
+{% endverbatim %}
+
+
+<!-- {# {% include 'base/elements/lists/action_footer_vrhdc.html' %} #} -->
+{% include 'base/elements/lists/action_footer_wineposts_pro.html' %}
+
+{% endblock %}
+
+{% block additional_bottom_scripts %}
+    {% include 'base/elements/bottom_js_list.html' %}
+{% endblock additional_bottom_scripts %}

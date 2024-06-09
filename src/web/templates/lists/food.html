@@ -1,0 +1,68 @@
+{% extends "base/layout.html" %}
+
+{% load static %}
+
+{% block title %}Food - Raisin{% endblock %}
+
+{% block main_content %}
+
+{% verbatim %}
+<script>
+    var url_food_items_ajax = "{% endverbatim %}{% url 'get_food_items_ajax' %}{% verbatim %}";
+    var url_food_publish_ajax = '{% endverbatim %}{% url 'food_publish_ajax' %}{% verbatim %}';
+    var url_food_unpublish_ajax = '{% endverbatim %}{% url 'food_unpublish_ajax' %}{% verbatim %}';
+    var url_food_refuse_ajax = '{% endverbatim %}{% url 'food_refuse_ajax' %}{% verbatim %}';
+</script>
+{% endverbatim %}
+
+<script src="{% static 'assets/javascripts/lists/list.pipeline.js' %}"></script>
+<script src="{% static 'assets/javascripts/lists/list.food.js' %}"></script>
+
+<link rel="stylesheet" type="text/css" href="{% static 'assets/stylesheets/new_style.css' %}" />
+
+<div class="panel" style="font-size:16px!important;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                {% include 'base/elements/subtub.html' with active='food' %}
+                <div class="tab-content tab-content-bordered" style="">
+                    <div class="tab-pane fade in active" id="all">
+                        <div class="table table-striped vmiddle" style="font-size:14px;">
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered"
+                                id="jq-datatables-example">
+                                <thead>
+                                    <tr>
+                                        <th style="width:15px"><br><input type="checkbox" id="toggle-all"
+                                                name="check-all" /></th>
+                                        <th style="width:40px">Picture</th>
+                                        <th>Date</th>
+                                        <th>Venue</th>
+                                        <th>Owner</th>
+                                        <th>Title</th>
+                                        <th style="width:750px">Description</th>
+                                        <th>Status</th>
+                                        <th><i class="fa fa-comments" data-toggle="tooltip" title="comments"
+                                                data-placement="top"></i></th>
+                                        <th><i class="fa fa-heart" data-toggle="tooltip" title="likes"
+                                                data-placement="top"></i></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div><!-- end jquery table jhb -->
+
+                        {% include 'base/elements/lists/action_footer_iroc.html' %}
+
+                        {% endblock %}
+
+                        {% block additional_bottom_scripts %}
+                        {% include 'base/elements/bottom_js_list.html' %}
+                        {% endblock additional_bottom_scripts %}
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,1222 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-26 10:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "All changes saved"
+msgstr "Alle Änderungen gespeichert"
+
+msgid "Error saving changes"
+msgstr "Fehler beim Speichern der Änderungen"
+
+msgid "Every change you make is automatically saved by Raisin PRO."
+msgstr "Jede Änderung, die Sie vornehmen, wird automatisch von Raisin PRO gespeichert."
+
+msgid "Something went wrong. Please refresh the page and try again. Contact us at contact@raisin.digital if this is a recurring issue."
+msgstr "Etwas ist schief gelaufen. Bitte aktualisieren Sie die Seite und versuchen Sie es erneut. Kontaktieren Sie uns unter contact@raisin.digital, wenn dies ein wiederkehrendes Problem ist."
+
+msgid "-30% (defined by Raisin team,  not accessible to owner)"
+msgstr "-30% (vom Rosinenteam definiert, für den Besitzer nicht zugänglich)"
+
+msgid "[{diff}] from a month ago!"
+msgstr "[{diff}] von vor einem Monat!"
+
+msgid "ACTIVE"
+msgstr "AKTIV"
+
+msgid "Add hours"
+msgstr "Stunden hinzufügen"
+
+msgid "Add new date"
+msgstr "Neues Datum hinzufügen"
+
+msgid "ADDRESS"
+msgstr "ADRESSE"
+
+msgid "Agreed to the Terms and Conditions and Privacy Policy"
+msgstr "Zustimmung zu den Allgemeinen Geschäftsbedingungen und Datenschutzbestimmungen"
+
+msgid "Amount"
+msgstr "Menge"
+
+msgid "April"
+msgstr "April"
+
+msgid "At work"
+msgstr "Bei der Arbeit"
+
+msgid "August"
+msgstr "August"
+
+msgid "BAR"
+msgstr "BAR"
+
+msgid "BILLING ADDRESS"
+msgstr "RECHNUNGSADRESSE"
+
+msgid "BILLING E-MAIL"
+msgstr "ABRECHNUNG PER E-MAIL"
+
+msgid "CANCELLED"
+msgstr "ABGESAGT"
+
+msgid "Change"
+msgstr "Veränderung"
+
+msgid "CITY"
+msgstr "STADT"
+
+msgid "Closed"
+msgstr "Geschlossen"
+
+msgid "COMMENTS"
+msgstr "BEMERKUNGEN"
+
+msgid "Company Details"
+msgstr "Unternehmens-Details"
+
+msgid "Company"
+msgstr "Unternehmen"
+
+msgid "All rights reserved."
+msgstr "Alle Rechte vorbehalten."
+
+msgid "Copyright © 2019 Raisin SAS. All rights reserved."
+msgstr "Copyright © 2019 Raisin SAS. Alle Rechte vorbehalten."
+
+msgid "CORPORATE NAME"
+msgstr "FIRMENNAME"
+
+msgid "COUNTRY"
+msgstr "LAND"
+
+msgid "CURRENT PASSWORD"
+msgstr "DERZEITIGES PASSWORT"
+
+msgid "Current Plan"
+msgstr "Derzeitiger Plan"
+
+msgid "DASHBOARD - Raisin Pro"
+msgstr "DASHBOARD - Rosine Pro"
+
+msgid "DASHBOARD"
+msgstr "INSTRUMENTENTAFEL"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "December"
+msgstr "Dezember"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Domain"
+msgstr "Domain"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "EMAIL"
+msgstr "EMAIL"
+
+msgid "English"
+msgstr "Englisch"
+
+msgid "ESTABLISHMENT - Raisin Pro"
+msgstr "NIEDERLASSUNG - Rosine Pro"
+
+msgid "Establishment info"
+msgstr "Betriebsinformationen"
+
+msgid "Establishment Location"
+msgstr "Niederlassungsort"
+
+msgid "ESTABLISHMENT NAME:"
+msgstr "NIEDERLASSUNGSNAME:"
+
+msgid "Establishment name"
+msgstr "Name der Einrichtung"
+
+msgid "Establishment opening / closing hours"
+msgstr "Öffnungszeiten der Einrichtung"
+
+msgid "Establishment presentation"
+msgstr "Präsentation der Einrichtung"
+
+msgid "ESTABLISHMENT"
+msgstr "EINRICHTUNG"
+
+msgid "Establishment"
+msgstr "Einrichtung"
+
+msgid "FACEBOOK"
+msgstr "FACEBOOK"
+
+msgid "FAQ"
+msgstr "FAQ"
+
+msgid "February"
+msgstr "Februar"
+
+msgid "FIRST NAME"
+msgstr "VORNAME"
+
+msgid "FOOD - Raisin Pro"
+msgstr "ESSEN - Rosine Pro"
+
+msgid "FOOD"
+msgstr "LEBENSMITTEL"
+
+msgid "Food"
+msgstr "Essen"
+
+msgid "French"
+msgstr "Französisch"
+
+msgid "Friday"
+msgstr "Freitag"
+
+msgid "Front store"
+msgstr "Vorderer Laden"
+
+msgid "Get Direction requests"
+msgstr "Richtungsanfragen abrufen"
+
+msgid "Help"
+msgstr "Hilfe"
+
+msgid "Holidays"
+msgstr "Ferien"
+
+msgid "HOLIDAYS"
+msgstr "FERIEN"
+
+msgid "IMPRESSIONS"
+msgstr "EINDRÜCKE"
+
+msgid "Impressions"
+msgstr "Impressionen"
+
+msgid "IN_TRIAL"
+msgstr "IN_TRIAL"
+
+msgid "INSTAGRAM"
+msgstr "INSTAGRAM"
+
+msgid "Interior"
+msgstr "Innere"
+
+msgid "Invoice issued on:"
+msgstr "Rechnung ausgestellt am:"
+
+msgid "Invoice Number"
+msgstr "Rechnungsnummer"
+
+msgid "January"
+msgstr "Januar"
+
+msgid "July"
+msgstr "Juli"
+
+msgid "June"
+msgstr "Juni"
+
+msgid "LANGUAGE"
+msgstr "SPRACHE"
+
+msgid "LAST NAME"
+msgstr "FAMILIENNAME, NACHNAME"
+
+msgid "Last week"
+msgstr "Letzte Woche"
+
+msgid "Posted food"
+msgstr "Gepostetes Essen"
+
+msgid "🍲 Posted Food"
+msgstr "🍲 Gepostete Lebensmittel"
+
+msgid "Latest posted wines"
+msgstr "Neueste veröffentlichte Weine"
+
+msgid "Latest posted food"
+msgstr "Neuestes veröffentlichtes Essen"
+
+msgid "LEGAL FORM"
+msgstr "RECHTSFORM"
+
+msgid "LIKES"
+msgstr "LIKES"
+
+msgid "Likes"
+msgstr "Likes"
+
+msgid "Limited to 1 picture"
+msgstr "Limitiert auf 1 Bild"
+
+msgid "Limited to 4 pictures"
+msgstr "Limitiert auf 4 Bilder"
+
+msgid "Logo"
+msgstr "Logo"
+
+msgid "LOGOUT"
+msgstr "AUSLOGGEN"
+
+msgid "Make sure to complete your establishment's info in detail,  it's time to shine like a diamond 💎"
+msgstr "Stellen Sie sicher, dass Sie die Informationen Ihres Unternehmens im Detail vervollständigen. Es ist Zeit, wie ein Diamant zu glänzen"
+
+msgid "Map"
+msgstr "Karte"
+
+msgid "March"
+msgstr "März"
+
+msgid "May"
+msgstr "Kann"
+
+msgid "Monday"
+msgstr "Montag"
+
+msgid "Monthly"
+msgstr "Monatlich"
+
+msgid "More to come very soon!"
+msgstr "Weitere folgen in Kürze!"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Ingredients"
+msgstr "Zutaten"
+
+msgid "NEW PASSWORD"
+msgstr "NEUES KENNWORT"
+
+msgid "New password (again)"
+msgstr "Neues Passwort nochmal)"
+
+msgid "Next"
+msgstr "Nächster"
+
+msgid "NO"
+msgstr "NEIN"
+
+msgid "YES"
+msgstr "JA"
+
+msgid "NON_RENEWING"
+msgstr "NON_RENEWING"
+
+msgid "November"
+msgstr "November"
+
+msgid "Now it is your turn!"
+msgstr "Jetzt sind Sie dran!"
+
+msgid "October"
+msgstr "Oktober"
+
+msgid "Opened"
+msgstr "Geöffnet"
+
+msgid "opening / closing hours"
+msgstr "Öffnungs- / Schließzeiten"
+
+msgid "Opening / closing hours"
+msgstr "Öffnungszeiten"
+
+msgid "Opening Hours"
+msgstr "Öffnungszeiten"
+
+msgid "OPENING HOURS"
+msgstr "ÖFFNUNGSZEITEN"
+
+msgid "Opening/Closing - Holidays"
+msgstr "Eröffnung / Schließung - Feiertage"
+
+msgid "Orange wines"
+msgstr "Orangenweine"
+
+msgid "Owner Details"
+msgstr "Besitzer Details"
+
+msgid "Password"
+msgstr "Passwort"
+
+msgid "PAUSED"
+msgstr "PAUSED"
+
+msgid "Phone Calls"
+msgstr "Anrufe"
+
+msgid "PHONE"
+msgstr "TELEFON"
+
+msgid "Plan Details"
+msgstr "Planen Sie Details"
+
+msgid "🙋🏻 Please,  complete this description to let users know what your venue is all about!"
+msgstr "🙋🏻 Bitte vervollständigen Sie diese Beschreibung, um die Benutzer über Ihren Veranstaltungsort zu informieren!"
+
+msgid "POP-up message:"
+msgstr "Popup-Meldung:"
+
+msgid "Popular (Impressions/ Taps)"
+msgstr "Beliebt (Impressionen / Taps)"
+
+msgid "Presentation"
+msgstr "Präsentation"
+
+msgid "Previous"
+msgstr "Bisherige"
+
+msgid "Raisin Pro [logo - image]"
+msgstr "Raisin Pro [Logo - Bild]"
+
+msgid "Red wines"
+msgstr "Rotweine"
+
+msgid "RESTAURANT"
+msgstr "RESTAURANT"
+
+msgid "REVIEWS & LIKES - Raisin Pro"
+msgstr "BEWERTUNGEN &amp; LIKES - Raisin Pro"
+
+msgid "REVIEWS & LIKES"
+msgstr "BEWERTUNGEN &amp; LIKES"
+
+msgid "REVIEWS:"
+msgstr "BEWERTUNGEN:"
+
+msgid "Reviews:"
+msgstr "Bewertungen:"
+
+msgid "Rosé wines"
+msgstr "Roséweine"
+
+msgid "Saturday"
+msgstr "Samstag"
+
+msgid "SAVE CHANGES"
+msgstr "ÄNDERUNGEN SPEICHERN"
+
+msgid "Save Changes"
+msgstr "Änderungen speichern"
+
+msgid "Save"
+msgstr "speichern"
+
+msgid "SEARCH ALL FOOD"
+msgstr "SUCHE ALLES ESSEN"
+
+msgid "SEARCH ALL WINE"
+msgstr "SUCHEN SIE ALLEN WEIN"
+
+msgid "SEARCH"
+msgstr "SUCHE"
+
+msgid "Search"
+msgstr "Suche"
+
+msgid "SELECT A TYPE"
+msgstr "WÄHLEN SIE EINEN TYP"
+
+msgid "September"
+msgstr "September"
+
+msgid "SETTINGS - Raisin Pro"
+msgstr "EINSTELLUNGEN - Raisin Pro"
+
+msgid "SETTINGS"
+msgstr "DIE EINSTELLUNGEN"
+
+msgid "SHIPPING ADDRESS"
+msgstr "LIEFERANSCHRIFT"
+
+msgid "Show"
+msgstr "Show"
+
+msgid "entries"
+msgstr "Einträge"
+
+msgid "Showing {number} of [{max}] entries"
+msgstr "{Anzahl} von [{max}] Einträgen anzeigen"
+
+msgid "Sort by"
+msgstr "Sortieren nach"
+
+msgid "Sparkling wines"
+msgstr "Sekt"
+
+msgid "STATE/PROVINCE"
+msgstr "STAAT / PROVINZ"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Sunday"
+msgstr "Sonntag"
+
+msgid "TAPS"
+msgstr "TAPS"
+
+msgid "Taps"
+msgstr "Wasserhähne"
+
+msgid "Team"
+msgstr "Mannschaft"
+
+msgid "This Month"
+msgstr "Diesen Monat"
+
+msgid "This week"
+msgstr "Diese Woche"
+
+msgid "Thursday"
+msgstr "Donnerstag"
+
+msgid "To change your plan to upgrade,  downgrade,  cancel or switch billing frequency,  please,  email our support: pro@raisin.digital"
+msgstr "Um Ihren Plan für ein Upgrade, Downgrade, Stornieren oder Wechseln der Abrechnungshäufigkeit zu ändern, senden Sie bitte eine E-Mail an unseren Support: pro@raisin.digital"
+
+msgid "Tuesday"
+msgstr "Dienstag"
+
+msgid "TWITTER"
+msgstr "TWITTER"
+
+msgid "URL WEBSITE"
+msgstr "URL WEBSITE"
+
+msgid "Username"
+msgstr "Nutzername"
+
+msgid "VAT NUMBER"
+msgstr "UMSATZSTEUER-IDENTIFIKATIONSNUMMER"
+
+msgid "Venues near by"
+msgstr "Veranstaltungsorte in der Nähe"
+
+msgid "VISITS"
+msgstr "BESUCHE"
+
+msgid "We are always here for you: 💌"
+msgstr "Wir sind immer für Sie da: 💌"
+
+msgid "We are working very hard ⚙️ to launch all features as quickly as possible ;)"
+msgstr "Wir arbeiten sehr hart daran, alle Funktionen so schnell wie möglich zu starten;)"
+
+msgid "Website"
+msgstr "Webseite"
+
+msgid "Wednesday"
+msgstr "Mittwoch"
+
+msgid "Welcome to:"
+msgstr "Willkommen zu:"
+
+msgid "White wines"
+msgstr "Weißweine"
+
+msgid "WINE - Raisin Pro"
+msgstr "WEIN - Rosine Pro"
+
+msgid "Wine - Raisin Pro"
+msgstr "Wein - Rosine Pro"
+
+msgid "Wine list:"
+msgstr "Weinkarte:"
+
+msgid "Wine name"
+msgstr "Weinname"
+
+msgid "WINE N&zwnj;AME"
+msgstr "WEINNAME"
+
+msgid "WINE SHOP"
+msgstr "WEINLADEN"
+
+msgid "Wine"
+msgstr "Wein"
+
+msgid "Winemaker"
+msgstr "Winzer"
+
+msgid "Wines by category"
+msgstr "Weine nach Kategorie"
+
+msgid "Caption"
+msgstr "Bildbeschriftung"
+
+msgid "WINES"
+msgstr "WEINE"
+
+msgid "Yearly"
+msgstr "Jährlich"
+
+msgid "Your plan will renew on: {date} for {sum}."
+msgstr "Ihr Plan verlängert sich am: {Datum} für {Summe}."
+
+msgid "ZIP/POSTAL"
+msgstr "ZIP / POST"
+
+msgid "🌟 10 Most popular 🍷 WINE posts"
+msgstr "🌟 10 beliebtesten 🍷 WEIN Beiträge"
+
+msgid "🌟 10 Most popular 🍽️ FOOD posts"
+msgstr "🌟 10 beliebtesten 🍽️ FOOD-Beiträge"
+
+msgid "🍜 POST YOUR DISHES!"
+msgstr "🍜 POST DEINE GERICHTE!"
+
+msgid "🍷 If you would like for the Raisin team to reconsider this figure,  please make sure you have made the appropriate changes to guarantee at least 30% natural wine in your offer. We value genuine requests ;) Allow ⏳ 3 months time between each request 📝."
+msgstr "🍷 Wenn Sie möchten, dass das Rosinenteam diese Zahl überprüft, stellen Sie bitte sicher, dass Sie die entsprechenden Änderungen vorgenommen haben, um mindestens 30% natürlichen Wein in Ihrem Angebot zu garantieren. Wir schätzen echte Anfragen;) Warten Sie ⏳ 3 Monate zwischen jeder Anfrage 📝."
+
+msgid "🍷 POST WINES YOU LOVE!"
+msgstr "🍷 POST WEINE, DIE SIE LIEBEN!"
+
+msgid "🍷 WINES"
+msgstr "🍷 WEINE"
+
+msgid "🍽️ FOOD"
+msgstr "🍽️ ESSEN"
+
+msgid "Hey! You never get a second chance at a first impression...😎."
+msgstr "Hallo! Bei einem ersten Eindruck bekommt man nie eine zweite Chance ... 😎."
+
+msgid "💡 Information in this section is used to let users discover your establishment. Make sure your profile is relevant and up to date,  and don't forget to upload great pictures to show it 📸 ."
+msgstr "💡 Die Informationen in diesem Abschnitt werden verwendet, damit Benutzer Ihr Unternehmen entdecken können. Stellen Sie sicher, dass Ihr Profil relevant und aktuell ist, und vergessen Sie nicht, großartige Bilder hochzuladen, um es zu zeigen 📸."
+
+msgid "💡 Information in this section is used to let users discover your establishment. Make sure your profile is relevant and up to date,  and don't forget to upload great pictures to show it 📸 . Hey! You never get a second chance at a first impression...😎."
+msgstr "💡 Die Informationen in diesem Abschnitt werden verwendet, damit Benutzer Ihr Unternehmen entdecken können. Stellen Sie sicher, dass Ihr Profil relevant und aktuell ist, und vergessen Sie nicht, großartige Bilder hochzuladen, um es zu zeigen 📸. Hallo! Bei einem ersten Eindruck bekommt man nie eine zweite Chance ... 😎."
+
+msgid "💡 They get featured on Raisin's main screen of users in your area. The more you post,  the more you get noticed!<br> 📸 Share as many wine pictures as you wish,  to give the best understanding of what you sell!"
+msgstr "💡 Sie werden auf dem Hauptbildschirm von Raisin mit Benutzern in Ihrer Nähe angezeigt. Je mehr du postest, desto mehr wirst du bemerkt!<br> 📸 Teilen Sie so viele Weinbilder, wie Sie möchten, um das beste Verständnis dafür zu erhalten, was Sie verkaufen!"
+
+msgid "📸 Food pictures will also show up on Raisin's main screen of users in your area. 💡 The more the merrier,  show what your cuisine is all about ;)"
+msgstr "📸 Lebensmittelbilder werden auch auf dem Hauptbildschirm von Raisin mit Benutzern in Ihrer Nähe angezeigt. 💡 Je mehr desto besser, zeigen Sie, worum es in Ihrer Küche geht;)"
+
+msgid "😃 Thank you so much for subscribing to this service,  it means a lot to us 🙌🏻"
+msgstr "😃 Vielen Dank, dass Sie diesen Service abonniert haben. Das bedeutet uns sehr viel 🙌🏻"
+
+msgid "😎 Since you never get a second chance at a first impression..."
+msgstr "😎 Da Sie beim ersten Eindruck nie eine zweite Chance bekommen ..."
+
+msgid "🤔 How USERS FOUND you on Raisin - Taps"
+msgstr "🤔 Wie USERS Sie auf Raisin - Taps gefunden haben"
+
+msgid "Edit WINE information"
+msgstr "Bearbeiten Sie die WEIN-Informationen"
+
+msgid "Edit FOOD"
+msgstr "Essen bearbeiten"
+
+msgid "This Field Cannot Be Empty."
+msgstr "Dieses Feld kann nicht leer sein."
+
+msgid "All"
+msgstr "Alle"
+
+msgid "MODIFY image"
+msgstr "Bild ändern"
+
+msgid "Change Picture"
+msgstr "Bild ändern"
+
+msgid "Delete Picture"
+msgstr "Foto löschen"
+
+msgid "Add a new wine"
+msgstr "Fügen Sie einen neuen Wein hinzu"
+
+msgid "Add FOOD"
+msgstr "Essen hinzufügen"
+
+msgid "ADD Image"
+msgstr "Bild hinzufügen"
+
+msgid "We accept files in PNG,  JPG,  JPEG or GIF format, <br/>up to 5 MB+"
+msgstr "Wir akzeptieren Dateien im PNG-, JPG-, JPEG- oder GIF-Format.<br/> bis zu 5 MB +"
+
+msgid "Invalid Image Format."
+msgstr "Ungültiges Bildformat."
+
+msgid "Maximum File Size Limit is 5MB."
+msgstr "Die maximale Dateigrößenbeschränkung beträgt 5 MB."
+
+msgid "Maximum File Size Limit is"
+msgstr "Die maximale Dateigrößenbeschränkung beträgt"
+
+msgid "Select Wine Name."
+msgstr "Wählen Sie Weinname."
+
+msgid "Select Winemaker."
+msgstr "Wählen Sie Winemaker."
+
+msgid "Select Domain."
+msgstr "Wählen Sie Domain."
+
+msgid "Domain Name"
+msgstr "Domain Name"
+
+msgid "DOMAIN N&zwnj;AME"
+msgstr "DOMAIN N‌AME"
+
+msgid "COLOR"
+msgstr "FARBE"
+
+msgid "Vintage"
+msgstr "Jahrgang"
+
+msgid "VINTAGE"
+msgstr "JAHRGANG"
+
+msgid "Invalid Year Format."
+msgstr "Ungültiges Jahresformat."
+
+msgid "Red"
+msgstr "rot"
+
+msgid "White"
+msgstr "Weiß"
+
+msgid "Rosé"
+msgstr "Rosa"
+
+msgid "Orange"
+msgstr "Orange"
+
+msgid "Sparkling"
+msgstr "Funkelnd"
+
+msgid "Grape Variety"
+msgstr "Rebsorte"
+
+msgid "Add a comment to moderator on Raisin"
+msgstr "Fügen Sie dem Moderator einen Kommentar zu Raisin hinzu"
+
+msgid "Add a comment"
+msgstr "Einen Kommentar hinzufügen"
+
+msgid "to moderator on Raisin"
+msgstr "zum Moderator auf Rosine"
+
+msgid "Cancel"
+msgstr "Stornieren"
+
+msgid "POST"
+msgstr "POST"
+
+msgid "Close"
+msgstr "Schließen"
+
+msgid "NEW INFORMATION NOT SAVED"
+msgstr "NEUE INFORMATIONEN NICHT GESPEICHERT"
+
+msgid "NEW INFORMATION NOT SAVED!"
+msgstr "NEUE INFORMATIONEN NICHT GESPEICHERT!"
+
+msgid "Would you like to save before exiting?"
+msgstr "Möchten Sie vor dem Beenden speichern?"
+
+msgid "DELETE this POST?"
+msgstr "Lösche diesen Beitrag?"
+
+msgid "You will no longer have access to it."
+msgstr "Sie haben keinen Zugriff mehr darauf."
+
+msgid "POST WINE"
+msgstr "POST WEIN"
+
+msgid "Update"
+msgstr "Aktualisieren"
+
+msgid "WINE MADE BY A NATURAL WINEMAKER"
+msgstr "WEIN VON EINEM NATÜRLICHEN WEINHERSTELLER"
+
+msgid "THIS IS AN ORGANIC AND/OR BIODYNAMIC WINE"
+msgstr "Dies ist ein organischer und / oder biologisch-mechanischer Wein"
+
+msgid "IT'S A CONVENTIONAL WINE!"
+msgstr "ES IST EIN KONVENTIONELLER WEIN!"
+
+msgid "NOT SURE ABOUT THIS WINE..."
+msgstr "Nicht sicher über diesen Wein ..."
+
+msgid "Search coming soon"
+msgstr "Suche kommt bald"
+
+msgid "Select At Least One Type."
+msgstr "Wählen Sie mindestens einen Typ."
+
+msgid "Website language:"
+msgstr "Website-Sprache:"
+
+msgid "Website currency:"
+msgstr "Währung:"
+
+msgid "Be patient,  we are working hard to launch this section rapidly ;)"
+msgstr "Seien Sie geduldig, wir arbeiten hart daran, diesen Abschnitt schnell zu starten;)"
+
+msgid "Invoice"
+msgstr "Rechnung"
+
+msgid "Invoices"
+msgstr "Rechnungen"
+
+msgid "Drag and drop a file here or click"
+msgstr "Ziehen Sie eine Datei hierher und legen Sie sie ab oder klicken Sie auf"
+
+msgid "Opens at"
+msgstr "Öffnet um"
+
+msgid "Closes at"
+msgstr "Schließt um"
+
+msgid "DASHBOARD - Raisin Pro."
+msgstr "DASHBOARD - Rosine Pro."
+
+msgid "coming soon"
+msgstr "demnächst"
+
+msgid "Subscribers"
+msgstr "Abonnenten"
+
+msgid "Logout"
+msgstr "Ausloggen"
+
+msgid "Post Wine"
+msgstr "Post Wein"
+
+msgid "Post Food"
+msgstr "Post Essen"
+
+msgid "Price"
+msgstr "Preis"
+
+msgid "Euro"
+msgstr "Euro"
+
+msgid "United States Dollar"
+msgstr "US-Dollar"
+
+msgid "United Arab Emirates Dirham"
+msgstr "Vereinigte Arabische Emirate Dirham"
+
+msgid "Argentine Peso"
+msgstr "Argentinien Peso"
+
+msgid "Australian Dollar"
+msgstr "Australischer Dollar"
+
+msgid "Azerbaijani Manat"
+msgstr "Aserbaidschanisches Manat"
+
+msgid "Bulgarian Lev"
+msgstr "Bulgarian Lev"
+
+msgid "Bahraini Dinar"
+msgstr "Bahrain Dinar"
+
+msgid "Brunei Dollar"
+msgstr "Brunei Dollar"
+
+msgid "Brazilian Real"
+msgstr "brasilianischer Real"
+
+msgid "Canadian Dollar"
+msgstr "Kanadischer Dollar"
+
+msgid "Swiss Franc"
+msgstr "Schweizerfranken"
+
+msgid "Chilean Peso"
+msgstr "Chilenischer Peso"
+
+msgid "Chinese Yuan"
+msgstr "Chinesische Yuan"
+
+msgid "Czech Koruna"
+msgstr "Tschechische Koruna"
+
+msgid "Danish Krone"
+msgstr "Dänische Krone"
+
+msgid "Egyptian Pound"
+msgstr "Ägyptisches Pfund"
+
+msgid "Fiji Dollar"
+msgstr "Fidschianischer Dollar"
+
+msgid "Pound Sterling"
+msgstr "Pfund Sterling"
+
+msgid "Hong Kong Dollar"
+msgstr "Hongkong Dollar"
+
+msgid "Hungarian Forint"
+msgstr "Ungarischer Forint"
+
+msgid "Indonesian Rupiah"
+msgstr "Indonesische rRpiah"
+
+msgid "Israeli New Shekel"
+msgstr "Israelischer neuer Schekel"
+
+msgid "Indian Rupee"
+msgstr "Indische Rupie"
+
+msgid "¥ - Japanese Yen"
+msgstr "¥ - Japanischer Yen"
+
+msgid "South Korean Won"
+msgstr "Südkoreaner gewonnen"
+
+msgid "Kuwaiti Dinar"
+msgstr "Kuwaitischer Dinar"
+
+msgid "Sri Lankan Rupee"
+msgstr "Sri Lanka Rupie"
+
+msgid "Moroccan Dirham"
+msgstr "Marokkanischer Dirham"
+
+msgid "Malagasy Ariary"
+msgstr "Madagassisches Ariary"
+
+msgid "Mexican Peso"
+msgstr "Mexikanischer Peso"
+
+msgid "Malaysian Ringgit"
+msgstr "Malaysischer Ringgit"
+
+msgid "Norwegian Krone"
+msgstr "Norwegische Krone"
+
+msgid "New Zealand Dollar"
+msgstr "Neuseeland Dollar"
+
+msgid "Omani Rial"
+msgstr "Omani Rial"
+
+msgid "Peruvian Sol"
+msgstr "Peruanisches Sol"
+
+msgid "Papua New Guinean Kina"
+msgstr "Papua-Neuguinea China"
+
+msgid "Philippine Peso"
+msgstr "Philippinischer Peso"
+
+msgid "Pakistani Rupee"
+msgstr "Pakistanische Rupie"
+
+msgid "Polish Złoty"
+msgstr "Polnischer Zloty"
+
+msgid "Russian Ruble"
+msgstr "russischer Rubel"
+
+msgid "Saudi Riyal"
+msgstr "Saudi-Rial"
+
+msgid "Solomon Islands Dollar"
+msgstr "Salomonen-Dollar"
+
+msgid "Seychelles Rupee"
+msgstr "Seychellen-Rupie"
+
+msgid "Swedish Krona/Kronor"
+msgstr "Schwedische Krone / Kronor"
+
+msgid "Singapore Dollar"
+msgstr "Singapur-Dollar"
+
+msgid "Thai Baht"
+msgstr "Thai Baht"
+
+msgid "Tongan pPaʻanga"
+msgstr "Tongan pPaʻanga"
+
+msgid "Turkish Lira"
+msgstr "Türkische Lire"
+
+msgid "New Taiwan Dollar"
+msgstr "Neuer Taiwan-Dollar"
+
+msgid "Tanzanian Shilling"
+msgstr "Tansanischer Schilling"
+
+msgid "Venezuelan Bolívar"
+msgstr "Venezolanischer Bolivar"
+
+msgid "Vietnamese Dồng"
+msgstr "Vietnamesischer Dong"
+
+msgid "Vanuatu Vatu"
+msgstr "Vanuatu Vatu"
+
+msgid "Samoan Tala"
+msgstr "Samoan Tala"
+
+msgid "CFA Franc BCEAO"
+msgstr "CFA Franc BCEAO"
+
+msgid "South African Rand"
+msgstr "Südafrikanischer Rand"
+
+msgid "Incorrect price."
+msgstr "Falscher Preis."
+
+msgid "Sign into your account"
+msgstr "Melden Sie sich bei Ihrem Konto an"
+
+msgid "Remember me"
+msgstr "Erinnere dich an mich"
+
+msgid "I accept the"
+msgstr "Ich akzeptiere das"
+
+msgid "Terms of Service"
+msgstr "Nutzungsbedingungen"
+
+msgid "and"
+msgstr "und"
+
+msgid "Privacy policy"
+msgstr "Datenschutz-Bestimmungen"
+
+msgid "Login"
+msgstr "Einloggen"
+
+msgid "Don't have an account?"
+msgstr "Sie haben noch keinen Account?"
+
+msgid "Register here"
+msgstr "Hier registrieren"
+
+msgid "Recover your password"
+msgstr "Stellen Sie Ihr Passwort wieder her"
+
+msgid "Reset Password"
+msgstr "Passwort zurücksetzen"
+
+msgid "Wrong credentials"
+msgstr "Falsche Anmeldeinformationen"
+
+msgid "No establishment added to your account - Please contact the administrator:"
+msgstr "Ihrem Konto wurde keine Einrichtung hinzugefügt. - Bitte wenden Sie sich an den Administrator:"
+
+msgid "Email has been sent. Get back to"
+msgstr "Die Email wurde verschickt. Zurück zu"
+
+msgid "login page"
+msgstr "Loginseite"
+
+msgid "Username or email"
+msgstr "Benutzername oder E-Mail-Adresse"
+
+msgid "Forgot password?"
+msgstr "Passwort vergessen?"
+
+msgid "Validate"
+msgstr "Bestätigen"
+
+msgid "Reset your password"
+msgstr "Setze dein Passwort zurück"
+
+msgid "Set your password"
+msgstr "Lege ein Passwort fest"
+
+msgid "The two password fields did not match."
+msgstr "Die zwei Passwortfelder stimmen nicht überein."
+
+msgid "Password can not be empty."
+msgstr "Passwort kann nicht leer sein."
+
+msgid "Password must contain a mix of lowercase letters, uppercase letters and numbers."
+msgstr "Das Passwort muss eine Mischung aus Kleinbuchstaben, Großbuchstaben und Zahlen enthalten."
+
+msgid "Password must be between 6 and 30 characters."
+msgstr "Das Passwort muss zwischen 6 und 30 Zeichen lang sein."
+
+msgid "The current password does not match."
+msgstr "Das aktuelle Passwort stimmt nicht überein."
+
+msgid "No results found."
+msgstr "Keine Ergebnisse gefunden."
+
+msgid "See all"
+msgstr "Alles sehen"
+
+msgid "Agreed to the"
+msgstr "Einverstanden mit dem"
+
+msgid "😎 Since you never get a second chance at a first impression... Make sure to complete your establishment's info in detail,  it's time to shine like a diamond 💎"
+msgstr "😎 Da Sie bei einem ersten Eindruck nie eine zweite Chance bekommen ... Vergewissern Sie sich, dass Sie die Informationen Ihres Unternehmens im Detail vervollständigen. Es ist Zeit, wie ein Diamant zu glänzen. 💎"
+
+msgid "Renew password"
+msgstr "Passwort erneuern"
+
+msgid "Resend activation"
+msgstr "Aktivierung erneut senden"
+
+msgid "Establishment Owner"
+msgstr "Betriebsinhaber"
+
+msgid "Messages"
+msgstr "Mitteilungen"
+
+msgid "Change Password"
+msgstr "Passwort ändern"
+
+msgid "Please fill in your billing address details in your Chargebee account."
+msgstr "Bitte geben Sie Ihre Rechnungsadresse in Ihr Chargebee-Konto ein."
+
+msgid "Your plan will renew on"
+msgstr "Ihr Plan wird am erneuert"
+
+msgid "To change your plan to upgrade,  downgrade,  cancel or switch billing frequency"
+msgstr "So ändern Sie Ihren Plan für ein Upgrade, ein Downgrade, einen Abbruch oder einen Wechsel der Abrechnungshäufigkeit"
+
+msgid "You don't have any active plans"
+msgstr "Sie haben keine aktiven Pläne"
+
+msgid "Please,  email our support at"
+msgstr "Bitte senden Sie unseren Support per E-Mail an"
+
+msgid "for"
+msgstr "zum"
+
+msgid "daily"
+msgstr "Täglich"
+
+msgid "weekly"
+msgstr "wöchentlich"
+
+msgid "monthly"
+msgstr "monatlich"
+
+msgid "quarterly"
+msgstr "vierteljährlich"
+
+msgid "semiannually"
+msgstr "halbjährlich"
+
+msgid "annually"
+msgstr "jährlich"
+
+msgid "Congratulations!"
+msgstr "Herzliche Glückwünsche!"
+
+msgid "Password for user"
+msgstr "Passwort für den Benutzer"
+
+msgid "has been successfully changed. You can now login into the Raisin app"
+msgstr "wurde erfolgreich geändert. Sie können sich jetzt bei der Raisin App anmelden"
+
+msgid "has been successfully changed. You can now %(link)s into Raisin Pro (app or website)."
+msgstr "wurde erfolgreich geändert. Sie können jetzt% (Link) in Raisin Pro (App oder Website)."
+
+msgid "➜ Click HERE to add this wine 🍷"
+msgstr "➜ Klicken Sie HIER, um diesen Wein hinzuzufügen 🍷"
+
+msgid "You must connect this owner to an establishment"
+msgstr "Sie müssen diesen Eigentümer mit einer Einrichtung verbinden"
+
+msgid "A user with that username already exists."
+msgstr "Ein Benutzer mit diesem Benutzernamen existiert bereits."
+
+msgid "This Chargebee Customer ID is invalid."
+msgstr "Diese Chargebee-Kunden-ID ist ungültig."
+
+msgid "Customer ID is already assigned to another user."
+msgstr "Die Kunden-ID ist bereits einem anderen Benutzer zugewiesen."
+
+msgid "Subscription ID is already assigned to an establishment."
+msgstr "Die Abonnement-ID ist bereits einer Einrichtung zugeordnet."
+
+msgid "The owner of this place is linked to a different Chargebee Customer ID than the subscription you are trying to submit."
+msgstr "Der Eigentümer dieses Ortes ist mit einer anderen Chargebee-Kunden-ID verknüpft als das Abonnement, das Sie einreichen möchten."
+
+msgid "The Chargebee Customer that has this subscription is already linked to a different establishment owner."
+msgstr "Der Chargebee-Kunde, der dieses Abonnement hat, ist bereits mit einem anderen Betriebsinhaber verbunden."
+
+msgid "Please assign an owner to this establishment first."
+msgstr "Bitte weisen Sie dieser Einrichtung zuerst einen Eigentümer zu."
+
+msgid "You don't have any subscriptions assigned to this establishment."
+msgstr "Sie haben dieser Einrichtung keine Abonnements zugewiesen."
+
+msgid "Start date is required for regular events."
+msgstr "Für regelmäßige Veranstaltungen ist ein Startdatum erforderlich."
+
+msgid "End date is required for regular events."
+msgstr "Für regelmäßige Veranstaltungen ist ein Enddatum erforderlich."
+
+msgid "Address is required for regular events."
+msgstr "Für regelmäßige Veranstaltungen ist eine Adresse erforderlich."
+
+msgid "Trial remaining"
+msgstr "Test verbleibt"
+
+msgid "days - Trial ends on"
+msgstr "Tage - Der Prozess endet am"
+
+msgid "Payment Status"
+msgstr "Zahlungsstatus"
+
+msgid "Plan"
+msgstr "Planen"
+
+msgid "Plan Amount"
+msgstr "Planbetrag"
+
+msgid "Please remove the Subscription ID from the old establishment first."
+msgstr "Bitte entfernen Sie zuerst die Abonnement-ID aus dem alten Betrieb."
+
+msgid "🙋🏼‍♀️ Welcome to Raisin Pro."
+msgstr "🙋🏼‍♀️ Willkommen bei Raisin Pro."
+
+msgid "No records to display."
+msgstr "Keine Datensätze zum Anzeigen."
+
+msgid "Go ahead,  "
+msgstr "Gehen Sie geradeaus,"
+
+msgid "post a wine 🍷"
+msgstr "poste einen Wein 🍷"
+
+msgid "WINES BY USERS"
+msgstr "WEINE VON BENUTZERN"
+
+msgid "Additional emails"
+msgstr "Zusätzliche E-Mails"
+
+msgid "FEEDBACK"
+msgstr "FEEDBACK"
+
+msgid "NEED SUPPORT?"
+msgstr "BRAUCHE UNTERSTÜTZUNG?"
+
+msgid "Write something"
+msgstr "Schreibe etwas"
+

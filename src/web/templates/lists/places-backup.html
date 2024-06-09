@@ -1,0 +1,706 @@
+{% extends "base/layout.html" %}
+
+{% load static %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% load web_extras %}
+
+{% block title %}Venues - Home - Raisin{% endblock %}
+
+{% block main_content %}
+
+
+{% verbatim %}
+
+<script>
+    var url_get_place_items_ajax_all = "{% endverbatim %}{% url 'get_place_items_opti_ajax' list_for='all' %}{% verbatim %}";
+    var url_get_place_items_ajax_in_trial = "{% endverbatim %}{% url 'get_place_items_opti_ajax' list_for='in_trial' %}{% verbatim %}";
+    var url_get_place_items_ajax_free = "{% endverbatim %}{% url 'get_place_items_opti_ajax' list_for='free' %}{% verbatim %}";
+    var url_get_place_items_ajax_subscribers = "{% endverbatim %}{% url 'get_place_items_opti_ajax' list_for='subscribers' %}{% verbatim %}";
+    var url_get_place_items_ajax_not_connected = "{% endverbatim %}{% url 'get_place_items_opti_ajax' list_for='not_connected' %}{% verbatim %}";
+    var url_get_place_items_ajax_stickers = "{% endverbatim %}{% url 'get_place_items_opti_ajax' list_for='stickers' %}{% verbatim %}";
+    var url_places_publish_ajax = "{% endverbatim %}{% url 'places_publish_ajax' %}{% verbatim %}";
+    var url_places_unpublish_ajax = "{% endverbatim %}{% url 'places_unpublish_ajax' %}{% verbatim %}";
+    var url_places_delete_ajax = "{% endverbatim %}{% url 'places_delete_ajax' %}{% verbatim %}";
+    var url_places_duplicate_ajax = "{% endverbatim %}{% url 'places_duplicate_ajax' %}{% verbatim %}";
+    var url_places_close_ajax = "{% endverbatim %}{% url 'places_close_ajax' %}{% verbatim %}";
+    var url_places_set_in_doubt_ajax = "{% endverbatim %}{% url 'places_set_in_doubt_ajax' %}{% verbatim %}";
+    var url_comments = "{% endverbatim %}{% url 'list_est_comments' %}{% verbatim %}";
+    var url_free_glass = "{% endverbatim %}{% url 'list_est_free_glass' %}{% verbatim %}";
+</script>
+{% endverbatim %}
+
+
+<script src="{% static 'assets/javascripts/lists/list.pipeline.js' %}"></script>
+<script src="{% static 'assets/javascripts/lists/list.places.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'assets/stylesheets/new_style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'assets/stylesheets/edit/ocr.css' %}" />
+
+
+<div class="panel" style="font-size:16px!important;">
+    <div class="panel-heading text-left">
+        <div class="table-caption">Venues: <span class="all_count">12034</span></div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <ul id="uidemo-tabs-default-demo" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#all" data-toggle="tab">All <span class="badge label-warning all_count"></span></span></a>
+                    </li>
+                    <li>
+                        <a href="#free" data-toggle="tab">Free <span class="badge label-warning free_counte"></span></a>
+                    </li>
+                    <li>
+                        <a href="#subscribers" data-toggle="tab">Subscribers <span class="badge label-warning subscribers_count"></span></a>
+                    </li>
+                    <li>
+                        <a href="#in_trial" data-toggle="tab">In Trial <span class="badge label-warning in_trial_count"></span></a>
+                    </li>
+                    <li>
+                        <a href="#not_connected" data-toggle="tab">not connected <span class="badge label-warning not_connected_count"></span></a>
+                    </li>
+                    <li>
+                        <a href="#stickers" data-toggle="tab">Stickers <span class="badge label-warning stickers_count"></span></a>
+                    </li>
+                </ul>
+                <div class="tab-content tab-content-bordered" style="">
+                    <div class="tab-pane fade in active" id="all">
+                        {% include 'base/elements/lists/places-all.html' %}
+                    </div>
+                    <div class="tab-pane fade" id="free">
+                        {% include 'base/elements/lists/places-free.html' %}
+                    </div>
+                    <div class="tab-pane fade" id="subscribers">
+                        {% include 'base/elements/lists/places-subscribers-new.html' %}
+                    </div>
+                    <div class="tab-pane fade" id="in_trial">
+                        {% include 'base/elements/lists/places-in-trial.html' %}
+                    </div>
+                    <div class="tab-pane fade" id="not_connected">
+                        {% include 'base/elements/lists/places-not-connected.html' %}
+                    </div>
+                    <div class="tab-pane fade" id="stickers">
+                        {% include 'base/elements/lists/places-stickers.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+{% include 'base/elements/lists/action_footer_dpcd.html' %}
+
+<div class="sidebar_quickview">
+
+    <header class="quickview_header">
+        <p class="quickview_title lead fw-400">Edit <span class="venueName"></span>'s information</p>
+        <span class="close">&times;</span>
+    </header>
+    
+    <div class="quickview_body cms-first">
+        
+        <!-- Menu -->
+
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#venue" data-toggle="tab">Venue</a>
+            </li>
+            <li>
+                <a href="#subscription" data-toggle="tab">Subscription</a>
+            </li>
+            <li>
+                <a href="#owner" data-toggle="tab">Owner <i class="fa fa-chain"></i></a>
+            </li>
+        </ul>
+        <form id="placeform" novalidate accept-charset="UTF-8" action="{{ action_url }}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+        
+            <input type="hidden" name="status" id="id_status">
+            <input type="hidden" name="images_temp_dir" id="id_images_temp_dir">
+            <input type="hidden" name="full_street_address" id="id_full_street_address">
+            <input type="hidden" name="street_address" id="id_street_address">
+            <input type="hidden" name="house_number" id="id_house_number">
+            <input type="hidden" name="zip_code" id="id_zip_code">
+            <input type="hidden" name="city" id="id_city">
+            <input type="hidden" name="country" id="id_country">
+            <input type="hidden" name="country_iso_code" id="id_country_iso_code">
+            <input type="hidden" name="state" id="id_state">
+            <input type="hidden" name="latitude" id="id_latitude">
+            <input type="hidden" name="longitude" id="id_longitude">
+            <input type="hidden" name="pin_latitude" id="id_pin_latitude">
+            <input type="hidden" name="pin_longitude" id="id_pin_longitude">
+            <input type="hidden" name="image_ordering" id="id_image_ordering">
+            
+            <div class="tab-content tab-content-bordered changesjhb">
+                
+            <!-- 1 Venue -->
+
+                <div class="tab-pane fade active in" id="venue">
+                        
+                    <!-- Venue content -->
+
+                    <div id="Venue-content">
+                        
+                        <h3>Info</h3>
+                        
+                        <div class="form-group formpanel pt-5">
+                            <label for="venueName"  class="control-label">Name:</label>
+                            <input id="venueName" type="text" name="name" value="" maxlength="128" class="form-control" required="" id="id_name">
+                        </div>
+                        
+                        <div class="form-group formpanel">
+                            <label for="venuePhone" class="control-label">Phone</label>
+                            <input id="venuePhone" type="text" name="phone_number" value="" maxlength="50" class="form-control" id="id_phone_number">
+                        </div>
+                    
+                        <div class="form-group formpanel">
+                            <label for="jq-validation-type" class="control-label">Type</label>
+                            <div class="sitt typevenue" style="padding-left: 20px;">
+                                <label>
+                                    <input type="checkbox" name="is_restaurant" class="px" id="is_restaurant">
+                                    <span class="lbl">Restau.</span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="is_wine_shop" class="px" id="is_wine_shop">
+                                    <span class="lbl">Shop</span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="is_bar" class="px" id="is_bar">
+                                    <span class="lbl">Bar</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        
+                        <!-- Venue's status -->
+                        <div class="form-group has-feedback formpanel">
+                            <label for="venueType" class="control-label">Venue:</label>
+                            <select name="type" class="form-control user-type-style" id="venueType">
+                                <option value="10">Draft</option>
+                                <option value="12">In Review</option>
+                                <option value="15">In Doubt</option>
+                                <option value="16">Not eligible</option>
+                                <option value="17">Eligible</option>
+                                <option value="19">To Publish</option>
+                                <option value="20">Published</option>
+                                <option value="18">Subscriber</option>
+                                <option value="35">Closed</option>
+                            </select>
+                        </div>
+                        <!-- End of Venue's status -->
+                        
+                        
+                        <div class="form-group formpanel">
+                            <label for="venueEmail" class="control-label">Email:</label>
+                            <input id="venueEmail" type="email" name="email" value="enotecaartemisia@gmail.com" maxlength="255" class="form-control" id="id_email">
+                        </div>
+                        
+                        <div class="form-group formpanel">
+                        <label for="venueWebsite" class="control-label">Website:</label>
+                            <input type="text" name="website_url" maxlength="255" class="form-control" value="http://www.enotecaartemisia.com"  maxlength="255" id="venueWebsite">
+                        </div>
+                        
+                        
+                        <div class="form-group formpanel">
+                            <label for="venueFBUrl" class="control-label">Facebook:</label>
+                            <input type="text" name="social_facebook_url" value="https://www.facebook.com/La-Part-Des-Anges-205007146271303/?ref=ts" maxlength="255" class="form-control" id="venueFBUrl">
+                        </div>
+                        
+                        <div class="form-group formpanel">
+                            <label for="venueInstaUrl" class="control-label">Instagram:</label>
+                            <input type="text" name="social_instagram_url" maxlength="255" class="form-control" id="venueInstaUrl">
+                        </div>
+                        
+                        <div class="form-group formpanel">
+                            <label for="venueTwitterUrl" class="control-label">Twitter:</label>
+                            <input type="text" name="social_twitter_url" maxlength="255" class="form-control" id="venueTwitterUrl">
+                        </div>
+                        
+                        
+                        <div class="form-group has-feedback formpanel">
+                            <label for="venueComments" class="control-label">Comments by team:</label>
+                            <textarea class="form-control" rows="4" id="venueComments"></textarea>
+                        </div>
+                    
+                        <hr>
+
+                    
+                        <h3>Address:</h3>
+                        
+                        <div id="map" style="width:100%; height:95px;"></div>
+
+                        <div class="sitt la pt-5">
+                            <a href="#" class="venuemodal" id="addressLine" data-toggle="modal" data-target="#myModalMap" target="_parent"></a>
+                        </div>		 
+                        
+                        <hr>
+                    
+                    
+                        <h3>Pictures <span id="totalPictures"></span></h3>		
+                        <ul class="img-venue"></ul>	
+                    
+                        <div class="sitt la pt-10">
+                            <a href="#" class="venuemodal" data-toggle="modal" data-target="#editPicture" target="_parent">
+                                <i class="fa fa-picture-o" style="font-size:15px;"></i> Upload & edit pictures. 
+                            </a>
+                        </div>
+                        <hr>
+                
+                        <div id="current-winelists-inside" class="current-winelists-inside">	
+                            <h3>Wine list</h3>
+                            <div class="counter counter-lg"><span>44.04%</span></div>
+                            <p class="txtnormal">Score updated: 2021-10-20 10:58:39</p>
+                            
+                            <div class="sitt la pt-10">
+                                <a href="#" class="venuemodal" data-toggle="modal" data-target="#editWineList" target="_parent">
+                                    <i class="fa fa-cogs" style="font-size:15px;"></i> Edit Natural Wine List Analyser  
+                                </a>
+                            </div>
+                        </div>
+                
+                        <hr>
+                        
+                        <h3>Other</h3>
+                        <div class="form-group has-feedback formpanel">
+                            <label class="control-label" for="missing">Missing Info</label>
+                            <select name="place" class="form-control" id="missing" tabindex="-1" aria-hidden="true">
+                                <option value="true">yes</option>
+                                <option value="false">no</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group has-feedback formpanel">
+                            <label class="control-label" for="type-sub">Type Sub.</label>
+                            <select name="place" class="form-control" id="type-sub" tabindex="-1" aria-hidden="true">
+                                <option value="yes-info">Subscribed to appear</option>
+                                <option value="no-info">Previously recommended</option>
+                            </select>
+                        </div>
+                
+                        <!-- 32.4. $BOOTSTRAP_DATEPICKER_RANGE ============================================================= 
+                        Range -->
+                        <!-- Javascript -->
+                        <script>
+                            init.push(function () {
+                                var options = {
+                                    orientation: $('body').hasClass('right-to-left') ? "auto right" : 'auto auto'
+                                }
+                                $('#bs-datepicker-range').datepicker(options);
+                                $('#datepicker-post-social-media').datepicker(options);
+                            });
+                        </script>
+                        <!-- / Javascript -->
+                
+                
+                        <div class="form-group has-feedback formpanel">
+                            <label class="control-label" for="sticker-sent-date">Sticker</label>
+                            <div class="input-daterange input-group" id="bs-datepicker-range">
+                                <input type="text" class="input-sm form-control" name="start" placeholder="Shipment">	
+                                <div class="sitt">
+                                    <p class="pt-5"><strong class="wp-sel-year year-item defaut">2021</strong> - <small>10/12/2021</small> <a href="#" title="Delete vintage" class="year-delete-btn" onclick="YearlyDataManager.delete_year(2007); return false;"><i class=" fa fa-times-circle"></i></a><p>
+                                </div>
+                            </div>		
+                        </div>
+                        <!-- /32. $BOOTSTRAP_DATEPICKER -->
+
+                        
+                        <!-- Social Media-->
+                        <div class="form-group has-feedback formpanel">
+                            <label class="control-label" for="datepicker-post-social-media">Media Post</label>
+                            <div class="input-daterange input-group" id="datepicker-post-social-media">
+                                <input type="text" class="input-sm form-control" name="start" placeholder="Publishing date">
+                            </div>
+                            <label class="control-label" style="opacity: 0;">url</label>		
+                            <input type="text" class="input-sm form-control marge" placeholder="URL of related post" id="url-post">
+                        </div> 
+                        <!-- end ofSocial Media -->
+
+                    </div>
+                    <!-- End of Venue content -->
+                </div> 
+
+                <!-- 1 end of Venue -->
+
+                
+                <!-- 2 Subscription -->
+
+                <div class="tab-pane fade" id="subscription">
+                    
+                    <!-- Subscription content -->
+                    
+                    <div id="subscription-content">
+                        
+                        <div>
+                            <h3>Customer Details</h3>
+                            <dl class="pt-5">
+                                <dt>Customer Id</dt> <dd><a href="https://raisin.chargebee.com/subscriptions/47239513/details">16COOxSlqhFEB4aE9</a></dd>
+                                <dt>First Name</dt> <dd>Andrea</dd>
+                                <dt>Last Name</dt> <dd>Bompadre</dd>
+                                <dt>Company</dt> <dd>Bompadre Adriano e Figli SRL</dd>
+                                <dt>Email</dt> <dd>enotecaartemisia@gmail.com</dd>
+                                <dt>Phone</dt> <dd>+13471072340</dd>
+                                <dt class="pt-30">Shipping Address</dt><dd></dd>
+                            </dl>
+                        </div>
+                        
+                        <div class="encorenew">
+                            <div>
+                                Via XX Settembre, 4<br>
+                                Foligno - 06034<br>
+                                Perugia, Italy.<br>
+                            </div>
+                        </div>
+                    
+                        <div>
+                            <h3>Configurations</h3>
+                            <dl>
+                                <dt>Locale</dt> <dd><a href="https://raisin.chargebee.com/subscriptions/47239513/details">English (United States)</a></dd>
+                                <dt>Billing Info</dt> <dd>Italy - IT 03159630544</dd>
+                                <dt>Payment Method</dt> <dd>MasterCard ending 6860</dd>
+                            </dl>
+                        </div>
+                        
+                        <div>
+                            <h3 class="subscriptioninfo">Subscription Info</h3>
+                            <dl>
+                                <dt>Status</dt> 			 
+                                <dd><button class="btn-cgb-in-trial btn btn-xs" type="button">IN_TRIAL</button></dd>
+                                <dt>Plan</dt>				 
+                                <dd><small><a href="https://raisin.chargebee.com/subscriptions/47239513/details">Yearly Subscription 135€ - EN - EUR</a></small></dd>
+                                <dt>Plan Amount</dt> 		 
+                                <dd>EUR 162,00 / Year × 1</dd>
+                                <dt>Next Billing On</dt> 	 
+                                <dd>28-Oct-2021 22:36</dd>
+                                <dt>Next Billing Amount</dt> 
+                                <dd>EUR 135,00</dd>
+                                <dt>Auto Collection</dt> 	 
+                                <dd>On (Customer's default)</dd>
+                                <dt>Trial Remaining</dt> 	 
+                                <dd><a href="https://raisin.chargebee.com/subscriptions/47239513/details">13 days</a></dd>
+                                <dt>Trial ends on</dt> 		 
+                                <dd>28-Oct-2021 22:36</dd>
+                                <dt>Addons</dt> 			 
+                                <dd><small>⚡ FREE 48 HOURS GUARANTEED REGISTRATION⚡on Raisin. <br>➜ FREE RAISIN ELECTROSTATIC STICKER</small></dd>
+                            </dl>
+                        </div>
+                    
+                    </div> 
+
+                    <!-- End of Subscription content -->
+                    
+                </div> 
+
+                <!-- 2 end of Subscription -->		
+                
+                <!--3 Owner's info -->
+                
+                <div class="tab-pane fade" id="owner">
+                    
+                    <!-- Owners-content--> 
+
+                    <div id="owners-content">
+                        <h3>Owner's info on Raisin:</h3>	
+                        
+                        <div class="form-group has-feedback formpanel pt-10">
+                            <label class="control-label" for="email">Email</label>
+                            <input type="text" class="form-control" id="email" value="enotecaartemisia@gmail.com">
+                        </div> 
+                        
+                        <div class="form-group has-feedback formpanel">
+                            <label class="control-label" for="name">Name</label>
+                            <input type="text" class="form-control" id="name" value="enoteca-artemisia">
+                        </div>
+                        
+                        <div class="form-group has-feedback formpanel">
+                            <label class="control-label" for="username">Username</label>
+                            <input type="text" class="form-control" id="username" value="enoteca-artemisia">
+                        </div>
+                        
+                        <div class="form-group has-feedback formpanel">
+                            <label class="control-label" for="extra-email">Extra Email</label>
+                                <input type="text" class="form-control" id="extra-email" value="enotecaartemisia-two@gmail.com">
+                        </div>
+                        
+                        <div class="form-group has-feedback formpanel">
+                            <label class="control-label" for="website">Website</label>
+                            <input type="text" class="form-control" id="website" value="https://www.facebook.com/Enoteca-Artemisia-125368439264714/">
+                        </div>
+                        
+                        <div class="form-group has-feedback formpanel">
+                            <label class="control-label" for="language">Language</label>
+                            <select name="language" class="form-control" id="id_lang">
+                            <option value="FR">FR</option>
+                            <option value="EN">EN</option>
+                            <option value="JA">JA</option>
+                            <option value="IT" selected="">IT</option>
+                            <option value="ES">ES</option>
+                            <option value="DE">DE</option>
+                            </select>
+                        </div>
+                                
+                        <div class="form-group has-feedback formpanel">
+                            <label for="submission" class="control-label">Src.</label>
+                            <select name="place" class="form-control" id="submission" tabindex="-1" aria-hidden="true">
+                                <option value="mobile">Mobile</option>
+                                <option value="pro-website">Pro. website</option>
+                                <option value="chargebee">Chargebee</option>
+                                <option value="chargebee">CMS</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group has-feedback formpanel">
+                            <label for="id_type"  class="control-label">Status:</label>
+                            <select name="type" class="form-control user-type-style" id="id_type">
+                            <option value="10">USER</option>
+                            <option value="60">SUBMITTER</option>
+                            <option value="40" selected="">OWNER</option>
+                            <option value="50">VIEWER</option>
+                                <option value="20">EDITOR</option>
+                            <option value="30">ADMINISTRATOR</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group has-feedback formpanel">
+                            <label for="id_customer" class="control-label">Customer ID</label>
+                            <input type="text" name="customer" value="16COOxSlqhFEB4aE9" maxlength="50" minlength="5" autocomplete="nope" class="form-control" id="id_customer">
+                        </div>
+                        
+                        <div class="form-group has-feedback formpanel">
+                            <label for="id_subscription" class="control-label">Subscription</label>
+                            <select name="subscription" autocomplete="nope" class="form-control" id="id_subscription" tabindex="-1" aria-hidden="true">
+                                <option value="default">Select the subscription</option>
+                                <option value="AzZdGJSjBV0h61Yyt" selected="">AzZdGJSjBV0h61Yyt - Annuel-135€-IT-TAX:EUR - active</option>
+                            </select>                        
+                        </div>
+                        
+                        <div class="form-group has-feedback formpanel">
+                            <label for="id_place" class="control-label">Venue</label>
+                            <select name="place" class="form-control" id="id_place" tabindex="-1" aria-hidden="true">
+                                <option value="default">Select the venue</option>
+                                <option value="111" selected="">Enoteca Artemisia</option>
+                            </select>
+                        </div>
+                        
+                        
+                    <div class="form-group has-feedback formpanel">
+                            <label class="control-label">Actions</label>
+                            <div>
+                                <button type="button" id="btn_renew_password" class="btn btn-flat" data-toggle="tooltip" title="RENEW PASSWORD" data-placement="bottom">Renew Pass.</button>
+                                <button type="button" id="btn_resend_activation" class="btn btn-flat"  data-toggle="tooltip" title="RESEND ACTIVATION" data-placement="bottom">Resend Activation</button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group has-feedback formpanel fileUploader">
+                            <div class="picture-larger"><a href="user.html"><img src=""></a></div>
+                            <div class="fileInput">
+                                <input type="file" name="fileUpload" id="fileUpload" class="inputfile">
+                                <label for="fileUpload">
+                                    <span class="archive-name">No file selected...</span>
+                                    <div class="d-flex">
+                                        <span class="btn-inputfile">Choose</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        
+                        
+                        <div class="sitt la" style="padding-left: 5px;"><a href="#" class="venuemodal" target="_parent"><i class="fa fa-eye"></i> Access [Name of Venue] Pro. Dashboard</a></div>	
+                        
+                        
+                        </div>	
+                        
+                        <!-- End of owners-content--> 
+                    
+                    
+                </div> 
+
+                <!--3 end of owner's info -->
+                
+            </div> 
+        
+        </form>
+        
+        
+    </div>
+
+    <footer class="quickview_footer">
+        <button class="btn btn-w-md btn-bold btn-secondary" type="button" data-toggle="quickview">
+            Cancel
+        </button>
+        <button type="button" class="btn btn-w-md btn-bold btn-success" id="post-edit" name="postType" value="edit">
+            Update
+        </button>
+    </footer>
+</div>
+
+<div id="myModalMap" class="modal fade modal_xl" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Map</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input id="pac-input" class="controls" type="text" placeholder="Enter a location" />
+                        <div id="type-selector" class="controls">
+                            <input type="radio" name="_type" id="changetype-all" checked="checked" />
+                            <label for="changetype-all">All</label>
+
+                            <input type="radio" name="type" id="changetype-establishment" />
+                            <label for="changetype-establishment">Establishments</label>
+
+                            <input type="radio" name="type" id="changetype-address" />
+                            <label for="changetype-address">Addresses</label>
+
+                            <input type="radio" name="type" id="changetype-geocode" />
+                            <label for="changetype-geocode">Geocodes</label>
+                        </div>
+                        <div class="map" style="width:100%; height:400px; margin-bottom:30px;"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="infos">
+                            <div class="form-group">
+                                <label for="street-address" class="col-sm-3 control-label text-left">Auto-completion (Latin)</label>
+                                <div class="col-sm-9">
+                                    <input id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="text"  class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="street-address-jp" class="col-sm-3 control-label text-left">Auto-completion (Japan)</label>
+                                <div class="col-sm-9">
+                                    <input id="autocomplete-jp" placeholder="Enter your address in Japan" onFocus="geolocate()" type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="route" class="col-sm-3 control-label text-left">Displayed Address</label>
+                                <div class="col-sm-9">
+                                    <input id="route" name="route" class="form-control"/>
+                                </div>
+                            </div>
+            
+                            <div class="form-group">
+                                <label for="locality" class="col-sm-3 control-label text-left">City</label>
+                                <div class="col-sm-9">
+                                    <input id="locality"  name="locality"  class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="administrative_area_level_1" class="col-sm-3 control-label text-left">State</label>
+                                <div class="col-sm-9">
+                                    <input id="administrative_area_level_1" name="state" class="form-control"/>
+                                </div>
+                            </div>
+            
+                            <div class="form-group">
+                                <label for="postal_code" class="col-sm-3 control-label text-left">Zip code</label>
+                                <div class="col-sm-9">
+                                    <input id="postal_code" name="postal_code" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="country" class="col-sm-3 control-label text-left">Country</label>
+                                <div class="col-sm-9">
+                                    <input id="country" name="country" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-1">
+                                    <input class="field" type="checkbox" id="user_location_share" value="1" />
+                                </div>
+                                <label for="enable_location_sharing" form="user_location_share" class="col-sm-11 control-label text-left">Do you want to share your geolocation?</label>  
+                            </div>
+                        </div>
+                    </div>
+                </div>		
+            </div> 
+        </div>
+    </div> 
+</div>
+
+<div id="editPicture" class="modal fade modal_xl" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Pictures</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="container-current-images" id="container-current-images"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="dropzonejs-place" class="dropzone-box">
+                            <h3>New images</h3>
+                            <form enctype="multipart/form-data" class="dropzone" action="{% url 'image_upload_place_ajax' %}">
+                                <div class="dz-default dz-message">
+                                    <i class="fa fa-cloud-upload"></i>
+                                    Drop files in here<br><span class="dz-text-small">or click to pick manually</span>
+                                </div>
+                                <div class="fallback">
+                                    <input name="file" type="file" multiple="" />
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- <div id="imageUpload" class="dropzone"></div>    -->
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div> 
+</div>
+
+<div id="editWineList" class="modal fade modal_xl" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Winelist</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="container-current-winelists" id="container-current-winelists"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="dropzonejs-winelist-place" class="dropzone-box">
+                            <h3>New Winelists<i id="spinner" style="float: right; color: red; font-size:36px; display: none;" class="fa fa-spinner fa-spin"></i></h3>
+            
+                            <form novalidate accept-charset="UTF-8" action="{{ action_url }}" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="csrfmiddlewaretoken" class="csrftoken" value="FWIXqsRFxnSYfVQEBJpXBoNjkCEW0bs6LkPca2rplRENMPVzrAVnX8IkZ4qvpQlM">
+                                <input type="file" name="image" required="" id="id_image">
+                                <button type="submit" onclick="getFileDetails()" class="btn btn-lg btn-success">PROCESS</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="spinner-dots-list" id="status"><img src="/static/pro_assets/img/preloading.gif" alt="preloading Raisin Pro website" width="60" height="100"></div>
+                
+            </div> 
+        </div>
+    </div> 
+</div>
+
+
+
+
+{% endblock %}
+
+{% block additional_bottom_scripts %}
+    {% include 'base/elements/bottom_js_list.html' %}
+    
+    <script type="text/javascript" src="{% static 'assets/javascripts/image-manager.js' %}"></script>
+    <script src="{% static 'assets/javascripts/edit/edit.place.autocomplete.js' %}" ></script>
+    <script src="{% static 'assets/javascripts/edit/edit.place.initmap.js' %}" ></script>
+    <script src="{% static 'assets/javascripts/edit/edit.place.js' %}" ></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&libraries=places&callback=initMap&language=en" async defer></script>
+{% endblock additional_bottom_scripts %}

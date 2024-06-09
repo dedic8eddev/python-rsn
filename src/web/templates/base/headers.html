@@ -1,0 +1,26 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html {% block html_extra %}{% endblock %}>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Raisin{% endblock %}</title>
+    <link href='{% static "scripts/font_OpenSans.css" %}' rel='stylesheet' type='text/css'>
+    <link rel="icon" type="image/png" href="{% static 'images/favicon_32.png' %}">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,700,300' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"  rel="stylesheet">
+    <link href='{% static "scripts/css/nextmotion.css" %}' rel='stylesheet' type='text/css'>
+    <script src='{% static "scripts/jquery.min.js" %}'></script>
+
+    {% block stylesheets %}
+    {% endblock %}
+    {% block javascripts %}
+    {% endblock %}
+
+</head>
+<body>
+{% block body %}
+{% endblock %}
+</body>
+</html>

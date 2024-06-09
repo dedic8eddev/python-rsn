@@ -1,0 +1,302 @@
+{% extends "base/layout.html" %}
+
+{% load static %}
+{% load widget_tweaks %}
+{% load web_extras %}
+{% load i18n %}
+
+{% block title %}Wine posts - Wine post edition - Raisin{% endblock %}
+
+{% block additional_buttons %}
+    <span class="display-natural" style="{{ el_style_natural }}">
+        <a href="{% url 'list_winepost_star_reviews' id=post.id %}" class="btn btn-lg btn-labeled fa fa-star opt starrvs" role="button" data-toggle="tooltip" title="Star Reviews for '{{ post.wine }}'" data-placement="top"></a>
+        <a href="{% url 'list_winepost_referees' id=post.id %}" class="btn btn-lg btn-labeled fa fa-bookmark-o opt" role="button"  data-toggle="tooltip" title="Parent posts for '{{ post.wine }}'" data-placement="top"></a>
+    </span>
+    <span class="display-other" style="{{ el_style_other }}">
+        <a href="{% url 'list_winepost_referees' id=post.id %}" class="btn btn-lg btn-labeled fa fa-bookmark-o opt" role="button"  data-toggle="tooltip" title="Referrers for '{{ post.wine }}'" data-placement="top"></a>
+
+    </span>
+{#    <a href="{% url add_wm_url %}" class="btn btn-lg btn-labeled fa fa-plus opt add" role="button" data-toggle="tooltip" title="Add New Winemaker" data-placement="top"></a>#}
+{% endblock additional_buttons %}
+
+{% block add_new_button %}{% endblock add_new_button %}
+
+{% block additional_styles %}
+    <link href="{% static 'assets/stylesheets/edit/winepost.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/stylesheets/edit/other-files.css' %}" rel="stylesheet" type="text/css">
+    {% if display_with_three_images %}
+      <link href="{% static 'assets/pixie/styles.min.css' %}" rel="stylesheet" type="text/css">
+    {% endif %}
+    <link href="{% static 'assets/stylesheets/list/wineposts.css' %}" rel="stylesheet" type="text/css">
+
+    <style type="text/css">
+    {% verbatim %}
+    {% endverbatim %}
+    </style>
+{% endblock additional_styles %}
+
+{% block additional_scripts %}
+{% if display_with_three_images %}
+<script src="{% static 'assets/pixie/scripts.min.js' %}"></script>
+{% endif %}
+{#<!--<script src="{% static 'assets/javascripts/lists/mop.wineposts.js' %}"></script>-->#}
+
+<script>
+    var is_draft = {% if is_draft %}true{% else %}false{% endif %};
+    var winepost_id = '{{ post.id }}';
+    var wine_id = '{{ post.wine_id }}';
+    var wm_natural = {% if wm_natural %}true{% else %}false{% endif %};
+    var url_this_winepost_edit = '{% url 'edit_winepost' id=post.id %}';
+    {% if display_with_three_images %}
+        var display_with_three_images = true;
+    {% else %}
+        var display_with_three_images = false;
+    {% endif %}
+    var url_get_winepost_items = '{% url 'get_winepost_items_for_winepost_vuforia_ajax' id=post.id %}';
+
+    var url_get_winepost_referee_items= '{% url 'get_winepost_referee_items_for_winepost_ajax' id=post.id %}';
+    var ajax_autocomplete_url = "{% url 'autocomplete_place_ajax' %}" + "?min_letters=1&query=%QUERY";
+    var ajax_related_lists_url = "{% url 'winepost_related_lists_ajax' id=post.id %}";
+
+    var ajax_change_parent_post_winemaker_list = "{% url 'change_parent_post_winemaker_list_ajax' %}";
+    var ajax_change_parent_post_wine_list = "{% url 'change_parent_post_wine_list_ajax' %}";
+    var ajax_change_parent_post = "{% url 'wineposts_mop_define_as_children_ajax' %}";
+
+    var is_new = false;
+    var is_parent_post = {% if post.is_parent_post %}true{% else %}false{% endif %};
+
+    var ajax_update_original_winemaker_name = "{% url 'update_original_winemaker_name_ajax' %}";
+
+    var url_current_wm_files_ajax  = "{% url 'current_winepost_files_ajax' id=post.id %}";
+    var url_wm_file_upload_ajax = "{% url 'upload_winepost_file_ajax' %}";
+    var url_wm_file_delete_ajax = "{% url 'delete_winepost_file_ajax' %}";
+
+    var url_upload_winepost_ref_image_ajax = "{% url 'upload_winepost_ref_image_ajax' %}";
+
+    var url_delete_yearly_data_ajax = "{% url 'delete_yearly_data_ajax' %}";
+    var url_update_yearly_data_ajax = "{% url 'update_yearly_data_ajax' %}";
+    var url_fetch_yearly_data_ajax = "{% url 'fetch_yearly_data_ajax' %}";
+    var url_set_as_vuforia_ajax = "{% url 'set_as_vuforia_ajax' %}";
+    var src_blank_canvas = "{% static 'assets/img/blank-canvas.png' %}";
+    var url_refresh_vuforia_image = "{% url 'refresh_vuforia_image_ajax' %}"
+    var sel_display_natural = {% if post_natural %}true{% else %}false{% endif %};
+</script>
+
+
+{% endblock additional_scripts %}
+
+{% block main_content %}
+
+<script src="{% static 'assets/javascripts/lists/list.pipeline.js' %}"></script>
+<script src="{% static 'assets/javascripts/lists/list.wineposts.data-table-factory.js' %}"></script>
+<script src="{% static 'assets/javascripts/edit/edit.winepost.list.reviews.pro.js' %}"></script>
+<script src="{% static 'assets/javascripts/edit/edit.winepost.list.referees.js' %}"></script>
+{#<!--<script src="{% static 'assets/javascripts/edit/edit.winepost.list.referees.pro.js' %}"></script>-->#}
+
+<div class="pixie-editor-container">
+    <pixie-editor></pixie-editor>
+</div>
+
+<form novalidate accept-charset="UTF-8" action="{{ action_url }}" method="POST" enctype="multipart/form-data" id="winepost_edit_form">
+    {% csrf_token %}
+    {{ form.place_id }}
+    {{ form.status}}
+
+    <div class="panel" style="font-size:16px!important;">
+        <!--niveau1-->
+        <div class="niveau1" style="text-align:left;">
+            {% include 'base/elements/edit/pdg-widget-winepost.html' %}
+                <div class="container-fluid">
+                    {% if display_with_three_images %}
+                        {% include 'base/elements/edit/winepost.parentpost.html' %}
+                    {% else %}
+                        {% include 'base/elements/edit/winepost.nonparent.html' %}
+{#                     --------------------------------- /non-parent post ------------------------------------------#}
+                    {% endif %}
+                    <!-- /main form row -->
+                </div>
+                <!-- /main form container -->
+            <!--</div>-->
+            <!--fin panel-heading text-left-->
+        </div>
+        <!--fin niveau1-->
+    </div>
+    <!-- fin panel -->
+</form>
+
+
+<!-- related lists (likes, comments, etc.) -->
+<div id="related_lists">
+</div>
+<!-- /related lists (likes, comments, etc.) -->
+
+
+<!-- 11. $JQUERY_DATA_TABLES ===========================================================================
+jQuery Data Tables
+-->
+<div class="table table-striped vmiddle" style="font-size:14px;">
+    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="jq-datatables-reviews">
+        <thead>
+            <tr>
+                <th style="width: 15px;"><br><input type="checkbox" class="toggle-all" name="check-all" /> </th>
+                {% if display_with_three_images %}
+                    <th style="min-width: 150px;">Author</th>
+                    <th style="width:40px">Posted by user</th>   <!-- 3 images only -->
+{#                    <!--<th style="width:40px">Label</th>-->#}
+                    <th style="width:40px">Vuforia image</th>    <!-- 3 images only -->
+                    <th>Name</th>
+                {% else %}
+                    <th style="min-width: 150px;">Author</th>
+                    <th style="width:40px">Picture</th>
+                    <th>Name</th>
+                {% endif %}
+
+                <th style="width:120px">Description</th>
+                <th>Status</th>
+                <th>Winemaker</th>
+                <th>Domain</th>
+
+                <th>Wine Region</th>
+                <th>Grape variety</th>
+                <th>Region</th>
+                <th>Year</th>
+
+                <th>Color</th>
+                <th>Spark.</th>
+                <th>Geolocation</th>
+
+                <th><i class="fa fa-comments" data-toggle="tooltip" title="comments" data-placement="top"></i></th>
+                <th><i class="fa fa-heart" data-toggle="tooltip" title="likes" data-placement="top"></i></th>
+                <th><img src="{% static 'assets/img/drank-it-too.gif' %}" alt="drank-it-too" width="13" height="12"  data-toggle="tooltip" title="Drank it too!" data-placement="top"></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+</div><!-- end jquery table jhb -->
+
+
+{% include 'base/elements/edit/edit-winepost-referee.html' %}
+
+
+{% verbatim %}
+<script id="typeahead-templates-suggestion" type="text/x-handlebars-template">
+    <div class="place-autocomplete-suggestion">
+        <img src="{{ main_image }}" alt="" width="70" height="70" />
+        <div class="geo-details">
+            <h3>{{name}}</h3>
+            <h4>{{house_number}} {{street_address}}</h4>
+            <h4>{{city}}, {{country}}</h4>
+        </div>
+    </div>
+</script >
+
+<script id="typeahead-templates-empty-message" type="text/x-handlebars-template">
+    <div class="place-autocomplete-empty">
+        <p>{% endverbatim %}{% trans 'No results found for the query.' %}{% verbatim %}</p>
+    </div>
+</script>
+{% endverbatim %}
+
+{# ====================================================================================================#}
+<div id="actionpostparent" class="collapse out" style="z-index: 1 ! important; height: auto; text-align: left;">
+    <div class="bandeau">
+        <!-- parent post/referrer selector -->
+        <div id="parentpostselector" style="float:left; width:70%; z-index:4!important;">
+            <div class="col-sm-12" style="padding:30px 0 15px 0;">
+                <h5 style="padding:0 0 0 10px; color:purple;">
+                    <span  class="find-pprf">
+                        <span class="display-natural" style="{{ el_style_natural }}">
+                            Parent Post
+                        </span>
+                        <span class="display-other" style="{{ el_style_other }}">
+                            Referrer
+                        </span>
+                    </span>
+                     Selector:
+                </h5>
+                <script>
+
+                </script>
+                    <!-- / Javascript -->
+
+                <div class="form-group" style="z-index:1!important;">
+                    <label for="jq-validation-select2_wm_main_wp" class="col-sm-2 control-label">Winemaker + Domain:</label>
+                    <div class="col-sm-10" style="z-index:1!important;">
+                        <select class="form-control" name="jq-validation-select2_wm_main_wp" id="jq-validation-select2_wm_main_wp">
+                            <option selected="selected"></option>
+{#                            <!--<option value="alberto-Carretti">Alberto Carretti - Podere Pradarolo</option>-->#}
+{#                            <!--<option value="julien-Altaber">Julien Altaber - Sextant</option>-->#}
+{#                            <!--<option value="ivo-ferreira">Ivo Ferreira - Domaine de l'Escarpolette</option>-->#}
+{#                            <!--<option value="anne-leclerc-paillet">Anne Leclerc Paillet - Autour de l'Anne</option>-->#}
+{#                            <!--<option value="emilie-alexis-porteret">Emilie &amp; Alexis Porteret - Domaine des Bodines</option>-->#}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" style="z-index:1!important;">
+                    <label for="jq-validation-select2-multi_wine_main_wp" class="col-sm-2 control-label">Wine:</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" name="jq-validation-select2-multi_wine_main_wp" id="jq-validation-select2-multi_wine_main_wp" {# multiple="multiple" #}>
+                        </select>
+                    </div>
+                </div>
+
+
+            </div>
+                                <!--end col-sm-8-->
+        </div>
+        <!--end parent post/referrer selector-->
+
+        <div style="float:right; padding:80px 80px 0 0;">
+            <button id="ui-bootbox-change-parent-confirm" class="btn btn-lg btn-success">CONFIRM</button>&nbsp;&nbsp;
+            <button id="ui-bootbox-change-parent-cancel" class="btn btn-lg btn-cancel">Cancel</button>
+        </div>
+
+    </div>
+
+
+
+</div>
+{# ==================================================================================================== #}
+    <div id="modal_is_pp" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Is this natural wine a parent post?</h3>
+                </div>
+                <div class="modal-body">
+                    <button id="ui-bootbox-pp-yes" class="btn btn-lg btn-success" onclick="confirm_parent_post(); return false;">YES</button>
+                    <button id="ui-bootbox-pp-no" class="btn btn-lg btn-danger" onclick="cancel_parent_post(); return false;">NO</button>&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+{# ==================================================================================================== #}
+
+{% include 'base/elements/lists/action_footer_wineposts_pro.html' %}
+
+{% endblock %}
+
+
+{% block additional_bottom_scripts %}
+<script src="{% static 'assets/javascripts/libs/ekko-lightbox.4.0.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/image-manager.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/typeahead.bundle.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/handlebars.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/edit/winepost.yearly-data-manager.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/edit/edit.winepost.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/edit/edit.winepost.vuforia.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/edit/edit.winepost.original-winemaker.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/edit/edit.winepost.files.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/edit/edit.winepost.places.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/edit/edit.winepost.parent.child.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/edit/edit.winepost.yearly-data.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/edit/edit.winepost.places.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'assets/javascripts/pdg-widget.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/javascripts/jquery.unveil.js' %}"></script>
+{#<!--<script src="{% static 'assets/javascripts/list-item-operations.js' %}"></script>-->#}
+<script src="{% static 'assets/javascripts/bottom-js-list.js' %}"></script>
+{% endblock additional_bottom_scripts %}

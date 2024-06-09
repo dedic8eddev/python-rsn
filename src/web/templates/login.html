@@ -1,0 +1,193 @@
+{% extends "base/layout.html" %}
+
+{% load static %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block title %}Sign In - Raisin{% endblock title %}
+
+{% block additional_scripts %}
+    <script>
+        var reset_password_url = "{% url 'reset_password_login_screen' %}";
+    </script>
+    <script type="text/javascript" src="{% static 'assets/javascripts/user/login.js' %}"></script>
+{% endblock additional_scripts %}
+
+{% block additional_styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/stylesheets/user/login.css' %}" />
+{% endblock additional_styles %}
+
+
+{% block body_open_tag %}
+<body class="theme-default page-signin">
+{% endblock body_open_tag %}
+
+{% block body %}
+<!-- Demo script --> <script src="{% static 'assets/demo/demo.js' %}"></script> <!-- / Demo script -->
+
+    <div id="modal_reset_password" class="modal fade" role="dialog" aria-labelledby="renew_modal_label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="renew_modal_label"></h3>
+                </div>
+                <div class="modal-body"><p id="renew_modal_body"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Page background -->
+    <div id="page-signin-bg">
+        <!-- Background overlay -->
+        <div class="overlay"></div>
+        <!-- Replace this with your bg image -->
+        <img src="{% static 'assets/demo/signin-bg-1.jpg' %}" alt="">
+    </div>
+    <!-- / Page background -->
+
+    <!-- Container -->
+    <div class="signin-container">
+
+
+        <!-- Right side -->
+        <div class="signin-form">
+
+            <!-- Form -->
+            <form action="{% url 'login' %}" id="signin-form_id" method="POST">
+                {% csrf_token %}
+                <center><img src="{% static 'assets/img/logo-raisin-menu.png' %}" alt="logo-raisin" width="320" height="132"></center>
+
+                <br /><br />
+                <div class="signin-text">
+                    <span>Sign In to your account</span>
+                </div> <!-- / .signin-text -->
+
+                <div class="form-group w-icon">
+                    {{ form.username|add_class:"form-control input-lg"|attr:"placeholder:Username or email" }}
+                    <!--<input type="text" name="signin_username" id="username_id" class="form-control input-lg" placeholder="Username or email">-->
+                    <span class="fa fa-user signin-form-icon"></span>
+                </div> <!-- / Username -->
+
+                <div class="form-group w-icon">
+                    {{ form.password|add_class:"form-control input-lg"|attr:"placeholder:Password" }}
+                    <!--<input type="password" name="signin_password" id="password_id" class="form-control input-lg" placeholder="Password">-->
+                    <span class="fa fa-lock signin-form-icon"></span>
+                </div> <!-- / Password -->
+
+                <div class="form-actions">
+                    <input type="submit" value="SIGN IN" class="signin-btn" style="background-color:#acc030; color:#fff;">
+                    <a href="#" class="forgot-password" id="forgot-password-link">Forgot your password?</a> {% if temporary_access_allowed %}- <a href="{% url 'login' %}?breakin=">Temporary Access to Back-End</a>{% endif %}
+                </div> <!-- / .form-actions -->
+            </form>
+            <!-- / Form -->
+
+
+            <!-- Password reset form -->
+            <div class="password-reset-form" id="password-reset-form">
+                <div class="header">
+                    <div class="signin-text">
+                        <span>Password reset</span>
+                        <div class="close">&times;</div>
+                    </div> <!-- / .signin-text -->
+                </div> <!-- / .header -->
+
+                <!-- Form -->
+                <form action="#" id="password-reset-form_id">
+                    <div class="form-group w-icon">
+                        <input type="text" name="username" id="p_email_id" class="form-control input-lg" placeholder="Enter your email or username">
+                        <span class="fa fa-envelope signin-form-icon"></span>
+                    </div> <!-- / Email -->
+
+                    <div class="form-actions">
+                        <input type="submit" id="btn_reset_password" value="SEND PASSWORD RESET LINK" class="signin-btn bg-primary">
+                    </div> <!-- / .form-actions -->
+                </form>
+                <!-- / Form -->
+            </div>
+            <!-- / Password reset form -->
+        </div>
+        <!-- Right side -->
+    </div>
+    <!-- / Container -->
+
+
+
+<script src="{% static 'assets/javascripts/jquery.min.js' %}"></script><!-- <![endif]-->
+
+
+
+<!-- Pixel Admin's javascripts -->
+<!--<script src="assets/javascripts/bootstrap.min.js"></script>-->
+<!--<script src="assets/javascripts/pixel-admin.min.js"></script>-->
+
+<script type="text/javascript">
+    // Resize BG
+    init.push(function () {
+        var $ph  = $('#page-signin-bg'),
+            $img = $ph.find('> img');
+
+        $(window).on('resize', function () {
+            $img.attr('style', '');
+            if ($img.height() < $ph.height()) {
+                $img.css({
+                    height: '100%',
+                    width: 'auto'
+                });
+            }
+        });
+    });
+
+    // Show/Hide password reset form on click
+    init.push(function () {
+        $('#forgot-password-link').click(function () {
+            $('#password-reset-form').fadeIn(400);
+            return false;
+        });
+        $('#password-reset-form .close').click(function () {
+            $('#password-reset-form').fadeOut(400);
+            return false;
+        });
+    });
+
+    // Setup Sign In form validation
+    init.push(function () {
+        // $("#signin-form_id").validate({ focusInvalid: true, errorPlacement: function () {} });
+
+        // Validate username
+        $("#username_id").rules("add", {
+            required: true,
+            minlength: 3
+        });
+
+        // Validate password
+        $("#password_id").rules("add", {
+            required: true,
+            minlength: 6
+        });
+    });
+
+    // Setup Password Reset form validation
+    init.push(function () {
+        $("#password-reset-form_id").validate({ focusInvalid: true, errorPlacement: function () {
+            alert('Sent')
+        } });
+
+        // Validate email
+        $("#p_email_id").rules("add", {
+            required: true,
+            email: true
+        });
+    });
+
+    window.PixelAdmin.start(init);
+</script>
+
+</body>
+
+{% endblock body %}

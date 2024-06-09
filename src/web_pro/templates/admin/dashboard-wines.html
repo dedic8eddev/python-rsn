@@ -1,0 +1,69 @@
+{% load static %}
+{% load i18n %}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title text-gray"><strong>🍷 {% trans 'WINES' %}</strong></h3>
+        <a class="btn btn-sm btn-light " href="{% url 'pro_wines' pid %}"> {% trans 'See all' %}</a>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-6" >
+            <!--Wines you have posted -->
+            <div class="card-body">
+                {% if latest_wines %}
+                <h4 class="card-title text-gray"><strong>{% trans 'Latest posted wines' %}</strong></h4>
+                <div class="media-list media-list-hover media-list-divided" id="result-dashboardWineList1">
+                    {% for wine in latest_wines %}
+                    <a class="media media-single wineclass" href="#qv-user-details" data-toggle="quickview" id="{{ wine.id }}" name="{{ wine.post_id }}">
+                        <img class="w-80px rounded" src="{{ wine.thumb_image }}" alt="{{wine.name}}">
+                        <div class="media-body wines">
+                            <p class="fs-16"><strong>{{ wine.name }}</strong></p>
+                            <p class="domain fs-15 mtn-5" style="color:{% if wine.status.2 == 'natural'%}#AD0D3A{% else %}#9b9b9b{% endif %}">{{ wine.domain }}</p>
+                            <p class="name fs-14 mtn-5">{{ wine.winemaker_name}}</p>
+                            <p class="name fs-14 mtn-5"><b>{{ wine.year }}</b></p>
+                            <!--<p class="text-fader"><i class="fa fa-eye mr-1"></i> 22 impressions &nbsp; <i class="fa fa-hand-pointer-o"></i> 8 taps</p>-->
+                        </div>
+                        <small class="bottom-right-icon">{{ wine.modified_time_human }}</small>
+                        <span class="top-right-icon">
+                            <img src="{{wine.status.0}}" data-toggle="tooltip" data-placement="left" title="" data-tooltip-type="{{wine.status.2}}" data-original-title="{{wine.status.1}}">
+                        </span>
+                    </a>
+                      {% endfor %}
+                </div>
+
+                {% else %}
+                <div class="card-body text-gray">
+                  <h5 class="">{% trans '🙋🏼‍♀️ Welcome to Raisin Pro.' %}</h5>
+                  <h5 class="">{% trans 'No records to display.' %}</h5>
+                  <h5 class="">{% trans 'Go ahead, ' %}<u><a class="" href="{% url 'pro_wines' pid %}"> {% trans 'post a wine 🍷' %}</a></u></h5>
+                </div>
+
+
+                {% endif %}
+            </div>
+            <!--/Wines you have posted -->
+
+        </div>
+
+
+        <div class="col-xl-6">
+            <!-- Wines by category -->
+            <div class="card-body">
+                <h4 class="card-title text-gray"><strong>{% trans 'Wines by category' %}</strong></h4>
+                <div class="media-list media-list-hover media-list-divided">
+                  {% for color, config in color_config.items %}
+                  <a class="media media-single" href="{{ config.link }}">
+                    <img src="{{ config.icon }}" alt="wine-icon-{{color}}" width="26" height="26" >
+                    <span class="title fs-16">{{ config.capitalised }}</span>
+                    <h5>{{ config.number }}</h5>
+                  </a>
+                  {% endfor %}
+                </div>
+
+            </div>
+        </div>
+<!-- /Wines by category -->
+
+    </div>
+</div>

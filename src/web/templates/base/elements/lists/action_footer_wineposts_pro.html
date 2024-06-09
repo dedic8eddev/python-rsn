@@ -1,0 +1,640 @@
+{% verbatim %}
+<script type="text/javascript">
+    var url_mop_change_parent_post                = '{% endverbatim %}{% url 'wineposts_mop_define_as_children_ajax' %}{% verbatim %}';
+    var url_mop_change_parent_post_winemaker_list = '{% endverbatim %}{% url 'change_parent_post_winemaker_list_ajax' %}{% verbatim %}';
+    var url_mop_change_parent_post_wine_list      = '{% endverbatim %}{% url 'change_parent_post_wine_list_ajax' %}{% verbatim %}';
+    var url_mop_move_to_general_post              = '{% endverbatim %}{% url 'wineposts_mop_move_to_general_post_ajax' %}{% verbatim %}';
+    var url_mop_has_children                      = '{% endverbatim %}{% url 'wineposts_mop_has_children_ajax' %}{% verbatim %}';
+
+
+    var url_wineposts_publish_ajax = '{% endverbatim %}{% url 'wineposts_publish_ajax' %}{% verbatim %}';
+    var url_wineposts_unpublish_ajax = '{% endverbatim %}{% url 'wineposts_unpublish_ajax' %}{% verbatim %}';
+    var url_wineposts_delete_ajax = '{% endverbatim %}{% url 'wineposts_delete_ajax' %}{% verbatim %}';
+    var url_wineposts_undelete_ajax = '{% endverbatim %}{% url 'wineposts_undelete_ajax' %}{% verbatim %}';
+
+    var url_wineposts_refuse_ajax = '{% endverbatim %}{% url 'wineposts_refuse_ajax' %}{% verbatim %}';
+    var url_wineposts_set_in_doubt_ajax = '{% endverbatim %}{% url 'wineposts_set_in_doubt_ajax' %}{% verbatim %}';
+    var url_wineposts_set_bio_organic_ajax = '{% endverbatim %}{% url 'wineposts_set_bio_organic_ajax' %}{% verbatim %}';
+    var url_wineposts_set_to_investigate = '{% endverbatim %}{% url 'wineposts_set_to_investigate' %}{% verbatim %}';
+
+
+    
+
+</script>
+{% endverbatim %}
+
+        <!--- /ACTION All ----- -->
+        <div id="action-all" class="collapse action-top-container" style="z-index: 10 ! important;">
+            <div class="bandeau action-main">
+                <div class="row">
+                    <div class="col-sm-8" style="font-size: 14px; text-align: left;">
+                        <div style="width: 100%;">
+                            <span class="natural_or_other">
+                                <div>
+                                    <input type="radio" name="nat_oth" id="natural" class="nat_oth_n" value="natural" />
+                                    <label for="natural">Natural</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="nat_oth" id="other" class="nat_oth_o" value="other" />
+                                    <label for="other">Other</label>
+                                </div>
+                            </span>
+
+                            <span class="display-natural" style="">
+                                <span class="starreview">Star Review</span>&nbsp;&nbsp;
+                                <input type="checkbox" name="mop_star_review" class="mop_star_review" value="1" />
+                            </span>
+                                <span class="display-other" style="">&nbsp;</span>
+
+                                <span class="display-natural" style="">
+                                    <span class="btn-label icon fa fa-bookmark-o" style="padding-left:20px;">&nbsp;&nbsp;</span>Parent Post&nbsp;&nbsp;
+                                
+                                </span>
+                                <span class="display-other" style="">
+                                    <span class="btn-label icon" style="padding-left:20px;">®️&nbsp;&nbsp;</span>Referrer&nbsp;&nbsp;
+                                    <!-- <input type="checkbox" name="mop_parent_post" class="mop_parent_post" value="Referrer" /> -->
+                                </span>
+                                <input type="checkbox" name="mop_parent_post" class="mop_parent_post" value="1" />
+    
+
+                            <span class="btn-label icon fa  fa-sort-amount-desc" style="padding-left:20px; color:#e3a531">&nbsp;&nbsp;
+                                <span>Define as Children</span>&nbsp;&nbsp;
+                                <input class="mop_define_as_child" value="1" type="checkbox">
+                            </span>
+        {#                             ==================================================================================================== #}
+                            <div id="mop_actionpostparent" style="z-index: 11 ! important; height: auto; text-align: left;">
+                                <div class="bandeau">
+                                    <!-- parent post/referrer selector -->
+                                    <div id="mop_parentpostselector" style="float:left; width:70%; z-index:4!important;">
+                                        <div class="col-sm-12" style="padding:30px 0 15px 0;">
+                                            <h5 style="padding:0 0 0 10px; color:purple;">
+                                                <span class="find-pprf">
+                                                    <span class="display-natural" style="">
+                                                        Parent Post
+                                                    </span>
+                                                    <span class="display-other" style="">
+                                                        Referrer
+                                                    </span>
+                                                </span>
+                                                Selector:
+                                            </h5>
+
+                                            <div class="form-group pro_selector_wm" style="z-index:11!important;">
+                                                <label for="mop_jq-validation-select2" class="col-sm-2 control-label">Winemaker + Domain:</label>
+                                                <div class="col-sm-10" style="z-index:11!important;">
+                                                    <select class="form-control mop_jq-validation-select2" name="mop_jq-validation-select2">
+                                                        <option selected="selected"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group pro_selector_wine" style="z-index:11!important;">
+                                                <label for="mop_jq-validation-select2-multi" class="col-sm-2 control-label">Wine:</label>
+                                                <div class="col-sm-10">
+                                                    <select class="form-control mop_jq-validation-select2-multi" name="mop_jq-validation-select2-multi" {# multiple="multiple" #}>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group wine_status" style="z-index:11!important; display: none;">
+                                                <label class="col-sm-2 control-label">Status:</label>
+                                                <div class="col-sm-10">
+                                                    <select class="form-control wine_status_dropdown" name="wine_status">
+                                                        <option value="Not natural">Not natural</option>
+                                                        <option value="Bio-organic">Bio-organic</option>
+                                                        <option value="In doubt">In doubt</option>
+                                                        <option value="To investigate">To investigate</option>
+                                                        
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end col-sm-8-->
+                                    </div>
+                                    <!--end parent post/referrer selector-->
+
+                                    <div style="float:right; padding:80px 80px 0 0;">
+                                        <button class="btn btn-lg btn-success mop_ui-bootbox-change-parent-confirm">CONFIRM</button>&nbsp;&nbsp;
+                                        <button class="btn btn-lg btn-cancel mop_ui-bootbox-change-parent-cancel">Cancel</button>
+                                    </div>
+                                </div>
+
+                            </div>
+        {#                             ==================================================================================================== #}
+                            <!-- <hr class="no-panel-padding-h" style="margin-top: 0px; margin-bottom: 30px;"> -->
+                        </div>
+                    </div>
+                    <div class="col-sm-4" style="text-align: left;">
+        {#                        <!--<h3><span class="action_item_number">[XX]</span> entries selected</h3> What do you want to do?&nbsp;&nbsp;&nbsp;-->#}
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <button class="btn btn-lg btn-danger ui-bootbox-delete">Delete</button>&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="col-sm-8">
+                                <button class="btn btn-lg btn-info ui-bootbox-undelete">Undelete</button>&nbsp;&nbsp;&nbsp;
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <button class="btn btn-lg btn-success ui-bootbox-publish">Natural</button>&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="col-sm-8">
+                                <button class="btn btn-lg btn-danger ui-bootbox-refuse">Not Natural</button>&nbsp;&nbsp;&nbsp;
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <button class="btn btn-lg btn-info ui-bootbox-unpublish">Draft</button>&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="col-sm-8">
+                                <button class="btn btn-lg btn ui-bootbox-indoubt">In Doubt</button>&nbsp;&nbsp;&nbsp;
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <button class="btn btn-lg btn-warning ui-bootbox-bioorg">Bio-Organic</button>&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="col-sm-8">
+                                <button class="btn btn-lg ui-bootbox-investigate">TO INVESTIGATE</button>
+                            </div>
+                        </div>
+                        <div class="row">                            
+                            <div class="col-sm-4">
+                                <button class="btn btn-lg btn-cancel ui-bootbox-mop-not-wine">NOT WINE</button>
+                            </div>
+                            <div class="col-sm-8">
+                                <button class="btn btn-lg btn-cancel ui-bootbox-cancel do-cancel" data-toggle="collapse">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {#<!--            <div class="bandeau action-confirm action_new_parent_post_confirm_children" style="display: none;">-->#}
+        {#<!--                <h3>Do you still want to set <i><span class="action-wine-name">[XX]</span></i> posted by-->#}
+        {#<!--                    <i><span class="action-wine-author">[YY]</span></i> as "Parent post/Referrer" <br />-->#}
+        {#<!--                    (warning: this "Parent post/ Referrer" has children).-->#}
+        {#<!--&lt;!&ndash;                    <span class="action_item_number">[XX]</span> Entries&ndash;&gt;-->#}
+        {#<!--                </h3>-->#}
+        {#<!--                <div class="panel-body">-->#}
+        {#<!--                    <button class="btn btn-lg btn-info ui-bootbox-new-parent-post-cancel">CANCEL</button>-->#}
+        {#<!--                    <button class="btn btn-lg btn-warning ui-bootbox-new-parent-post-confirm">YES</button>&nbsp;&nbsp;&nbsp;-->#}
+        {#<!--                </div>-->#}
+        {#<!--            </div>-->#}
+            <div class="bandeau action-confirm action_new_parent_post_confirm_children" style="display: none;">
+                Do you still want to set <h3 style="display: inline-block;">"<span class="action-wine-name">[XX]</span>"</h3> posted by:
+                <span class="picture-bigger">
+                    <a href="" class="action-wine-author-url">
+                        <img class="action-wine-author-avatar-url" src="" data-toggle="tooltip" title="" data-placement="bottom" />
+                    </a>
+                </span>
+                as
+                <strong class="find-pprf"></strong> (warning: this <strong class="find-pprf"></strong> has children).
+                <div class="panel-body">
+                    <button class="btn btn-lg btn-cancel ui-bootbox-new-parent-post-cancel">CANCEL</button>
+                    <button class="btn btn-lg btn-success ui-bootbox-new-parent-post-confirm">YES</button>&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+            <div class="bandeau action-confirm action_new_parent_post_confirm" style="display: none;">
+                Do you still want to set <h3 style="display: inline-block;">"<span class="action-wine-name">[XX]</span>"</h3> posted by:
+                <span class="picture-bigger">
+                    <a href="" class="action-wine-author-url">
+                        <img class="action-wine-author-avatar-url" src="" data-toggle="tooltip" title="" data-placement="bottom" />
+                    </a>
+                </span>
+                as
+                <strong class="find-pprf"></strong>  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                <div class="panel-body">
+                    <button class="btn btn-lg btn-cancel ui-bootbox-new-parent-post-cancel">CANCEL</button>
+                    <button class="btn btn-lg btn-success ui-bootbox-new-parent-post-confirm">YES</button>&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+            <div class="bandeau action-confirm action_refuse_confirm" style="display: none;">
+                <h3>You are about to refuse <span class="action_item_number">[XX]</span> </h3>
+                <div class="panel-body">
+                    <button class="btn btn-lg btn-info ui-bootbox-refuse-cancel">Don't set as Not Natural</button>
+                    <button class="btn btn-lg btn-warning ui-bootbox-refuse-confirm">Set as Not Natural</button>&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+            <div class="bandeau action-confirm action_delete_confirm" style="display: none;">
+                <h3>You are about to delete <span class="action_item_number">[XX]</span></h3>
+                <div class="panel-body">
+                    <button class="btn btn-lg btn-info ui-bootbox-delete-cancel">Don't Delete</button>
+                    <button class="btn btn-lg btn-danger ui-bootbox-delete-confirm">Delete</button>&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+            <div class="bandeau action-confirm action_change_status_confirm" style="display: none;">
+                <h3>You are about to change the status to <span class="action_new_status">[STS]</span>&nbsp;for&nbsp;<span class="action_item_number">[XX]</span></h3>
+                <h3>Do you confirm this action?</h3>
+                <div class="panel-body">
+                    <button class="btn btn-lg btn-success ui-bootbox-change-status-confirm">Confirm</button>
+                    <button class="btn btn-lg ui-bootbox-change-status-cancel">Cancel</button>&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+        </div>
+        <!--- /ACTION All ----- -->
+
+
+        <!--- /ACTION OWNERS ----- -->
+        <div id="action-owners" class="collapse action-top-container" style="z-index: 10 ! important;">
+            <div class="bandeau action-main">
+                <div class="row">
+                    <div class="col-sm-8" style="font-size: 14px; text-align: left;">
+                        <div style="width: 100%;">
+                            <span class="natural_or_other">
+                                <!-- <input type="radio" name="nat_oth" class="nat_oth_n" value="natural" checked="checked" /><span>Natural</span>
+                                <input type="radio" name="nat_oth" class="nat_oth_o" value="other" /><span>Other</span> -->
+
+                                <div>
+                                    <input type="radio" name="nat_oth" id="natural1" class="nat_oth_n" value="natural" />
+                                    <label for="natural1">Natural</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="nat_oth" id="other1" class="nat_oth_o" value="other" />
+                                    <label for="other1">Other</label>
+                                </div>
+                            </span>
+
+                            <span class="display-natural" style="">
+                                <span class="starreview">Star Review</span>&nbsp;&nbsp;
+                                <input type="checkbox" name="mop_star_review" class="mop_star_review" value="1" />
+                            </span>
+                            <span class="display-other" style="">&nbsp;</span>
+
+                            <span class="display-natural" style="">
+                                <span class="btn-label icon fa fa-bookmark-o" style="padding-left:20px;">&nbsp;&nbsp;</span>Parent Post&nbsp;&nbsp;
+                              
+                            </span>
+                            <span class="display-other" style="">
+                                <span class="btn-label icon" style="padding-left:20px;">®️&nbsp;&nbsp;</span>Referrer&nbsp;&nbsp;
+                                <!-- <input type="checkbox" name="mop_parent_post" class="mop_parent_post" value="Referrer" /> -->
+                            </span>
+                            <input type="checkbox" name="mop_parent_post" class="mop_parent_post" value="1" />
+
+                            <span class="btn-label icon fa  fa-sort-amount-desc" style="padding-left:20px; color:#e3a531">&nbsp;&nbsp;
+                                <span>Define as Children</span>&nbsp;&nbsp;
+                                <input class="mop_define_as_child" value="1" type="checkbox">
+                            </span>
+{#                             ==================================================================================================== #}
+                            <div id="mop_actionpostparent" style="z-index: 11 ! important; height: auto; text-align: left;">
+                                <div class="bandeau">
+                                    <!-- parent post/referrer selector -->
+                                    <div id="mop_parentpostselector" style="float:left; width:70%; z-index:4!important;">
+                                        <div class="col-sm-12" style="padding:30px 0 15px 0;">
+                                            <h5 style="padding:0 0 0 10px; color:purple;">
+                                                <span class="find-pprf">
+                                                    <span class="display-natural" style="">
+                                                        Parent Post
+                                                    </span>
+                                                    <span class="display-other" style="">
+                                                        Referrer
+                                                    </span>
+                                                </span>
+                                                 Selector:
+                                            </h5>
+
+                                            <div class="form-group pro_selector_wm" style="z-index:11!important;">
+                                                <label for="mop_jq-validation-select2" class="col-sm-2 control-label">Winemaker + Domain:</label>
+                                                <div class="col-sm-10" style="z-index:11!important;">
+                                                    <select class="form-control mop_jq-validation-select2" name="mop_jq-validation-select2">
+                                                        <option selected="selected"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group pro_selector_wine" style="z-index:11!important;">
+                                                <label for="mop_jq-validation-select2-multi" class="col-sm-2 control-label">Wine:</label>
+                                                <div class="col-sm-10">
+                                                    <select class="form-control mop_jq-validation-select2-multi" name="mop_jq-validation-select2-multi" {# multiple="multiple" #}>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group wine_status" style="z-index:11!important; display: none;">
+                                                <label class="col-sm-2 control-label">Status:</label>
+                                                <div class="col-sm-10">
+                                                    <select class="form-control wine_status_dropdown" name="wine_status">
+                                                        <option value="Not natural">Not natural</option>
+                                                        <option value="Bio-organic">Bio-organic</option>
+                                                        <option value="In doubt">In doubt</option>
+                                                        <option value="To investigate">To investigate</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end col-sm-8-->
+                                    </div>
+                                    <!--end parent post/referrer selector-->
+
+                                    <div style="float:right; padding:80px 80px 0 0;">
+                                        <button class="btn btn-lg btn-success mop_ui-bootbox-change-parent-confirm">CONFIRM</button>&nbsp;&nbsp;
+                                        <button class="btn btn-lg btn-cancel mop_ui-bootbox-change-parent-cancel">Cancel</button>
+                                    </div>
+                                </div>
+
+                            </div>
+{#                             ==================================================================================================== #}
+                            <!-- <hr class="no-panel-padding-h" style="margin-top: 0px; margin-bottom: 30px;"> -->
+                        </div>
+                    </div>
+                    <div class="col-sm-4" style="text-align: left;">
+{#                        <!--<h3><span class="action_item_number">[XX]</span> entries selected</h3> What do you want to do?&nbsp;&nbsp;&nbsp;-->#}
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <button class="btn btn-lg btn-danger ui-bootbox-delete">Delete</button>&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="col-sm-8">
+                                <button class="btn btn-lg btn-info ui-bootbox-undelete">Undelete</button>&nbsp;&nbsp;&nbsp;
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <button class="btn btn-lg btn-success ui-bootbox-publish">Natural</button>&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="col-sm-8">
+                                <button class="btn btn-lg btn-danger ui-bootbox-refuse">Not Natural</button>&nbsp;&nbsp;&nbsp;
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <button class="btn btn-lg btn-info ui-bootbox-unpublish">Draft</button>&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="col-sm-8">
+                                <button class="btn btn-lg btn ui-bootbox-indoubt">In Doubt</button>&nbsp;&nbsp;&nbsp;
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <button class="btn btn-lg btn-warning ui-bootbox-bioorg">Bio-Organic</button>&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="col-sm-8">
+                                <button class="btn btn-lg ui-bootbox-investigate">TO INVESTIGATE</button>
+                            </div>
+                        </div>
+                        <div class="row">                            
+                            <div class="col-sm-4">
+                                <button class="btn btn-lg btn-cancel ui-bootbox-mop-not-wine">NOT WINE</button>
+                            </div>
+                            <div class="col-sm-8">
+                                <button class="btn btn-lg btn-cancel ui-bootbox-cancel do-cancel" data-toggle="collapse">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+{#<!--            <div class="bandeau action-confirm action_new_parent_post_confirm_children" style="display: none;">-->#}
+{#<!--                <h3>Do you still want to set <i><span class="action-wine-name">[XX]</span></i> posted by-->#}
+{#<!--                    <i><span class="action-wine-author">[YY]</span></i> as "Parent post/Referrer" <br />-->#}
+{#<!--                    (warning: this "Parent post/ Referrer" has children).-->#}
+{#<!--&lt;!&ndash;                    <span class="action_item_number">[XX]</span> Entries&ndash;&gt;-->#}
+{#<!--                </h3>-->#}
+{#<!--                <div class="panel-body">-->#}
+{#<!--                    <button class="btn btn-lg btn-info ui-bootbox-new-parent-post-cancel">CANCEL</button>-->#}
+{#<!--                    <button class="btn btn-lg btn-warning ui-bootbox-new-parent-post-confirm">YES</button>&nbsp;&nbsp;&nbsp;-->#}
+{#<!--                </div>-->#}
+{#<!--            </div>-->#}
+            <div class="bandeau action-confirm action_new_parent_post_confirm_children" style="display: none;">
+                Do you still want to set <h3 style="display: inline-block;">"<span class="action-wine-name">[XX]</span>"</h3> posted by:
+                <span class="picture-bigger">
+                    <a href="" class="action-wine-author-url">
+                        <img class="action-wine-author-avatar-url" src="" data-toggle="tooltip" title="" data-placement="bottom" />
+                    </a>
+                </span>
+                as
+                <strong class="find-pprf"></strong> (warning: this <strong class="find-pprf"></strong> has children).
+                <div class="panel-body">
+                    <button class="btn btn-lg btn-cancel ui-bootbox-new-parent-post-cancel">CANCEL</button>
+                    <button class="btn btn-lg btn-success ui-bootbox-new-parent-post-confirm">YES</button>&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+            <div class="bandeau action-confirm action_new_parent_post_confirm" style="display: none;">
+                Do you still want to set <h3 style="display: inline-block;">"<span class="action-wine-name">[XX]</span>"</h3> posted by:
+                <span class="picture-bigger">
+                    <a href="" class="action-wine-author-url">
+                        <img class="action-wine-author-avatar-url" src="" data-toggle="tooltip" title="" data-placement="bottom" />
+                    </a>
+                </span>
+                as
+                <strong class="find-pprf"></strong>  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                <div class="panel-body">
+                    <button class="btn btn-lg btn-cancel ui-bootbox-new-parent-post-cancel">CANCEL</button>
+                    <button class="btn btn-lg btn-success ui-bootbox-new-parent-post-confirm">YES</button>&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+            <div class="bandeau action-confirm action_refuse_confirm" style="display: none;">
+                <h3>You are about to refuse <span class="action_item_number">[XX]</span></h3>
+                <div class="panel-body">
+                    <button class="btn btn-lg btn-info ui-bootbox-refuse-cancel">Don't set as Not Natural</button>
+                    <button class="btn btn-lg btn-warning ui-bootbox-refuse-confirm">Set as Not Natural</button>&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+            <div class="bandeau action-confirm action_delete_confirm" style="display: none;">
+                <h3>You are about to delete <span class="action_item_number">[XX]</span></h3>
+                <div class="panel-body">
+                    <button class="btn btn-lg btn-info ui-bootbox-delete-cancel">Don't Delete</button>
+                    <button class="btn btn-lg btn-danger ui-bootbox-delete-confirm">Delete</button>&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+            <div class="bandeau action-confirm action_change_status_confirm" style="display: none;">
+                <h3>You are about to change the status to <span class="action_new_status">[STS]</span>&nbsp;for&nbsp;<span class="action_item_number">[XX]</span></h3>
+                <h3>Do you confirm this action?</h3>
+                <div class="panel-body">
+                    <button class="btn btn-lg btn-success ui-bootbox-change-status-confirm">Confirm</button>
+                    <button class="btn btn-lg ui-bootbox-change-status-cancel">Cancel</button>&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+        </div>
+<!--- /ACTION OWNERS ----- -->
+
+{% with 'geolocated users' as list %}
+
+{% for target in list.split %}
+<!--- ACTION USERS & GEO ----- -->
+        <div id="action-{{target}}" class="collapse action-top-container" style="z-index: 10 ! important;">
+            <div class="bandeau action-main">
+                <div class="row">
+                    <div class="col-sm-8" style="font-size: 14px; text-align: left;">
+                        <div style="width: 100%;">
+                            <span class="natural_or_other">
+                                <!-- <input type="radio" name="nat_oth" class="nat_oth_n" value="natural" checked="checked" /><span>Natural</span>
+                                <input type="radio" name="nat_oth" class="nat_oth_o" value="other" /><span>Other</span> -->
+
+                                <div>
+                                    <input type="radio" name="nat_oth" id="natural2" class="nat_oth_n" value="natural" />
+                                    <label for="natural2">Natural</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="nat_oth" id="other2" class="nat_oth_o" value="other" />
+                                    <label for="other2">Other</label>
+                                </div>
+                            </span>
+
+
+                            <span class="display-natural" style="">
+                                <span class="starreview">Star Review</span>&nbsp;&nbsp;
+                                <input type="checkbox" name="mop_star_review" class="mop_star_review" value="1" />
+                            </span>
+                                <span class="display-other" style="">&nbsp;</span>
+
+                                <span class="display-natural" style="">
+                                    <span class="btn-label icon fa fa-bookmark-o" style="padding-left:20px;">&nbsp;&nbsp;</span>Parent Post&nbsp;&nbsp;
+                                    
+                                </span>
+                                <span class="display-other" style="">
+                                    <span class="btn-label icon" style="padding-left:20px;">®️&nbsp;&nbsp;</span>Referrer&nbsp;&nbsp;
+                                    <!-- <input type="checkbox" name="mop_parent_post" class="mop_parent_post" value="Referrer" /> -->
+                                </span>
+                                <input type="checkbox" name="mop_parent_post" class="mop_parent_post" value="1" />
+
+                            <span class="btn-label icon fa  fa-sort-amount-desc" style="padding-left:20px; color:#e3a531">&nbsp;&nbsp;
+                                <span>Define as Children</span>&nbsp;&nbsp;
+                                <input class="mop_define_as_child" value="1" type="checkbox">
+                            </span>
+{#                             ==================================================================================================== #}
+                            <div id="mop_actionpostparent" style="z-index: 11 ! important; height: auto; text-align: left;">
+                                <div class="bandeau">
+                                    <!-- parent post/referrer selector -->
+                                    <div id="mop_parentpostselector" style="float:left; width:70%; z-index:4!important;">
+                                        <div class="col-sm-12" style="padding:30px 0 15px 0;">
+                                            <h5 style="padding:0 0 0 10px; color:purple;">
+                                                <span class="find-pprf">
+                                                    <span class="display-natural" style="">
+                                                        Parent Post
+                                                    </span>
+                                                    <span class="display-other" style="">
+                                                        Referrer
+                                                    </span>
+                                                </span>
+                                                 Selector:
+                                            </h5>
+
+                                            <div class="form-group pro_selector_wm" style="z-index:11!important;" >
+                                                <label for="mop_jq-validation-select2" class="col-sm-2 control-label">Winemaker + Domain:</label>
+                                                <div class="col-sm-10" style="z-index:11!important;">
+                                                    <select class="form-control mop_jq-validation-select2" name="mop_jq-validation-select2">
+                                                        <option selected="selected"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group pro_selector_wine" style="z-index:11!important;">
+                                                <label for="mop_jq-validation-select2-multi" class="col-sm-2 control-label">Wine:</label>
+                                                <div class="col-sm-10">
+                                                    <select class="form-control mop_jq-validation-select2-multi" name="mop_jq-validation-select2-multi">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group wine_status" style="z-index:11!important; display: none;">
+                                                <label class="col-sm-2 control-label">Status:</label>
+                                                <div class="col-sm-10">
+                                                    <select class="form-control wine_status_dropdown" name="wine_status">
+                                                        <option value="Not natural">Not natural</option>
+                                                        <option value="Bio-organic">Bio-organic</option>
+                                                        <option value="In doubt">In doubt</option>
+                                                        <option value="To investigate">To investigate</option>
+                                                        
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end col-sm-8-->
+                                    </div>
+                                    <!--end parent post/referrer selector-->
+
+                                    <div style="float:right; padding:80px 80px 0 0;">
+                                        <button class="btn btn-lg btn-success mop_ui-bootbox-change-parent-confirm">CONFIRM</button>&nbsp;&nbsp;
+                                        <button class="btn btn-lg btn-cancel mop_ui-bootbox-change-parent-cancel">Cancel</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- <hr class="no-panel-padding-h" style="margin-top: 0px; margin-bottom: 30px;"> -->
+                        </div>
+                    </div>
+                    <div class="col-sm-4" style="text-align: left;">
+{#                        <!--<h3><span class="action_item_number">[XX]</span> entries selected</h3> What do you want to do?&nbsp;&nbsp;&nbsp;-->#}
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <button class="btn btn-lg btn-danger ui-bootbox-delete">Delete</button>&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="col-sm-8">
+                                <button class="btn btn-lg btn-info ui-bootbox-undelete">Undelete</button>&nbsp;&nbsp;&nbsp;
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <button class="btn btn-lg btn-success ui-bootbox-publish">Natural</button>&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="col-sm-8">
+                                <button class="btn btn-lg btn-danger ui-bootbox-refuse">Not Natural</button>&nbsp;&nbsp;&nbsp;
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <button class="btn btn-lg btn-info ui-bootbox-unpublish">Draft</button>&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="col-sm-8">
+                                <button class="btn btn-lg btn ui-bootbox-indoubt">In Doubt</button>&nbsp;&nbsp;&nbsp;
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <button class="btn btn-lg btn-warning ui-bootbox-bioorg">Bio-Organic</button>&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="col-sm-8">
+                                <button class="btn btn-lg ui-bootbox-investigate">TO INVESTIGATE</button>
+                            </div>
+                        </div>
+                        <div class="row">                            
+                            <div class="col-sm-4">
+                                <button class="btn btn-lg btn-cancel ui-bootbox-mop-not-wine">NOT WINE</button>
+                            </div>
+                            <div class="col-sm-8">
+                                <button class="btn btn-lg btn-cancel ui-bootbox-cancel do-cancel" data-toggle="collapse">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bandeau action-confirm action_new_parent_post_confirm" style="display: none;">
+                <h3>You are about to create a new Parent Post
+{#<!--                    <span class="action_item_number">[XX]</span> Entries-->#}
+                </h3>
+                <div class="panel-body">
+                    <button class="btn btn-lg btn-info ui-bootbox-new-parent-post-cancel">Don't create a new Parent Post/Referrer</button>
+                    <button class="btn btn-lg btn-warning ui-bootbox-new-parent-post-confirm">Create a new Parent Post/Referrer</button>&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+            <div class="bandeau action-confirm action_refuse_confirm" style="display: none;">
+                <h3>You are about to refuse <span class="action_item_number">[XX]</span></h3>
+                <div class="panel-body">
+                    <button class="btn btn-lg btn-info ui-bootbox-refuse-cancel">Don't set as Not Natural</button>
+                    <button class="btn btn-lg btn-warning ui-bootbox-refuse-confirm">Set as Not Natural</button>&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+            <div class="bandeau action-confirm action_delete_confirm" style="display: none;">
+                <h3>You are about to delete <span class="action_item_number">[XX]</span></h3>
+                <div class="panel-body">
+                    <button class="btn btn-lg btn-info ui-bootbox-delete-cancel">Don't Delete</button>
+                    <button class="btn btn-lg btn-danger ui-bootbox-delete-confirm">Delete</button>&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+            <div class="bandeau action-confirm action_change_status_confirm" style="display: none;">
+                <h3>You are about to change the status to <span class="action_new_status">[STS]</span>&nbsp;for&nbsp;<span class="action_item_number">[XX]</span></h3>
+                <h3>Do you confirm this action?</h3>
+                <div class="panel-body">
+                    <button class="btn btn-lg btn-success ui-bootbox-change-status-confirm">Confirm</button>
+                    <button class="btn btn-lg ui-bootbox-change-status-cancel">Cancel</button>&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+        </div>
+
+<!--- /ACTION USERS & GEO ----- -->
+
+{% endfor %}
+{% endwith %}
+
+
+

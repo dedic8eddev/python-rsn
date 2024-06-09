@@ -1,0 +1,30 @@
+{% load i18n %}
+<div class="widget-article-comments tab-pane panel no-padding no-border fade in active" id="profile-tabs-board">
+    {% if not is_new and comments %}
+        {% for comment in comments %}
+        <div class="comment">
+            <a href="{% url 'edit_user' id=comment.author_id %}" title="{{ comment.author }}"><img src="{{ comment.author_image }}" alt="" class="comment-avatar"></a>
+            <div class="comment-body" >
+                <div class="comment-text">
+                    <div class="pushaction">
+                        <a href="#" title="{% trans 'Delete' %}" id="delete_comment_{{ comment.id }}" class="btn btn-xs btn-outline btn-danger add-tooltip" data-placement="top" >
+                            <i class="fa fa-trash-o"></i></a>
+
+                        {% if comment.can_ban_user %}
+                        <a href="#" title="{% trans 'Ban user' %}" id="ban_user_{{ comment.author_id }}" class="btn btn-xs btn-outline btn-info add-tooltip" data-placement="top" >
+                            <i class="fa fa-lock"></i></a>
+                        {% elif comment.user_banned %}
+                        <a href="#" title="User is banned"><i class="fa fa-lock activebblue"></i></a>
+                        {% endif %}
+                    </div>
+
+                    <div class="comment-heading">
+                        <a href="{% url 'edit_user' id=comment.author_id %}" title="">{{ comment.author }}</a> <span>{{ comment.created_time }}{# April 10th - 10:45AM #}</span>
+                        <p>{{ comment.description }}</p>
+                    </div>
+                </div>
+            </div> <!-- / .comment-body -->
+        </div>
+        {% endfor %}
+    {% endif %}
+</div> <!-- / .tab-pane -->

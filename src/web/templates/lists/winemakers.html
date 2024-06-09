@@ -1,0 +1,89 @@
+{% extends "base/layout.html" %}
+
+{% load static %}
+
+{% block title %}Winemakers - Raisin{% endblock %}
+
+{% block additional_buttons %}
+    <a href="{% url 'list_star_reviews_all' %}" class="btn btn-lg btn-labeled fa fa-star opt starrvs" role="button" data-toggle="tooltip" title="All Star Reviews in the CMS" data-placement="top"></a>
+    <a href="{% url 'list_referees_all' %}" class="btn btn-lg btn-labeled fa fa-bookmark-o opt starrvs" role="button"  data-toggle="tooltip" title="All referees in the CMS" data-placement="top"></a>
+    <a href="{% url 'add_winemaker' %}" class="btn btn-lg btn-labeled fa fa-plus opt add_winemaker" role="button" data-toggle="tooltip" title="Add New Winemaker" data-placement="top"></a>
+{% endblock additional_buttons %}
+
+{% block add_new_button %}{% endblock add_new_button %}
+
+{% block main_content %}
+<!-- 11. $JQUERY_DATA_TABLES ===========================================================================
+jQuery Data Tables
+-->
+<!-- Javascript -->
+{% verbatim %}
+<script>
+    var wm_type = {% endverbatim %}wm_type{% verbatim %};
+    var url_getwinemakers_items_all_ajax = "{% endverbatim %}{% url 'get_winemaker_items_all_ajax' %}{% verbatim %}";
+    var url_getwinemakers_items_naturals_ajax = "{% endverbatim %}{% url 'get_winemaker_items_naturals_ajax' %}{% verbatim %}";
+    var url_getwinemakers_items_others_ajax = "{% endverbatim %}{% url 'get_winemaker_items_others_ajax' %}{% verbatim %}";
+    var url_winemakers_publish_ajax = '{% endverbatim %}{% url 'winemakers_publish_ajax' %}{% verbatim %}';
+    var url_winemakers_unpublish_ajax = '{% endverbatim %}{% url 'winemakers_unpublish_ajax' %}{% verbatim %}';
+    var url_winemakers_set_in_doubt_ajax = '{% endverbatim %}{% url 'winemakers_set_in_doubt_ajax' %}{% verbatim %}';
+    var url_winemakers_delete_ajax = '{% endverbatim %}{% url 'winemakers_delete_ajax' %}{% verbatim %}';
+    var url_winemakers_duplicate_ajax = '{% endverbatim %}{% url 'winemakers_duplicate_ajax' %}{% verbatim %}';
+    var url_winemakers_set_bio_organic_ajax = '{% endverbatim %}{% url 'winemakers_set_bio_organic_ajax' %}{% verbatim %}';
+    var url_winemakers_set_to_investigate_ajax = '{% endverbatim %}{% url 'winemakers_set_to_investigate_ajax' %}{% verbatim %}';
+
+</script>
+{% endverbatim %}
+<!-- / Javascript -->
+
+<script src="{% static 'assets/javascripts/lists/list.pipeline.js' %}"></script>
+<script src="{% static 'assets/javascripts/lists/list.winemakers.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'assets/stylesheets/new_style.css' %}" />
+
+<div class="panel" style="font-size:16px!important;">
+    <div class="panel-heading text-left">
+        <div class="table-caption">Winemakers: {{ total }}</div>
+        {% comment %} <span class="panel-title" style="font-size:22px;">[WINEMAKERS] : {{ total }}</span> {% endcomment %}
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <ul id="uidemo-tabs-default-demo" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#all" data-toggle="tab">All <span class="badge label-warning">{{ total }}</span></a>
+                    </li>
+                    <li>
+                        <a href="#naturals" data-toggle="tab">naturals <span class="badge label-warning">{{ naturals }}</span></a>
+                    </li>
+                    <li>
+                        <a href="#others" data-toggle="tab">others <span class="badge label-warning">{{ others }}</span></a>
+                    </li>
+                </ul>
+                <div class="tab-content tab-content-bordered" style="">
+                    <div class="tab-pane fade in active" id="all">
+                        {% include 'base/elements/lists/winemakers-all.html' %}
+                    </div>
+                    <div class="tab-pane fade" id="naturals">
+                        {% include 'base/elements/lists/winemakers-naturals.html' %}
+                    </div>
+                    <div class="tab-pane fade" id="others">
+                        {% include 'base/elements/lists/winemakers-others.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> 
+
+</div>
+
+<!-- end jquery table jhb -->
+
+{% include 'base/elements/lists/action_footer_puddc.html' %}
+
+{% endblock %}
+
+{% block additional_bottom_scripts %}
+    {% include 'base/elements/bottom_js_list.html' %}
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+{% endblock additional_bottom_scripts %}

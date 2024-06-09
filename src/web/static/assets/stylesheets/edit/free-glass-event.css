@@ -1,0 +1,18 @@
+.panel {
+    font-size:16px!important;
+}
+
+.niveau1 {
+    background-color:#fafafa;
+    text-align:left;
+    margin-bottom: 20px;
+}
+
+.no-panel-padding-h {
+    margin:0;
+    padding:0;
+}
+
+.container-fluid {
+    padding-top:30px;
+}

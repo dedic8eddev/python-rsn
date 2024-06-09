@@ -1,0 +1,166 @@
+{% load static %}
+
+<div class="table table-striped vmiddle" style="font-size:14px;">
+    <div role="grid" id="jq-datatables-example_wrapper" class="dataTables_wrapper form-inline no-footer">
+        <div class="table-header clearfix">
+            <div class="table-caption">
+                <a href="{% url 'continent_list' %}">CONTINENTS</a> -
+                {{ continent.name }} : Natural wine in {{ page_obj.paginator.count }} countries and {{ cities_sum }} cities
+            </div>
+            <div class="DT-lf-right">
+                <div class="DT-per-page">
+                    <div class="dataTables_length" id="jq-datatables-example_length">
+                        <label>Per page:
+                            <select name="jq-datatables-example_length" aria-controls="jq-datatables-example" class="form-control input-sm" onchange="javascript:handleSelect(this)">
+                                <option value="10" {% if page_size == "10" %}selected{% endif %}>10</option>
+                                <option value="25" {% if page_size == "25" %}selected{% endif %}>25</option>
+                                <option value="50" {% if page_size == "50" %}selected{% endif %}>50</option>
+                                <option value="100" {% if page_size == "100" %}selected{% endif %}>100</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+                <div class="DT-search-cities-autocomplete">
+                    <div id="jq-datatables-example_filter" class="dataTables_filter">
+                        <label>
+                            <input
+                                id="autocomplete"
+                                type="text"
+                                name="search"
+                                class="form-control input-sm"
+                                aria-controls="jq-datatables-example"
+                                placeholder="Search..."
+                                value="{{ search_name|default:'' }}"
+                            >
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered dataTable no-footer" id="jq-datatables-example" aria-describedby="jq-datatables-example_info">
+        <thead>
+            <tr role="row">
+    {#            <th style="width: 14px;" class="sorting_asc" tabindex="0" aria-controls="jq-datatables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label=": activate to sort column ascending"><br><input type="checkbox" id="toggle-all" name="check-all"></th>#}
+                <th style="width: 42px;" class="" tabindex="0" aria-controls="jq-datatables-example" rowspan="1" colspan="1" aria-label="Picture: activate to sort column ascending">Picture</th>
+                <th
+                    class="{% if '-updated_at' in order_by %}sorting_asc{% elif 'updated_at' in order_by %}sorting_desc{% else %}sorting{% endif %}"
+                    tabindex="0"
+                    aria-controls="jq-datatables-example"
+                    rowspan="1"
+                    colspan="1"
+                    aria-label="Date: activate to sort column ascending"
+                    style="width: 242px;"
+                    data-ordering="{% if '-updated_at' in order_by %}updated_at{% else %}-updated_at{% endif %}"
+                    onclick="javascript:handleOrdering(this)"
+                >Date</th>
+                <th
+                    class=""
+                    tabindex="0"
+                    aria-controls="jq-datatables-example"
+                    rowspan="1"
+                    colspan="1"
+                    aria-label="Last Editor: activate to sort column ascending"
+                    style="width: 135px;"
+                    data-ordering="{% if '-last_editor__full_name' in order_by %}last_editor__full_name{% else %}-last_editor__full_name{% endif %}"
+                    onclick="javascript:handleOrdering(this)"
+                >Last Editor</th>
+                <th
+                    class="{% if '-name' in order_by %}sorting_asc{% elif 'name' in order_by %}sorting_desc{% else %}sorting{% endif %}"
+                    tabindex="0"
+                    aria-controls="jq-datatables-example"
+                    rowspan="1"
+                    colspan="1"
+                    aria-label="Country: activate to sort column ascending"
+                    style="width: 190px;"
+                    data-ordering="{% if '-name' in order_by %}name{% else %}-name{% endif %}"
+                    onclick="javascript:handleOrdering(this)"
+                >Country</th>
+                <th
+                    class="{% if '-venues_count' in order_by %}sorting_asc{% elif 'venues_count' in order_by %}sorting_desc{% else %}sorting{% endif %}"
+                    tabindex="0"
+                    aria-controls="jq-datatables-example"
+                    rowspan="1"
+                    colspan="1"
+                    aria-label="Nbr of Venues: activate to sort column ascending" style="width: 250px;"
+                    data-ordering="{% if '-venues_count' in order_by %}venues_count{% else %}-venues_count{% endif %}"
+                    onclick="javascript:handleOrdering(this)"
+                >Nbr of Venues</th>
+                <th
+                    class="{% if '-cities_and_ua' in order_by %}sorting_asc{% elif 'cities_and_ua' in order_by %}sorting_desc{% else %}sorting{% endif %}"
+                    tabindex="0"
+                    aria-controls="jq-datatables-example"
+                    rowspan="1"
+                    colspan="1"
+                    aria-label="Urban Areas + Cities: activate to sort column ascending"
+                    style="width: 345px;"
+                    data-ordering="{% if '-cities_and_ua' in order_by %}cities_and_ua{% else %}-cities_and_ua{% endif %}"
+                    onclick="javascript:handleOrdering(this)"
+                >Urban Areas + Cities</th>
+                <th tabindex="0" aria-controls="jq-datatables-example" rowspan="1" colspan="1" aria-label="EN: activate to sort column ascending" style="width: 69px;">EN</th>
+                <th tabindex="0" aria-controls="jq-datatables-example" rowspan="1" colspan="1" aria-label="FR: activate to sort column ascending" style="width: 67px;">FR</th>
+                <th tabindex="0" aria-controls="jq-datatables-example" rowspan="1" colspan="1" aria-label="JA: activate to sort column ascending" style="width: 67px;">JA</th>
+                <th tabindex="0" aria-controls="jq-datatables-example" rowspan="1" colspan="1" aria-label="IT: activate to sort column ascending" style="width: 67px;">IT</th>
+                <th tabindex="0" aria-controls="jq-datatables-example" rowspan="1" colspan="1" aria-label="ES: activate to sort column ascending" style="width: 67px;">ES</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for object in page_obj %}
+            <tr class="gradeA odd">
+    {#            <td class="sorting_1"><input type="checkbox" id="colors-1-toggle-0" name="colors-1[]" value="color_c" data-toggle="collapse" data-target="#actionpost"></td>#}
+                <td>
+                    {% if object.image %}
+                        <img
+                            src="{{ object.get_image_url }}"
+                            alt="{{ object.name }}"
+                            width="45"
+                            height="45"
+                        >
+                    {% else %}
+                        <img
+                            src="{% static 'cities/images/untitled.png' %}"
+                            alt="{{ object.name }}"
+                            width="45"
+                            height="45"
+                        >
+                    {% endif %}
+                    </a>
+                </td>
+                <td class="text-left">{{ object.updated_at }}</td>
+                <td class="picture-small">
+                    {% if object.last_editor %}
+                        <a href="{{ object.last_editor.get_absolute_url }}" target="_blank">
+                        {% if object.last_editor.get_images.image %}
+                            <img src="{{ object.last_editor.get_images.image }}"
+                                data-toggle="tooltip"
+                                title="{{ object.last_editor.full_name }}"
+                                data-placement="bottom"
+                                data-original-title="{{ object.last_name.full_name }}"
+                            >
+                        {% else %}
+                            <img src="https://cms.raisin.digital/static/assets/img/missing.gif"
+                                data-toggle="tooltip"
+                                title="{{ object.last_name.full_name }}"
+                                data-placement="bottom"
+                                data-original-title="{{ object.last_name.full_name }}"
+                            >
+                        {% endif %}
+                        </a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td class="text-left bold">{{ object.name }}</td>
+                <td class="text-center"><span class="label label-flat label-default none">{{ object.venues_count }}</span> </td>
+                <td class="text-center"><a href="{% url 'region_list' continent_slug=object.continent.slug country_slug=object.slug %}" class="linkto" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Urban Areas &amp; Cities in this Country">{{ object.cities_and_ua }}</a></td>
+                <td><a href="{% url 'country_update' continent_slug=object.continent.slug slug=object.slug language='en' %}" class="{% if object.published_en %}success{% else %}incomplete{% endif %}" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Draft"> <i class="fa fa-edit"></i>{#% for an in object.alt_name_codes %} {{ an }} {% endfor %#} </a></td>
+                <td><a href="{% url 'country_update' continent_slug=object.continent.slug slug=object.slug language='fr' %}" class="{% if object.published_fr %}success{% else %}incomplete{% endif %}" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Published"> <i class="fa fa-edit"></i>  </a></td>
+                <td><a href="{% url 'country_update' continent_slug=object.continent.slug slug=object.slug language='ja' %}" class="{% if object.published_ja %}success{% else %}incomplete{% endif %}" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Draft"> <i class="fa fa-edit"></i> </a></td>
+                <td><a href="{% url 'country_update' continent_slug=object.continent.slug slug=object.slug language='it' %}" class="{% if object.published_it %}success{% else %}incomplete{% endif %}" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Published"> <i class="fa fa-edit"></i>  </a></td>
+                <td><a href="{% url 'country_update' continent_slug=object.continent.slug slug=object.slug language='es' %}" class="{% if object.published_es %}success{% else %}incomplete{% endif %}" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Draft"> <i class="fa fa-edit"></i> </a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% include "cities/pagination.html" %}
+</div>

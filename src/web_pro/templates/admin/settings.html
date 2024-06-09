@@ -1,0 +1,124 @@
+{% extends 'pro_base/layout.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% load i18n %}
+{% load web_extras %}
+
+
+{% block meta %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="TheAdmin - Responsive admin and web application ui kit">
+    <meta name="keywords" content="admin, dashboard, web app, sass, ui kit, ui framework, bootstrap">
+{% endblock meta %}
+
+{% block title %}{%trans 'SETTINGS' %}{% endblock %}
+
+{% block additional_fonts %}
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
+{% endblock additional_fonts %}
+
+{% block additional_styles %}
+    <style>
+        .mt-40 {
+            margin-top: 40px;
+        }
+    </style>
+{% endblock additional_styles %}
+
+{% block additional_scripts %}
+    <script src="{% static 'pro_assets/js/handlers/heic.js' %}"></script>
+    <script src="{% static 'pro_assets/js/handlers/settings/imageInputHandler.js' %}"></script>
+    <script>
+        var lang = '{{ user_lang }}',
+        currency = '{{ user_currency }}',
+        missingImage = "{% static 'pro_assets/img/missing-image.gif' %}",
+        changed = 0;
+        chargebee_url = '{% get_chargebee_url %}';
+        postOwnerDetailsFormUrl = '{% url 'pro_settings_owner_details' %}';
+        postCompanyDetailsFormUrl = '{% url 'pro_settings_company_details' %}';
+    </script>
+    <script src="{% static 'pro_assets/js/handlers/settings/settingsHandler.js' %}"></script>
+{% endblock additional_scripts %}
+
+
+{% block body %}
+    {% include 'pro_base/navigation.html' %}
+
+    <main class="main-container">
+
+        <div class="main-content">
+            <div class="row">
+
+                <div class="col-lg-3">
+                    <div class="card products-card">
+                        <ul class="nav nav-lg nav-pills flex-column">
+                            <li class="nav-item">
+                              <a class="nav-link active" href="#owner-details" data-toggle="tab" name="owner-details">{% trans 'Owner Details' %}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#company-details" data-toggle="tab" name="company-details">{% trans 'Company Details' %}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#invoices" data-toggle="tab" name="invoices">{% trans 'Invoices' %}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary disabled sticky-save success" data-toggle="tooltip" data-placement="bottom" title="{% trans 'Every change you make is automatically saved by Raisin PRO.' %}">
+                {% trans 'All changes saved' %}
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check2" fill="green" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"></path></svg>
+                </button>
+
+                <button class="btn btn-secondary disabled sticky-save error" data-toggle="tooltip"
+                  data-placement="bottom" title="{% trans 'Something went wrong. Please refresh the page and try again. Contact us at contact@raisin.digital if this is a recurring issue.' %}">
+                  {% trans 'Error saving changes' %}
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-exclamation-circle" fill="red" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/></svg>
+                </button>
+
+                <div class="col-lg-9 tab-content raisin">
+                    {% include 'admin/settings/owner-details.html' %}
+                    {% include 'admin/settings/company-details.html' %}
+                    {% include 'admin/settings/invoices.html' %}
+                </div>
+                <div class="modal fade" id="save" tabindex="-1" data-backdrop="static" role="dialog"
+                     aria-labelledby="exampleModalLabel"
+                     aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <p class="lead"><strong>{% trans 'NEW INFORMATION NOT SAVED!' %}</strong></p>
+                                <p class="lead mb-0">{% trans 'Would you like to save before exiting?' %}</p>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" id="dismiss" class="btn btn-secondary" data-dismiss="modal">{% trans 'NO' %}
+                                </button>
+                                <button type="button" id="no-dismiss" class="btn btn-success" data-dismiss="modal">{% trans 'YES' %}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div><!--/.main-content -->
+
+
+        {% include 'pro_base/footer.html' %}
+
+    </main>
+    <!-- END Main container -->
+
+
+
+    <!-- Global quickview -->
+    <div id="qv-global" class="quickview" data-url="../assets/data/quickview-global.html">
+        <div class="spinner-linear">
+            <div class="line"></div>
+        </div>
+    </div>
+    <!-- END Global quickview -->
+{% endblock body %}

@@ -1,0 +1,22 @@
+{# based on action_footer_iroc.html #}
+
+<div style="height: auto;" id="action_userplaces" class="collapse">
+    <div class="bandeau action-main action-main-left" id="action_main" style="text-align: left;">
+        <h3><span class="action_item_number">[XX]</span> entries selected</h3> <h4>What do you want to do?</h4>&nbsp;&nbsp;&nbsp;
+        <button id="ui-bootbox-publish_userplaces" class="btn btn-lg btn-success" data-toggle="tooltip" title="Will only affect the selected DRAFT entries">Publish</button>&nbsp;&nbsp;&nbsp;
+        <button id="ui-bootbox-unpublish_userplaces" class="btn btn-lg btn-info" data-toggle="tooltip" title="Will only affect the selected PUBLISHED entries">Draft</button>&nbsp;&nbsp;&nbsp;
+        <button id="ui-bootbox-indoubt_userplaces" class="btn btn-lg btn">In Doubt</button>&nbsp;&nbsp;&nbsp;
+
+        <button id="ui-bootbox-close_userplaces" class="btn btn-lg btn-danger" data-toggle="tooltip" title="Will only affect the selected NON-CLOSED entries">Close</button>&nbsp;&nbsp;&nbsp;
+        <button id="ui-bootbox-cancel_userplaces" class="btn btn-lg btn-cancel">Cancel</button>
+        <button id="ui-bootbox-delete_userplaces" class="btn btn-lg btn-danger" style="float:right">Delete</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+
+    <div class="bandeau action-confirm" id="action_delete_confirm_userplaces" style="display: none;">
+        <h3>You are about to refuse (delete) <span class="action_item_number">[XX]</span> Entries</h3>
+        <div class="panel-body">
+            <button id="ui-bootbox-delete-cancel-userplaces" class="btn btn-lg btn-info">Don't Delete</button>
+            <button id="ui-bootbox-delete-confirm-userplaces" class="btn btn-lg btn-danger">Delete</button>&nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
+</div>

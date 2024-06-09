@@ -1,0 +1,42 @@
+{% load i18n %}
+<h3>Certifications and other files</h3>
+<div class="row file_header">
+    <div class="col-md-6">
+        <div class="d-flex">
+            <div>Name</div>
+            <div>Actions</div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="d-flex">
+            <div>Name</div>
+            <div>Actions</div>
+        </div>
+    </div>
+</div>
+<div id="current-wm-files-inside">
+    {% if images %}
+        {% for image in images %}
+            <div class="other-file-item-row">
+                <div class="image-list-item" cnt-data-image-file="{{ image.ident }}">
+                    <a href="{{ image.url }}" target="_blank">
+                        <img src="{{ image.url_icon }}" data-image-file="{{ image.ident }}" alt="" width="150" height="150" /> <span class="fileName">
+                            {% if image.real_name == None %}
+                                unknown file
+                            {% else %}
+                                {{ image.real_name }}
+                            {% endif %}
+                        </span>
+                    </a>
+                    <p>
+                        <a href="{{ image.url }}" target="_blank"><i class="fa fa-download"></i></a>
+                        <a class="remover" href="#"><i class="fa fa-times-circle"></i></a>
+                    </p>
+                </div>
+            </div>
+
+        {% endfor %}
+    {% else %}
+    <h4>No files</h4>
+    {% endif %}
+</div>

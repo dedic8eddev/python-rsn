@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="TheAdmin - Responsive admin and web application ui kit">
+    <meta name="keywords" content="admin, dashboard, web app, sass, ui kit, ui framework, bootstrap">
+
+    <title>Your Venue</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
+
+
+    <!-- Styles -->
+    <link href="../../../web/static/pro_assets/css/core.min.css" rel="stylesheet">
+    <link href="../../../web/static/pro_assets/css/app.css" rel="stylesheet">
+    <link href="../../../web/static/pro_assets/css/intlTelInput.css" rel="stylesheet">
+    <link href="../../../web/static/pro_assets/css/style.css" rel="stylesheet">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="../../../web/static/pro_assets/img/apple-touch-icon.png">
+    <link rel="icon" href="../../../web/static/pro_assets/img/favicon.png">
+</head>
+
+<body onload="addBodyClass();">
+<form class="card form-type-material address-form">
+
+    <h4 class="card-title fw-400 text-uppercase">Establishment name</h4>
+
+    <div class="card-body">
+
+        <div class="h-300px" data-draggable="true" data-provide="map" data-lat="44.540" data-lng="-78.556"
+             data-marker-lat="44.540" data-marker-lng="-78.556" data-marker-icon="assets/img/icon/map-marker.png"
+             data-info="&lt;strong&gt;Our office&lt;/strong&gt;&lt;br&gt;3652 Seventh Avenue, Los Angeles, CA"></div>
+
+
+        <div class="form-group">
+            <label class="text-fader">Address</label>
+            <input class="form-control" type="text" autocomplete="off">
+        </div>
+
+
+        <div class="form-group">
+            <label class="text-fader">City</label>
+            <input class="form-control" type="text">
+        </div>
+
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="text-fader">Country</label>
+                <select class="form-control" title="&#xA0;" data-provide="selectpicker">
+                    <option>United States</option>
+                    <option>Canada</option>
+                    <option>Mexico</option>
+                    <option>United Kingdom</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label class="text-fader">State/Province</label>
+                <select class="form-control" title="&#xA0;" data-provide="selectpicker">
+                    <option>California</option>
+                    <option>New Mexico</option>
+                    <option>Nevada</option>
+                    <option>New York</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label class="text-fader">Zip/Postal</label>
+                <input class="form-control" type="text">
+            </div>
+
+            <div class="form-group col-md-6 do-float">
+                <label class="phone-label text-fader">Phone</label>
+                <input class="form-control intlTel" id="phone" name="phone" type="tel">
+            </div>
+        </div>
+
+    </div>
+
+    <nav class="flexbox mb-2 mt-7 registration-nav">
+        <a class="btn disabled" href="https://www.devpro.raisin.digital/US/1-Your-venue.html" target="_top"><i
+                class="fa fa-angle-left mr-1"></i> Previous</a>
+        <button type="submit" class="btn">Next <i class="fa fa-angle-right ml-1"></i></button>
+        <!-- Submit then redirect the main window to https://www.devpro.raisin.digital/US/2-company-details.html -->
+    </nav>
+
+    <footer class="card-footer text-right">
+        <button class="btn btn-flat btn-primary" type="submit">Save Changes</button>
+    </footer>
+
+
+</form>
+
+<!-- Scripts -->
+<script src="starter/src/assets/js/core.min.js"></script>
+<script src="starter/src/assets/js/app.min.js"></script>
+<script src="../../../web/static/pro_assets/js/intlTelInput.min.js"></script>
+<script src="../../../web/static/pro_assets/js/script.js"></script>
+
+</body>
+</html>

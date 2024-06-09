@@ -1,0 +1,366 @@
+{% load widget_tweaks %}
+{% load static %}
+{% load web_extras %}
+{% load i18n %}
+
+<form class="card tab-pane fade form-type-material" id="opening">
+    {% csrf_token %}
+    <h3 class="card-title text-gray">{% trans 'Establishment opening / closing hours' %}
+
+    </h3>
+    <div class="card-body opening-hours">
+
+        <!-- <p>Tous les éléments de dates sont ici : <a href="http://thetheme.io/theadmin/form/picker-datetime.html">http://thetheme.io/theadmin/form/picker-datetime.html</a></p>
+            <p><img src="assets/img/horaires.png" alt="horaires" width="666" height="471" ></p>
+                          <h5>Holidays</h5>
+                          <p><img src="assets/img/bank-holidays.png" alt="bank-holidays" width="652" height="120" ></p>
+                          <p>Add new date</p>
+                        <hr> -->
+        <br>
+        <h5 class="mt-0">{% trans 'OPENING HOURS' %}: <br></h5>
+
+        <div class="form-group time-item">
+            <div class="row opening1 time-row">
+
+                <div class="col-xl-4">
+                    <label class="switch" id="switch-1">
+                        <span class="switch-description">{% trans 'Monday' %}</span>
+                        <input class="toogle-opening" id="opening-day1"
+                               type="checkbox" checked>
+                        <span id="switch-toggle1" class="switch-indicator"></span>
+                    </label>
+                </div>
+                <div class="col-4 col-lg-2 col-time">
+                    <span class="time"><input id="day1-time1-from" class="form-control" type="text"
+                                              value="{% firstof place_op|keyval:1|first|keyval:'fh' '10' %}:{% firstof place_op|keyval:1|first|keyval:'fm' '00' %}" data-provide="clockpicker"
+                                              autocomplete="off" placeholder="{% trans 'Opens at' %}"></span>
+                </div>
+                <div class="col-4 col-lg-2 col-time">
+                    <span class="time to"><input id="day1-time1-to" class="form-control" type="text"
+                                                 value="{% firstof place_op|keyval:1|first|keyval:'th' '13' %}:{% firstof place_op|keyval:1|first|keyval:'tm' '00' %}" data-provide="clockpicker"
+                                                 autocomplete="off" placeholder="{% trans 'Closes at' %}"></span>
+                </div>
+                <div class="col-md-4 col-lg-5 col-xl-3 col-action disabled">
+                    <button class="btn btn-link btn-show-hours" id="add-hours-1">{% trans 'Add hours' %}</button>
+                </div>
+            </div>
+            <div class="row opening2 time-row disabled">
+                <div class="offset-xl-4 col-4 col-lg-2 col-time">
+                    <span class="time"><input id="day1-time2-from" class="form-control" type="text"
+                                              value="{% firstof place_op|keyval:1|last|keyval:'fh' '14' %}:{% firstof place_op|keyval:1|last|keyval:'fm' '00' %}" data-provide="clockpicker"
+                                              autocomplete="off" placeholder="{% trans 'Opens at' %}"></span>
+                </div>
+                <div class="col-4 col-lg-2 col-time">
+                    <span class="time to"><input id="day1-time2-to" class="form-control" type="text"
+                                                 value="{% firstof place_op|keyval:1|last|keyval:'th' '18' %}:{% firstof place_op|keyval:1|last|keyval:'tm' '00' %}" data-provide="clockpicker"
+                                                 autocomplete="off" placeholder="{% trans 'Closes at' %}"></span>
+                </div>
+                <div class="col-4 col-lg-5 col-xl-3 col-action">
+                    <button class="btn btn-link btn-delete-line"><i class="ti-close"></i></button>
+                </div>
+            </div>
+            <div class="error_here"></div>
+        </div>
+
+        <div class="form-group time-item">
+            <div class="row opening1 time-row">
+                <div class="col-xl-4">
+                    <label class="switch" id="switch-2">
+                        <span class="switch-description">{% trans 'Tuesday' %}</span>
+                        <input class="toogle-opening" id="opening-day2" type="checkbox" checked>
+                        <span id="switch-toggle2" class="switch-indicator"></span>
+                    </label>
+                </div>
+                <div class="col-4 col-lg-2 col-time">
+                    <span class="time"><input id="day2-time1-from" class="form-control" type="text"
+                                              value="{% firstof place_op|keyval:2|first|keyval:'fh' '10' %}:{% firstof place_op|keyval:2|first|keyval:'fm' '00' %}" data-provide="clockpicker"
+                                              autocomplete="off" placeholder="{% trans 'Opens at' %}"></span>
+                </div>
+                <div class="col-4 col-lg-2 col-time">
+                    <span class="time to"><input id="day2-time1-to" class="form-control" type="text"
+                                                 value="{% firstof place_op|keyval:2|first|keyval:'th' '13' %}:{% firstof place_op|keyval:2|first|keyval:'tm' '00' %}" data-provide="clockpicker"
+                                                 autocomplete="off" placeholder="{% trans 'Closes at' %}"></span>
+                </div>
+                <div class="col-md-4 col-lg-5 col-xl-3 col-action disabled">
+                    <button class="btn btn-link btn-show-hours" id="add-hours-2">{% trans 'Add hours' %}</button>
+                </div>
+            </div>
+            <div class="row opening2 time-row disabled">
+                <div class="offset-xl-4 col-4 col-lg-2 col-time">
+                    <span class="time"><input id="day2-time2-from" class="form-control" type="text"
+                                              value="{% firstof place_op|keyval:2|last|keyval:'fh' '14' %}:{% firstof place_op|keyval:2|last|keyval:'fm' '00' %}" data-provide="clockpicker"
+                                              autocomplete="off" placeholder="{% trans 'Opens at' %}"></span>
+                </div>
+                <div class="col-4 col-lg-2 col-time">
+                    <span class="time to"><input id="day2-time2-to" class="form-control" type="text"
+                                                 value="{% firstof place_op|keyval:2|last|keyval:'th' '18' %}:{% firstof place_op|keyval:2|last|keyval:'tm' '00' %}" data-provide="clockpicker"
+                                                 autocomplete="off" placeholder="{% trans 'Closes at' %}"></span>
+                </div>
+                <div class="col-4 col-lg-5 col-xl-3 col-action">
+                    <button class="btn btn-link btn-delete-line"><i class="ti-close"></i></button>
+                </div>
+            </div>
+            <div class="error_here"></div>
+        </div>
+
+        <div class="form-group time-item">
+            <div class="row opening1 time-row">
+                <div class="col-xl-4">
+                    <label class="switch" id="switch-3">
+                        <span class="switch-description">{% trans 'Wednesday' %}</span>
+                        <input class="toogle-opening" id="opening-day3" type="checkbox" checked>
+                        <span id="switch-toggle3" class="switch-indicator"></span>
+                    </label>
+                </div>
+                <div class="col-4 col-lg-2 col-time">
+                    <span class="time"><input id="day3-time1-from" class="form-control" type="text"
+                                              value="{% firstof place_op|keyval:3|first|keyval:'fh' '10' %}:{% firstof place_op|keyval:3|first|keyval:'fm' '00' %}" data-provide="clockpicker"
+                                              autocomplete="off" placeholder="{% trans 'Opens at' %}"></span>
+                </div>
+                <div class="col-4 col-lg-2 col-time">
+                    <span class="time to"><input id="day3-time1-to" class="form-control" type="text"
+                                                 value="{% firstof place_op|keyval:3|first|keyval:'th' '13' %}:{% firstof place_op|keyval:3|first|keyval:'tm' '00' %}" data-provide="clockpicker"
+                                                 autocomplete="off" placeholder="{% trans 'Closes at' %}"></span>
+                </div>
+                <div class="col-md-4 col-lg-5 col-xl-3 col-action disabled">
+                    <button class="btn btn-link btn-show-hours" id="add-hours-3">{% trans 'Add hours' %}</button>
+                </div>
+            </div>
+            <div class="row opening2 time-row disabled">
+                <div class="offset-xl-4 col-4 col-lg-2 col-time">
+                    <span class="time"><input id="day3-time2-from" class="form-control" type="text"
+                                              value="{% firstof place_op|keyval:3|last|keyval:'fh' '14' %}:{% firstof place_op|keyval:3|last|keyval:'fm' '00' %}" data-provide="clockpicker"
+                                              autocomplete="off" placeholder="{% trans 'Opens at' %}"></span>
+                </div>
+                <div class="col-4 col-lg-2 col-time">
+                    <span class="time to"><input id="day3-time2-to" class="form-control" type="text"
+                                                 value="{% firstof place_op|keyval:3|last|keyval:'th' '18' %}:{% firstof place_op|keyval:3|last|keyval:'tm' '00' %}" data-provide="clockpicker"
+                                                 autocomplete="off" placeholder="{% trans 'Closes at' %}"></span>
+                </div>
+                <div class="col-4 col-lg-5 col-xl-3 col-action">
+                    <button class="btn btn-link btn-delete-line"><i class="ti-close"></i></button>
+                </div>
+            </div>
+            <div class="error_here"></div>
+        </div>
+
+        <div class="form-group time-item">
+            <div class="row opening1 time-row">
+                <div class="col-xl-4">
+                    <label class="switch" id="switch-4">
+                        <span class="switch-description">{% trans 'Thursday' %}</span>
+                        <input class="toogle-opening" id="opening-day4" type="checkbox" checked>
+                        <span id="switch-toggle4" class="switch-indicator"></span>
+                    </label>
+                </div>
+                <div class="col-4 col-lg-2 col-time">
+                    <span class="time"><input id="day4-time1-from" class="form-control" type="text"
+                                              value="{% firstof place_op|keyval:4|first|keyval:'fh' '10' %}:{% firstof place_op|keyval:4|first|keyval:'fm' '00' %}" data-provide="clockpicker"
+                                              autocomplete="off" placeholder="{% trans 'Opens at' %}"></span>
+                </div>
+                <div class="col-4 col-lg-2 col-time">
+                    <span class="time to"><input id="day4-time1-to" class="form-control" type="text"
+                                                 value="{% firstof place_op|keyval:4|first|keyval:'th' '13' %}:{% firstof place_op|keyval:4|first|keyval:'tm' '00' %}" data-provide="clockpicker"
+                                                 autocomplete="off" placeholder="{% trans 'Closes at' %}"></span>
+                </div>
+                <div class="col-md-4 col-lg-5 col-xl-3 col-action disabled">
+                    <button class="btn btn-link btn-show-hours" id="add-hours-4">{% trans 'Add hours' %}</button>
+                </div>
+            </div>
+            <div class="row opening2 time-row disabled">
+                <div class="offset-xl-4 col-4 col-lg-2 col-time">
+                    <span class="time"><input id="day4-time2-from" class="form-control" type="text"
+                                              value="{% firstof place_op|keyval:4|last|keyval:'fh' '14' %}:{% firstof place_op|keyval:4|last|keyval:'fm' '00' %}" data-provide="clockpicker"
+                                              autocomplete="off" placeholder="{% trans 'Opens at' %}"></span>
+                </div>
+                <div class="col-4 col-lg-2 col-time">
+                    <span class="time to"><input id="day4-time2-to" class="form-control" type="text"
+                                                 value="{% firstof place_op|keyval:4|last|keyval:'th' '18' %}:{% firstof place_op|keyval:4|last|keyval:'tm' '00' %}" data-provide="clockpicker"
+                                                 autocomplete="off" placeholder="{% trans 'Closes at' %}"></span>
+                </div>
+                <div class="col-4 col-lg-5 col-xl-3 col-action">
+                    <button class="btn btn-link btn-delete-line"><i class="ti-close"></i></button>
+                </div>
+            </div>
+            <div class="error_here"></div>
+        </div>
+
+        <div class="form-group time-item">
+            <div class="row opening1 time-row">
+                <div class="col-xl-4">
+                    <label class="switch" id="switch-5">
+                        <span class="switch-description">{% trans 'Friday' %}</span>
+                        <input class="toogle-opening" id="opening-day5" type="checkbox" checked>
+                        <span id="switch-toggle5" class="switch-indicator"></span>
+                    </label>
+                </div>
+                <div class="col-4 col-lg-2 col-time">
+                    <span class="time"><input id="day5-time1-from" class="form-control" type="text"
+                                              value="{% firstof place_op|keyval:5|first|keyval:'fh' '10' %}:{% firstof place_op|keyval:5|first|keyval:'fm' '00' %}" data-provide="clockpicker"
+                                              autocomplete="off" placeholder="{% trans 'Opens at' %}"></span>
+                </div>
+                <div class="col-4 col-lg-2 col-time">
+                    <span class="time to"><input id="day5-time1-to" class="form-control" type="text"
+                                                 value="{% firstof place_op|keyval:5|first|keyval:'th' '13' %}:{% firstof place_op|keyval:5|first|keyval:'tm' '00' %}" data-provide="clockpicker"
+                                                 autocomplete="off" placeholder="{% trans 'Closes at' %}"></span>
+                </div>
+                <div class="col-md-4 col-lg-5 col-xl-3 col-action disabled">
+                    <button class="btn btn-link btn-show-hours" id="add-hours-5">{% trans 'Add hours' %}</button>
+                </div>
+            </div>
+            <div class="row opening2 time-row disabled">
+                <div class="offset-xl-4 col-4 col-lg-2 col-time">
+                    <span class="time"><input id="day5-time2-from" class="form-control" type="text"
+                                              value="{% firstof place_op|keyval:5|last|keyval:'fh' '14' %}:{% firstof place_op|keyval:5|last|keyval:'fm' '00' %}" data-provide="clockpicker"
+                                              autocomplete="off" placeholder="{% trans 'Opens at' %}"></span>
+                </div>
+                <div class="col-4 col-lg-2 col-time">
+                    <span class="time to"><input id="day5-time2-to" class="form-control" type="text"
+                                                 value="{% firstof place_op|keyval:5|last|keyval:'th' '18' %}:{% firstof place_op|keyval:5|last|keyval:'tm' '00' %}" data-provide="clockpicker"
+                                                 autocomplete="off" placeholder="{% trans 'Closes at' %}"></span>
+                </div>
+                <div class="col-4 col-lg-5 col-xl-3 col-action">
+                    <button class="btn btn-link btn-delete-line"><i class="ti-close"></i></button>
+                </div>
+            </div>
+            <div class="error_here"></div>
+        </div>
+
+        <div class="form-group time-item">
+            <div class="row opening1 time-row">
+                <div class="col-xl-4">
+                    <label class="switch" id="switch-6">
+                        <span class="switch-description">{% trans 'Saturday' %}</span>
+                        <input class="toogle-opening" id="opening-day6" type="checkbox">
+                        <span id="switch-toggle6" class="switch-indicator"></span>
+                    </label>
+                </div>
+                <div class="col-4 col-lg-2 col-time disabled">
+                    <span class="time"><input id="day6-time1-from" class="form-control" type="text"
+                                              value="{% firstof place_op|keyval:6|first|keyval:'fh' '10' %}:{% firstof place_op|keyval:6|first|keyval:'fm' '00' %}" data-provide="clockpicker"
+                                              autocomplete="off" placeholder="{% trans 'Opens at' %}"></span>
+                </div>
+                <div class="col-4 col-lg-2 col-time disabled">
+                    <span class="time to"><input id="day6-time1-to" class="form-control" type="text"
+                                                 value="{% firstof place_op|keyval:6|first|keyval:'th' '13' %}:{% firstof place_op|keyval:6|first|keyval:'tm' '00' %}" data-provide="clockpicker"
+                                                 autocomplete="off" placeholder="{% trans 'Closes at' %}"></span>
+                </div>
+                <div class="col-md-4 col-lg-5 col-xl-3 col-action disabled">
+                    <button class="btn btn-link btn-show-hours" id="add-hours-6">{% trans 'Add hours' %}</button>
+                </div>
+            </div>
+            <div class="row opening2 time-row disabled">
+                <div class="offset-xl-4 col-4 col-lg-2 col-time disabled">
+                    <span class="time"><input id="day6-time2-from" class="form-control" type="text"
+                                              value="{% firstof place_op|keyval:6|last|keyval:'fh' '14' %}:{% firstof place_op|keyval:6|last|keyval:'fm' '00' %}" data-provide="clockpicker"
+                                              autocomplete="off" placeholder="{% trans 'Opens at' %}"></span>
+                </div>
+                <div class="col-4 col-lg-2 col-time disabled">
+                    <span class="time to"><input id="day6-time2-to" class="form-control" type="text"
+                                                 value="{% firstof place_op|keyval:6|last|keyval:'th' '18' %}:{% firstof place_op|keyval:6|last|keyval:'tm' '00' %}" data-provide="clockpicker"
+                                                 autocomplete="off" placeholder="{% trans 'Closes at' %}"></span>
+                </div>
+                <div class="col-4 col-lg-5 col-xl-3 col-action disabled">
+                    <button class="btn btn-link btn-delete-line"><i class="ti-close"></i></button>
+                </div>
+            </div>
+            <div class="error_here"></div>
+        </div>
+
+        <div class="form-group time-item">
+            <div class="row opening1 time-row">
+                <div class="col-xl-4">
+                    <label class="switch" id="switch-7">
+                        <span class="switch-description">{% trans 'Sunday' %}</span>
+                        <input class="toogle-opening" id="opening-day7" type="checkbox">
+                        <span id="switch-toggle7" class="switch-indicator"></span>
+                    </label>
+                </div>
+                <div class="col-4 col-lg-2 col-time disabled">
+                    <span class="time"><input id="day7-time1-from" class="form-control" type="text"
+                                              value="{% firstof place_op|keyval:7|first|keyval:'fh' '10' %}:{% firstof place_op|keyval:7|first|keyval:'fm' '00' %}" data-provide="clockpicker"
+                                              autocomplete="off" placeholder="{% trans 'Opens at' %}"></span>
+                </div>
+                <div class="col-4 col-lg-2 col-time disabled">
+                    <span class="time to"><input id="day7-time1-to" class="form-control" type="text"
+                                                 value="{% firstof place_op|keyval:7|first|keyval:'th' '13' %}:{% firstof place_op|keyval:7|first|keyval:'tm' '00' %}" data-provide="clockpicker"
+                                                 autocomplete="off" placeholder="{% trans 'Closes at' %}"></span>
+                </div>
+                <div class="col-md-4 col-lg-5 col-xl-3 col-action disabled">
+                    <button class="btn btn-link btn-show-hours" id="add-hours-7">{% trans 'Add hours' %}</button>
+                </div>
+            </div>
+            <div class="row opening2 time-row disabled">
+                <div class="offset-xl-4 col-4 col-lg-2 col-time disabled">
+                    <span class="time"><input id="day7-time2-from" class="form-control" type="text"
+                                              value="{% firstof place_op|keyval:7|last|keyval:'fh' '14' %}:{% firstof place_op|keyval:7|last|keyval:'fm' '00' %}" data-provide="clockpicker"
+                                              autocomplete="off" placeholder="{% trans 'Opens at' %}"></span>
+                </div>
+                <div class="col-4 col-lg-2 col-time disabled">
+                    <span class="time to"><input id="day7-time2-to" class="form-control" type="text"
+                                                 value="{% firstof place_op|keyval:7|last|keyval:'th' '18' %}:{% firstof place_op|keyval:7|last|keyval:'tm' '00' %}" data-provide="clockpicker"
+                                                 autocomplete="off" placeholder="{% trans 'Closes at' %}"></span>
+                </div>
+                <div class="col-4 col-lg-5 col-xl-3 col-action disabled">
+                    <button class="btn btn-link btn-delete-line"><i class="ti-close"></i></button>
+                </div>
+            </div>
+            <div class="error_here"></div>
+        </div>
+
+        <hr>
+
+        <h5 class="mt-30">{% trans 'Public holiday' %} :</h5>
+        <div class="holidays" id="holidays-list">
+            <div class="form-group time-item">
+                <div class="row opening1 time-row">
+                    <div class="col-6 col-xl-3">
+                        <div class="input-group date">
+                            <i class="fa fa-calendar"></i>
+                            <input type="text" id="holiday" class="form-control" data-provide="datepicker" data-language="en-GB" data-date-format="dd/mm/yyyy" data-target="#closed-holiday">
+                        </div>
+                    </div>
+                    <div class="col-5 col-xl-2">
+                        <label class="switch">
+                            <input class="toogle-closing" id="closed-holiday" type="checkbox" data-target="#holiday">
+                            <span class="switch-indicator"></span>
+                        </label>
+                    </div>
+                    <button class="btn btn-link btn-delete-holiday"><i class="ti-close"></i></button>
+                </div>
+            </div>
+        </div>
+        <p>
+            <button class="btn btn-link btn-add-new-date">{% trans 'Add new date' %}</button>
+        </p>
+        <h5 class="mt-30">{% trans 'Holidays' %} :</h5>
+        <div class="holidays" id="holidays-list-range">
+            <div class="form-group time-item">
+                <div class="row opening1 time-row">
+                    <div class="col-7 col-xl-6">
+                        <div class="input-group input-daterange" id="date-range" data-target="#closed-date-range">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">{% trans 'From' %}</span>
+                            </div>
+                            <input type="text" class="form-control start-date" data-language="en-GB" format="dd/mm/yyyy" data-date-format="dd/mm/yyyy" >
+                            <div class="input-group-prepend input-group-append">
+                              <span class="input-group-text">{% trans 'To' %}</span>
+                            </div> 
+                            <input type="text" class="form-control end-date" data-language="en-GB" format="dd/mm/yyyy" data-date-format="dd/mm/yyyy" data-target="#closed-date-range">
+                        </div>
+                    </div>
+                    <div class="col-4 col-xl-2">
+                        <label class="switch">
+                            <input class="toogle-closing" id="closed-date-range" type="checkbox" data-target="#date-range">
+                            <span class="switch-indicator"></span>
+                        </label>
+                    </div>
+                    <button class="btn btn-link btn-delete-holiday"><i class="ti-close"></i></button>
+                </div>
+            </div>
+        </div>
+        <p>
+            <button class="btn btn-link btn-add-new-date-range">{% trans 'Add new date' %}</button>
+        </p>
+    </div>
+</form>

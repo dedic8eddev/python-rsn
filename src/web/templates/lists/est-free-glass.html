@@ -1,0 +1,55 @@
+{% extends "base/layout.html" %}
+
+{% load static %}
+
+{% block title %}Est. Free Glass - Raisin{% endblock %}
+
+{% block additional_buttons %}
+{% endblock additional_buttons %}
+
+{% block add_new_button %}{% endblock add_new_button %}
+
+{% block main_content %}
+{% verbatim %}
+<script>
+    var url_est_free_glass_items_ajax = "{% endverbatim %}{% url 'get_est_free_glass_items_ajax' %}{% verbatim %}";
+
+    var url_comments = '{% endverbatim %}{% url 'list_est_comments' %}{% verbatim %}';
+    var url_places = '{% endverbatim %}{% url 'list_places' %}{% verbatim %}';
+    var url_free_glass = '{% endverbatim %}{% url 'list_est_free_glass' %}{% verbatim %}';
+    var total_records_places = '{% endverbatim %}{{ total_records_places }}{% verbatim %}';
+    var url_free_glass_event = '{% endverbatim %}{% url 'edit_free_glass_event' %}{% verbatim %}';
+
+</script>
+{% endverbatim %}
+
+<script src="{% static 'assets/javascripts/lists/list.pipeline.js' %}"></script>
+<script src="{% static 'assets/javascripts/lists/list.est-free-glass.js' %}"></script>
+
+<div class="table table-striped vmiddle">
+    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="jq-datatables-example" >
+        <thead>
+            <tr>
+                <th style="width:15px;"><br><input type="checkbox" id="toggle-all" name="check-all" /> </th>
+                <th style="width:45px;">Est. photo</th>
+                <th>Street</th>
+                <th>Town</th>
+                <th>Country</th>
+                <th style="width:12%">Est. Name</th>
+                <th style="width:45px;">Date</th>
+                <th style="width:45px;">Select a Place (posted)</th>
+                <th style="width:45px;">Get a free glass</th>
+                <th style="width:45px;">I GOT MY FREE GLASS</th>
+                <th>Users</th>
+                <th>Donators</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div><!-- end jquery table jhb -->
+{% endblock %}
+
+{% block additional_bottom_scripts %}
+    {% include 'base/elements/bottom_js_list.html' %}
+{% endblock additional_bottom_scripts %}

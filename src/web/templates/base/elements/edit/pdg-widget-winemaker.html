@@ -1,0 +1,38 @@
+{% extends "base/elements/edit/pdg-widget.html" %}
+{% load i18n %}
+{% load web_extras %}
+
+
+{% block pdg_title %}
+    {% if not is_new %}
+        {% if pdg_validated_by and pdg_validated_at %}
+            <span class="author-validated-by" style="font-size: 14px;">
+                {{ pdg_title }}
+                <span class="panel-second-row"> - Posted by:
+                <span class="picture-bigger">
+                    <a href="{% url 'edit_user' id=winemaker.author_id %}">
+                        <img src="{% if winemaker.author %}{{ winemaker.author.get_images.image }}{% endif %}" data-toggle="tooltip" title="{{ winemaker.author }}" data-placement="bottom" />
+                    </a>
+                </span>
+                 - {{ pdg_validated_at|date:"M d, Y @ H:i" }} Created by <a href="{% url 'edit_user' id=pdg_validated_by.id %}">{{ pdg_validated_by }}</a>
+            </span>
+        </span>
+        {% else %}
+            <span class="author-validated-by" style="font-size: 14px;">
+                {{ pdg_title }} 
+                <span class="panel-second-row"> - Posted by:
+                <span class="picture-bigger">
+                    <a href="{% url 'edit_user' id=winemaker.author_id %}">
+                        <img src="{% if winemaker.author %}{{ winemaker.author.get_images.image }}{% endif %}" data-toggle="tooltip" title="{{ winemaker.author }}" data-placement="bottom" />
+                    </a>
+                </span>
+            </span>
+            </span>
+
+        {% endif %}
+    {% else %}
+        <span class="author-validated-by">
+            [New Winemaker]
+        </span>
+    {% endif %}
+{% endblock pdg_title %}

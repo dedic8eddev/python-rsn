@@ -1,0 +1,60 @@
+{% load static %}
+{% load i18n %}
+<div class="card">
+
+    <div class="card-header">
+        <h3 class="card-title text-gray" style="white-space: nowrap;"><strong>🍽 {% trans 'FOOD' %}</strong></h3>
+        <a class="btn btn-sm btn-light" href="{% url 'pro_food' pid %}">{% trans 'See all' %}</a>
+    </div>
+
+
+    {% if not latest_food.col1 %}
+        <div class="row">
+            <div class="col-lg-12">
+                <p style="text-align:center;">{% trans 'No results found.' %}</p>
+            </div>
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-xl-6" id="result-dashboardFoodList1">
+                <!-- Food you have posted -->
+                <div class="card-body">
+                    <h4 class="card-title text-gray">{% trans 'Latest posted food' %}</h4>
+                    {% for food in latest_food.col1 %}
+                    <div class="media-list media-list-hover media-list-divided">
+                        <a class="media media-single foodclass" href="#food-user-details" data-toggle="quickview" id="{{ food.id }}">
+                            <img class="w-80px rounded" src="{{ food.ref_image }}" alt="{{food.title}}">
+                            <div class="media-body food">
+                                <p class="fs-16"><strong>{{ food.title }}</strong></p>
+                                <p class="name fs-14">{{ food.description }}</p>
+                                <!--<p class="text"><i class="fa fa-eye mr-1"></i> 54 impressions &nbsp; <i class="fa fa-hand-pointer-o"></i> 22 taps</p>-->
+                            </div>
+                            <span class="top-right-price"><strong>{{ food.modified_time_human }}</strong></span>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-xl-6" id="result-dashboardFoodList2">
+                <!-- Food you have posted -->
+                <div class="card-body">
+                    <h4 class="card-title text-gray">&nbsp;</h4>
+                    {% for food in latest_food.col2 %}
+                    <div class="media-list media-list-hover media-list-divided">
+                        <a class="media media-single foodclass" href="#food-user-details" data-toggle="quickview" id="{{ food.id }}" name={{ food.post_id }}>
+                            <img class="w-80px rounded" src="{{ food.ref_image }}" alt="{{food.title}}">
+                            <div class="media-body food">
+                                <p class="fs-16"><strong>{{ food.title }}</strong></p>
+                                <p class="name fs-14">{{ food.description }}</p>
+                                <!--<p class="text"><i class="fa fa-eye mr-1"></i> 54 impressions &nbsp; <i class="fa fa-hand-pointer-o"></i> 22 taps</p>-->
+                            </div>
+                            <span class="top-right-price"><strong>{{ food.modified_time_human }}</strong></span>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+</div>
